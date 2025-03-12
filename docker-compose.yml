@@ -1,0 +1,15 @@
+services:
+  postgres-compose:
+    container_name: nexbuy-container
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=nexbuy-db
+    networks:
+      - nexbuy-network
+networks:
+  nexbuy-network:
+    driver: bridge

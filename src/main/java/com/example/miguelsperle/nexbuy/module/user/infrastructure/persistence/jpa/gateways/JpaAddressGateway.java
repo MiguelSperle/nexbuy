@@ -1,0 +1,35 @@
+package com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.gateways;
+
+import com.example.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.example.miguelsperle.nexbuy.module.user.domain.entities.Address;
+import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities.JpaAddressEntity;
+import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.repositories.JpaAddressRepository;
+import lombok.AllArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
+
+@AllArgsConstructor
+public class JpaAddressGateway implements IAddressGateway {
+    private final JpaAddressRepository jpaAddressRepository;
+
+    @Override
+    public List<Address> findAll() {
+        return this.jpaAddressRepository.findAll().stream().map(JpaAddressEntity::toEntity).toList();
+    }
+
+    @Override
+    public Optional<Address> findById(String id) {
+        return this.jpaAddressRepository.findById(id).map(JpaAddressEntity::toEntity);
+    }
+
+    @Override
+    public Address save(Address address) {
+        return this.jpaAddressRepository.save(JpaAddressEntity.from(address)).toEntity();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        this.jpaAddressRepository.deleteById(id);
+    }
+}
