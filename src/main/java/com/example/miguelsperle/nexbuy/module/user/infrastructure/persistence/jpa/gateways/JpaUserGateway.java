@@ -4,12 +4,14 @@ import com.example.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.
 import com.example.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities.JpaUserEntity;
 import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.repositories.JpaUserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class JpaUserGateway implements IUserGateway {
     private final JpaUserRepository jpaUserRepository;
 

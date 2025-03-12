@@ -1,13 +1,11 @@
 package com.example.miguelsperle.nexbuy.module.user.domain.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class JuridicalPerson {
     private final String id;
     private final User user;

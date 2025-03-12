@@ -4,12 +4,14 @@ import com.example.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.
 import com.example.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities.JpaAddressEntity;
 import com.example.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.repositories.JpaAddressRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class JpaAddressGateway implements IAddressGateway {
     private final JpaAddressRepository jpaAddressRepository;
 

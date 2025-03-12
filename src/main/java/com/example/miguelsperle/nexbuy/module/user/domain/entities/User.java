@@ -2,14 +2,12 @@ package com.example.miguelsperle.nexbuy.module.user.domain.entities;
 
 import com.example.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.example.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class User {
     private final String id;
     private final String firstName;
