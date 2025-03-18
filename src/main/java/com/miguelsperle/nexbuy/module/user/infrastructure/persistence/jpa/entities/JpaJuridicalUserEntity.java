@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.JuridicalPerson;
+import com.miguelsperle.nexbuy.module.user.domain.entities.JuridicalUser;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JpaJuridicalPersonEntity {
+public class JpaJuridicalUserEntity {
     @Id
     @Setter(AccessLevel.NONE)
     private String id;
@@ -37,20 +37,20 @@ public class JpaJuridicalPersonEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public static JpaJuridicalPersonEntity from(JuridicalPerson juridicalPerson) {
-        return new JpaJuridicalPersonEntity(
-                juridicalPerson.getId(),
-                JpaUserEntity.from(juridicalPerson.getUser()),
-                juridicalPerson.getCnpj(),
-                juridicalPerson.getFantasyName(),
-                juridicalPerson.getLegalName(),
-                juridicalPerson.getStateRegistration(),
-                juridicalPerson.getCreatedAt()
+    public static JpaJuridicalUserEntity from(JuridicalUser juridicalUser) {
+        return new JpaJuridicalUserEntity(
+                juridicalUser.getId(),
+                JpaUserEntity.from(juridicalUser.getUser()),
+                juridicalUser.getCnpj(),
+                juridicalUser.getFantasyName(),
+                juridicalUser.getLegalName(),
+                juridicalUser.getStateRegistration(),
+                juridicalUser.getCreatedAt()
         );
     }
 
-    public JuridicalPerson toEntity() {
-        return JuridicalPerson.with(
+    public JuridicalUser toEntity() {
+        return JuridicalUser.with(
                 this.id,
                 this.jpaUserEntity.toEntity(),
                 this.cnpj,

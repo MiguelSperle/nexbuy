@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class PhysicalPerson {
+public class PhysicalUser {
     private final String id;
     private final User user;
     private final String cpf;
     private final String generalRegister;
     private final LocalDateTime createdAt;
 
-    private PhysicalPerson(
+    private PhysicalUser(
             String id,
             User user,
             String cpf,
@@ -27,12 +27,12 @@ public class PhysicalPerson {
         this.createdAt = createdAt;
     }
 
-    public static PhysicalPerson newPhysicalPerson(
+    public static PhysicalUser newPhysicalPerson(
             User user,
             String cpf,
             String generalRegister
     ) {
-        return new PhysicalPerson(
+        return new PhysicalUser(
                 UUID.randomUUID().toString(),
                 user,
                 cpf,
@@ -41,14 +41,14 @@ public class PhysicalPerson {
         );
     }
 
-    public static PhysicalPerson with(
+    public static PhysicalUser with(
             String id,
             User user,
             String cpf,
             String generalRegister,
             LocalDateTime createdAt
     ) {
-        return new PhysicalPerson(
+        return new PhysicalUser(
                 id,
                 user,
                 cpf,
