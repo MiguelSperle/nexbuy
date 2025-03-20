@@ -41,6 +41,11 @@ public class JpaJuridicalUserGateway implements IJuridicalUserGateway {
     }
 
     @Override
+    public Optional<JuridicalUser> findByFantasyName(String fantasyName) {
+        return this.jpaJuridicalUserRepository.findByFantasyName(fantasyName).map(JpaJuridicalUserEntity::toEntity);
+    }
+
+    @Override
     public Optional<JuridicalUser> findByLegalName(String legalName) {
         return this.jpaJuridicalUserRepository.findByLegalName(legalName).map(JpaJuridicalUserEntity::toEntity);
     }

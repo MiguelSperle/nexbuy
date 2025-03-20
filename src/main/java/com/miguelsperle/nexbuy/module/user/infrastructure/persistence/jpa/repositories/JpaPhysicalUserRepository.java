@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface JpaPhysicalUserRepository extends JpaRepository<JpaPhysicalUserEntity, String> {
-    @Query(nativeQuery = true, value = "SELECT * FROM physical_users up WHERE up.cpf = :cpf")
+    @Query(nativeQuery = true, value = "SELECT * FROM physical_users ph WHERE ph.cpf = :cpf")
     Optional<JpaPhysicalUserEntity> findByCpf(@Param("cpf") String cpf);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM physical_users up WHERE up.general_register = :generalRegister")
+    @Query(nativeQuery = true, value = "SELECT * FROM physical_users ph WHERE ph.general_register = :generalRegister")
     Optional<JpaPhysicalUserEntity> findByGeneralRegister(@Param("generalRegister") String generalRegister);
 }

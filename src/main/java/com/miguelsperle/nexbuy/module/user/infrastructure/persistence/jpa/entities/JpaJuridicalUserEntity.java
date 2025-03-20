@@ -24,13 +24,13 @@ public class JpaJuridicalUserEntity {
     @Column(nullable = false, length = 18, unique = true)
     private String cnpj;
 
-    @Column(name = "fantasy_name", nullable = false, length = 100)
+    @Column(name = "fantasy_name", nullable = false, length = 50)
     private String fantasyName;
 
-    @Column(name = "legal_name", nullable = false, length = 100, unique = true)
+    @Column(name = "legal_name", nullable = false, length = 50, unique = true)
     private String legalName;
 
-    @Column(name = "state_registration", length = 15, unique = true)
+    @Column(name = "state_registration", length = 25, unique = true)
     private String stateRegistration;
 
     @CreationTimestamp

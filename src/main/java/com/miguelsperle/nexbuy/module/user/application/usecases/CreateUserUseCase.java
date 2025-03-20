@@ -33,13 +33,14 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             this.verifyPhysicalUserAlreadyExistsByGeneralRegister(createUserUseCaseInput.getGeneralRegister());
         } else {
             this.verifyJuridicalUserAlreadyExistsByCnpj(createUserUseCaseInput.getCnpj());
+            this.verifyJuridicalUserAlreadyExistsByFantasyName(createUserUseCaseInput.getFantasyName());
             this.verifyJuridicalUserAlreadyExistsByLegalName(createUserUseCaseInput.getLegalName());
             this.verifyJuridicalUserAlreadyExistsByStateRegistration(createUserUseCaseInput.getStateRegistration());
         }
 
         final String encryptedPassword = this.passwordEncoder.encode(createUserUseCaseInput.getPassword());
 
-        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), AuthorizationRole.CUSTOMER, createUserUseCaseInput.getUserType());
+        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), AuthorizationRole.CUSTOMER, createUserUseCaseInput.getUserType());
 
         final User savedUser = this.userGateway.save(newUser);
 
@@ -70,6 +71,12 @@ public class CreateUserUseCase implements ICreateUserUseCase {
         }
     }
 
+    private void verifyJuridicalUserAlreadyExistsByFantasyName(String fantasyName) {
+        if (this.juridicalUserGateway.findByFantasyName(fantasyName).isPresent()) {
+            throw new JuridicalUserAlreadyExistsException("This fantasy name is already being used");
+        }
+    }
+
     private void verifyJuridicalUserAlreadyExistsByLegalName(String legalName) {
         if (this.juridicalUserGateway.findByLegalName(legalName).isPresent()) {
             throw new JuridicalUserAlreadyExistsException("This legal name is already being used");
@@ -77,8 +84,10 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     }
 
     private void verifyJuridicalUserAlreadyExistsByStateRegistration(String stateRegistration) {
-        if (this.juridicalUserGateway.findByStateRegistration(stateRegistration).isPresent()) {
-            throw new JuridicalUserAlreadyExistsException("This state registration is already being used");
+        if (stateRegistration != null) {
+            if (this.juridicalUserGateway.findByStateRegistration(stateRegistration).isPresent()) {
+                throw new JuridicalUserAlreadyExistsException("This state registration is already being used");
+            }
         }
     }
 }

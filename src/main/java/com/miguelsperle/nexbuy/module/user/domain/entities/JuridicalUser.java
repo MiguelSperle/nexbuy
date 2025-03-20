@@ -33,7 +33,7 @@ public class JuridicalUser {
         this.createdAt = createdAt;
     }
 
-    public static JuridicalUser newJuridicalPerson(
+    public static JuridicalUser newJuridicalUser(
             User user,
             String cnpj,
             String fantasyName,

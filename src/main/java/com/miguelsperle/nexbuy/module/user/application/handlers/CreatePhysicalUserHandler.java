@@ -21,7 +21,7 @@ public class CreatePhysicalUserHandler implements IRequestHandler<CreatePhysical
     public Void handle(CreatePhysicalUserHandlerInput createPhysicalUserHandlerInput) {
         final CreateUserUseCaseOutput createUserUseCaseOutput = this.createUserUseCase.execute(new CreateUserUseCaseInput(createPhysicalUserHandlerInput.getFirstName(), createPhysicalUserHandlerInput.getLastName(),
                 createPhysicalUserHandlerInput.getEmail(), createPhysicalUserHandlerInput.getPassword(), createPhysicalUserHandlerInput.getPhoneNumber(), UserType.PHYSICAL_USER,
-                createPhysicalUserHandlerInput.getCpf(), createPhysicalUserHandlerInput.getGeneralRegister(), null, null, null
+                createPhysicalUserHandlerInput.getCpf(), createPhysicalUserHandlerInput.getGeneralRegister(), null, null, null, null
         ));
 
         this.createPhysicalUserUseCase.execute(new CreatePhysicalUserUseCaseInput(createUserUseCaseOutput.getUser(),

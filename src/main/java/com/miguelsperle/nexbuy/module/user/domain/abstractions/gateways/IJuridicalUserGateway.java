@@ -11,6 +11,7 @@ public interface IJuridicalUserGateway {
     JuridicalUser save(JuridicalUser juridicalUser);
     void deleteById(String id);
     Optional<JuridicalUser> findByCnpj(String cnpj);
+    Optional<JuridicalUser> findByFantasyName(String fantasyName);
     Optional<JuridicalUser> findByLegalName(String legalName);
     Optional<JuridicalUser> findByStateRegistration(String stateRegistration);
 }
