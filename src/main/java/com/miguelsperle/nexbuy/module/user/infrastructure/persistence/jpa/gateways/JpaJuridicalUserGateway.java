@@ -34,4 +34,19 @@ public class JpaJuridicalUserGateway implements IJuridicalUserGateway {
     public void deleteById(String id) {
         this.jpaJuridicalUserRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<JuridicalUser> findByCnpj(String cnpj) {
+        return this.jpaJuridicalUserRepository.findByCnpj(cnpj).map(JpaJuridicalUserEntity::toEntity);
+    }
+
+    @Override
+    public Optional<JuridicalUser> findByLegalName(String legalName) {
+        return this.jpaJuridicalUserRepository.findByLegalName(legalName).map(JpaJuridicalUserEntity::toEntity);
+    }
+
+    @Override
+    public Optional<JuridicalUser> findByStateRegistration(String stateRegistration) {
+        return this.jpaJuridicalUserRepository.findByStateRegistration(stateRegistration).map(JpaJuridicalUserEntity::toEntity);
+    }
 }

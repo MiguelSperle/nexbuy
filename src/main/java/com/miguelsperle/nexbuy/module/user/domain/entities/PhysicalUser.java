@@ -27,7 +27,7 @@ public class PhysicalUser {
         this.createdAt = createdAt;
     }
 
-    public static PhysicalUser newPhysicalPerson(
+    public static PhysicalUser newPhysicalUser(
             User user,
             String cpf,
             String generalRegister

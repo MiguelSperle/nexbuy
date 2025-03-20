@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
-import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public class User {
     private final String phoneNumber;
     private final Boolean isVerified;
     private final AuthorizationRole authorizationRole;
-    private final PersonType personType;
+    private final UserType userType;
     private final String profilePhoto;
     private final LocalDateTime createdAt;
 
@@ -30,7 +30,7 @@ public class User {
             String phoneNumber,
             Boolean isVerified,
             AuthorizationRole authorizationRole,
-            PersonType personType,
+            UserType userType,
             String profilePhoto,
             LocalDateTime createdAt
     ) {
@@ -42,7 +42,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.isVerified = isVerified;
         this.authorizationRole = authorizationRole;
-        this.personType = personType;
+        this.userType = userType;
         this.profilePhoto = profilePhoto;
         this.createdAt = createdAt;
     }
@@ -54,7 +54,7 @@ public class User {
             String password,
             String phoneNumber,
             AuthorizationRole authorizationRole,
-            PersonType personType
+            UserType userType
     ) {
         final String PROFILE_PHOTO = "profile_photo/vv7hqagjqjzgitjazo3q";
 
@@ -67,7 +67,7 @@ public class User {
                 phoneNumber,
                 false,
                 authorizationRole,
-                personType,
+                userType,
                 PROFILE_PHOTO,
                 LocalDateTime.now()
         );
@@ -82,7 +82,7 @@ public class User {
             String phoneNumber,
             Boolean isVerified,
             AuthorizationRole authorizationRole,
-            PersonType personType,
+            UserType userType,
             String profilePhoto,
             LocalDateTime createdAt
     ) {
@@ -95,7 +95,7 @@ public class User {
                 phoneNumber,
                 isVerified,
                 authorizationRole,
-                personType,
+                userType,
                 profilePhoto,
                 createdAt
         );

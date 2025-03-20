@@ -34,4 +34,9 @@ public class JpaUserGateway implements IUserGateway {
     public void deleteById(String id) {
         this.jpaUserRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return this.jpaUserRepository.findByEmail(email).map(JpaUserEntity::toEntity);
+    }
 }

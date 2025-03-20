@@ -10,4 +10,6 @@ public interface IPhysicalUserGateway {
     Optional<PhysicalUser> findById(String id);
     PhysicalUser save(PhysicalUser physicalUser);
     void deleteById(String id);
+    Optional<PhysicalUser> findByCpf(String cpf);
+    Optional<PhysicalUser> findByGeneralRegister(String generalRegister);
 }

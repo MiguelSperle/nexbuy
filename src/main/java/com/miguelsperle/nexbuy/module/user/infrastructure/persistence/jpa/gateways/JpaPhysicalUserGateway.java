@@ -34,4 +34,14 @@ public class JpaPhysicalUserGateway implements IPhysicalUserGateway {
     public void deleteById(String id) {
         this.jpaPhysicalUserRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<PhysicalUser> findByCpf(String cpf) {
+        return this.jpaPhysicalUserRepository.findByCpf(cpf).map(JpaPhysicalUserEntity::toEntity);
+    }
+
+    @Override
+    public Optional<PhysicalUser> findByGeneralRegister(String generalRegister) {
+        return this.jpaPhysicalUserRepository.findByGeneralRegister(generalRegister).map(JpaPhysicalUserEntity::toEntity);
+    }
 }

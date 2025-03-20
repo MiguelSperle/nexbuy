@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "juridical_persons")
+@Table(name = "juridical_users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
