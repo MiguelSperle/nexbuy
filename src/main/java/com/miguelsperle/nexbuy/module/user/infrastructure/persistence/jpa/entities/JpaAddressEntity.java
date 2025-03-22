@@ -39,7 +39,6 @@ public class JpaAddressEntity {
     @Column(nullable = false, length = 2)
     private String uf;
 
-    @Column(nullable = false)
     private String complement;
 
     @CreationTimestamp

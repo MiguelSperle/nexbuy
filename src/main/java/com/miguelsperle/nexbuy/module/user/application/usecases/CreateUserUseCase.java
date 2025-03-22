@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class CreateUserUseCase implements ICreateUserUseCase {
@@ -28,7 +30,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     public CreateUserUseCaseOutput execute(CreateUserUseCaseInput createUserUseCaseInput) {
         this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail());
 
-        if (createUserUseCaseInput.getUserType() == UserType.PHYSICAL_USER) {
+        if (Objects.equals(createUserUseCaseInput.getUserType(), UserType.PHYSICAL_USER.name())) {
             this.verifyPhysicalUserAlreadyExistsByCpf(createUserUseCaseInput.getCpf());
             this.verifyPhysicalUserAlreadyExistsByGeneralRegister(createUserUseCaseInput.getGeneralRegister());
         } else {
@@ -40,7 +42,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
         final String encryptedPassword = this.passwordEncoder.encode(createUserUseCaseInput.getPassword());
 
-        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), AuthorizationRole.CUSTOMER, createUserUseCaseInput.getUserType());
+        final UserType convertedUserType = UserType.valueOf(createUserUseCaseInput.getUserType());
+
+        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), AuthorizationRole.CUSTOMER, convertedUserType);
 
         final User savedUser = this.userGateway.save(newUser);
 

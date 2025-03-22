@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(HttpMethod.POST, "/user/physical/create").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/user/create").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/user/juridical/create").permitAll()
                                 .anyRequest().authenticated())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))

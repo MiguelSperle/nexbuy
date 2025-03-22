@@ -8,12 +8,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePhysicalUserHandlerInput implements IRequest<Void> {
+public class CreateUserHandlerInput implements IRequest<Void> {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String phoneNumber;
+    private String userType;
     private String cpf;
     private String generalRegister;
+    private String cnpj;
+    private String fantasyName;
+    private String legalName;
+    private String stateRegistration;
 }

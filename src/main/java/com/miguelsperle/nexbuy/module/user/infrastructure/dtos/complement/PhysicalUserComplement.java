@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.user.infrastructure.dtos;
+package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complement;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -7,9 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class CreatePhysicalUserRequest extends CreateUserRequest {
+public class PhysicalUserComplement {
     @NotNull(message = "Cpf cannot be null")
     @CPF(message = "Cpf must be valid")
     private String cpf;
