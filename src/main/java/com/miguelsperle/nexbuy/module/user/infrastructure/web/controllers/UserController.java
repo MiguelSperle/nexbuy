@@ -5,8 +5,6 @@ import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.core.infrastructure.web.baseController.AbstractBaseController;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserHandlerInput;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.CreateUserRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complement.JuridicalUserComplement;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complement.PhysicalUserComplement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -38,12 +35,12 @@ public class UserController extends AbstractBaseController {
                 createUserRequest.getPassword(),
                 createUserRequest.getPhoneNumber(),
                 createUserRequest.getUserType(),
-                Optional.ofNullable(createUserRequest.getPhysicalUserComplement()).map(PhysicalUserComplement::getCpf).orElse(null),
-                Optional.ofNullable(createUserRequest.getPhysicalUserComplement()).map(PhysicalUserComplement::getGeneralRegister).orElse(null),
-                Optional.ofNullable(createUserRequest.getJuridicalUserComplement()).map(JuridicalUserComplement::getCnpj).orElse(null),
-                Optional.ofNullable(createUserRequest.getJuridicalUserComplement()).map(JuridicalUserComplement::getFantasyName).orElse(null),
-                Optional.ofNullable(createUserRequest.getJuridicalUserComplement()).map(JuridicalUserComplement::getLegalName).orElse(null),
-                Optional.ofNullable(createUserRequest.getJuridicalUserComplement()).map(JuridicalUserComplement::getStateRegistration).orElse(null)
+                createUserRequest.getPhysicalUserComplement() != null ? createUserRequest.getPhysicalUserComplement().getCpf() : null,
+                createUserRequest.getPhysicalUserComplement() != null ? createUserRequest.getPhysicalUserComplement().getGeneralRegister() : null,
+                createUserRequest.getJuridicalUserComplement() != null ? createUserRequest.getJuridicalUserComplement().getCnpj() : null,
+                createUserRequest.getJuridicalUserComplement() != null ? createUserRequest.getJuridicalUserComplement().getFantasyName() : null,
+                createUserRequest.getJuridicalUserComplement() != null ? createUserRequest.getJuridicalUserComplement().getLegalName() : null,
+                createUserRequest.getJuridicalUserComplement() != null ? createUserRequest.getJuridicalUserComplement().getStateRegistration() : null
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User created successfully", HttpStatus.CREATED.value()));
