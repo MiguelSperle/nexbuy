@@ -3,7 +3,6 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -41,7 +40,6 @@ public class JpaAddressEntity {
 
     private String complement;
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

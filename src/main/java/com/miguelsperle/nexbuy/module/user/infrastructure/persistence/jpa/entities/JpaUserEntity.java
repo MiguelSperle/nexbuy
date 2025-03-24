@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -48,7 +47,6 @@ public class JpaUserEntity {
     @Column(name = "profile_photo", nullable = false, length = 50)
     private String profilePhoto;
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

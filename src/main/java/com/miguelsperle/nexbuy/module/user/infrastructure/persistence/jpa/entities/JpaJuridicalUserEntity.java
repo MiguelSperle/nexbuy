@@ -3,7 +3,6 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 import com.miguelsperle.nexbuy.module.user.domain.entities.JuridicalUser;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -33,7 +32,6 @@ public class JpaJuridicalUserEntity {
     @Column(name = "state_registration", length = 25, unique = true)
     private String stateRegistration;
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
