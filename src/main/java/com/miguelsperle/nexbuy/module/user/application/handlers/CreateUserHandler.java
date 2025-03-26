@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateJuridicalUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreatePhysicalUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ public class CreateUserHandler implements IRequestHandler<CreateUserHandlerInput
     private final ICreateUserUseCase createUserUseCase;
     private final ICreatePhysicalUserUseCase createPhysicalUserUseCase;
     private final ICreateJuridicalUserUseCase createJuridicalUserUseCase;
+    private final ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase;
 
     @Override
     public Void handle(CreateUserHandlerInput createUserHandlerInput) {
@@ -50,6 +52,10 @@ public class CreateUserHandler implements IRequestHandler<CreateUserHandlerInput
                     createUserHandlerInput.getStateRegistration()
             ));
         }
+
+        this.createUserVerificationCodeUseCase.execute(new CreateUserVerificationCodeUseCaseInput(
+                createUserUseCaseOutput.getUser()
+        ));
 
         return null;
     }
