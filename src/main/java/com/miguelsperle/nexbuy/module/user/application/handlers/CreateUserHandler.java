@@ -8,11 +8,9 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Component
 @RequiredArgsConstructor
 public class CreateUserHandler implements IRequestHandler<CreateUserHandlerInput, Void> {
     private final ICreateUserUseCase createUserUseCase;

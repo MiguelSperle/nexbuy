@@ -10,16 +10,16 @@ import java.util.UUID;
 @Data
 public class User {
     private final String id;
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String password;
-    private final String phoneNumber;
-    private final Boolean isVerified;
-    private final AuthorizationRole authorizationRole;
-    private final UserType userType;
-    private final String profilePhoto;
-    private final LocalDateTime createdAt;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private Boolean isVerified;
+    private AuthorizationRole authorizationRole;
+    private UserType userType;
+    private String profilePhoto;
+    private LocalDateTime createdAt;
 
     private User(
             String id,

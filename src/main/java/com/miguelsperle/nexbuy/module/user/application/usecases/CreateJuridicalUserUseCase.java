@@ -5,9 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IJuridicalUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.JuridicalUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class CreateJuridicalUserUseCase implements ICreateJuridicalUserUseCase {
     private final IJuridicalUserGateway juridicalUserGateway;

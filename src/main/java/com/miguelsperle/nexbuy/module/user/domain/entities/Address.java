@@ -8,15 +8,15 @@ import java.util.UUID;
 @Data
 public class Address {
     private final String id;
-    private final User user;
-    private final String addressLine;
-    private final String addressNumber;
-    private final String zipCode;
-    private final String neighborhood;
-    private final String city;
-    private final String uf;
-    private final String complement;
-    private final LocalDateTime createdAt;
+    private User user;
+    private String addressLine;
+    private String addressNumber;
+    private String zipCode;
+    private String neighborhood;
+    private String city;
+    private String uf;
+    private String complement;
+    private LocalDateTime createdAt;
 
     private Address(
             String id,

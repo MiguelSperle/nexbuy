@@ -5,9 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IPhysicalUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.PhysicalUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class CreatePhysicalUserUseCase implements ICreatePhysicalUserUseCase {
     private final IPhysicalUserGateway physicalUserGateway;

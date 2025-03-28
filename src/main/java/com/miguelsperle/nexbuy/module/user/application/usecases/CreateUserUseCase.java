@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.JuridicalUserAlreadyExistsException;
@@ -13,18 +14,15 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-@Service
 @RequiredArgsConstructor
 public class CreateUserUseCase implements ICreateUserUseCase {
     private final IUserGateway userGateway;
     private final IPhysicalUserGateway physicalUserGateway;
     private final IJuridicalUserGateway juridicalUserGateway;
-    private final PasswordEncoder passwordEncoder;
+    private final IPasswordEncryptorProvider passwordEncryptor;
 
     @Override
     public CreateUserUseCaseOutput execute(CreateUserUseCaseInput createUserUseCaseInput) {
@@ -40,7 +38,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             this.verifyJuridicalUserAlreadyExistsByStateRegistration(createUserUseCaseInput.getStateRegistration());
         }
 
-        final String encryptedPassword = this.passwordEncoder.encode(createUserUseCaseInput.getPassword());
+        final String encryptedPassword = this.passwordEncryptor.encrypt(createUserUseCaseInput.getPassword());
 
         final UserType convertedUserType = UserType.valueOf(createUserUseCaseInput.getUserType());
 
