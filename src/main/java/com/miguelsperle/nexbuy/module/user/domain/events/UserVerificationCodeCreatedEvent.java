@@ -1,13 +1,14 @@
 package com.miguelsperle.nexbuy.module.user.domain.events;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.UserVerificationCode;
 import lombok.Getter;
 
 @Getter
 public class UserVerificationCodeCreatedEvent {
-    private final UserVerificationCode userVerificationCode;
+    private final String email;
+    private final String code;
 
-    public UserVerificationCodeCreatedEvent(UserVerificationCode userVerificationCode) {
-        this.userVerificationCode = userVerificationCode;
+    public UserVerificationCodeCreatedEvent(String email, String code) {
+        this.email = email;
+        this.code = code;
     }
 }

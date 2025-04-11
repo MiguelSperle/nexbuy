@@ -9,17 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserVerificationCodeCreatedListener {
+public class SendEmailUserVerificationCodeListener {
     private final IEmailService emailService;
 
     @Async
     @EventListener
     public void handleUserVerificationCodeCreatedEvent(UserVerificationCodeCreatedEvent userVerificationCodeCreatedEvent) {
-        final String userEmail = userVerificationCodeCreatedEvent.getUserVerificationCode().getUser().getEmail();
-        final String code = userVerificationCodeCreatedEvent.getUserVerificationCode().getCode();
+        final String message = "Hello, your verification code is " + userVerificationCodeCreatedEvent.getCode();
 
-        final String message = "Hello, your verification code is " + code;
-
-        this.emailService.sendEmail(userEmail, message, "User Verification Code");
+        this.emailService.sendEmail(userVerificationCodeCreatedEvent.getEmail(), message, "User Verification Code");
     }
 }

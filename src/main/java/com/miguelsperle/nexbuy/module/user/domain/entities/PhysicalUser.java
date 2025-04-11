@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class PhysicalUser {
-    private final String id;
+    private String id;
     private User user;
     private String cpf;
     private String generalRegister;

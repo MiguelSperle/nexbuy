@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class JuridicalUser {
-    private final String id;
+    private String id;
     private User user;
     private String cnpj;
     private String fantasyName;

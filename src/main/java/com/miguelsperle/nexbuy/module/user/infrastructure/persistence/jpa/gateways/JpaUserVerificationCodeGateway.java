@@ -34,9 +34,4 @@ public class JpaUserVerificationCodeGateway implements IUserVerificationCodeGate
     public void deleteById(String id) {
         this.jpaUserVerificationCodeRepository.deleteById(id);
     }
-
-    @Override
-    public Optional<UserVerificationCode> findByUserId(String userId) {
-        return this.jpaUserVerificationCodeRepository.findByUserId(userId).map(JpaUserVerificationCodeEntity::toEntity);
-    }
 }

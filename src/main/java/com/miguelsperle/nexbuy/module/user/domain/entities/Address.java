@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class Address {
-    private final String id;
+    private String id;
     private User user;
     private String addressLine;
     private String addressNumber;
