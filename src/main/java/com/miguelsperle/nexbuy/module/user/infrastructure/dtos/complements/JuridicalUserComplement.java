@@ -12,18 +12,18 @@ import org.hibernate.validator.constraints.br.CNPJ;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JuridicalUserComplement {
-    @NotNull(message = "Cnpj cannot be null")
-    @CNPJ(message = "Cnpj must be valid")
+    @NotNull(message = "Cnpj should not be null")
+    @CNPJ(message = "Cnpj should be valid")
     private String cnpj;
 
-    @NotBlank(message = "Fantasy name cannot be null or empty")
-    @Size(max = 50, message = "Fantasy name cannot exceed 50 characters")
+    @NotBlank(message = "Fantasy name should not be neither null nor empty")
+    @Size(max = 50, message = "Fantasy name should not exceed 50 characters")
     private String fantasyName;
 
-    @NotBlank(message = "Legal name cannot be null or empty")
-    @Size(max = 50, message = "Legal name cannot exceed 50 characters")
+    @NotBlank(message = "Legal name should not be neither null nor empty")
+    @Size(max = 50, message = "Legal name should not exceed 50 characters")
     private String legalName;
 
-    @Size(max = 25, message = "State registration cannot exceed 25 characters")
+    @Size(max = 25, message = "State registration should not exceed 25 characters")
     private String stateRegistration;
 }

@@ -44,7 +44,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         } catch (FailedJwtVerificationException failedJwtVerificationException) {
-            final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(failedJwtVerificationException.getMessage(), HttpStatus.UNAUTHORIZED.value());
+            final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
+                    List.of(failedJwtVerificationException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                    HttpStatus.UNAUTHORIZED.value()
+            );
+
             final String jsonResponse = new ObjectMapper().writeValueAsString(errorMessageResponse);
 
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

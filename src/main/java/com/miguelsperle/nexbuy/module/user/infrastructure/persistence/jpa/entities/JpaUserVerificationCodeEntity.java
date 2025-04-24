@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JpaUserVerificationCodeEntity {
     @Id
-    @Setter(AccessLevel.NONE)
     private String id;
 
     @Column(nullable = false, unique = true, length = 6)

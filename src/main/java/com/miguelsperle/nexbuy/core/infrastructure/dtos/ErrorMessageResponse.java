@@ -2,10 +2,13 @@ package com.miguelsperle.nexbuy.core.infrastructure.dtos;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorMessageResponse {
-    private String errorMessage;
+    private List<String> errors;
+    private String errorType;
     private int statusCode;
 }

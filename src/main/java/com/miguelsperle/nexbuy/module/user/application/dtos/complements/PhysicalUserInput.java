@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhysicalUserInputComplement {
+public class PhysicalUserInput {
     private String cpf;
     private String generalRegister;
 }

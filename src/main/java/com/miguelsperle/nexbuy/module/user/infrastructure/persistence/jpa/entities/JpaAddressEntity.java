@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JpaAddressEntity {
     @Id
-    @Setter(AccessLevel.NONE)
     private String id;
 
     @ManyToOne

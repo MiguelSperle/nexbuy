@@ -18,7 +18,7 @@ public class CodeGeneratorProvider implements ICodeGeneratorProvider {
         }
 
         if (characters == null || characters.isEmpty()) {
-            throw new InvalidCharactersException("Characters cannot be not be null or empty");
+            throw new InvalidCharactersException("Characters should not be neither null nor empty");
         }
 
         final StringBuilder code = new StringBuilder(codeLength);

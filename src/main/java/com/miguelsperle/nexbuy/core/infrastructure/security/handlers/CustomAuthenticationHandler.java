@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 @Component
 public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
@@ -19,8 +20,9 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
-        final ErrorMessageResponse errorMessageResponse =
-                new ErrorMessageResponse(DEFAULT_AUTHENTICATION_ERROR_MESSAGE, HttpStatus.FORBIDDEN.value());
+        final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
+                List.of(DEFAULT_AUTHENTICATION_ERROR_MESSAGE), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+        );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

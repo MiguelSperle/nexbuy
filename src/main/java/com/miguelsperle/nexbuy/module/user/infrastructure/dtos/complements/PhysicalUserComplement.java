@@ -8,11 +8,11 @@ import org.hibernate.validator.constraints.br.CPF;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PhysicalUserComplement {
-    @NotNull(message = "Cpf cannot be null")
-    @CPF(message = "Cpf must be valid")
+    @NotNull(message = "Cpf should not be null")
+    @CPF(message = "Cpf should be valid")
     private String cpf;
 
-    @NotBlank(message = "General register cannot be null or empty")
-    @Size(max = 15, message = "General register cannot exceed 15 characters")
+    @NotBlank(message = "General register should not be neither null nor empty")
+    @Size(max = 15, message = "General register should not exceed 15 characters")
     private String generalRegister;
 }

@@ -5,6 +5,9 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.CreateJuridicalUserU
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreatePhysicalUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInput;
+import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateJuridicalUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreatePhysicalUserUseCase;
@@ -14,10 +17,7 @@ import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGat
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CreateUserUseCase implements ICreateUserUseCase {
@@ -28,31 +28,32 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     private final ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase;
 
     @Override
-    @Transactional
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
+        final UserType convertedToUserType = UserType.valueOf(createUserUseCaseInput.getUserType());
+
+        this.ensureComplementPresentBasedUserType(convertedToUserType, createUserUseCaseInput.getPhysicalUserInput(), createUserUseCaseInput.getJuridicalUserInput());
+
         this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail());
 
         final String encryptedPassword = this.passwordEncryptorProvider.encrypt(createUserUseCaseInput.getPassword());
-
-        final UserType convertedToUserType = UserType.valueOf(createUserUseCaseInput.getUserType());
 
         final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), AuthorizationRole.CUSTOMER, convertedToUserType);
 
         final User savedUser = this.userGateway.save(newUser);
 
-        if (Objects.equals(savedUser.getUserType(), UserType.PHYSICAL_USER)) {
+        if (savedUser.getUserType() == UserType.PHYSICAL_USER) {
             this.createPhysicalUserUseCase.execute(new CreatePhysicalUserUseCaseInput(
                     savedUser.getId(),
-                    createUserUseCaseInput.getPhysicalUserInputComplement().getCpf(),
-                    createUserUseCaseInput.getPhysicalUserInputComplement().getGeneralRegister()
+                    createUserUseCaseInput.getPhysicalUserInput().getCpf(),
+                    createUserUseCaseInput.getPhysicalUserInput().getGeneralRegister()
             ));
         } else {
             this.createJuridicalUserUseCase.execute(new CreateJuridicalUserUseCaseInput(
                     savedUser.getId(),
-                    createUserUseCaseInput.getJuridicalUserInputComplement().getCnpj(),
-                    createUserUseCaseInput.getJuridicalUserInputComplement().getFantasyName(),
-                    createUserUseCaseInput.getJuridicalUserInputComplement().getLegalName(),
-                    createUserUseCaseInput.getJuridicalUserInputComplement().getStateRegistration()
+                    createUserUseCaseInput.getJuridicalUserInput().getCnpj(),
+                    createUserUseCaseInput.getJuridicalUserInput().getFantasyName(),
+                    createUserUseCaseInput.getJuridicalUserInput().getLegalName(),
+                    createUserUseCaseInput.getJuridicalUserInput().getStateRegistration()
             ));
         }
 
@@ -64,6 +65,14 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     private void verifyUserAlreadyExistsByEmail(String email) {
         if (this.userGateway.findByEmail(email).isPresent()) {
             throw new UserAlreadyExistsException("This email is already being used");
+        }
+    }
+
+    private void ensureComplementPresentBasedUserType(UserType userType, PhysicalUserInput physicalUserInput, JuridicalUserInput juridicalUserInput) {
+        if (userType == UserType.PHYSICAL_USER && physicalUserInput == null) {
+            throw new MissingRequiredComplementException("Physical user complement should not be null when user type is PHYSICAL_USER");
+        } else if (userType == UserType.JURIDICAL_USER && juridicalUserInput == null) {
+            throw new MissingRequiredComplementException("Juridical user complement should not be null when user type is JURIDICAL_USER");
         }
     }
 }

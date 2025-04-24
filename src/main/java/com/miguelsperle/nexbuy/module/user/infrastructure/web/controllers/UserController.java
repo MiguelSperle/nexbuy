@@ -1,43 +1,38 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.core.infrastructure.web.baseController.AbstractBaseController;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInputComplement;
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInputComplement;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.CreateUserRequest;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class UserController extends AbstractBaseController {
+public class UserController {
     private final ICreateUserUseCase createUserUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createUser(
-            @RequestBody @Valid CreateUserRequest createUserRequest, BindingResult bindingResult
-    ) {
-        this.validateRequestBody(bindingResult);
-
-        final PhysicalUserInputComplement physicalUserInputComplement = createUserRequest.getPhysicalUserComplement() != null ?
-                new PhysicalUserInputComplement(
+    @Transactional
+    public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
+        final PhysicalUserInput physicalUserInput = createUserRequest.getPhysicalUserComplement() != null ?
+                new PhysicalUserInput(
                         createUserRequest.getPhysicalUserComplement().getCpf(),
                         createUserRequest.getPhysicalUserComplement().getGeneralRegister()
                 ) : null;
 
-        final JuridicalUserInputComplement juridicalUserInputComplement = createUserRequest.getJuridicalUserComplement() != null ?
-                new JuridicalUserInputComplement(
+        final JuridicalUserInput juridicalUserInput = createUserRequest.getJuridicalUserComplement() != null ?
+                new JuridicalUserInput(
                         createUserRequest.getJuridicalUserComplement().getCnpj(),
                         createUserRequest.getJuridicalUserComplement().getFantasyName(),
                         createUserRequest.getJuridicalUserComplement().getLegalName(),
@@ -51,10 +46,12 @@ public class UserController extends AbstractBaseController {
                 createUserRequest.getPassword(),
                 createUserRequest.getPhoneNumber(),
                 createUserRequest.getUserType(),
-                physicalUserInputComplement,
-                juridicalUserInputComplement
+                physicalUserInput,
+                juridicalUserInput
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User created successfully", HttpStatus.CREATED.value()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                new MessageResponse("User created successfully", HttpStatus.CREATED.getReasonPhrase(), HttpStatus.CREATED.value())
+        );
     }
 }

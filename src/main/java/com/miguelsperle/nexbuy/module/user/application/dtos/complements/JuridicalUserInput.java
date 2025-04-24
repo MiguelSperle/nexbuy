@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JuridicalUserInputComplement {
+public class JuridicalUserInput {
     private String cnpj;
     private String fantasyName;
     private String legalName;

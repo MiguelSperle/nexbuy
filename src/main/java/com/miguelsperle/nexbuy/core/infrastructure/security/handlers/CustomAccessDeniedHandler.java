@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
@@ -19,8 +20,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-        final ErrorMessageResponse errorMessageResponse =
-                new ErrorMessageResponse(RESOURCE_ACCESS_RESTRICTED_MESSAGE, HttpStatus.FORBIDDEN.value());
+        final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
+                List.of(RESOURCE_ACCESS_RESTRICTED_MESSAGE), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+        );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

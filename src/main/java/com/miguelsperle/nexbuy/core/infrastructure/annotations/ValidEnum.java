@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.annotations;
 
-import com.miguelsperle.nexbuy.core.infrastructure.annotations.validations.EnumValidator;
+import com.miguelsperle.nexbuy.core.infrastructure.annotations.validators.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -10,12 +10,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(validatedBy = EnumValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnum {
     Class<? extends Enum<?>> enumClass();
 
-    String message() default "Invalid enum value";
+    String message() default "Invalid value";
 
     Class<?>[] groups() default {};
 

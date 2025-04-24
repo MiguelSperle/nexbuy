@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.core.infrastructure.annotations.validations;
+package com.miguelsperle.nexbuy.core.infrastructure.annotations.validators;
 
 import com.miguelsperle.nexbuy.core.infrastructure.annotations.ValidEnum;
 import jakarta.validation.ConstraintValidator;
