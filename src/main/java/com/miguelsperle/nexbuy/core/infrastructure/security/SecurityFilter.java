@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.auth.IJwtValidator;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.validators.IJwtTokenValidator;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.FailedJwtVerificationException;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
@@ -28,7 +28,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
-    private final IJwtValidator jwtValidator;
+    private final IJwtTokenValidator jwtTokenValidator;
     private final IUserGateway userGateway;
 
     @Override
@@ -37,7 +37,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             final String token = this.recoverToken(request);
 
             if (token != null) {
-                final String userId = this.jwtValidator.validateJWT(token);
+                final String userId = this.jwtTokenValidator.validateJwt(token);
                 final User user = this.userGateway.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
                 this.setAuthentication(user);
             }

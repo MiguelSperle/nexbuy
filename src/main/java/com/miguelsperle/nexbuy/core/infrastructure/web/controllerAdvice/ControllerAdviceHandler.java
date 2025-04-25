@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.AuthorizationFailedException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.JuridicalUserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.PhysicalUserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
@@ -51,6 +52,13 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleMissingRequiredDataException(MissingRequiredComplementException missingRequiredComplementException) {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
                 List.of(missingRequiredComplementException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
+        ));
+    }
+
+    @ExceptionHandler(AuthorizationFailedException.class)
+    public ResponseEntity<Object> handleAuthorizationFailedException(AuthorizationFailedException authorizationFailedException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessageResponse(
+                List.of(authorizationFailedException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
         ));
     }
 }

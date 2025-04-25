@@ -7,11 +7,11 @@ import java.util.UUID;
 
 @Data
 public class PhysicalUser {
-    private String id;
-    private User user;
-    private String cpf;
-    private String generalRegister;
-    private LocalDateTime createdAt;
+    private final String id;
+    private final User user;
+    private final String cpf;
+    private final String generalRegister;
+    private final LocalDateTime createdAt;
 
     private PhysicalUser(
             String id,

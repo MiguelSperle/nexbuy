@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeGeneratorProvider;
+import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
@@ -9,6 +9,7 @@ import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IJuridic
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IPhysicalUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserVerificationCodeGateway;
+import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IJwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class UseCasesConfiguration {
     @Bean
     public ICreateUserUseCase createUserUseCase(
-            IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptor,ICreateJuridicalUserUseCase createJuridicalUserUseCase,
+            IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptor, ICreateJuridicalUserUseCase createJuridicalUserUseCase,
             ICreatePhysicalUserUseCase createPhysicalUserUseCase, ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase
     ) {
         return new CreateUserUseCase(userGateway, passwordEncryptor, createJuridicalUserUseCase, createPhysicalUserUseCase, createUserVerificationCodeUseCase);
@@ -39,8 +40,16 @@ public class UseCasesConfiguration {
     @Bean
     public ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase(
             IUserVerificationCodeGateway userVerificationCodeGateway, IUserGateway userGateway,
-            ICodeGeneratorProvider codeGeneratorProvider, IDomainEventPublisherProvider domainEventPublisherProvider
+            ICodeProvider codeGeneratorProvider, IDomainEventPublisherProvider domainEventPublisherProvider
     ) {
         return new CreateUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, codeGeneratorProvider, domainEventPublisherProvider);
+    }
+
+    @Bean
+    public IAuthorizationUseCase authorizationUseCase(
+            IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptorProvider,
+            IJwtTokenProvider jwtGenerator
+    ) {
+        return new AuthorizationUseCase(userGateway, passwordEncryptorProvider, jwtGenerator);
     }
 }

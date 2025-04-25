@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeGeneratorProvider;
+import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
@@ -18,14 +18,14 @@ import java.time.LocalDateTime;
 public class CreateUserVerificationCodeUseCase implements ICreateUserVerificationCodeUseCase {
     private final IUserVerificationCodeGateway userVerificationCodeGateway;
     private final IUserGateway userGateway;
-    private final ICodeGeneratorProvider codeGeneratorProvider;
+    private final ICodeProvider codeProvider;
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
 
     @Override
     public void execute(CreateUserVerificationCodeUseCaseInput createUserVerificationCodeUseCaseInput) {
         final User user = this.getUserById(createUserVerificationCodeUseCaseInput.getUserId());
 
-        final String codeGenerated = this.codeGeneratorProvider.generateCode(6, "0123456789");
+        final String codeGenerated = this.codeProvider.generateCode(6, "0123456789");
 
         final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(codeGenerated, user, LocalDateTime.now().plusMinutes(15));
 

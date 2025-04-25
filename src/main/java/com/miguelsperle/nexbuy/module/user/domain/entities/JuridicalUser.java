@@ -7,13 +7,13 @@ import java.util.UUID;
 
 @Data
 public class JuridicalUser {
-    private String id;
-    private User user;
-    private String cnpj;
-    private String fantasyName;
-    private String legalName;
-    private String stateRegistration;
-    private LocalDateTime createdAt;
+    private final String id;
+    private final User user;
+    private final String cnpj;
+    private final String fantasyName;
+    private final String legalName;
+    private final String stateRegistration;
+    private final LocalDateTime createdAt;
 
     private JuridicalUser(
             String id,

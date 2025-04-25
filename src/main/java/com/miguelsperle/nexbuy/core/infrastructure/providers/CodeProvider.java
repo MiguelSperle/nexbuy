@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.providers;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeGeneratorProvider;
+import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.InvalidCharactersException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.InvalidCodeLengthException;
 import org.springframework.stereotype.Component;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import java.security.SecureRandom;
 
 @Component
-public class CodeGeneratorProvider implements ICodeGeneratorProvider {
+public class CodeProvider implements ICodeProvider {
     private final SecureRandom secureRandom = new SecureRandom();
 
     @Override
     public String generateCode(int codeLength, String characters) {
         if (codeLength <= 0) {
-            throw new InvalidCodeLengthException("Code length must be greater than zero");
+            throw new InvalidCodeLengthException("Code length should be greater than zero");
         }
 
         if (characters == null || characters.isEmpty()) {

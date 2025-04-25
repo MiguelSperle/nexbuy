@@ -7,10 +7,10 @@ import java.util.UUID;
 
 @Data
 public class UserVerificationCode {
-    private String id;
-    private String code;
-    private User user;
-    private LocalDateTime expiresIn;
+    private final String id;
+    private final String code;
+    private final User user;
+    private final LocalDateTime expiresIn;
 
     private UserVerificationCode(
             String id,

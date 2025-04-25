@@ -1,10 +1,15 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthorizationUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.AuthorizationRequest;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.AuthorizationResponse;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.CreateUserRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final ICreateUserUseCase createUserUseCase;
+    private final IAuthorizationUseCase authorizationUseCase;
 
     @PostMapping("/create")
     @Transactional
@@ -50,8 +56,19 @@ public class UserController {
                 juridicalUserInput
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                new MessageResponse("User created successfully", HttpStatus.CREATED.getReasonPhrase(), HttpStatus.CREATED.value())
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse(
+                "User created successfully", HttpStatus.CREATED.getReasonPhrase(), HttpStatus.CREATED.value())
+        );
+    }
+
+    @PostMapping("/authorization")
+    public ResponseEntity<Object> authorization(@RequestBody @Valid AuthorizationRequest authorizationRequest) {
+        final AuthorizationUseCaseOutput authorizationUseCaseOutput = this.authorizationUseCase.execute(new AuthorizationUseCaseInput(
+                authorizationRequest.getEmail(), authorizationRequest.getPassword()
+        ));
+
+        return ResponseEntity.ok().body(new AuthorizationResponse(
+                authorizationUseCaseOutput.getJwtToken(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
         );
     }
 }
