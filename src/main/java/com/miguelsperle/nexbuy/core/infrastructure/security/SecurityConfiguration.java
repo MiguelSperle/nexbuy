@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/user/create").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/user/authorization").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/user/verification-code/resend").permitAll()
                                 .anyRequest().authenticated())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)

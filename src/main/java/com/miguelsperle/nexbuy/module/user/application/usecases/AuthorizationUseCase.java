@@ -3,7 +3,8 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.AuthorizationFailedException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCredentialsException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthorizationUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IJwtTokenProvider;
@@ -22,18 +23,22 @@ public class AuthorizationUseCase implements IAuthorizationUseCase {
 
         this.validatePassword(authorizationUseCaseInput.getPassword(), user.getPassword());
 
+        if (!user.getIsVerified()) {
+            throw new UserNotVerifiedException("User not verified");
+        }
+
         final String jwtTokenGenerated = this.jwtTokenProvider.generateJwt(user);
 
         return new AuthorizationUseCaseOutput(jwtTokenGenerated);
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new AuthorizationFailedException("Invalid authorization credentials"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid authorization credentials"));
     }
 
     private void validatePassword(String password, String encryptedPassword) {
-        final boolean isPasswordValid = this.passwordEncryptorProvider.matches(password, encryptedPassword);
-
-        if (!isPasswordValid) throw new AuthorizationFailedException("Invalid authorization credentials");
+        if (!this.passwordEncryptorProvider.matches(password, encryptedPassword)) {
+            throw new InvalidCredentialsException("Invalid authorization credentials");
+        }
     }
 }

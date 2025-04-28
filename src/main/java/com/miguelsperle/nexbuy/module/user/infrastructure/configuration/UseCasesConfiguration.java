@@ -40,16 +40,24 @@ public class UseCasesConfiguration {
     @Bean
     public ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase(
             IUserVerificationCodeGateway userVerificationCodeGateway, IUserGateway userGateway,
-            ICodeProvider codeGeneratorProvider, IDomainEventPublisherProvider domainEventPublisherProvider
+            ICodeProvider codeProvider, IDomainEventPublisherProvider domainEventPublisherProvider
     ) {
-        return new CreateUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, codeGeneratorProvider, domainEventPublisherProvider);
+        return new CreateUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, codeProvider, domainEventPublisherProvider);
     }
 
     @Bean
     public IAuthorizationUseCase authorizationUseCase(
             IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptorProvider,
-            IJwtTokenProvider jwtGenerator
+            IJwtTokenProvider jwtTokenProvider
     ) {
-        return new AuthorizationUseCase(userGateway, passwordEncryptorProvider, jwtGenerator);
+        return new AuthorizationUseCase(userGateway, passwordEncryptorProvider, jwtTokenProvider);
+    }
+
+    @Bean
+    public IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase(
+            IUserVerificationCodeGateway userVerificationCodeGateway, IUserGateway userGateway,
+            IDomainEventPublisherProvider domainEventPublisherProvider, ICodeProvider codeProvider
+    ) {
+        return new ResendUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, domainEventPublisherProvider, codeProvider);
     }
 }

@@ -2,10 +2,7 @@ package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.AuthorizationFailedException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.JuridicalUserAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.PhysicalUserAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -51,14 +48,35 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(MissingRequiredComplementException.class)
     public ResponseEntity<Object> handleMissingRequiredDataException(MissingRequiredComplementException missingRequiredComplementException) {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
-                List.of(missingRequiredComplementException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
+                List.of(missingRequiredComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
         ));
     }
 
-    @ExceptionHandler(AuthorizationFailedException.class)
-    public ResponseEntity<Object> handleAuthorizationFailedException(AuthorizationFailedException authorizationFailedException) {
+    @ExceptionHandler(UserNotVerifiedException.class)
+    public ResponseEntity<Object> handleUserNotVerifiedException(UserNotVerifiedException userNotVerifiedException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
+                List.of(userNotVerifiedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+        ));
+    }
+
+    @ExceptionHandler(UserAlreadyVerifiedException.class)
+    public ResponseEntity<Object> handleUserAlreadyVerifiedException(UserAlreadyVerifiedException userAlreadyVerifiedException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                List.of(userAlreadyVerifiedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+        ));
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<Object> handleInvalidCredentialsException(InvalidCredentialsException invalidCredentialsException) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessageResponse(
-                List.of(authorizationFailedException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+                List.of(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+        ));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                List.of(userNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
         ));
     }
 }

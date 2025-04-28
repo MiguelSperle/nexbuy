@@ -1,0 +1,7 @@
+package com.miguelsperle.nexbuy.module.user.application.exceptions;
+
+public class UserAlreadyVerifiedException extends RuntimeException {
+    public UserAlreadyVerifiedException(String message) {
+        super(message);
+    }
+}
