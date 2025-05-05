@@ -21,7 +21,9 @@ public class AuthorizationUseCase implements IAuthorizationUseCase {
     public AuthorizationUseCaseOutput execute(AuthorizationUseCaseInput authorizationUseCaseInput) {
         final User user = this.getUserByEmail(authorizationUseCaseInput.getEmail());
 
-        this.validatePassword(authorizationUseCaseInput.getPassword(), user.getPassword());
+        if (!this.validatePassword(authorizationUseCaseInput.getPassword(), user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid authorization credentials");
+        }
 
         if (!user.getIsVerified()) {
             throw new UserNotVerifiedException("User not verified");
@@ -36,9 +38,7 @@ public class AuthorizationUseCase implements IAuthorizationUseCase {
         return this.userGateway.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid authorization credentials"));
     }
 
-    private void validatePassword(String password, String encryptedPassword) {
-        if (!this.passwordEncryptorProvider.matches(password, encryptedPassword)) {
-            throw new InvalidCredentialsException("Invalid authorization credentials");
-        }
+    private boolean validatePassword(String password, String encryptedPassword) {
+        return this.passwordEncryptorProvider.matches(password, encryptedPassword);
     }
 }

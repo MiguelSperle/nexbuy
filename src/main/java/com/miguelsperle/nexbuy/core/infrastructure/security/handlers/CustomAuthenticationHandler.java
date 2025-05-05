@@ -16,16 +16,16 @@ import java.util.List;
 
 @Component
 public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
-    private static final String DEFAULT_AUTHENTICATION_ERROR_MESSAGE = "Authentication failed";
+    private static final String DEFAULT_AUTHENTICATION_ERROR_MESSAGE = "Authentication is required to access this resource";
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
         final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                List.of(DEFAULT_AUTHENTICATION_ERROR_MESSAGE), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+                List.of(DEFAULT_AUTHENTICATION_ERROR_MESSAGE), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         final OutputStream responseStream = response.getOutputStream();
         final ObjectMapper mapper = new ObjectMapper();

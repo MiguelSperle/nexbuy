@@ -16,12 +16,12 @@ import java.util.List;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-    private static final String RESOURCE_ACCESS_RESTRICTED_MESSAGE = "Restricted access";
+    private static final String DEFAULT_ACCESS_DENIED_MESSAGE = "Access denied. You don't have permission to access this resource";
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                List.of(RESOURCE_ACCESS_RESTRICTED_MESSAGE), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+                List.of(DEFAULT_ACCESS_DENIED_MESSAGE), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

@@ -3,6 +3,7 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IJuridicalUserGateway;
@@ -17,32 +18,39 @@ import org.springframework.context.annotation.Configuration;
 public class UseCasesConfiguration {
     @Bean
     public ICreateUserUseCase createUserUseCase(
-            IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptor, ICreateJuridicalUserUseCase createJuridicalUserUseCase,
-            ICreatePhysicalUserUseCase createPhysicalUserUseCase, ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase
+            IUserGateway userGateway,
+            IPasswordEncryptorProvider passwordEncryptor,
+            ICreateJuridicalUserUseCase createJuridicalUserUseCase,
+            ICreatePhysicalUserUseCase createPhysicalUserUseCase,
+            ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase,
+            ITransactionExecutor transactionExecutor
     ) {
-        return new CreateUserUseCase(userGateway, passwordEncryptor, createJuridicalUserUseCase, createPhysicalUserUseCase, createUserVerificationCodeUseCase);
+        return new CreateUserUseCase(
+                userGateway,
+                passwordEncryptor,
+                createJuridicalUserUseCase,
+                createPhysicalUserUseCase,
+                createUserVerificationCodeUseCase,
+                transactionExecutor
+        );
     }
 
     @Bean
-    public ICreatePhysicalUserUseCase createPhysicalUserUseCase(
-            IPhysicalUserGateway physicalUserGateway, IUserGateway userGateway
-    ) {
-        return new CreatePhysicalUserUseCase(physicalUserGateway, userGateway);
+    public ICreatePhysicalUserUseCase createPhysicalUserUseCase(IPhysicalUserGateway physicalUserGateway) {
+        return new CreatePhysicalUserUseCase(physicalUserGateway);
     }
 
     @Bean
-    public ICreateJuridicalUserUseCase createJuridicalUserUseCase(
-            IJuridicalUserGateway juridicalUserGateway, IUserGateway userGateway
-    ) {
-        return new CreateJuridicalUserUseCase(juridicalUserGateway, userGateway);
+    public ICreateJuridicalUserUseCase createJuridicalUserUseCase(IJuridicalUserGateway juridicalUserGateway, IUserGateway userGateway) {
+        return new CreateJuridicalUserUseCase(juridicalUserGateway);
     }
 
     @Bean
     public ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase(
-            IUserVerificationCodeGateway userVerificationCodeGateway, IUserGateway userGateway,
-            ICodeProvider codeProvider, IDomainEventPublisherProvider domainEventPublisherProvider
+            IUserVerificationCodeGateway userVerificationCodeGateway, ICodeProvider codeProvider,
+            IDomainEventPublisherProvider domainEventPublisherProvider
     ) {
-        return new CreateUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, codeProvider, domainEventPublisherProvider);
+        return new CreateUserVerificationCodeUseCase(userVerificationCodeGateway, codeProvider, domainEventPublisherProvider);
     }
 
     @Bean
@@ -55,9 +63,24 @@ public class UseCasesConfiguration {
 
     @Bean
     public IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase(
-            IUserVerificationCodeGateway userVerificationCodeGateway, IUserGateway userGateway,
-            IDomainEventPublisherProvider domainEventPublisherProvider, ICodeProvider codeProvider
+            IUserVerificationCodeGateway userVerificationCodeGateway,
+            IUserGateway userGateway,
+            IDomainEventPublisherProvider domainEventPublisherProvider,
+            ICodeProvider codeProvider
     ) {
-        return new ResendUserVerificationCodeUseCase(userVerificationCodeGateway, userGateway, domainEventPublisherProvider, codeProvider);
+        return new ResendUserVerificationCodeUseCase(
+                userVerificationCodeGateway,
+                userGateway,
+                domainEventPublisherProvider,
+                codeProvider
+        );
+    }
+
+    @Bean
+    public IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase(
+            IUserGateway userGateway, IUserVerificationCodeGateway userVerificationCodeGateway,
+            ITransactionExecutor transactionExecutor
+    ) {
+        return new UpdateUserToVerifiedUseCase(userGateway, userVerificationCodeGateway, transactionExecutor);
     }
 }

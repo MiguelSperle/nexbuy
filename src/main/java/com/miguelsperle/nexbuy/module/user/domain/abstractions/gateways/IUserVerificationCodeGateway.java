@@ -11,4 +11,6 @@ public interface IUserVerificationCodeGateway {
     UserVerificationCode save(UserVerificationCode userVerificationCode);
     void deleteById(String id);
     Optional<UserVerificationCode> findByUserId(String userId);
+    Optional<UserVerificationCode> findByCode(String code);
+    void flush();
 }

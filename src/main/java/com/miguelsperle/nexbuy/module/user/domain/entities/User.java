@@ -3,6 +3,7 @@ package com.miguelsperle.nexbuy.module.user.domain.entities;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
 import lombok.Data;
+import lombok.With;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class User {
     private final String email;
     private final String password;
     private final String phoneNumber;
+    @With
     private final Boolean isVerified;
     private final AuthorizationRole authorizationRole;
     private final UserType userType;

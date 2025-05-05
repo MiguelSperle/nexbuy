@@ -39,4 +39,14 @@ public class JpaUserVerificationCodeGateway implements IUserVerificationCodeGate
     public Optional<UserVerificationCode> findByUserId(String userId) {
         return this.jpaUserVerificationCodeRepository.findByUserId(userId).map(JpaUserVerificationCodeEntity::toEntity);
     }
+
+    @Override
+    public Optional<UserVerificationCode> findByCode(String code) {
+        return this.jpaUserVerificationCodeRepository.findByCode(code).map(JpaUserVerificationCodeEntity::toEntity);
+    }
+
+    @Override
+    public void flush() {
+        this.jpaUserVerificationCodeRepository.flush();
+    }
 }

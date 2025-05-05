@@ -23,6 +23,9 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ICodeProvider codeProvider;
 
+    private final static String NUMERIC_CHARACTERS = "0123456789";
+    private final static int CODE_LENGTH = 6;
+
     @Override
     public void execute(ResendUserVerificationCodeUseCaseInput resendUserVerificationCodeUseCaseInput) {
         final User user = this.getUserByEmail(resendUserVerificationCodeUseCaseInput.getEmail());
@@ -31,9 +34,11 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
             throw new UserAlreadyVerifiedException("User already verified");
         }
 
-        this.deleteUserVerificationCode(user.getId());
+        this.getPreviousUserVerificationCodeByUserId(user.getId()).ifPresent(userVerificationCode -> {
+            this.userVerificationCodeGateway.deleteById(userVerificationCode.getId());
+        });
 
-        final String codeGenerated = this.codeProvider.generateCode(6, "0123456789");
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
 
         final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(codeGenerated, user, LocalDateTime.now().plusMinutes(15));
 
@@ -46,12 +51,10 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found by email: " + email));
     }
 
-    private void deleteUserVerificationCode(String userId) {
-        final Optional<UserVerificationCode> userVerificationCode = this.userVerificationCodeGateway.findByUserId(userId);
-
-        userVerificationCode.ifPresent(verificationCode -> this.userVerificationCodeGateway.deleteById(verificationCode.getId()));
+    private Optional<UserVerificationCode> getPreviousUserVerificationCodeByUserId(String userId) {
+        return this.userVerificationCodeGateway.findByUserId(userId);
     }
 }

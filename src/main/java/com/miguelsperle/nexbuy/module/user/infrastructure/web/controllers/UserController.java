@@ -1,28 +1,19 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.ResendUserVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.*;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthorizationUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResendUserVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.AuthorizationRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.AuthorizationResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.CreateUserRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.ResendUserVerificationCodeRequest;
-import jakarta.transaction.Transactional;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -31,9 +22,9 @@ public class UserController {
     private final ICreateUserUseCase createUserUseCase;
     private final IAuthorizationUseCase authorizationUseCase;
     private final IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase;
+    private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
 
     @PostMapping("/create")
-    @Transactional
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         final PhysicalUserInput physicalUserInput = createUserRequest.getPhysicalUserComplement() != null ?
                 new PhysicalUserInput(
@@ -85,5 +76,16 @@ public class UserController {
         return ResponseEntity.ok().body(new MessageResponse(
                 "User verification code sent successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
         );
+    }
+
+    @PatchMapping("/confirm-verification")
+    public ResponseEntity<Object> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {
+        this.updateUserToVerifiedUseCase.execute(new UpdateUserToVerifiedUseCaseInput(
+                updateUserToVerifiedRequest.getCode()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse(
+                "User verified successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
     }
 }
