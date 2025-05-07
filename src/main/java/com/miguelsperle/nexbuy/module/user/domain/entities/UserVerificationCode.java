@@ -8,46 +8,51 @@ import java.util.UUID;
 @Data
 public class UserVerificationCode {
     private final String id;
-    private final String code;
     private final User user;
+    private final String code;
     private final LocalDateTime expiresIn;
+    private final LocalDateTime createdAt;
 
     private UserVerificationCode(
             String id,
-            String code,
             User user,
-            LocalDateTime expiresIn
+            String code,
+            LocalDateTime expiresIn,
+            LocalDateTime createdAt
     ) {
         this.id = id;
-        this.code = code;
         this.user = user;
+        this.code = code;
         this.expiresIn = expiresIn;
+        this.createdAt = createdAt;
     }
 
     public static UserVerificationCode newUserVerificationCode(
-            String code,
             User user,
-            LocalDateTime expiresIn
+            String code
     ) {
         return new UserVerificationCode(
                 UUID.randomUUID().toString(),
-                code,
                 user,
-                expiresIn
+                code,
+                LocalDateTime.now().plusMinutes(15),
+                LocalDateTime.now()
         );
     }
 
     public static UserVerificationCode with(
             String id,
-            String code,
             User user,
-            LocalDateTime expiresIn
+            String code,
+            LocalDateTime expiresIn,
+            LocalDateTime createdAt
     ) {
         return new UserVerificationCode(
                 id,
-                code,
                 user,
-                expiresIn
+                code,
+                expiresIn,
+                createdAt
         );
     }
 }

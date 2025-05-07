@@ -10,8 +10,6 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.UserVerificationCode;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserVerificationCodeCreatedEvent;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @RequiredArgsConstructor
 public class CreateUserVerificationCodeUseCase implements ICreateUserVerificationCodeUseCase {
     private final IUserVerificationCodeGateway userVerificationCodeGateway;
@@ -23,11 +21,11 @@ public class CreateUserVerificationCodeUseCase implements ICreateUserVerificatio
 
     @Override
     public void execute(CreateUserVerificationCodeUseCaseInput createUserVerificationCodeUseCaseInput) {
-        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
-
         final User user = createUserVerificationCodeUseCaseInput.getUser();
 
-        final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(codeGenerated, user, LocalDateTime.now().plusMinutes(15));
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
+
+        final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(user, codeGenerated);
 
         final UserVerificationCode savedUserVerificationCode = this.userVerificationCodeGateway.save(newUserVerificationCode);
 

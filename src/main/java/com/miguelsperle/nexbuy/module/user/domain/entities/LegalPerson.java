@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class JuridicalUser {
+public class LegalPerson {
     private final String id;
     private final User user;
     private final String cnpj;
@@ -15,7 +15,7 @@ public class JuridicalUser {
     private final String stateRegistration;
     private final LocalDateTime createdAt;
 
-    private JuridicalUser(
+    private LegalPerson(
             String id,
             User user,
             String cnpj,
@@ -33,14 +33,14 @@ public class JuridicalUser {
         this.createdAt = createdAt;
     }
 
-    public static JuridicalUser newJuridicalUser(
+    public static LegalPerson newLegalPerson(
             User user,
             String cnpj,
             String fantasyName,
             String legalName,
             String stateRegistration
     ) {
-        return new JuridicalUser(
+        return new LegalPerson(
                 UUID.randomUUID().toString(),
                 user,
                 cnpj,
@@ -51,7 +51,7 @@ public class JuridicalUser {
         );
     }
 
-    public static JuridicalUser with(
+    public static LegalPerson with(
             String id,
             User user,
             String cnpj,
@@ -60,7 +60,7 @@ public class JuridicalUser {
             String stateRegistration,
             LocalDateTime createdAt
     ) {
-        return new JuridicalUser(
+        return new LegalPerson(
                 id,
                 user,
                 cnpj,

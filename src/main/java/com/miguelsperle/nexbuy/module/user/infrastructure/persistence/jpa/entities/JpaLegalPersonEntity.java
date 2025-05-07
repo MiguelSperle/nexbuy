@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.JuridicalUser;
+import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JpaJuridicalUserEntity {
+public class JpaLegalPersonEntity {
     @Id
     private String id;
 
@@ -34,20 +34,20 @@ public class JpaJuridicalUserEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public static JpaJuridicalUserEntity from(JuridicalUser juridicalUser) {
-        return new JpaJuridicalUserEntity(
-                juridicalUser.getId(),
-                JpaUserEntity.from(juridicalUser.getUser()),
-                juridicalUser.getCnpj(),
-                juridicalUser.getFantasyName(),
-                juridicalUser.getLegalName(),
-                juridicalUser.getStateRegistration(),
-                juridicalUser.getCreatedAt()
+    public static JpaLegalPersonEntity from(LegalPerson legalPerson) {
+        return new JpaLegalPersonEntity(
+                legalPerson.getId(),
+                JpaUserEntity.from(legalPerson.getUser()),
+                legalPerson.getCnpj(),
+                legalPerson.getFantasyName(),
+                legalPerson.getLegalName(),
+                legalPerson.getStateRegistration(),
+                legalPerson.getCreatedAt()
         );
     }
 
-    public JuridicalUser toEntity() {
-        return JuridicalUser.with(
+    public LegalPerson toEntity() {
+        return LegalPerson.with(
                 this.id,
                 this.jpaUserEntity.toEntity(),
                 this.cnpj,

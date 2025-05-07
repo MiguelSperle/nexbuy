@@ -16,7 +16,6 @@ public class SendEmailUserVerificationCodeListener {
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleUserVerificationCodeCreatedEventInTransactional(UserVerificationCodeCreatedEvent userVerificationCodeCreatedEvent) {
-        System.out.println("aq");
         final String message = "Hello, your verification code is " + userVerificationCodeCreatedEvent.getCode();
 
         this.emailService.sendEmail(userVerificationCodeCreatedEvent.getEmail(), message, "User Verification Code");

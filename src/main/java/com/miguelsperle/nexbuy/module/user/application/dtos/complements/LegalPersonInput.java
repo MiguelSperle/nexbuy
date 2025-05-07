@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhysicalUserInput {
-    private String cpf;
-    private String generalRegister;
+public class LegalPersonInput {
+    private String cnpj;
+    private String fantasyName;
+    private String legalName;
+    private String stateRegistration;
 }

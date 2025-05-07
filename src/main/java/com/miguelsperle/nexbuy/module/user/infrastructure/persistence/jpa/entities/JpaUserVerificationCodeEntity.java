@@ -15,12 +15,12 @@ public class JpaUserVerificationCodeEntity {
     @Id
     private String id;
 
-    @Column(nullable = false, unique = true, length = 6)
-    private String code;
-
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private JpaUserEntity jpaUserEntity;
+
+    @Column(nullable = false, unique = true, length = 6)
+    private String code;
 
     @Column(name = "expires_in", nullable = false)
     private LocalDateTime expiresIn;
@@ -28,8 +28,8 @@ public class JpaUserVerificationCodeEntity {
     public static JpaUserVerificationCodeEntity from(UserVerificationCode userVerificationCode) {
         return new JpaUserVerificationCodeEntity(
                 userVerificationCode.getId(),
-                userVerificationCode.getCode(),
                 JpaUserEntity.from(userVerificationCode.getUser()),
+                userVerificationCode.getCode(),
                 userVerificationCode.getExpiresIn()
         );
     }
@@ -37,8 +37,8 @@ public class JpaUserVerificationCodeEntity {
     public UserVerificationCode toEntity() {
         return UserVerificationCode.with(
                 this.id,
-                this.code,
                 this.jpaUserEntity.toEntity(),
+                this.code,
                 this.expiresIn
         );
     }

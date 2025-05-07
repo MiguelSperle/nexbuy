@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhysicalUserComplement {
+public class NaturalPersonComplement {
     @NotNull(message = "Cpf should not be null")
     @CPF(message = "Cpf should be valid")
     private String cpf;

@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos;
 
 import com.miguelsperle.nexbuy.core.infrastructure.annotations.ValidEnum;
-import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complements.JuridicalUserComplement;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complements.PhysicalUserComplement;
+import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complements.LegalPersonComplement;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.complements.NaturalPersonComplement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -35,12 +35,12 @@ public class CreateUserRequest {
     @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "Phone number should be in the format (XX) XXXXX-XXXX")
     private String phoneNumber;
 
-    @ValidEnum(enumClass = UserType.class, message = "User type should be either PHYSICAL_USER or JURIDICAL_USER")
+    @ValidEnum(enumClass = PersonType.class, message = "User type should be either NATURAL_PERSON or LEGAL_PERSON")
     private String userType;
 
     @Valid
-    private PhysicalUserComplement physicalUserComplement;
+    private NaturalPersonComplement naturalPersonComplement;
 
     @Valid
-    private JuridicalUserComplement juridicalUserComplement;
+    private LegalPersonComplement legalPersonComplement;
 }

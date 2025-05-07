@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.PhysicalUser;
+import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JpaPhysicalUserEntity {
+public class JpaNaturalPersonEntity {
     @Id
     private String id;
 
@@ -28,18 +28,18 @@ public class JpaPhysicalUserEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public static JpaPhysicalUserEntity from(PhysicalUser physicalUser) {
-        return new JpaPhysicalUserEntity(
-                physicalUser.getId(),
-                JpaUserEntity.from(physicalUser.getUser()),
-                physicalUser.getCpf(),
-                physicalUser.getGeneralRegister(),
-                physicalUser.getCreatedAt()
+    public static JpaNaturalPersonEntity from(NaturalPerson naturalPerson) {
+        return new JpaNaturalPersonEntity(
+                naturalPerson.getId(),
+                JpaUserEntity.from(naturalPerson.getUser()),
+                naturalPerson.getCpf(),
+                naturalPerson.getGeneralRegister(),
+                naturalPerson.getCreatedAt()
         );
     }
 
-    public PhysicalUser toEntity() {
-        return PhysicalUser.with(
+    public NaturalPerson toEntity() {
+        return NaturalPerson.with(
                 this.id,
                 this.jpaUserEntity.toEntity(),
                 this.cpf,

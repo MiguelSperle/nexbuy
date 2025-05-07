@@ -3,7 +3,6 @@ package com.miguelsperle.nexbuy.core.infrastructure.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,10 +25,10 @@ public class SecurityConfiguration {
     private final AccessDeniedHandler accessDeniedHandler;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/user/create",
-            "/user/authorization",
-            "/user/verification-code/resend",
-            "/user/confirm-verification"
+            "api/user/create",
+            "api/user/authorization",
+            "api/user/verification-code/resend",
+            "api/user/confirm-verification"
     };
 
     @Bean

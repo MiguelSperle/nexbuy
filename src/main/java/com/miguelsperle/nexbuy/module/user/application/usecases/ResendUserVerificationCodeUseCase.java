@@ -40,7 +40,7 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
 
         final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
 
-        final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(codeGenerated, user, LocalDateTime.now().plusMinutes(15));
+        final UserVerificationCode newUserVerificationCode = UserVerificationCode.newUserVerificationCode(user, codeGenerated);
 
         final UserVerificationCode savedUserVerificationCode = this.userVerificationCodeGateway.save(newUserVerificationCode);
 

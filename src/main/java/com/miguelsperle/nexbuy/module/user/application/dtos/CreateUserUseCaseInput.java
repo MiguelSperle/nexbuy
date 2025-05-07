@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.dtos;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.JuridicalUserInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.PhysicalUserInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.LegalPersonInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.NaturalPersonInput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +16,6 @@ public class CreateUserUseCaseInput {
     private String password;
     private String phoneNumber;
     private String userType;
-    private PhysicalUserInput physicalUserInput;
-    private JuridicalUserInput juridicalUserInput;
+    private NaturalPersonInput naturalPersonInput;
+    private LegalPersonInput legalPersonInput;
 }

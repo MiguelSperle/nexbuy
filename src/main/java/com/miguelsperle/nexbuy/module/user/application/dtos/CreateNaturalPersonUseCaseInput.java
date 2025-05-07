@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.dtos;
 
+import com.miguelsperle.nexbuy.module.user.application.dtos.complements.NaturalPersonInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePhysicalUserUseCaseInput {
+public class CreateNaturalPersonUseCaseInput {
     private User user;
-    private String cpf;
-    private String generalRegister;
+    private NaturalPersonInput naturalPersonInput;
 }

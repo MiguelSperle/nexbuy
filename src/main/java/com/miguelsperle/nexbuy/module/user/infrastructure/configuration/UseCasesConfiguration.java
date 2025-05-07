@@ -6,8 +6,8 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncry
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IJuridicalUserGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IPhysicalUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserVerificationCodeGateway;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IJwtTokenProvider;
@@ -20,8 +20,8 @@ public class UseCasesConfiguration {
     public ICreateUserUseCase createUserUseCase(
             IUserGateway userGateway,
             IPasswordEncryptorProvider passwordEncryptor,
-            ICreateJuridicalUserUseCase createJuridicalUserUseCase,
-            ICreatePhysicalUserUseCase createPhysicalUserUseCase,
+            ICreateLegalPersonUseCase createJuridicalUserUseCase,
+            ICreateNaturalPersonUseCase createPhysicalUserUseCase,
             ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase,
             ITransactionExecutor transactionExecutor
     ) {
@@ -36,13 +36,13 @@ public class UseCasesConfiguration {
     }
 
     @Bean
-    public ICreatePhysicalUserUseCase createPhysicalUserUseCase(IPhysicalUserGateway physicalUserGateway) {
-        return new CreatePhysicalUserUseCase(physicalUserGateway);
+    public ICreateNaturalPersonUseCase createNaturalPersonUseCase(INaturalPersonGateway naturalPersonGateway) {
+        return new CreateNaturalPersonUseCase(naturalPersonGateway);
     }
 
     @Bean
-    public ICreateJuridicalUserUseCase createJuridicalUserUseCase(IJuridicalUserGateway juridicalUserGateway, IUserGateway userGateway) {
-        return new CreateJuridicalUserUseCase(juridicalUserGateway);
+    public ICreateLegalPersonUseCase createLegalPersonUseCase(ILegalPersonGateway legalPersonGateway) {
+        return new CreateLegalPersonUseCase(legalPersonGateway);
     }
 
     @Bean

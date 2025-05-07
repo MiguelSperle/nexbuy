@@ -53,17 +53,17 @@ public class ControllerAdviceHandler {
         ));
     }
 
-    @ExceptionHandler(PhysicalUserAlreadyExistsException.class)
-    public ResponseEntity<Object> handlePhysicalUserAlreadyExistsException(PhysicalUserAlreadyExistsException physicalUserAlreadyExistsException) {
+    @ExceptionHandler(NaturalPersonAlreadyExistsException.class)
+    public ResponseEntity<Object> handleNaturalPersonAlreadyExistsException(NaturalPersonAlreadyExistsException naturalPersonAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                List.of(physicalUserAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                List.of(naturalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
         ));
     }
 
-    @ExceptionHandler(JuridicalUserAlreadyExistsException.class)
-    public ResponseEntity<Object> handleJuridicalUserAlreadyExistsException(JuridicalUserAlreadyExistsException juridicalUserAlreadyExistsException) {
+    @ExceptionHandler(LegalPersonAlreadyExistsException.class)
+    public ResponseEntity<Object> handleLegalPersonAlreadyExistsException(LegalPersonAlreadyExistsException legalPersonAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                List.of(juridicalUserAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                List.of(legalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
         ));
     }
 

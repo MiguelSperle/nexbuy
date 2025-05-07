@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
-import com.miguelsperle.nexbuy.module.user.domain.enums.UserType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,12 +39,9 @@ public class JpaUserEntity {
     @Enumerated(EnumType.STRING)
     private AuthorizationRole authorizationRole;
 
-    @Column(name = "user_type", nullable = false)
+    @Column(name = "person_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserType userType;
-
-    @Column(name = "profile_photo", nullable = false, length = 50)
-    private String profilePhoto;
+    private PersonType personType;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -59,8 +56,7 @@ public class JpaUserEntity {
                 user.getPhoneNumber(),
                 user.getIsVerified(),
                 user.getAuthorizationRole(),
-                user.getUserType(),
-                user.getProfilePhoto(),
+                user.getPersonType(),
                 user.getCreatedAt()
         );
     }
@@ -75,8 +71,7 @@ public class JpaUserEntity {
                 this.phoneNumber,
                 this.isVerified,
                 this.authorizationRole,
-                this.userType,
-                this.profilePhoto,
+                this.personType,
                 this.createdAt
         );
     }
