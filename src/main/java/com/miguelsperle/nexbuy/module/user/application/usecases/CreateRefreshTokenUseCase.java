@@ -1,0 +1,35 @@
+package com.miguelsperle.nexbuy.module.user.application.usecases;
+
+import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
+import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
+import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
+
+@RequiredArgsConstructor
+public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
+    private final IRefreshTokenGateway refreshTokenGateway;
+
+    @Override
+    public CreateRefreshTokenUseCaseOutput execute(CreateRefreshTokenUseCaseInput createRefreshTokenUseCaseInput) {
+        final User user = createRefreshTokenUseCaseInput.getUser();
+
+        this.getPreviousRefreshToken(user.getId()).ifPresent(refreshToken ->
+                this.refreshTokenGateway.deleteById(refreshToken.getId())
+        );
+
+        final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(user);
+
+        final RefreshToken savedRefreshToken = this.refreshTokenGateway.save(newRefreshToken);
+
+        return new CreateRefreshTokenUseCaseOutput(savedRefreshToken.getToken());
+    }
+
+    private Optional<RefreshToken> getPreviousRefreshToken(String userId) {
+        return this.refreshTokenGateway.findByUserId(userId);
+    }
+}

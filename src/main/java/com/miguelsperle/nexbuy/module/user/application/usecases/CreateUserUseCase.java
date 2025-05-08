@@ -16,7 +16,6 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +31,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     @Override
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
         transactionExecutor.runInTransaction(() -> {
-            final PersonType convertedToPersonType = PersonType.valueOf(createUserUseCaseInput.getUserType());
+            final PersonType convertedToPersonType = PersonType.valueOf(createUserUseCaseInput.getPersonType());
 
             this.ensureComplementBasedUserType(convertedToPersonType, createUserUseCaseInput.getNaturalPersonInput(), createUserUseCaseInput.getLegalPersonInput());
 

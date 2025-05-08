@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorizationUseCaseOutput {
-    private String accessToken;
+public class CreateRefreshTokenUseCaseOutput {
     private String refreshToken;
 }

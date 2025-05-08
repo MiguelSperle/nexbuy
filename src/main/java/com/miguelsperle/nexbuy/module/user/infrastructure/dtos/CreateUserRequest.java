@@ -35,8 +35,8 @@ public class CreateUserRequest {
     @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "Phone number should be in the format (XX) XXXXX-XXXX")
     private String phoneNumber;
 
-    @ValidEnum(enumClass = PersonType.class, message = "User type should be either NATURAL_PERSON or LEGAL_PERSON")
-    private String userType;
+    @ValidEnum(enumClass = PersonType.class, message = "Person type should be either NATURAL_PERSON or LEGAL_PERSON")
+    private String personType;
 
     @Valid
     private NaturalPersonComplement naturalPersonComplement;

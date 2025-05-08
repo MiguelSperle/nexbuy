@@ -3,9 +3,12 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.AuthorizationUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCredentialsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthorizationUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IJwtTokenProvider;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -16,6 +19,7 @@ public class AuthorizationUseCase implements IAuthorizationUseCase {
     private final IUserGateway userGateway;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final IJwtTokenProvider jwtTokenProvider;
+    private final ICreateRefreshTokenUseCase createRefreshTokenUseCase;
 
     @Override
     public AuthorizationUseCaseOutput execute(AuthorizationUseCaseInput authorizationUseCaseInput) {
@@ -31,7 +35,11 @@ public class AuthorizationUseCase implements IAuthorizationUseCase {
 
         final String jwtTokenGenerated = this.jwtTokenProvider.generateJwt(user);
 
-        return new AuthorizationUseCaseOutput(jwtTokenGenerated);
+        final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(new CreateRefreshTokenUseCaseInput(
+                user
+        ));
+
+        return new AuthorizationUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.getRefreshToken());
     }
 
     private User getUserByEmail(String email) {

@@ -15,7 +15,7 @@ public class CreateUserUseCaseInput {
     private String email;
     private String password;
     private String phoneNumber;
-    private String userType;
+    private String personType;
     private NaturalPersonInput naturalPersonInput;
     private LegalPersonInput legalPersonInput;
 }

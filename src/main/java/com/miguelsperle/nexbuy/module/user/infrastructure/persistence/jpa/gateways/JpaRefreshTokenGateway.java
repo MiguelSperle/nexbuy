@@ -1,0 +1,42 @@
+package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.gateways;
+
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
+import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
+import com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entities.JpaRefreshTokenEntity;
+import com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.repositories.JpaRefreshTokenRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+
+@Component
+@RequiredArgsConstructor
+public class JpaRefreshTokenGateway implements IRefreshTokenGateway {
+    private final JpaRefreshTokenRepository jpaRefreshTokenRepository;
+
+    @Override
+    public List<RefreshToken> findAll() {
+        return this.jpaRefreshTokenRepository.findAll().stream().map(JpaRefreshTokenEntity::toEntity).toList();
+    }
+
+    @Override
+    public Optional<RefreshToken> findById(String id) {
+        return this.jpaRefreshTokenRepository.findById(id).map(JpaRefreshTokenEntity::toEntity);
+    }
+
+    @Override
+    public RefreshToken save(RefreshToken refreshToken) {
+        return this.jpaRefreshTokenRepository.save(JpaRefreshTokenEntity.from(refreshToken)).toEntity();
+    }
+
+    @Override
+    public void deleteById(String id) {
+        this.jpaRefreshTokenRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<RefreshToken> findByUserId(String userId) {
+        return this.jpaRefreshTokenRepository.findByUserId(userId).map(JpaRefreshTokenEntity::toEntity);
+    }
+}

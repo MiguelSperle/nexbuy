@@ -6,10 +6,7 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncry
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserVerificationCodeGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.*;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IJwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,9 +53,9 @@ public class UseCasesConfiguration {
     @Bean
     public IAuthorizationUseCase authorizationUseCase(
             IUserGateway userGateway, IPasswordEncryptorProvider passwordEncryptorProvider,
-            IJwtTokenProvider jwtTokenProvider
+            IJwtTokenProvider jwtTokenProvider, ICreateRefreshTokenUseCase createRefreshTokenUseCase
     ) {
-        return new AuthorizationUseCase(userGateway, passwordEncryptorProvider, jwtTokenProvider);
+        return new AuthorizationUseCase(userGateway, passwordEncryptorProvider, jwtTokenProvider, createRefreshTokenUseCase);
     }
 
     @Bean
@@ -82,5 +79,10 @@ public class UseCasesConfiguration {
             ITransactionExecutor transactionExecutor
     ) {
         return new UpdateUserToVerifiedUseCase(userGateway, userVerificationCodeGateway, transactionExecutor);
+    }
+
+    @Bean
+    public ICreateRefreshTokenUseCase createRefreshTokenUseCase(IRefreshTokenGateway refreshTokenGateway) {
+        return new CreateRefreshTokenUseCase(refreshTokenGateway);
     }
 }

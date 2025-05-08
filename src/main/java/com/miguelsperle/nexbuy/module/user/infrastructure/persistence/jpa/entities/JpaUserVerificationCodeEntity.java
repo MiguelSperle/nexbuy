@@ -25,12 +25,16 @@ public class JpaUserVerificationCodeEntity {
     @Column(name = "expires_in", nullable = false)
     private LocalDateTime expiresIn;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
     public static JpaUserVerificationCodeEntity from(UserVerificationCode userVerificationCode) {
         return new JpaUserVerificationCodeEntity(
                 userVerificationCode.getId(),
                 JpaUserEntity.from(userVerificationCode.getUser()),
                 userVerificationCode.getCode(),
-                userVerificationCode.getExpiresIn()
+                userVerificationCode.getExpiresIn(),
+                userVerificationCode.getCreatedAt()
         );
     }
 
@@ -39,7 +43,8 @@ public class JpaUserVerificationCodeEntity {
                 this.id,
                 this.jpaUserEntity.toEntity(),
                 this.code,
-                this.expiresIn
+                this.expiresIn,
+                this.createdAt
         );
     }
 }

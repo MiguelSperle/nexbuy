@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorizationResponse {
-    private String jwtToken;
+    private String accessToken;
+    private String refreshToken;
     private String successType;
     private int statusCode;
 }

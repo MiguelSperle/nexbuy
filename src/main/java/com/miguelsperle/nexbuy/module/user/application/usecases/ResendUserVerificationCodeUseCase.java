@@ -13,7 +13,6 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.UserVerificationCode;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserVerificationCodeCreatedEvent;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -34,9 +33,9 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
             throw new UserAlreadyVerifiedException("User already verified");
         }
 
-        this.getPreviousUserVerificationCodeByUserId(user.getId()).ifPresent(userVerificationCode -> {
-            this.userVerificationCodeGateway.deleteById(userVerificationCode.getId());
-        });
+        this.getPreviousUserVerificationCodeByUserId(user.getId()).ifPresent(userVerificationCode ->
+                this.userVerificationCodeGateway.deleteById(userVerificationCode.getId())
+        );
 
         final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
 

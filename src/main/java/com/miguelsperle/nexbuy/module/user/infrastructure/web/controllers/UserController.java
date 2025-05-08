@@ -46,7 +46,7 @@ public class UserController {
                 createUserRequest.getEmail(),
                 createUserRequest.getPassword(),
                 createUserRequest.getPhoneNumber(),
-                createUserRequest.getUserType(),
+                createUserRequest.getPersonType(),
                 naturalPersonInput,
                 legalPersonInput
         ));
@@ -63,7 +63,8 @@ public class UserController {
         ));
 
         return ResponseEntity.ok().body(new AuthorizationResponse(
-                authorizationUseCaseOutput.getJwtToken(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
+                authorizationUseCaseOutput.getAccessToken(), authorizationUseCaseOutput.getRefreshToken(),
+                HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
         );
     }
 
