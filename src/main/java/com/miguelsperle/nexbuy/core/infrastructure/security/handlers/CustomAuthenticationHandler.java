@@ -12,16 +12,14 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Collections;
 
 @Component
 public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
-    private static final String DEFAULT_AUTHENTICATION_ERROR_MESSAGE = "Authentication is required to access this resource";
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
         final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                List.of(DEFAULT_AUTHENTICATION_ERROR_MESSAGE), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+                Collections.singletonList("Authentication is required to access this resource"), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

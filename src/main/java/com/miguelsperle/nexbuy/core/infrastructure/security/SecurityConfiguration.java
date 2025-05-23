@@ -25,10 +25,11 @@ public class SecurityConfiguration {
     private final AccessDeniedHandler accessDeniedHandler;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-            "api/user/create",
-            "api/user/authorization",
-            "api/user/verification-code/resend",
-            "api/user/confirm-verification"
+            "/api/user/create",
+            "/api/user/authenticate",
+            "/api/user/verification-code/resend",
+            "/api/user/confirm-verification",
+            "/api/user/refresh-token"
     };
 
     @Bean
@@ -39,7 +40,7 @@ public class SecurityConfiguration {
                         authorize
                                 .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                                 .anyRequest().authenticated())
-                .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))
+                .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

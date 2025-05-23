@@ -11,4 +11,5 @@ public interface IRefreshTokenGateway {
     RefreshToken save(RefreshToken refreshToken);
     void deleteById(String id);
     Optional<RefreshToken> findByUserId(String userId);
+    Optional<RefreshToken> findByToken(String token);
 }

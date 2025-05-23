@@ -4,10 +4,7 @@ import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.dtos.*;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.LegalPersonInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.complements.NaturalPersonInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthorizationUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResendUserVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +17,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final ICreateUserUseCase createUserUseCase;
-    private final IAuthorizationUseCase authorizationUseCase;
+    private final IAuthenticateUseCase authenticateUseCase;
     private final IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase;
     private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
+    private final IRefreshTokenUseCase refreshTokenUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -56,14 +54,14 @@ public class UserController {
         );
     }
 
-    @PostMapping("/authorization")
-    public ResponseEntity<Object> authorization(@RequestBody @Valid AuthorizationRequest authorizationRequest) {
-        final AuthorizationUseCaseOutput authorizationUseCaseOutput = this.authorizationUseCase.execute(new AuthorizationUseCaseInput(
-                authorizationRequest.getEmail(), authorizationRequest.getPassword()
+    @PostMapping("/authenticate")
+    public ResponseEntity<Object> authenticate(@RequestBody @Valid AuthenticateRequest authenticateRequest) {
+        final AuthenticateUseCaseOutput authenticateUseCaseOutput = this.authenticateUseCase.execute(new AuthenticateUseCaseInput(
+                authenticateRequest.getEmail(), authenticateRequest.getPassword()
         ));
 
-        return ResponseEntity.ok().body(new AuthorizationResponse(
-                authorizationUseCaseOutput.getAccessToken(), authorizationUseCaseOutput.getRefreshToken(),
+        return ResponseEntity.ok().body(new AuthenticateResponse(
+                authenticateUseCaseOutput.getAccessToken(), authenticateUseCaseOutput.getRefreshToken(),
                 HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
         );
     }
@@ -87,6 +85,17 @@ public class UserController {
 
         return ResponseEntity.ok().body(new MessageResponse(
                 "User verified successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<Object> refreshToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
+        final RefreshTokenUseCaseOutput refreshTokenUseCaseOutput = this.refreshTokenUseCase.execute(new RefreshTokenUseCaseInput(
+                refreshTokenRequest.getRefreshToken()
+        ));
+
+        return ResponseEntity.ok().body(new RefreshTokenResponse(
+                refreshTokenUseCaseOutput.getAccessToken(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
         ));
     }
 }

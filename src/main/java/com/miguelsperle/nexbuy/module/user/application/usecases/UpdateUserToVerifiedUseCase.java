@@ -21,17 +21,17 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
 
     @Override
     public void execute(UpdateUserToVerifiedUseCaseInput updateUserToVerifiedUseCaseInput) {
-        transactionExecutor.runInTransaction(() -> {
-            final UserVerificationCode userVerificationCode = this.getUserVerificationCodeByCode(updateUserToVerifiedUseCaseInput.getCode());
+        final UserVerificationCode userVerificationCode = this.getUserVerificationCodeByCode(updateUserToVerifiedUseCaseInput.getCode());
 
-            if (LocalDateTime.now().isAfter(userVerificationCode.getExpiresIn())) {
-                throw new UserVerificationCodeExpiredException("User verification code expired");
-            }
+        if (LocalDateTime.now().isAfter(userVerificationCode.getExpiresIn())) {
+            this.userVerificationCodeGateway.deleteById(userVerificationCode.getId());
+            throw new UserVerificationCodeExpiredException("User verification code expired. Please ask for a new code");
+        }
 
-            final User userUpdated = userVerificationCode.getUser().withIsVerified(true);
+        final User userUpdated = userVerificationCode.getUser().withIsVerified(true);
 
+        this.transactionExecutor.runTransaction(() -> {
             this.userGateway.save(userUpdated);
-
             this.userVerificationCodeGateway.deleteById(userVerificationCode.getId());
         });
     }

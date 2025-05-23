@@ -30,19 +30,19 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     @Override
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
-        transactionExecutor.runInTransaction(() -> {
-            final PersonType convertedToPersonType = PersonType.valueOf(createUserUseCaseInput.getPersonType());
+        final PersonType convertedToPersonType = PersonType.valueOf(createUserUseCaseInput.getPersonType());
 
-            this.ensureComplementBasedUserType(convertedToPersonType, createUserUseCaseInput.getNaturalPersonInput(), createUserUseCaseInput.getLegalPersonInput());
+        this.ensureComplementBasedUserType(convertedToPersonType, createUserUseCaseInput.getNaturalPersonInput(), createUserUseCaseInput.getLegalPersonInput());
 
-            if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail())) {
-                throw new UserAlreadyExistsException("This email is already being used");
-            }
+        if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail())) {
+            throw new UserAlreadyExistsException("This email is already being used");
+        }
 
-            final String encryptedPassword = this.passwordEncryptorProvider.encrypt(createUserUseCaseInput.getPassword());
+        final String encryptedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.getPassword());
 
-            final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), convertedToPersonType);
+        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), convertedToPersonType);
 
+        this.transactionExecutor.runTransaction(() -> {
             final User savedUser = this.userGateway.save(newUser);
 
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {

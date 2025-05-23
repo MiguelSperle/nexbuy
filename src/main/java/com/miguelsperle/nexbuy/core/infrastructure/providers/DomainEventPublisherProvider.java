@@ -11,7 +11,7 @@ public class DomainEventPublisherProvider implements IDomainEventPublisherProvid
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
-    public void publish(Object event) {
+    public void publishEvent(Object event) {
         this.applicationEventPublisher.publishEvent(event);
     }
 }

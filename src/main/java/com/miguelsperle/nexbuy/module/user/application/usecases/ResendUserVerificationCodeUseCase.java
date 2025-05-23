@@ -43,7 +43,7 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
 
         final UserVerificationCode savedUserVerificationCode = this.userVerificationCodeGateway.save(newUserVerificationCode);
 
-        this.domainEventPublisherProvider.publish(new UserVerificationCodeCreatedEvent(
+        this.domainEventPublisherProvider.publishEvent(new UserVerificationCodeCreatedEvent(
                 savedUserVerificationCode.getUser().getEmail(),
                 savedUserVerificationCode.getCode()
         ));

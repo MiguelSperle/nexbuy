@@ -14,19 +14,19 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
 
     @Override
     public void execute(CreateLegalPersonUseCaseInput createLegalPersonUseCaseInput) {
-        if (this.verifyJuridicalUserAlreadyExistsByCnpj(createLegalPersonUseCaseInput.getLegalPersonInput().getCnpj())) {
+        if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.getLegalPersonInput().getCnpj())) {
             throw new LegalPersonAlreadyExistsException("This cnpj is already being used");
         }
 
-        if (this.verifyJuridicalUserAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.getLegalPersonInput().getFantasyName())) {
+        if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.getLegalPersonInput().getFantasyName())) {
             throw new LegalPersonAlreadyExistsException("This fantasy name is already being used");
         }
 
-        if (this.verifyJuridicalUserAlreadyExistsByLegalName(createLegalPersonUseCaseInput.getLegalPersonInput().getLegalName())) {
+        if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.getLegalPersonInput().getLegalName())) {
             throw new LegalPersonAlreadyExistsException("This legal name is already being used");
         }
 
-        if (this.verifyJuridicalUserAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.getLegalPersonInput().getStateRegistration())) {
+        if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.getLegalPersonInput().getStateRegistration())) {
             throw new LegalPersonAlreadyExistsException("This state registration is already being used");
         }
 
@@ -37,19 +37,19 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
         this.legalPersonGateway.save(newLegalPerson);
     }
 
-    private boolean verifyJuridicalUserAlreadyExistsByCnpj(String cnpj) {
+    private boolean verifyLegalPersonAlreadyExistsByCnpj(String cnpj) {
         return this.legalPersonGateway.findByCnpj(cnpj).isPresent();
     }
 
-    private boolean verifyJuridicalUserAlreadyExistsByFantasyName(String fantasyName) {
+    private boolean verifyLegalPersonAlreadyExistsByFantasyName(String fantasyName) {
         return this.legalPersonGateway.findByFantasyName(fantasyName).isPresent();
     }
 
-    private boolean verifyJuridicalUserAlreadyExistsByLegalName(String legalName) {
+    private boolean verifyLegalPersonAlreadyExistsByLegalName(String legalName) {
         return this.legalPersonGateway.findByLegalName(legalName).isPresent();
     }
 
-    private boolean verifyJuridicalUserAlreadyExistsByStateRegistration(String stateRegistration) {
+    private boolean verifyLegalPersonAlreadyExistsByStateRegistration(String stateRegistration) {
         if (stateRegistration != null) {
             return this.legalPersonGateway.findByStateRegistration(stateRegistration).isPresent();
         }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorizationRequest {
+public class AuthenticateRequest {
     @NotBlank(message = "Email should not be neither null nor empty")
     @Email(message = "Email should be valid")
     private String email;

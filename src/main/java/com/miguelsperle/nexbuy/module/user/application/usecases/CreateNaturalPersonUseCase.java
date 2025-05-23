@@ -14,11 +14,11 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
 
     @Override
     public void execute(CreateNaturalPersonUseCaseInput createNaturalPersonUseCaseInput) {
-        if (this.verifyPhysicalUserAlreadyExistsByCpf(createNaturalPersonUseCaseInput.getNaturalPersonInput().getCpf())) {
+        if (this.verifyNaturalPersonAlreadyExistsByCpf(createNaturalPersonUseCaseInput.getNaturalPersonInput().getCpf())) {
             throw new NaturalPersonAlreadyExistsException("This cpf is already being used");
         }
 
-        if (this.verifyPhysicalUserAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getNaturalPersonInput().getGeneralRegister())) {
+        if (this.verifyPNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getNaturalPersonInput().getGeneralRegister())) {
             throw new NaturalPersonAlreadyExistsException("This general register is already being used");
         }
 
@@ -29,11 +29,11 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
         this.naturalPersonGateway.save(newNaturalPerson);
     }
 
-    private boolean verifyPhysicalUserAlreadyExistsByCpf(String cpf) {
+    private boolean verifyNaturalPersonAlreadyExistsByCpf(String cpf) {
         return this.naturalPersonGateway.findByCpf(cpf).isPresent();
     }
 
-    private boolean verifyPhysicalUserAlreadyExistsByGeneralRegister(String generalRegister) {
+    private boolean verifyPNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
         return this.naturalPersonGateway.findByGeneralRegister(generalRegister).isPresent();
     }
 }

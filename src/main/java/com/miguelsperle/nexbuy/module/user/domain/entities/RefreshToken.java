@@ -34,7 +34,7 @@ public class RefreshToken {
                 UUID.randomUUID().toString(),
                 user,
                 UUID.randomUUID().toString(),
-                LocalDateTime.now().plusDays(30),
+                LocalDateTime.now().plusDays(15),
                 LocalDateTime.now()
         );
     }

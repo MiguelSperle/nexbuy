@@ -18,7 +18,7 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
     public CreateRefreshTokenUseCaseOutput execute(CreateRefreshTokenUseCaseInput createRefreshTokenUseCaseInput) {
         final User user = createRefreshTokenUseCaseInput.getUser();
 
-        this.getPreviousRefreshToken(user.getId()).ifPresent(refreshToken ->
+        this.getPreviousRefreshTokenByUserId(user.getId()).ifPresent(refreshToken ->
                 this.refreshTokenGateway.deleteById(refreshToken.getId())
         );
 
@@ -29,7 +29,7 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
         return new CreateRefreshTokenUseCaseOutput(savedRefreshToken.getToken());
     }
 
-    private Optional<RefreshToken> getPreviousRefreshToken(String userId) {
+    private Optional<RefreshToken> getPreviousRefreshTokenByUserId(String userId) {
         return this.refreshTokenGateway.findByUserId(userId);
     }
 }

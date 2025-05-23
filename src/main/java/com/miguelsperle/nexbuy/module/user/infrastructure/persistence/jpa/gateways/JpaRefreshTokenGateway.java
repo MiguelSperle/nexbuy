@@ -39,4 +39,9 @@ public class JpaRefreshTokenGateway implements IRefreshTokenGateway {
     public Optional<RefreshToken> findByUserId(String userId) {
         return this.jpaRefreshTokenRepository.findByUserId(userId).map(JpaRefreshTokenEntity::toEntity);
     }
+
+    @Override
+    public Optional<RefreshToken> findByToken(String token) {
+        return this.jpaRefreshTokenRepository.findByToken(token).map(JpaRefreshTokenEntity::toEntity);
+    }
 }

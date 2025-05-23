@@ -11,7 +11,7 @@ public class PasswordEncryptorProvider implements IPasswordEncryptorProvider {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public String encrypt(String password) {
+    public String encode(String password) {
         return this.passwordEncoder.encode(password);
     }
 
