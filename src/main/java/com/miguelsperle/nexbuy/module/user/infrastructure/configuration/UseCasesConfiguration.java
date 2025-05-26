@@ -48,13 +48,13 @@ public class UseCasesConfiguration {
 
     @Bean
     public ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase(
-            IUserVerificationCodeGateway userVerificationCodeGateway,
+            IUserCodeGateway userCodeGateway,
             ICodeProvider codeProvider,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ITransactionExecutor transactionExecutor
     ) {
         return new CreateUserVerificationCodeUseCase(
-                userVerificationCodeGateway,
+                userCodeGateway,
                 codeProvider,
                 domainEventPublisherProvider,
                 transactionExecutor
@@ -78,13 +78,13 @@ public class UseCasesConfiguration {
 
     @Bean
     public IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase(
-            IUserVerificationCodeGateway userVerificationCodeGateway,
+            IUserCodeGateway userCodeGateway,
             IUserGateway userGateway,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ICodeProvider codeProvider
     ) {
         return new ResendUserVerificationCodeUseCase(
-                userVerificationCodeGateway,
+                userCodeGateway,
                 userGateway,
                 domainEventPublisherProvider,
                 codeProvider
@@ -94,12 +94,12 @@ public class UseCasesConfiguration {
     @Bean
     public IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase(
             IUserGateway userGateway,
-            IUserVerificationCodeGateway userVerificationCodeGateway,
+            IUserCodeGateway userCodeGateway,
             ITransactionExecutor transactionExecutor
     ) {
         return new UpdateUserToVerifiedUseCase(
                 userGateway,
-                userVerificationCodeGateway,
+                userCodeGateway,
                 transactionExecutor
         );
     }
@@ -117,5 +117,20 @@ public class UseCasesConfiguration {
             IJwtService jwtService
     ) {
         return new RefreshTokenUseCase(refreshTokenGateway, jwtService);
+    }
+
+    @Bean
+    public ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase(
+            IUserCodeGateway userCodeGateway,
+            IUserGateway userGateway,
+            ICodeProvider codeProvider,
+            IDomainEventPublisherProvider domainEventPublisherProvider
+    ) {
+        return new CreateUserPasswordResetCodeUseCase(
+                userCodeGateway,
+                userGateway,
+                codeProvider,
+                domainEventPublisherProvider
+        );
     }
 }

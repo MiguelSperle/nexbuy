@@ -21,6 +21,7 @@ public class UserController {
     private final IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase;
     private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
     private final IRefreshTokenUseCase refreshTokenUseCase;
+    private final ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -97,5 +98,14 @@ public class UserController {
         return ResponseEntity.ok().body(new RefreshTokenResponse(
                 refreshTokenUseCaseOutput.getAccessToken(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
         ));
+    }
+
+    @PostMapping("/reset-password/send-recovery-email")
+    public ResponseEntity<Object> t(@RequestBody @Valid CreateUserPasswordResetCodeRequest createUserPasswordResetCodeRequest) {
+        this.createUserPasswordResetCodeUseCase.execute(new CreateUserPasswordResetCodeUseCaseInput(
+                createUserPasswordResetCodeRequest.getEmail()
+        ));
+
+        return null;
     }
 }

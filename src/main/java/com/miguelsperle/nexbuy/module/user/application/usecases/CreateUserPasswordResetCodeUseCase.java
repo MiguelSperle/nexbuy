@@ -2,12 +2,11 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.module.user.application.dtos.ResendUserVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyVerifiedException;
+import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserPasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResendUserVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserPasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -17,22 +16,18 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class ResendUserVerificationCodeUseCase implements IResendUserVerificationCodeUseCase {
+public class CreateUserPasswordResetCodeUseCase implements ICreateUserPasswordResetCodeUseCase {
     private final IUserCodeGateway userCodeGateway;
     private final IUserGateway userGateway;
-    private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ICodeProvider codeProvider;
+    private final IDomainEventPublisherProvider domainEventPublisherProvider;
 
     private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private final static int CODE_LENGTH = 6;
 
     @Override
-    public void execute(ResendUserVerificationCodeUseCaseInput resendUserVerificationCodeUseCaseInput) {
-        final User user = this.getUserByEmail(resendUserVerificationCodeUseCaseInput.getEmail());
-
-        if (user.getIsVerified()) {
-            throw new UserAlreadyVerifiedException("User already verified");
-        }
+    public void execute(CreateUserPasswordResetCodeUseCaseInput createUserPasswordResetCodeUseCaseInput) {
+        final User user = this.getUserByEmail(createUserPasswordResetCodeUseCaseInput.getEmail());
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->
                 this.userCodeGateway.deleteById(userCode.getId())
@@ -40,7 +35,7 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
 
         final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
 
-        final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
+        final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.PASSWORD_RESET);
 
         final UserCode savedUserCode = this.userCodeGateway.save(newUserCode);
 
@@ -56,6 +51,6 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
-        return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.USER_VERIFICATION.name());
+        return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.PASSWORD_RESET.name());
     }
 }

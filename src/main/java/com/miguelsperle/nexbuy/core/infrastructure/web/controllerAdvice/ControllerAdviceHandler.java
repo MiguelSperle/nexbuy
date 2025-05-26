@@ -110,17 +110,17 @@ public class ControllerAdviceHandler {
         ));
     }
 
-    @ExceptionHandler(UserVerificationCodeNotFoundException.class)
-    public ResponseEntity<Object> handleUserVerificationCodeNotFoundException(UserVerificationCodeNotFoundException userVerificationCodeNotFoundException) {
+    @ExceptionHandler(UserCodeNotFoundException.class)
+    public ResponseEntity<Object> handleUserCodeNotFoundException(UserCodeNotFoundException userCodeNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(userVerificationCodeNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
+                Collections.singletonList(userCodeNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
         ));
     }
 
-    @ExceptionHandler(UserVerificationCodeExpiredException.class)
-    public ResponseEntity<Object> handleUserVerificationCodeExpiredException(UserVerificationCodeExpiredException userVerificationCodeExpiredException) {
+    @ExceptionHandler(UserCodeExpiredException.class)
+    public ResponseEntity<Object> handleUserCodeExpiredException(UserCodeExpiredException userCodeExpiredException) {
         return ResponseEntity.status(HttpStatus.GONE).body(new ErrorMessageResponse(
-                Collections.singletonList(userVerificationCodeExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase(), HttpStatus.GONE.value()
+                Collections.singletonList(userCodeExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase(), HttpStatus.GONE.value()
         ));
     }
 
