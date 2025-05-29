@@ -9,20 +9,15 @@ import java.security.SecureRandom;
 public class CodeProvider implements ICodeProvider {
     private final SecureRandom secureRandom = new SecureRandom();
 
+    private final static int CODE_LENGTH = 6;
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     @Override
-    public String generateCode(int codeLength, String characters) {
-        if (codeLength <= 0) {
-            throw new IllegalArgumentException("Code length should be greater than zero");
-        }
+    public String generateCode() {
+        final StringBuilder code = new StringBuilder(CODE_LENGTH);
 
-        if (characters == null || characters.isEmpty()) {
-            throw new IllegalArgumentException("Characters should not be neither null nor empty");
-        }
-
-        final StringBuilder code = new StringBuilder(codeLength);
-
-        for (int i = 0; i < codeLength; i++) {
-            code.append(characters.charAt(this.secureRandom.nextInt(characters.length())));
+        for (int i = 0; i < CODE_LENGTH; i++) {
+            code.append(ALPHANUMERIC_CHARACTERS.charAt(this.secureRandom.nextInt(ALPHANUMERIC_CHARACTERS.length())));
         }
 
         return code.toString();

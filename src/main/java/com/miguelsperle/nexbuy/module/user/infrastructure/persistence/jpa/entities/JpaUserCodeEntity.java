@@ -17,13 +17,13 @@ public class JpaUserCodeEntity {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private JpaUserEntity jpaUserEntity;
 
     @Column(nullable = false, unique = true, length = 6)
     private String code;
 
-    @Column(name = "code_type", nullable = false)
+    @Column(name = "code_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private CodeType codeType;
 

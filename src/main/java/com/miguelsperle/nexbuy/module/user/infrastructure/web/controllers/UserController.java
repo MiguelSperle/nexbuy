@@ -22,6 +22,7 @@ public class UserController {
     private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
     private final IRefreshTokenUseCase refreshTokenUseCase;
     private final ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase;
+    private final IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -63,8 +64,8 @@ public class UserController {
 
         return ResponseEntity.ok().body(new AuthenticateResponse(
                 authenticateUseCaseOutput.getAccessToken(), authenticateUseCaseOutput.getRefreshToken(),
-                HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
-        );
+                HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
     }
 
     @PostMapping("/verification-code/resend")
@@ -101,11 +102,24 @@ public class UserController {
     }
 
     @PostMapping("/reset-password/send-recovery-email")
-    public ResponseEntity<Object> t(@RequestBody @Valid CreateUserPasswordResetCodeRequest createUserPasswordResetCodeRequest) {
+    public ResponseEntity<Object> createUserPasswordResetCode(@RequestBody @Valid CreateUserPasswordResetCodeRequest createUserPasswordResetCodeRequest) {
         this.createUserPasswordResetCodeUseCase.execute(new CreateUserPasswordResetCodeUseCaseInput(
                 createUserPasswordResetCodeRequest.getEmail()
         ));
 
-        return null;
+        return ResponseEntity.ok().body(new MessageResponse(
+                "Password reset code sent successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
+    }
+
+    @PostMapping("/reset-password/validate-code")
+    public ResponseEntity<Object> validateUserPasswordResetCode(@RequestBody @Valid ValidateUserPasswordResetCodeRequest validateUserPasswordResetCodeRequest) {
+        final ValidateUserPasswordResetCodeUseCaseOutput validateUserPasswordResetCodeUseCaseOutput = this.validateUserPasswordResetCodeUseCase.execute(new ValidateUserPasswordResetCodeUseCaseInput(
+                validateUserPasswordResetCodeRequest.getCode()
+        ));
+
+        return ResponseEntity.ok().body(new ValidateUserPasswordResetCodeResponse(
+                validateUserPasswordResetCodeUseCaseOutput.isCodeIsValid(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
     }
 }

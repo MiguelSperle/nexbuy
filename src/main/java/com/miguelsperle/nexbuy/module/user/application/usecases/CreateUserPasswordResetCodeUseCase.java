@@ -22,9 +22,6 @@ public class CreateUserPasswordResetCodeUseCase implements ICreateUserPasswordRe
     private final ICodeProvider codeProvider;
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
 
-    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private final static int CODE_LENGTH = 6;
-
     @Override
     public void execute(CreateUserPasswordResetCodeUseCaseInput createUserPasswordResetCodeUseCaseInput) {
         final User user = this.getUserByEmail(createUserPasswordResetCodeUseCaseInput.getEmail());
@@ -33,7 +30,7 @@ public class CreateUserPasswordResetCodeUseCase implements ICreateUserPasswordRe
                 this.userCodeGateway.deleteById(userCode.getId())
         );
 
-        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
+        final String codeGenerated = this.codeProvider.generateCode();
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.PASSWORD_RESET);
 
@@ -47,7 +44,7 @@ public class CreateUserPasswordResetCodeUseCase implements ICreateUserPasswordRe
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found by email: " + email));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

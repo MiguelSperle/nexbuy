@@ -23,9 +23,6 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ICodeProvider codeProvider;
 
-    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private final static int CODE_LENGTH = 6;
-
     @Override
     public void execute(ResendUserVerificationCodeUseCaseInput resendUserVerificationCodeUseCaseInput) {
         final User user = this.getUserByEmail(resendUserVerificationCodeUseCaseInput.getEmail());
@@ -38,7 +35,7 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
                 this.userCodeGateway.deleteById(userCode.getId())
         );
 
-        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
+        final String codeGenerated = this.codeProvider.generateCode();
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
 
@@ -52,7 +49,7 @@ public class ResendUserVerificationCodeUseCase implements IResendUserVerificatio
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found by email: " + email));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

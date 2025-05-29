@@ -35,11 +35,11 @@ public class JpaUserEntity {
     @Column(name = "is_verified", nullable = false)
     private Boolean isVerified;
 
-    @Column(name = "authorization_role", nullable = false)
+    @Column(name = "authorization_role", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private AuthorizationRole authorizationRole;
 
-    @Column(name = "person_type", nullable = false)
+    @Column(name = "person_type", nullable = false, length = 15)
     @Enumerated(EnumType.STRING)
     private PersonType personType;
 

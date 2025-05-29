@@ -133,4 +133,11 @@ public class UseCasesConfiguration {
                 domainEventPublisherProvider
         );
     }
+
+    @Bean
+    public IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase(
+            IUserCodeGateway userCodeGateway
+    ) {
+        return new ValidateUserPasswordResetCodeUseCase(userCodeGateway);
+    }
 }

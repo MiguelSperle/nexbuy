@@ -23,7 +23,7 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
 
         if (LocalDateTime.now().isAfter(refreshToken.getExpiresIn())) {
             this.refreshTokenGateway.deleteById(refreshToken.getId());
-            throw new RefreshTokenExpiredException("Refresh token expired. Please make a new authentication process");
+            throw new RefreshTokenExpiredException("Refresh token has expired");
         }
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(refreshToken.getUser().getId());
@@ -33,6 +33,6 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
 
     private RefreshToken getRefreshTokenByToken(String token) {
         return this.refreshTokenGateway.findByToken(token)
-                .orElseThrow(() -> new RefreshTokenNotFoundException("Refresh token not found by token: " + token));
+                .orElseThrow(() -> new RefreshTokenNotFoundException("Refresh token not found"));
     }
 }

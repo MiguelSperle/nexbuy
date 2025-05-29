@@ -30,7 +30,8 @@ public class SecurityConfiguration {
             "/api/user/verification-code/resend",
             "/api/user/confirm-verification",
             "/api/user/refresh-token",
-            "/api/user/reset-password/send-recovery-email"
+            "/api/user/reset-password/send-recovery-email",
+            "/api/user/reset-password/validate-code",
     };
 
     @Bean

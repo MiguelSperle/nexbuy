@@ -19,14 +19,11 @@ public class CreateUserVerificationCodeUseCase implements ICreateUserVerificatio
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ITransactionExecutor transactionExecutor;
 
-    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private final static int CODE_LENGTH = 6;
-
     @Override
     public void execute(CreateUserVerificationCodeUseCaseInput createUserVerificationCodeUseCaseInput) {
         final User user = createUserVerificationCodeUseCaseInput.getUser();
 
-        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
+        final String codeGenerated = this.codeProvider.generateCode();
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
 
