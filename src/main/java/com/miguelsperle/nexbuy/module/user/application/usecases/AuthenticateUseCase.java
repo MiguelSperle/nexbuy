@@ -26,7 +26,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
         final User user = this.getUserByEmail(authenticateUseCaseInput.getEmail());
 
         if (!this.validatePassword(authenticateUseCaseInput.getPassword(), user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid authorization credentials");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
         if (!user.getIsVerified()) {
@@ -43,10 +43,10 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid authorization credentials"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
     }
 
-    private boolean validatePassword(String password, String encryptedPassword) {
-        return this.passwordEncryptorProvider.matches(password, encryptedPassword);
+    private boolean validatePassword(String password, String encodedPassword) {
+        return this.passwordEncryptorProvider.matches(password, encodedPassword);
     }
 }

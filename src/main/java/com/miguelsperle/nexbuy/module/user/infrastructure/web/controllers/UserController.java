@@ -23,6 +23,7 @@ public class UserController {
     private final IRefreshTokenUseCase refreshTokenUseCase;
     private final ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase;
     private final IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase;
+    private final IResetUserPasswordUseCase resetUserPasswordUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -120,6 +121,17 @@ public class UserController {
 
         return ResponseEntity.ok().body(new ValidateUserPasswordResetCodeResponse(
                 validateUserPasswordResetCodeUseCaseOutput.isCodeIsValid(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        ));
+    }
+
+    @PatchMapping("/reset-password")
+    public ResponseEntity<Object> resetUserPassword(@RequestBody @Valid ResetUserPasswordRequest resetUserPasswordRequest) {
+        this.resetUserPasswordUseCase.execute(new ResetUserPasswordUseCaseInput(
+                resetUserPasswordRequest.getCode(), resetUserPasswordRequest.getPassword()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse(
+                "Password reset successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
         ));
     }
 }

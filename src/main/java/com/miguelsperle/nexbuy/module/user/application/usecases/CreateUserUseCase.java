@@ -38,9 +38,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             throw new UserAlreadyExistsException("This email is already being used");
         }
 
-        final String encryptedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.getPassword());
+        final String encodedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.getPassword());
 
-        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encryptedPassword, createUserUseCaseInput.getPhoneNumber(), convertedToPersonType);
+        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encodedPassword, createUserUseCaseInput.getPhoneNumber(), convertedToPersonType);
 
         this.transactionExecutor.runTransaction(() -> {
             final User savedUser = this.userGateway.save(newUser);

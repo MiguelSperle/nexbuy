@@ -32,6 +32,7 @@ public class SecurityConfiguration {
             "/api/user/refresh-token",
             "/api/user/reset-password/send-recovery-email",
             "/api/user/reset-password/validate-code",
+            "/api/user/reset-password"
     };
 
     @Bean

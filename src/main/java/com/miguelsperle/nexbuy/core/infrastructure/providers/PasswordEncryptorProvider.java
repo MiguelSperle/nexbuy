@@ -16,7 +16,7 @@ public class PasswordEncryptorProvider implements IPasswordEncryptorProvider {
     }
 
     @Override
-    public boolean matches(String rawPassword, String encodedPassword) {
-        return this.passwordEncoder.matches(rawPassword, encodedPassword);
+    public boolean matches(String password, String encodedPassword) {
+        return this.passwordEncoder.matches(password, encodedPassword);
     }
 }

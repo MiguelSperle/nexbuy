@@ -140,4 +140,19 @@ public class UseCasesConfiguration {
     ) {
         return new ValidateUserPasswordResetCodeUseCase(userCodeGateway);
     }
+
+    @Bean
+    public IResetUserPasswordUseCase resetUserPasswordUseCase(
+            IUserCodeGateway userCodeGateway,
+            IUserGateway userGateway,
+            IPasswordEncryptorProvider passwordEncryptorProvider,
+            ITransactionExecutor transactionExecutor
+    ) {
+        return new ResetUserPasswordUseCase(
+                userCodeGateway,
+                userGateway,
+                passwordEncryptorProvider,
+                transactionExecutor
+        );
+    }
 }
