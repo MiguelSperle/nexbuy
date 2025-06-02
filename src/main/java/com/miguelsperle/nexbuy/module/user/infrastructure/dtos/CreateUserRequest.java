@@ -31,8 +31,8 @@ public class CreateUserRequest {
     @Size(min = 5, max = 100, message = "Password should contain between 5 and 100 characters")
     private String password;
 
-    @NotNull(message = "Phone number should not be null")
-    @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "Phone number should be in the format (XX) XXXXX-XXXX")
+    @NotBlank(message = "Phone number should not be neither null nor empty")
+    @Pattern(regexp = "^(|\\(\\d{2}\\) \\d{5}-\\d{4})$", message = "Phone number should be in the format (XX) XXXXX-XXXX")
     private String phoneNumber;
 
     @ValidEnum(enumClass = PersonType.class, message = "Person type should be either NATURAL_PERSON or LEGAL_PERSON")

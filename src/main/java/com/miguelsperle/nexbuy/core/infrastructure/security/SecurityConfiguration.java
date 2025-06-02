@@ -24,7 +24,7 @@ public class SecurityConfiguration {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
-    private static final String[] PUBLIC_ENDPOINTS = {
+    private static final String[] USER_MODULE_PUBLIC_ENDPOINTS = {
             "/api/user/create",
             "/api/user/authenticate",
             "/api/user/verification-code/resend",
@@ -41,7 +41,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                                .requestMatchers(USER_MODULE_PUBLIC_ENDPOINTS).permitAll()
                                 .anyRequest().authenticated())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)

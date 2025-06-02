@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.UpdateUserToVerified
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
+import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -24,7 +25,7 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
     public void execute(UpdateUserToVerifiedUseCaseInput updateUserToVerifiedUseCaseInput) {
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(updateUserToVerifiedUseCaseInput.getCode());
 
-        if (LocalDateTime.now().isAfter(userCode.getExpiresIn())) {
+        if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.userCodeGateway.deleteById(userCode.getId());
             throw new UserCodeExpiredException("User code has expired");
         }

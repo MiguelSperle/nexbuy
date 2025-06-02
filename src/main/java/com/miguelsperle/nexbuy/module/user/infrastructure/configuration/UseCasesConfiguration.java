@@ -3,6 +3,7 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
@@ -154,5 +155,13 @@ public class UseCasesConfiguration {
                 passwordEncryptorProvider,
                 transactionExecutor
         );
+    }
+
+    @Bean
+    public IUpdateUserInformationUseCase updateUserInformationUseCase(
+            IAuthenticatedUserService authenticatedUserService,
+            IUserGateway userGateway
+    ) {
+        return new UpdateUserInformationUseCase(authenticatedUserService, userGateway);
     }
 }

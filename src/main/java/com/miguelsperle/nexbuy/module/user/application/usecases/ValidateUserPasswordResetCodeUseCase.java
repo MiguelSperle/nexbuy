@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.ValidateUserPassword
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IValidateUserPasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -20,7 +21,7 @@ public class ValidateUserPasswordResetCodeUseCase implements IValidateUserPasswo
     public ValidateUserPasswordResetCodeUseCaseOutput execute(ValidateUserPasswordResetCodeUseCaseInput validateUserPasswordResetCodeUseCaseInput) {
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(validateUserPasswordResetCodeUseCaseInput.getCode());
 
-        if (LocalDateTime.now().isAfter(userCode.getExpiresIn())) {
+        if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.userCodeGateway.deleteById(userCode.getId());
             throw new UserCodeExpiredException("User code has expired");
         }

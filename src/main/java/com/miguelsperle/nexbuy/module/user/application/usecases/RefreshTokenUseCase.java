@@ -6,6 +6,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.RefreshTokenUseCaseO
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
     public RefreshTokenUseCaseOutput execute(RefreshTokenUseCaseInput refreshTokenUseCaseInput) {
         final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.getRefreshToken());
 
-        if (LocalDateTime.now().isAfter(refreshToken.getExpiresIn())) {
+        if (ExpirationUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
             this.refreshTokenGateway.deleteById(refreshToken.getId());
             throw new RefreshTokenExpiredException("Refresh token has expired");
         }

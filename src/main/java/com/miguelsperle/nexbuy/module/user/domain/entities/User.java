@@ -11,11 +11,14 @@ import java.util.UUID;
 @Data
 public class User {
     private final String id;
+    @With
     private final String firstName;
+    @With
     private final String lastName;
     private final String email;
     @With
     private final String password;
+    @With
     private final String phoneNumber;
     @With
     private final Boolean isVerified;

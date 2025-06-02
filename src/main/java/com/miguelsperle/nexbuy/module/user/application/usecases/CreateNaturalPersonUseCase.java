@@ -18,7 +18,7 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
             throw new NaturalPersonAlreadyExistsException("This cpf is already being used");
         }
 
-        if (this.verifyPNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getNaturalPersonInput().getGeneralRegister())) {
+        if (this.verifyNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getNaturalPersonInput().getGeneralRegister())) {
             throw new NaturalPersonAlreadyExistsException("This general register is already being used");
         }
 
@@ -33,7 +33,7 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
         return this.naturalPersonGateway.findByCpf(cpf).isPresent();
     }
 
-    private boolean verifyPNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
+    private boolean verifyNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
         return this.naturalPersonGateway.findByGeneralRegister(generalRegister).isPresent();
     }
 }
