@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases.abstractions;
 
 import com.miguelsperle.nexbuy.core.application.usecases.abstractions.IUseCaseWithoutReturn;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateLegalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateLegalPersonUseCaseInput;
 
 public interface ICreateLegalPersonUseCase extends IUseCaseWithoutReturn<CreateLegalPersonUseCaseInput> {
 }

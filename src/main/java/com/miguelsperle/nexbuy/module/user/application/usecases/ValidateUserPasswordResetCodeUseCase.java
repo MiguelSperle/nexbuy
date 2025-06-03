@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.ValidateUserPasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.ValidateUserPasswordResetCodeUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.ValidateUserPasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidateUserPasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IValidateUserPasswordResetCodeUseCase;

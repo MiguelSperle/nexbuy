@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserPasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserPasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserPasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;

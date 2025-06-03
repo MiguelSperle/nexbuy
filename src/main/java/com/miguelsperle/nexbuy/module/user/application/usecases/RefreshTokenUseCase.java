@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.RefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.RefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.RefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IRefreshTokenUseCase;

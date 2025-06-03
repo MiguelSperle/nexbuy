@@ -12,4 +12,5 @@ public interface INaturalPersonGateway {
     void deleteById(String id);
     Optional<NaturalPerson> findByCpf(String cpf);
     Optional<NaturalPerson> findByGeneralRegister(String generalRegister);
+    Optional<NaturalPerson> findByUserId(String userId);
 }

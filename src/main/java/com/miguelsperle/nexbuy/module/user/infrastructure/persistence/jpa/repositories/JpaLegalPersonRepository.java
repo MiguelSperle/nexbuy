@@ -19,4 +19,7 @@ public interface JpaLegalPersonRepository extends JpaRepository<JpaLegalPersonEn
 
     @Query(nativeQuery = true, value = "SELECT * FROM legal_persons lp WHERE lp.state_registration = :stateRegistration")
     Optional<JpaLegalPersonEntity> findByStateRegistration(@Param("stateRegistration") String stateRegistration);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM legal_persons lp WHERE lp.user_id = :userId")
+    Optional<JpaLegalPersonEntity> findByUserId(@Param("userId") String userId);
 }

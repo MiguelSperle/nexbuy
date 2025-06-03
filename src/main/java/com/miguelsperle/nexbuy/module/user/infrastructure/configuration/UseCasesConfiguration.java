@@ -159,9 +159,16 @@ public class UseCasesConfiguration {
 
     @Bean
     public IUpdateUserInformationUseCase updateUserInformationUseCase(
-            IAuthenticatedUserService authenticatedUserService,
-            IUserGateway userGateway
+            IAuthenticatedUserService authenticatedUserService, IUserGateway userGateway
     ) {
         return new UpdateUserInformationUseCase(authenticatedUserService, userGateway);
+    }
+
+    @Bean
+    public IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
+            IAuthenticatedUserService authenticatedUserService, INaturalPersonGateway naturalPersonGateway,
+            ILegalPersonGateway legalPersonGateway
+    ) {
+        return new GetAuthenticatedUserUseCase(authenticatedUserService, naturalPersonGateway, legalPersonGateway);
     }
 }

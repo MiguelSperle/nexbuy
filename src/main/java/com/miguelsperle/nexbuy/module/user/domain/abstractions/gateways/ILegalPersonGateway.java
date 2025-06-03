@@ -14,4 +14,5 @@ public interface ILegalPersonGateway {
     Optional<LegalPerson> findByFantasyName(String fantasyName);
     Optional<LegalPerson> findByLegalName(String legalName);
     Optional<LegalPerson> findByStateRegistration(String stateRegistration);
+    Optional<LegalPerson> findByUserId(String userId);
 }

@@ -44,4 +44,9 @@ public class JpaNaturalPersonGateway implements INaturalPersonGateway {
     public Optional<NaturalPerson> findByGeneralRegister(String generalRegister) {
         return this.jpaNaturalPersonRepository.findByGeneralRegister(generalRegister).map(JpaNaturalPersonEntity::toEntity);
     }
+
+    @Override
+    public Optional<NaturalPerson> findByUserId(String userId) {
+        return this.jpaNaturalPersonRepository.findByUserId(userId).map(JpaNaturalPersonEntity::toEntity);
+    }
 }

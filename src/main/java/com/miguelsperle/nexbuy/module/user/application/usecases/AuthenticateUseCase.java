@@ -2,10 +2,10 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.AuthenticateUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.AuthenticateUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateRefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.AuthenticateUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.AuthenticateUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateRefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCredentialsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthenticateUseCase;

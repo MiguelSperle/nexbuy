@@ -13,4 +13,7 @@ public interface JpaNaturalPersonRepository extends JpaRepository<JpaNaturalPers
 
     @Query(nativeQuery = true, value = "SELECT * FROM natural_persons np WHERE np.general_register = :generalRegister")
     Optional<JpaNaturalPersonEntity> findByGeneralRegister(@Param("generalRegister") String generalRegister);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM natural_persons np WHERE np.user_id = :userId")
+    Optional<JpaNaturalPersonEntity> findByUserId(@Param("userId") String userId);
 }

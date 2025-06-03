@@ -54,4 +54,9 @@ public class JpaLegalPersonGateway implements ILegalPersonGateway {
     public Optional<LegalPerson> findByStateRegistration(String stateRegistration) {
         return this.jpaLegalPersonRepository.findByStateRegistration(stateRegistration).map(JpaLegalPersonEntity::toEntity);
     }
+
+    @Override
+    public Optional<LegalPerson> findByUserId(String userId) {
+        return this.jpaLegalPersonRepository.findByUserId(userId).map(JpaLegalPersonEntity::toEntity);
+    }
 }

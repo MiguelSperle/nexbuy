@@ -2,12 +2,12 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateLegalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateNaturalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.CreateUserVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.LegalPersonInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.complements.NaturalPersonInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateLegalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateNaturalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.LegalPersonDataInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.NaturalPersonDataInput;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
@@ -32,7 +32,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
         final PersonType convertedToPersonType = PersonType.valueOf(createUserUseCaseInput.getPersonType());
 
-        this.ensureComplementBasedUserType(convertedToPersonType, createUserUseCaseInput.getNaturalPersonInput(), createUserUseCaseInput.getLegalPersonInput());
+        this.ensureComplementBasedUserType(convertedToPersonType, createUserUseCaseInput.getNaturalPersonDataInput(), createUserUseCaseInput.getLegalPersonDataInput());
 
         if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail())) {
             throw new UserAlreadyExistsException("This email is already being used");
@@ -48,12 +48,12 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
                 this.createNaturalPersonUseCase.execute(new CreateNaturalPersonUseCaseInput(
                         savedUser,
-                        createUserUseCaseInput.getNaturalPersonInput()
+                        createUserUseCaseInput.getNaturalPersonDataInput()
                 ));
             } else {
                 this.createLegalPersonUseCase.execute(new CreateLegalPersonUseCaseInput(
                         savedUser,
-                        createUserUseCaseInput.getLegalPersonInput()
+                        createUserUseCaseInput.getLegalPersonDataInput()
                 ));
             }
 
@@ -67,11 +67,11 @@ public class CreateUserUseCase implements ICreateUserUseCase {
         return this.userGateway.findByEmail(email).isPresent();
     }
 
-    private void ensureComplementBasedUserType(PersonType personType, NaturalPersonInput naturalPersonInput, LegalPersonInput legalPersonInput) {
-        if (personType == PersonType.NATURAL_PERSON && naturalPersonInput == null) {
-            throw new MissingRequiredComplementException("Natural person complement should not be null when user type is NATURAL_PERSON");
-        } else if (personType == PersonType.LEGAL_PERSON && legalPersonInput == null) {
-            throw new MissingRequiredComplementException("Legal person complement should not be null when user type is LEGAL_PERSON");
+    private void ensureComplementBasedUserType(PersonType personType, NaturalPersonDataInput naturalPersonDataInput, LegalPersonDataInput legalPersonDataInput) {
+        if (personType == PersonType.NATURAL_PERSON && naturalPersonDataInput == null) {
+            throw new MissingRequiredComplementException("Natural person data should not be null when user type is NATURAL_PERSON");
+        } else if (personType == PersonType.LEGAL_PERSON && legalPersonDataInput == null) {
+            throw new MissingRequiredComplementException("Legal person data should not be null when user type is LEGAL_PERSON");
         }
     }
 }
