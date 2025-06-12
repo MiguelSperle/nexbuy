@@ -10,5 +10,4 @@ import java.util.List;
 public class ErrorMessageResponse {
     private List<String> errors;
     private String errorType;
-    private int statusCode;
 }

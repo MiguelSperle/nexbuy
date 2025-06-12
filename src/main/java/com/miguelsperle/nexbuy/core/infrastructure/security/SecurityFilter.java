@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.core.infrastructure.exceptions.UnexpectedJwtToken
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,14 +27,14 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) {
         try {
             final String jwtToken = this.recoverToken(request);
 
             if (jwtToken != null) {
                 final String userId = this.jwtService.validateJwt(jwtToken);
                 final User user = this.userGateway.findById(userId)
-                        .orElseThrow(() -> new UnexpectedJwtTokenUserIdException("No user was found by the ID --> " + userId + " extracted from the token"));
+                        .orElseThrow(() -> new UnexpectedJwtTokenUserIdException("No user was found by id " + userId + " extracted from JWT token"));
                 this.setAuthentication(user);
             }
 

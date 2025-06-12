@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NaturalPersonDataInput {
-    private String cpf;
-    private String generalRegister;
+public class LegalPersonComplementInput{
+    private String cnpj;
+    private String fantasyName;
+    private String legalName;
+    private String stateRegistration;
 }

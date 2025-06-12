@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests;
 
 import com.miguelsperle.nexbuy.core.infrastructure.annotations.ValidEnum;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.complements.LegalPersonDataRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.complements.NaturalPersonDataRequest;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.complements.LegalPersonComplementRequest;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.complements.NaturalPersonComplementRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -39,8 +39,8 @@ public class CreateUserRequest {
     private String personType;
 
     @Valid
-    private NaturalPersonDataRequest naturalPersonData;
+    private NaturalPersonComplementRequest naturalPersonComplement;
 
     @Valid
-    private LegalPersonDataRequest legalPersonData;
+    private LegalPersonComplementRequest legalPersonComplement;
 }

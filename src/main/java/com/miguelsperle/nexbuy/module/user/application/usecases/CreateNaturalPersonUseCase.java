@@ -14,17 +14,17 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
 
     @Override
     public void execute(CreateNaturalPersonUseCaseInput createNaturalPersonUseCaseInput) {
-        if (this.verifyNaturalPersonAlreadyExistsByCpf(createNaturalPersonUseCaseInput.getNaturalPersonDataInput().getCpf())) {
+        if (this.verifyNaturalPersonAlreadyExistsByCpf(createNaturalPersonUseCaseInput.getCpf())) {
             throw new NaturalPersonAlreadyExistsException("This cpf is already being used");
         }
 
-        if (this.verifyNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getNaturalPersonDataInput().getGeneralRegister())) {
+        if (this.verifyNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.getGeneralRegister())) {
             throw new NaturalPersonAlreadyExistsException("This general register is already being used");
         }
 
         final User user = createNaturalPersonUseCaseInput.getUser();
 
-        final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(user, createNaturalPersonUseCaseInput.getNaturalPersonDataInput().getCpf(), createNaturalPersonUseCaseInput.getNaturalPersonDataInput().getGeneralRegister());
+        final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(user, createNaturalPersonUseCaseInput.getCpf(), createNaturalPersonUseCaseInput.getGeneralRegister());
 
         this.naturalPersonGateway.save(newNaturalPerson);
     }

@@ -14,25 +14,25 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
 
     @Override
     public void execute(CreateLegalPersonUseCaseInput createLegalPersonUseCaseInput) {
-        if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.getLegalPersonDataInput().getCnpj())) {
+        if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.getCnpj())) {
             throw new LegalPersonAlreadyExistsException("This cnpj is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.getLegalPersonDataInput().getFantasyName())) {
+        if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.getFantasyName())) {
             throw new LegalPersonAlreadyExistsException("This fantasy name is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.getLegalPersonDataInput().getLegalName())) {
+        if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.getLegalName())) {
             throw new LegalPersonAlreadyExistsException("This legal name is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.getLegalPersonDataInput().getStateRegistration())) {
+        if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.getStateRegistration())) {
             throw new LegalPersonAlreadyExistsException("This state registration is already being used");
         }
 
         final User user = createLegalPersonUseCaseInput.getUser();
 
-        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.getLegalPersonDataInput().getCnpj(), createLegalPersonUseCaseInput.getLegalPersonDataInput().getFantasyName(), createLegalPersonUseCaseInput.getLegalPersonDataInput().getLegalName(), createLegalPersonUseCaseInput.getLegalPersonDataInput().getStateRegistration());
+        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.getCnpj(), createLegalPersonUseCaseInput.getFantasyName(), createLegalPersonUseCaseInput.getLegalName(), createLegalPersonUseCaseInput.getStateRegistration());
 
         this.legalPersonGateway.save(newLegalPerson);
     }

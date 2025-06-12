@@ -14,12 +14,12 @@ public class UpdateUserInformationUseCase implements IUpdateUserInformationUseCa
 
     @Override
     public void execute(UpdateUserInformationUseCaseInput updateUserInformationUseCaseInput) {
-        final User user = this.authenticatedUserService.getAuthenticatedUser();
+        final User authenticatedUser = this.authenticatedUserService.getAuthenticatedUser();
 
-        final User userUpdated = user.withFirstName(updateUserInformationUseCaseInput.getFirstName())
+        final User authenticatedUserUpdated = authenticatedUser.withFirstName(updateUserInformationUseCaseInput.getFirstName())
                 .withLastName(updateUserInformationUseCaseInput.getLastName())
                 .withPhoneNumber(updateUserInformationUseCaseInput.getPhoneNumber());
 
-        this.userGateway.save(userUpdated);
+        this.userGateway.save(authenticatedUserUpdated);
     }
 }

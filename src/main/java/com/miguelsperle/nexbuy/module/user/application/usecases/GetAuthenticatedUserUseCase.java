@@ -2,8 +2,7 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAuthenticatedUserUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.complements.LegalPersonDataOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.complements.NaturalPersonDataOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAuthenticatedUserUseCase;
@@ -25,18 +24,22 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
     public GetAuthenticatedUserUseCaseOutput execute() {
         final User authenticatedUser = this.authenticatedUserService.getAuthenticatedUser();
 
-        NaturalPersonDataOutput naturalPersonDataOutput = null;
-        LegalPersonDataOutput legalPersonDataOutput = null;
+        PersonComplementOutput personComplementOutput;
 
         if (authenticatedUser.getPersonType() == PersonType.NATURAL_PERSON) {
             final NaturalPerson naturalPerson = this.getNaturalPersonByUserId(authenticatedUser.getId());
 
-            naturalPersonDataOutput = new NaturalPersonDataOutput(naturalPerson.getCpf(), naturalPerson.getGeneralRegister());
+            personComplementOutput = new PersonComplementOutput(
+                    naturalPerson.getCpf(), naturalPerson.getGeneralRegister(),
+                    null, null, null, null
+            );
         } else {
             final LegalPerson legalPerson = this.getLegalPersonByUserId(authenticatedUser.getId());
 
-            legalPersonDataOutput = new LegalPersonDataOutput(legalPerson.getCnpj(), legalPerson.getFantasyName(),
-                    legalPerson.getLegalName(), legalPerson.getStateRegistration()
+            personComplementOutput = new PersonComplementOutput(
+                    null, null, legalPerson.getCnpj(),
+                    legalPerson.getFantasyName(), legalPerson.getLegalName(),
+                    legalPerson.getStateRegistration()
             );
         }
 
@@ -47,8 +50,7 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
                 authenticatedUser.getPhoneNumber(),
                 authenticatedUser.getAuthorizationRole(),
                 authenticatedUser.getPersonType(),
-                naturalPersonDataOutput,
-                legalPersonDataOutput
+                personComplementOutput
         );
     }
 

@@ -26,15 +26,13 @@ public class ControllerAdviceHandler {
         final List<String> errors = methodArgumentNotValidException.getBindingResult().getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage).toList();
 
-        return ResponseEntity.badRequest().body(new ErrorMessageResponse(
-                errors, HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
-        ));
+        return ResponseEntity.badRequest().body(new ErrorMessageResponse(errors, HttpStatus.BAD_REQUEST.getReasonPhrase()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleHttpMessageNotReadableException() {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
-                Collections.singletonList("Invalid request body"), HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
+                Collections.singletonList("Invalid request body"), HttpStatus.BAD_REQUEST.getReasonPhrase()
         ));
     }
 
@@ -42,7 +40,7 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleJwtTokenValidationFailedException(JwtTokenValidationFailedException jwtTokenValidationFailedException) {
         log.warn("Handling Jwt token validation failed exception - ExceptionMessage: [{}]", jwtTokenValidationFailedException.getMessage(), jwtTokenValidationFailedException);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessageResponse(
-                Collections.singletonList(jwtTokenValidationFailedException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+                Collections.singletonList(jwtTokenValidationFailedException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase()
         ));
     }
 
@@ -50,91 +48,98 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleException(Exception exception) {
         log.error("Handling unexpected exception - ExceptionMessage: [{}]", exception.getMessage(), exception);
         return ResponseEntity.internalServerError().body(new ErrorMessageResponse(
-                Collections.singletonList("An unexpected error occurred"), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR.value()
+                Collections.singletonList("An unexpected error occurred"), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(userAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                Collections.singletonList(userAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(NaturalPersonAlreadyExistsException.class)
     public ResponseEntity<Object> handleNaturalPersonAlreadyExistsException(NaturalPersonAlreadyExistsException naturalPersonAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(naturalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                Collections.singletonList(naturalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(LegalPersonAlreadyExistsException.class)
     public ResponseEntity<Object> handleLegalPersonAlreadyExistsException(LegalPersonAlreadyExistsException legalPersonAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(legalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                Collections.singletonList(legalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(MissingRequiredComplementException.class)
     public ResponseEntity<Object> handleMissingRequiredDataException(MissingRequiredComplementException missingRequiredComplementException) {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
-                Collections.singletonList(missingRequiredComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()
+                Collections.singletonList(missingRequiredComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserNotVerifiedException.class)
     public ResponseEntity<Object> handleUserNotVerifiedException(UserNotVerifiedException userNotVerifiedException) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
-                Collections.singletonList(userNotVerifiedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN.value()
+                Collections.singletonList(userNotVerifiedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserAlreadyVerifiedException.class)
     public ResponseEntity<Object> handleUserAlreadyVerifiedException(UserAlreadyVerifiedException userAlreadyVerifiedException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(userAlreadyVerifiedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase(), HttpStatus.CONFLICT.value()
+                Collections.singletonList(userAlreadyVerifiedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<Object> handleInvalidCredentialsException(InvalidCredentialsException invalidCredentialsException) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessageResponse(
-                Collections.singletonList(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+                Collections.singletonList(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(userNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
+                Collections.singletonList(userNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserCodeNotFoundException.class)
     public ResponseEntity<Object> handleUserCodeNotFoundException(UserCodeNotFoundException userCodeNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(userCodeNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
+                Collections.singletonList(userCodeNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(UserCodeExpiredException.class)
     public ResponseEntity<Object> handleUserCodeExpiredException(UserCodeExpiredException userCodeExpiredException) {
         return ResponseEntity.status(HttpStatus.GONE).body(new ErrorMessageResponse(
-                Collections.singletonList(userCodeExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase(), HttpStatus.GONE.value()
+                Collections.singletonList(userCodeExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(RefreshTokenNotFoundException.class)
     public ResponseEntity<Object> handleRefreshTokenNotFoundException(RefreshTokenNotFoundException refreshTokenNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(refreshTokenNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value()
+                Collections.singletonList(refreshTokenNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(RefreshTokenExpiredException.class)
     public ResponseEntity<Object> handleRefreshTokenExpiredException(RefreshTokenExpiredException refreshTokenExpiredException) {
         return ResponseEntity.status(HttpStatus.GONE).body(new ErrorMessageResponse(
-                Collections.singletonList(refreshTokenExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase(), HttpStatus.GONE.value()
+                Collections.singletonList(refreshTokenExpiredException.getMessage()), HttpStatus.GONE.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(InvalidCurrentPasswordException.class)
+    public ResponseEntity<Object> handleInvalidCurrentPasswordException(InvalidCurrentPasswordException invalidCurrentPasswordException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
+                Collections.singletonList(invalidCurrentPasswordException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
         ));
     }
 }

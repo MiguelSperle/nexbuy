@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NaturalPersonDataOutput {
+public class PersonComplementOutput {
     private String cpf;
     private String generalRegister;
+    private String cnpj;
+    private String fantasyName;
+    private String legalName;
+    private String stateRegistration;
 }

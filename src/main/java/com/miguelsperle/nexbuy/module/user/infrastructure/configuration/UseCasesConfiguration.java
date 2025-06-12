@@ -171,4 +171,17 @@ public class UseCasesConfiguration {
     ) {
         return new GetAuthenticatedUserUseCase(authenticatedUserService, naturalPersonGateway, legalPersonGateway);
     }
+
+    @Bean
+    public IUpdateUserPasswordUseCase updateUserPasswordUseCase(
+            IAuthenticatedUserService authenticatedUserService,
+            IPasswordEncryptorProvider passwordEncryptorProvider,
+            IUserGateway userGateway
+    ) {
+        return new UpdateUserPasswordUseCase(
+                authenticatedUserService,
+                passwordEncryptorProvider,
+                userGateway
+        );
+    }
 }

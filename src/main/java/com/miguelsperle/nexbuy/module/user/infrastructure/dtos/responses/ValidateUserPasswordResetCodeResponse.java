@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses;
 
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidateUserPasswordResetCodeUseCaseOutput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ValidateUserPasswordResetCodeResponse {
     private boolean codeIsValid;
-    private String successType;
-    private int statusCode;
+
+    public static ValidateUserPasswordResetCodeResponse fromOutput(ValidateUserPasswordResetCodeUseCaseOutput validateUserPasswordResetCodeUseCaseOutput) {
+        return new ValidateUserPasswordResetCodeResponse(validateUserPasswordResetCodeUseCaseOutput.isCodeIsValid());
+    }
 }

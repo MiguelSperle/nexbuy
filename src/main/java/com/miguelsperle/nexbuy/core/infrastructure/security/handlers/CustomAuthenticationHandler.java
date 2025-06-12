@@ -19,7 +19,7 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
         final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                Collections.singletonList("Authentication is required to access this resource"), HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value()
+                Collections.singletonList("Authentication is required to access this resource"), HttpStatus.UNAUTHORIZED.getReasonPhrase()
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

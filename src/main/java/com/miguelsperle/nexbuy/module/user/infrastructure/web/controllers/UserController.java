@@ -1,21 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.LegalPersonDataInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.NaturalPersonDataInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.*;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidateUserPasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
+import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.*;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.AuthenticateResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.GetAuthenticatedUserResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.RefreshTokenResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.ValidateUserPasswordResetCodeResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.complements.LegalPersonDataResponse;
-import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.complements.NaturalPersonDataResponse;
+import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,24 +30,28 @@ public class UserController {
     private final IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase;
     private final IResetUserPasswordUseCase resetUserPasswordUseCase;
     private final IUpdateUserInformationUseCase updateUserInformationUseCase;
+    private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        NaturalPersonDataInput naturalPersonDataInput = null;
-        LegalPersonDataInput legalPersonDataInput = null;
+        PersonComplementInput personComplementInput = null;
 
-        if (createUserRequest.getNaturalPersonData() != null) {
-            naturalPersonDataInput = new NaturalPersonDataInput(
-                    createUserRequest.getNaturalPersonData().getCpf(),
-                    createUserRequest.getNaturalPersonData().getGeneralRegister()
+        final PersonType convertedToPersonType = PersonType.valueOf(createUserRequest.getPersonType());
+
+        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.getNaturalPersonComplement() != null) {
+            personComplementInput = new PersonComplementInput(
+                    createUserRequest.getNaturalPersonComplement().getCpf(),
+                    createUserRequest.getNaturalPersonComplement().getGeneralRegister(),
+                    null, null, null, null
             );
-        } else if (createUserRequest.getLegalPersonData() != null) {
-            legalPersonDataInput = new LegalPersonDataInput(
-                    createUserRequest.getLegalPersonData().getCnpj(),
-                    createUserRequest.getLegalPersonData().getFantasyName(),
-                    createUserRequest.getLegalPersonData().getLegalName(),
-                    createUserRequest.getLegalPersonData().getStateRegistration()
+        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.getLegalPersonComplement() != null) {
+            personComplementInput = new PersonComplementInput(
+                    null, null,
+                    createUserRequest.getLegalPersonComplement().getCnpj(),
+                    createUserRequest.getLegalPersonComplement().getFantasyName(),
+                    createUserRequest.getLegalPersonComplement().getLegalName(),
+                    createUserRequest.getLegalPersonComplement().getStateRegistration()
             );
         }
 
@@ -62,14 +61,11 @@ public class UserController {
                 createUserRequest.getEmail(),
                 createUserRequest.getPassword(),
                 createUserRequest.getPhoneNumber(),
-                createUserRequest.getPersonType(),
-                naturalPersonDataInput,
-                legalPersonDataInput
+                convertedToPersonType,
+                personComplementInput
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse(
-                "User created successfully", HttpStatus.CREATED.getReasonPhrase(), HttpStatus.CREATED.value())
-        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User created successfully"));
     }
 
     @PostMapping("/authenticate")
@@ -78,10 +74,7 @@ public class UserController {
                 authenticateRequest.getEmail(), authenticateRequest.getPassword()
         ));
 
-        return ResponseEntity.ok().body(new AuthenticateResponse(
-                authenticateUseCaseOutput.getAccessToken(), authenticateUseCaseOutput.getRefreshToken(),
-                HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(AuthenticateResponse.fromOutput(authenticateUseCaseOutput));
     }
 
     @PostMapping("/verification-code/resend")
@@ -90,9 +83,7 @@ public class UserController {
                 resendUserVerificationCodeRequest.getEmail()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse(
-                "User verification code sent successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value())
-        );
+        return ResponseEntity.ok().body(new MessageResponse("User verification code sent successfully"));
     }
 
     @PatchMapping("/confirm-verification")
@@ -101,9 +92,7 @@ public class UserController {
                 updateUserToVerifiedRequest.getCode()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse(
-                "User verified successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(new MessageResponse("User verified successfully"));
     }
 
     @PostMapping("/refresh-token")
@@ -112,9 +101,7 @@ public class UserController {
                 refreshTokenRequest.getRefreshToken()
         ));
 
-        return ResponseEntity.ok().body(new RefreshTokenResponse(
-                refreshTokenUseCaseOutput.getAccessToken(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(RefreshTokenResponse.fromOutput(refreshTokenUseCaseOutput));
     }
 
     @PostMapping("/reset-password/send-recovery-email")
@@ -123,9 +110,7 @@ public class UserController {
                 createUserPasswordResetCodeRequest.getEmail()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse(
-                "Password reset code sent successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(new MessageResponse("Password reset code sent successfully"));
     }
 
     @PostMapping("/reset-password/validate-code")
@@ -134,9 +119,7 @@ public class UserController {
                 validateUserPasswordResetCodeRequest.getCode()
         ));
 
-        return ResponseEntity.ok().body(new ValidateUserPasswordResetCodeResponse(
-                validateUserPasswordResetCodeUseCaseOutput.isCodeIsValid(), HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(ValidateUserPasswordResetCodeResponse.fromOutput(validateUserPasswordResetCodeUseCaseOutput));
     }
 
     @PatchMapping("/reset-password")
@@ -145,9 +128,7 @@ public class UserController {
                 resetUserPasswordRequest.getCode(), resetUserPasswordRequest.getPassword()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse(
-                "Password reset successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
-        ));
+        return ResponseEntity.ok().body(new MessageResponse("User password reset successfully"));
     }
 
     @PatchMapping("/update-information")
@@ -157,43 +138,26 @@ public class UserController {
                 updateUserInformationRequest.getPhoneNumber()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse(
-                "User information updated successfully", HttpStatus.OK.getReasonPhrase(), HttpStatus.OK.value()
+        return ResponseEntity.ok().body(new MessageResponse("User information updated successfully"));
+    }
+
+    @PatchMapping("/update-password")
+    public ResponseEntity<Object> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest) {
+        this.updateUserPasswordUseCase.execute(new UpdateUserPasswordUseCaseInput(
+                updateUserPasswordRequest.getCurrentPassword(), updateUserPasswordRequest.getPassword()
         ));
+
+        return ResponseEntity.ok().body(new MessageResponse("User password updated successfully"));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<GetAuthenticatedUserResponse> getAuthenticatedUser() {
+    public ResponseEntity<Object> getAuthenticatedUser() {
         final GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput = this.getAuthenticatedUserUseCase.execute();
 
-        NaturalPersonDataResponse naturalPersonDataResponse = null;
-        LegalPersonDataResponse legalPersonDataResponse = null;
-
-        if (getAuthenticatedUserUseCaseOutput.getNaturalPersonDataOutput() != null) {
-            naturalPersonDataResponse = new NaturalPersonDataResponse(
-                    getAuthenticatedUserUseCaseOutput.getNaturalPersonDataOutput().getCpf(),
-                    getAuthenticatedUserUseCaseOutput.getNaturalPersonDataOutput().getGeneralRegister()
-            );
-        } else if (getAuthenticatedUserUseCaseOutput.getLegalPersonDataOutput() != null) {
-            legalPersonDataResponse = new LegalPersonDataResponse(
-                    getAuthenticatedUserUseCaseOutput.getLegalPersonDataOutput().getCnpj(),
-                    getAuthenticatedUserUseCaseOutput.getLegalPersonDataOutput().getFantasyName(),
-                    getAuthenticatedUserUseCaseOutput.getLegalPersonDataOutput().getLegalName(),
-                    getAuthenticatedUserUseCaseOutput.getLegalPersonDataOutput().getStateRegistration()
-            );
+        if (getAuthenticatedUserUseCaseOutput.getPersonType() == PersonType.NATURAL_PERSON) {
+            return ResponseEntity.ok().body(GetAuthenticatedUserNaturalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
+        } else {
+            return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
         }
-
-        return ResponseEntity.ok().body(new GetAuthenticatedUserResponse(
-                getAuthenticatedUserUseCaseOutput.getFirstName(),
-                getAuthenticatedUserUseCaseOutput.getLastName(),
-                getAuthenticatedUserUseCaseOutput.getEmail(),
-                getAuthenticatedUserUseCaseOutput.getPhoneNumber(),
-                getAuthenticatedUserUseCaseOutput.getAuthorizationRole(),
-                getAuthenticatedUserUseCaseOutput.getPersonType(),
-                naturalPersonDataResponse,
-                legalPersonDataResponse,
-                HttpStatus.OK.getReasonPhrase(),
-                HttpStatus.OK.value()
-        ));
     }
 }

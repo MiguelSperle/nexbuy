@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LegalPersonDataRequest {
+public class LegalPersonComplementRequest {
     @NotNull(message = "Cnpj should not be null")
     @CNPJ(message = "Cnpj should be valid")
     private String cnpj;

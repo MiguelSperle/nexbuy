@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.infrastructure.exceptions.InvalidPrincipalTypeException;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,12 +14,12 @@ public class AuthenticatedUserService implements IAuthenticatedUserService {
     public User getAuthenticatedUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new IllegalStateException("No authenticated user found");
-        }
-
         final Object principal = authentication.getPrincipal();
 
-        return principal instanceof User ? (User) principal : null;
+        if (!(principal instanceof User)) {
+            throw new InvalidPrincipalTypeException("Principal is not of type User");
+        }
+
+        return (User) principal;
     }
 }
