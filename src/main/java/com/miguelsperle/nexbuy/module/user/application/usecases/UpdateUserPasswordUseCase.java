@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncry
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCurrentPasswordException;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -17,7 +18,7 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
 
     @Override
     public void execute(UpdateUserPasswordUseCaseInput updateUserPasswordUseCaseInput) {
-        final User authenticatedUser = this.authenticatedUserService.getAuthenticatedUser();
+        final User authenticatedUser = this.getAuthenticatedUser();
 
         if (!this.validatePassword(updateUserPasswordUseCaseInput.getCurrentPassword(), authenticatedUser.getPassword())) {
             throw new InvalidCurrentPasswordException("Invalid current password");
@@ -32,5 +33,10 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
 
     private boolean validatePassword(String password, String encodedPassword) {
         return this.passwordEncryptorProvider.matches(password, encodedPassword);
+    }
+
+    private User getAuthenticatedUser() {
+        return this.authenticatedUserService.getAuthenticatedUser()
+                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
     }
 }

@@ -138,8 +138,8 @@ public class ControllerAdviceHandler {
 
     @ExceptionHandler(InvalidCurrentPasswordException.class)
     public ResponseEntity<Object> handleInvalidCurrentPasswordException(InvalidCurrentPasswordException invalidCurrentPasswordException) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
-                Collections.singletonList(invalidCurrentPasswordException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ErrorMessageResponse(
+                Collections.singletonList(invalidCurrentPasswordException.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase()
         ));
     }
 }

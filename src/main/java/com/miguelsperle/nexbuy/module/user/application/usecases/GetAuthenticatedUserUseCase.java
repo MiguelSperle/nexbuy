@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAuthentic
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonNotFoundException;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAuthenticatedUserUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
@@ -22,7 +23,7 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
 
     @Override
     public GetAuthenticatedUserUseCaseOutput execute() {
-        final User authenticatedUser = this.authenticatedUserService.getAuthenticatedUser();
+        final User authenticatedUser = this.getAuthenticatedUser();
 
         PersonComplementOutput personComplementOutput;
 
@@ -62,5 +63,10 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
     private LegalPerson getLegalPersonByUserId(String userId) {
         return this.legalPersonGateway.findByUserId(userId)
                 .orElseThrow(() -> new LegalPersonNotFoundException("Legal person not found"));
+    }
+
+    private User getAuthenticatedUser() {
+        return this.authenticatedUserService.getAuthenticatedUser()
+                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
     }
 }
