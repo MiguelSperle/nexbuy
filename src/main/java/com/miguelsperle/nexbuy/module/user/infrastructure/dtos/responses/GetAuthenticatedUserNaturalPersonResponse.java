@@ -8,10 +8,12 @@ import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.complem
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class GetAuthenticatedUserNaturalPersonResponse extends BaseAuthenticatedUserResponse {
     private NaturalPersonComplementResponse naturalPersonComplement;
 

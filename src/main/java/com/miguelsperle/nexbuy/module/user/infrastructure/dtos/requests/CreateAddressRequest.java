@@ -20,7 +20,7 @@ public class CreateAddressRequest {
     private String addressNumber;
 
     @NotBlank(message = "Zip code should not be neither null nor empty")
-    @Pattern(regexp = "^$|^\\d{5}-\\d{3}$", message = "Zip code should be in the format XXXXX-XXX")
+    @Pattern(regexp = "^\\d{5}-\\d{3}$", message = "Zip code should be in the format XXXXX-XXX")
     private String zipCode;
 
     @NotBlank(message = "Neighborhood should not be neither null nor empty")
@@ -32,7 +32,7 @@ public class CreateAddressRequest {
     private String city;
 
     @NotBlank(message = "Uf should not be neither null nor empty")
-    @Pattern(regexp = "^$|^[A-Z]{2}$", message = "Uf must contain exactly 2 uppercase letters")
+    @Pattern(regexp = "^[A-Z]{2}$", message = "Uf must contain exactly 2 uppercase letters")
     private String uf;
 
     @Size(max = 100, message = "Complement should not exceed 100 characters")
