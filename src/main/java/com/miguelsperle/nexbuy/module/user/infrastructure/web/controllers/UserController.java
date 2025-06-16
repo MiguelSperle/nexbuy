@@ -32,6 +32,7 @@ public class UserController {
     private final IUpdateUserInformationUseCase updateUserInformationUseCase;
     private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
+    private final ICreateAddressUseCase createAddressUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -159,5 +160,20 @@ public class UserController {
         } else {
             return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
         }
+    }
+
+    @PostMapping("/address/create")
+    public ResponseEntity<Object> createAddress(@RequestBody @Valid CreateAddressRequest createAddressRequest) {
+        this.createAddressUseCase.execute(new CreateAddressUseCaseInput(
+                createAddressRequest.getAddressLine(),
+                createAddressRequest.getAddressNumber(),
+                createAddressRequest.getZipCode(),
+                createAddressRequest.getNeighborhood(),
+                createAddressRequest.getCity(),
+                createAddressRequest.getUf(),
+                createAddressRequest.getComplement()
+        ));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Address created successfully"));
     }
 }

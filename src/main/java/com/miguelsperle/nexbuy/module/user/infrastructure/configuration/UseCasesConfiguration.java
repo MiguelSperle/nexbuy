@@ -184,4 +184,11 @@ public class UseCasesConfiguration {
                 userGateway
         );
     }
+
+    @Bean
+    public ICreateAddressUseCase createAddressUseCase(
+            IAddressGateway addressGateway, IAuthenticatedUserService authenticatedUserService
+    ) {
+        return new CreateAddressUseCase(addressGateway, authenticatedUserService);
+    }
 }

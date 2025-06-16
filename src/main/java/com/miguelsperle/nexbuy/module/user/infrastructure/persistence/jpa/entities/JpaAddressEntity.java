@@ -19,7 +19,7 @@ public class JpaAddressEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private JpaUserEntity jpaUserEntity;
 
-    @Column(name = "address_line", nullable = false, length = 155)
+    @Column(name = "address_line", nullable = false, length = 100)
     private String addressLine;
 
     @Column(name = "address_number", nullable = false, length = 15)
@@ -28,15 +28,16 @@ public class JpaAddressEntity {
     @Column(name = "zip_code", nullable = false, length = 9)
     private String zipCode;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 40)
     private String neighborhood;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 40)
     private String city;
 
     @Column(nullable = false, length = 2)
     private String uf;
 
+    @Column(length = 100)
     private String complement;
 
     @Column(name = "created_at", nullable = false)
