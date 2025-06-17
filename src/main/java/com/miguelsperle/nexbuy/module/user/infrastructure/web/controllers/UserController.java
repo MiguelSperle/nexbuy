@@ -33,6 +33,7 @@ public class UserController {
     private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
     private final ICreateAddressUseCase createAddressUseCase;
+    private final IUpdateAddressUseCase updateAddressUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -175,5 +176,24 @@ public class UserController {
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Address created successfully"));
+    }
+
+    @PatchMapping("/address/{addressId}/update")
+    public ResponseEntity<Object> updateAddress(
+            @PathVariable String addressId,
+            @RequestBody @Valid UpdateAddressRequest updateAddressRequest
+    ) {
+        this.updateAddressUseCase.execute(new UpdateAddressUseCaseInput(
+                addressId,
+                updateAddressRequest.getAddressLine(),
+                updateAddressRequest.getAddressNumber(),
+                updateAddressRequest.getZipCode(),
+                updateAddressRequest.getNeighborhood(),
+                updateAddressRequest.getCity(),
+                updateAddressRequest.getUf(),
+                updateAddressRequest.getComplement()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse("Address updated successfully"));
     }
 }

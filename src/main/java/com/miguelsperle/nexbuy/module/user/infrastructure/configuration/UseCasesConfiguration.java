@@ -191,4 +191,11 @@ public class UseCasesConfiguration {
     ) {
         return new CreateAddressUseCase(addressGateway, authenticatedUserService);
     }
+
+    @Bean
+    public IUpdateAddressUseCase updateAddressUseCase(
+            IAddressGateway addressGateway
+    ) {
+        return new UpdateAddressUseCase(addressGateway);
+    }
 }

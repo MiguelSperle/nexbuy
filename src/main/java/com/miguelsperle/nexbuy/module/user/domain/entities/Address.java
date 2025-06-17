@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
 import lombok.Data;
+import lombok.With;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -9,12 +10,19 @@ import java.util.UUID;
 public class Address {
     private final String id;
     private final User user;
+    @With
     private final String addressLine;
+    @With
     private final String addressNumber;
+    @With
     private final String zipCode;
+    @With
     private final String neighborhood;
+    @With
     private final String city;
+    @With
     private final String uf;
+    @With
     private final String complement;
     private final LocalDateTime createdAt;
 

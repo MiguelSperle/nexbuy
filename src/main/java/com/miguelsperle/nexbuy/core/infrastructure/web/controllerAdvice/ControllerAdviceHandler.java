@@ -142,4 +142,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(invalidCurrentPasswordException.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public ResponseEntity<Object> handleAddressNotFoundException(AddressNotFoundException addressNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(addressNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAddressRequest {
+public class UpdateAddressRequest {
     @NotBlank(message = "Address line should not be neither null nor empty")
     @Size(max = 100, message = "Address line should not exceed 100 characters")
     private String addressLine;
