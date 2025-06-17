@@ -200,9 +200,14 @@ public class UseCasesConfiguration {
     }
 
     @Bean
-    IGetAddressesUseCase getAddressesUseCase(
+    public IGetAddressesUseCase getAddressesUseCase(
             IAddressGateway addressGateway, IAuthenticatedUserService authenticatedUserService
     ) {
         return new GetAddressesUseCase(addressGateway, authenticatedUserService);
+    }
+
+    @Bean
+    public IDeleteAddressUseCase deleteAddressUseCase(IAddressGateway addressGateway) {
+        return new DeleteAddressUseCase(addressGateway);
     }
 }

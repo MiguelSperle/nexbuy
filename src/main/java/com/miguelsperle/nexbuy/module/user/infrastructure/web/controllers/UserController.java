@@ -34,6 +34,7 @@ public class UserController {
     private final ICreateAddressUseCase createAddressUseCase;
     private final IUpdateAddressUseCase updateAddressUseCase;
     private final IGetAddressesUseCase getAddressesUseCase;
+    private final IDeleteAddressUseCase deleteAddressUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -202,5 +203,12 @@ public class UserController {
         final GetAddressesUseCaseOutput getAddressesUseCaseOutput = this.getAddressesUseCase.execute();
 
         return GetAddressesResponse.fromOutput(getAddressesUseCaseOutput);
+    }
+
+    @DeleteMapping("/address/{addressId}/delete")
+    public ResponseEntity<Object> deleteAddress(@PathVariable String addressId) {
+        this.deleteAddressUseCase.execute(new DeleteAddressUseCaseInput(addressId));
+
+        return ResponseEntity.ok().body(new MessageResponse("Address deleted successfully"));
     }
 }
