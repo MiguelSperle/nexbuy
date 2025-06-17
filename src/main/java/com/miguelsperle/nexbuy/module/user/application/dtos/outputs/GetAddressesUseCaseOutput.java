@@ -1,13 +1,15 @@
 package com.miguelsperle.nexbuy.module.user.application.dtos.outputs;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
+import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateRefreshTokenUseCaseOutput {
-    private RefreshToken refreshToken;
+public class GetAddressesUseCaseOutput {
+    private List<Address> addresses;
 }

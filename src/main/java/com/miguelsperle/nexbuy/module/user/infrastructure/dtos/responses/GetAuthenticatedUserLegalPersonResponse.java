@@ -22,12 +22,12 @@ public class GetAuthenticatedUserLegalPersonResponse {
 
     public static GetAuthenticatedUserLegalPersonResponse fromOutput(GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput) {
         return new GetAuthenticatedUserLegalPersonResponse(
-                getAuthenticatedUserUseCaseOutput.getFirstName(),
-                getAuthenticatedUserUseCaseOutput.getLastName(),
-                getAuthenticatedUserUseCaseOutput.getEmail(),
-                getAuthenticatedUserUseCaseOutput.getPhoneNumber(),
-                getAuthenticatedUserUseCaseOutput.getAuthorizationRole(),
-                getAuthenticatedUserUseCaseOutput.getPersonType(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getFirstName(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getLastName(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getEmail(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getPhoneNumber(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getAuthorizationRole(),
+                getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getPersonType(),
                 LegalPersonComplementResponse.fromOutput(getAuthenticatedUserUseCaseOutput.getPersonComplementOutput())
         );
     }

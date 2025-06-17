@@ -34,4 +34,9 @@ public class JpaAddressGateway implements IAddressGateway {
     public void deleteById(String id) {
         this.jpaAddressRepository.deleteById(id);
     }
+
+    @Override
+    public List<Address> findAllByUserId(String userId) {
+        return this.jpaAddressRepository.findAllByUserId(userId).stream().map(JpaAddressEntity::toEntity).toList();
+    }
 }

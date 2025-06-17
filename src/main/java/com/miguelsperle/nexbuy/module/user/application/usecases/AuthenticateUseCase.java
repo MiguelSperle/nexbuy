@@ -39,7 +39,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
                 user
         ));
 
-        return new AuthenticateUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.getRefreshToken());
+        return new AuthenticateUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.getRefreshToken().getToken());
     }
 
     private User getUserByEmail(String email) {

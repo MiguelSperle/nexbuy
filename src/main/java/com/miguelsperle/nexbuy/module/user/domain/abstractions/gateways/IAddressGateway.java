@@ -10,4 +10,5 @@ public interface IAddressGateway {
     Optional<Address> findById(String id);
     Address save(Address address);
     void deleteById(String id);
+    List<Address> findAllByUserId(String userId);
 }

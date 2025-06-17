@@ -44,15 +44,7 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
             );
         }
 
-        return new GetAuthenticatedUserUseCaseOutput(
-                authenticatedUser.getFirstName(),
-                authenticatedUser.getLastName(),
-                authenticatedUser.getEmail(),
-                authenticatedUser.getPhoneNumber(),
-                authenticatedUser.getAuthorizationRole(),
-                authenticatedUser.getPersonType(),
-                personComplementOutput
-        );
+        return new GetAuthenticatedUserUseCaseOutput(authenticatedUser, personComplementOutput);
     }
 
     private NaturalPerson getNaturalPersonByUserId(String userId) {

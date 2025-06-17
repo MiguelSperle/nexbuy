@@ -3,10 +3,7 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.*;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.AuthenticateUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAuthenticatedUserUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidateUserPasswordResetCodeUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.*;
@@ -16,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -34,6 +33,7 @@ public class UserController {
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
     private final ICreateAddressUseCase createAddressUseCase;
     private final IUpdateAddressUseCase updateAddressUseCase;
+    private final IGetAddressesUseCase getAddressesUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
@@ -156,7 +156,7 @@ public class UserController {
     public ResponseEntity<Object> getAuthenticatedUser() {
         final GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput = this.getAuthenticatedUserUseCase.execute();
 
-        if (getAuthenticatedUserUseCaseOutput.getPersonType() == PersonType.NATURAL_PERSON) {
+        if (getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getPersonType() == PersonType.NATURAL_PERSON) {
             return ResponseEntity.ok().body(GetAuthenticatedUserNaturalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
         } else {
             return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
@@ -195,5 +195,12 @@ public class UserController {
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Address updated successfully"));
+    }
+
+    @GetMapping("/addresses")
+    public List<GetAddressesResponse> getAddresses() {
+        final GetAddressesUseCaseOutput getAddressesUseCaseOutput = this.getAddressesUseCase.execute();
+
+        return GetAddressesResponse.fromOutput(getAddressesUseCaseOutput);
     }
 }
