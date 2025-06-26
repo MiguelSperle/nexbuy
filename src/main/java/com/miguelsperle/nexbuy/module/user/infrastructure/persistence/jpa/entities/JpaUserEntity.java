@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JpaUserEntity {
     @Id
+    @Column(nullable = false, length = 36)
     private String id;
 
     @Column(name = "first_name", nullable = false, length = 50)

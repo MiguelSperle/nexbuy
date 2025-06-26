@@ -1,0 +1,13 @@
+package com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways;
+
+import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface IProductGateway {
+    List<Product> findAll();
+    Optional<Product> findById(String id);
+    Product save(Product product);
+    void deleteById(String id);
+}

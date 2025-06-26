@@ -15,13 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JpaRefreshTokenEntity {
     @Id
+    @Column(nullable = false, length = 36)
     private String id;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private JpaUserEntity jpaUserEntity;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 36)
     private String token;
 
     @Column(name = "expires_in", nullable = false)

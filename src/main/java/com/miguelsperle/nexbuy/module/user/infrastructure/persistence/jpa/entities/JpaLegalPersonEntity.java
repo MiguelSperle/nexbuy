@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JpaLegalPersonEntity {
     @Id
+    @Column(nullable = false, length = 36)
     private String id;
 
     @OneToOne

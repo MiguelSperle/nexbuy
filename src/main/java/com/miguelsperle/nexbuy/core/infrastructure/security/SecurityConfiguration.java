@@ -35,6 +35,10 @@ public class SecurityConfiguration {
             "/api/user/reset-password"
     };
 
+    private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
+            "/api/product/create-brand"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
@@ -42,6 +46,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(USER_MODULE_PUBLIC_ENDPOINTS).permitAll()
+                                .requestMatchers(PRODUCT_MODULE_RESTRICTED_ENDPOINTS).hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
