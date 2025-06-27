@@ -10,4 +10,5 @@ public interface IProductBrandGateway {
     Optional<ProductBrand> findById(String id);
     ProductBrand save(ProductBrand productBrand);
     void deleteById(String id);
+    Optional<ProductBrand> findByName(String name);
 }

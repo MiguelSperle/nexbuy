@@ -34,4 +34,9 @@ public class JpaProductBrandGateway implements IProductBrandGateway {
     public void deleteById(String id) {
         this.jpaProductBrandRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<ProductBrand> findByName(String name) {
+        return this.jpaProductBrandRepository.findByName(name).map(JpaProductBrandEntity::toEntity);
+    }
 }
