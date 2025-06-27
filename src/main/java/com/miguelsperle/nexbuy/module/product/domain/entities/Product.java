@@ -11,12 +11,12 @@ public class Product {
     private final String id;
     private final String name;
     private final String description;
-    private final ProductCategory productCategory;
+    private final Category category;
     private final BigDecimal price;
     private final String sku;
-    private final ProductBrand productBrand;
-    private final ProductModel productModel;
-    private final ProductColor productColor;
+    private final Brand brand;
+    private final Model model;
+    private final Color color;
     private final Boolean isActive;
     private final LocalDateTime createdAt;
 
@@ -24,24 +24,24 @@ public class Product {
             String id,
             String name,
             String description,
-            ProductCategory productCategory,
+            Category category,
             BigDecimal price,
             String sku,
-            ProductBrand productBrand,
-            ProductModel productModel,
-            ProductColor productColor,
+            Brand brand,
+            Model model,
+            Color color,
             Boolean isActive,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.productCategory = productCategory;
+        this.category = category;
         this.price = price;
         this.sku = sku;
-        this.productBrand = productBrand;
-        this.productModel = productModel;
-        this.productColor = productColor;
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
         this.isActive = isActive;
         this.createdAt = createdAt;
     }
@@ -49,23 +49,23 @@ public class Product {
     public static Product newProduct(
             String name,
             String description,
-            ProductCategory productCategory,
+            Category category,
             BigDecimal price,
             String sku,
-            ProductBrand productBrand,
-            ProductModel productModel,
-            ProductColor productColor
+            Brand brand,
+            Model model,
+            Color color
     ) {
         return new Product(
                 UUID.randomUUID().toString(),
                 name,
                 description,
-                productCategory,
+                category,
                 price,
                 sku,
-                productBrand,
-                productModel,
-                productColor,
+                brand,
+                model,
+                color,
                 true,
                 LocalDateTime.now()
         );
@@ -75,12 +75,12 @@ public class Product {
             String id,
             String name,
             String description,
-            ProductCategory productCategory,
+            Category category,
             BigDecimal price,
             String sku,
-            ProductBrand productBrand,
-            ProductModel productModel,
-            ProductColor productColor,
+            Brand brand,
+            Model model,
+            Color color,
             Boolean isActive,
             LocalDateTime createdAt
     ) {
@@ -88,12 +88,12 @@ public class Product {
                 id,
                 name,
                 description,
-                productCategory,
+                category,
                 price,
                 sku,
-                productBrand,
-                productModel,
-                productColor,
+                brand,
+                model,
+                color,
                 isActive,
                 createdAt
         );

@@ -3,8 +3,8 @@ package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductBrandAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductCategoryAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,17 +152,17 @@ public class ControllerAdviceHandler {
         ));
     }
 
-    @ExceptionHandler(ProductBrandAlreadyExistsException.class)
-    public ResponseEntity<Object> handleProductBrandAlreadyExistsException(ProductBrandAlreadyExistsException productBrandAlreadyExistsException) {
+    @ExceptionHandler(BrandAlreadyExistsException.class)
+    public ResponseEntity<Object> handleBrandAlreadyExistsException(BrandAlreadyExistsException brandAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(productBrandAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+                Collections.singletonList(brandAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
-    @ExceptionHandler(ProductCategoryAlreadyExistsException.class)
-    public ResponseEntity<Object> handleProductCategoryAlreadyExistsException(ProductCategoryAlreadyExistsException productCategoryAlreadyExistsException) {
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<Object> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException categoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(productCategoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+                Collections.singletonList(categoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

@@ -27,7 +27,7 @@ public class JpaProductEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private JpaProductCategoryEntity jpaProductCategoryEntity;
+    private JpaCategoryEntity jpaCategoryEntity;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
@@ -37,15 +37,15 @@ public class JpaProductEntity {
 
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
-    private JpaProductBrandEntity jpaProductBrandEntity;
+    private JpaBrandEntity jpaBrandEntity;
 
     @ManyToOne
     @JoinColumn(name = "model_id", nullable = false)
-    private JpaProductModelEntity jpaProductModelEntity;
+    private JpaModelEntity jpaModelEntity;
 
     @ManyToOne
     @JoinColumn(name = "color_id", nullable = false)
-    private JpaProductColorEntity jpaProductColorEntity;
+    private JpaColorEntity jpaColorEntity;
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
@@ -58,12 +58,12 @@ public class JpaProductEntity {
                 product.getId(),
                 product.getName(),
                 product.getDescription(),
-                JpaProductCategoryEntity.from(product.getProductCategory()),
+                JpaCategoryEntity.from(product.getCategory()),
                 product.getPrice(),
                 product.getSku(),
-                JpaProductBrandEntity.from(product.getProductBrand()),
-                JpaProductModelEntity.from(product.getProductModel()),
-                JpaProductColorEntity.from(product.getProductColor()),
+                JpaBrandEntity.from(product.getBrand()),
+                JpaModelEntity.from(product.getModel()),
+                JpaColorEntity.from(product.getColor()),
                 product.getIsActive(),
                 product.getCreatedAt()
         );
@@ -74,12 +74,12 @@ public class JpaProductEntity {
                 this.id,
                 this.name,
                 this.description,
-                this.jpaProductCategoryEntity.toEntity(),
+                this.jpaCategoryEntity.toEntity(),
                 this.price,
                 this.sku,
-                this.jpaProductBrandEntity.toEntity(),
-                this.jpaProductModelEntity.toEntity(),
-                this.jpaProductColorEntity.toEntity(),
+                this.jpaBrandEntity.toEntity(),
+                this.jpaModelEntity.toEntity(),
+                this.jpaColorEntity.toEntity(),
                 this.isActive,
                 this.createdAt
         );

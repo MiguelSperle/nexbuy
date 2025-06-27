@@ -1,15 +1,18 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterProductBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterProductCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetProductBrandsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetProductBrandsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterProductBrandRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterProductCategoryRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetProductBrandsResponse;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetCategoriesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetCategoriesUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterBrandRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterCategoryRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetBrandsResponse;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetCategoriesResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,28 +25,36 @@ import java.util.List;
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
 public class ProductController {
-    private final IRegisterProductBrandUseCase registerProductBrandUseCase;
-    private final IGetProductBrandsUseCase getProductBrandsUseCase;
-    private final IRegisterProductCategoryUseCase registerProductCategoryUseCase;
+    private final IRegisterBrandUseCase registerBrandUseCase;
+    private final IGetBrandsUseCase getBrandsUseCase;
+    private final IRegisterCategoryUseCase registerCategoryUseCase;
+    private final IGetCategoriesUseCase getCategoriesUseCase;
 
     @PostMapping("/brand/register")
-    public ResponseEntity<Object> registerProductBrand(@RequestBody @Valid RegisterProductBrandRequest registerProductBrandRequest) {
-        this.registerProductBrandUseCase.execute(new RegisterProductBrandUseCaseInput(registerProductBrandRequest.getName()));
+    public ResponseEntity<Object> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
+        this.registerBrandUseCase.execute(new RegisterBrandUseCaseInput(registerBrandRequest.getName()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Product brand registered successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Brand registered successfully"));
     }
 
     @GetMapping("/brands")
-    public List<GetProductBrandsResponse> getProductBrands() {
-        final GetProductBrandsUseCaseOutput getProductBrandsUseCaseOutput = this.getProductBrandsUseCase.execute();
+    public List<GetBrandsResponse> getBrands() {
+        final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute();
 
-        return GetProductBrandsResponse.fromOutput(getProductBrandsUseCaseOutput);
+        return GetBrandsResponse.fromOutput(getBrandsUseCaseOutput);
     }
 
     @PostMapping("/category/register")
-    public ResponseEntity<Object> registerProductCategory(@RequestBody @Valid RegisterProductCategoryRequest registerProductCategoryRequest) {
-        this.registerProductCategoryUseCase.execute(new RegisterProductCategoryUseCaseInput(registerProductCategoryRequest.getName()));
+    public ResponseEntity<Object> registerCategory(@RequestBody @Valid RegisterCategoryRequest registerCategoryRequest) {
+        this.registerCategoryUseCase.execute(new RegisterCategoryUseCaseInput(registerCategoryRequest.getName()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Product category registered successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Category registered successfully"));
+    }
+
+    @GetMapping("/categories")
+    public List<GetCategoriesResponse> getCategories() {
+        final GetCategoriesUseCaseOutput getCategoriesUseCaseOutput = this.getCategoriesUseCase.execute();
+
+        return GetCategoriesResponse.fromOutput(getCategoriesUseCaseOutput);
     }
 }
