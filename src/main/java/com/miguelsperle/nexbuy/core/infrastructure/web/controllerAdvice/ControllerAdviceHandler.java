@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductBrandAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductCategoryAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,6 +156,13 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleProductBrandAlreadyExistsException(ProductBrandAlreadyExistsException productBrandAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
                 Collections.singletonList(productBrandAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(ProductCategoryAlreadyExistsException.class)
+    public ResponseEntity<Object> handleProductCategoryAlreadyExistsException(ProductCategoryAlreadyExistsException productCategoryAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(productCategoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

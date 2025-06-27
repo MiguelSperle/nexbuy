@@ -10,4 +10,5 @@ public interface IProductCategoryGateway {
     Optional<ProductCategory> findById(String id);
     ProductCategory save(ProductCategory productCategory);
     void deleteById(String id);
+    Optional<ProductCategory> findByName(String name);
 }

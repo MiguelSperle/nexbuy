@@ -34,4 +34,9 @@ public class JpaProductCategoryGateway implements IProductCategoryGateway {
     public void deleteById(String id) {
         this.jpaProductCategoryRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<ProductCategory> findByName(String name) {
+        return this.jpaProductCategoryRepository.findByName(name).map(JpaProductCategoryEntity::toEntity);
+    }
 }
