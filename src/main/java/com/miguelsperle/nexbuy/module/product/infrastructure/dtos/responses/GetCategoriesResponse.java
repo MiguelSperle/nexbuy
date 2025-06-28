@@ -13,11 +13,13 @@ import java.util.List;
 public class GetCategoriesResponse {
     private String id;
     private String name;
+    private String description;
 
     public static List<GetCategoriesResponse> fromOutput(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
         return getCategoriesUseCaseOutput.getProductCategories().stream().map(productCategory -> new GetCategoriesResponse(
                 productCategory.getId(),
-                productCategory.getName()
+                productCategory.getName(),
+                productCategory.getDescription()
         )).toList();
     }
 }

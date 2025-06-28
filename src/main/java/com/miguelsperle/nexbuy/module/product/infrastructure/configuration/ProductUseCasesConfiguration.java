@@ -21,7 +21,7 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public IGetBrandsUseCase getProductBrandsUseCase(IBrandGateway productBrandGateway) {
+    public IGetBrandsUseCase getBrandsUseCase(IBrandGateway productBrandGateway) {
         return new GetBrandsUseCase(productBrandGateway);
     }
 

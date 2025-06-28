@@ -17,7 +17,7 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
             throw new CategoryAlreadyExistsException("Category already exists");
         }
 
-        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName());
+        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName(), registerCategoryUseCaseInput.getDescription());
 
         this.categoryGateway.save(newCategory);
     }
