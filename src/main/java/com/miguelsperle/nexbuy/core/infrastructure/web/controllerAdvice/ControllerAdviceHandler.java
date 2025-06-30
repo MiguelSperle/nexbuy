@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComple
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,6 +164,13 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException categoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
                 Collections.singletonList(categoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<Object> handleCategoryNotFoundException(CategoryNotFoundException categoryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(categoryNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 }

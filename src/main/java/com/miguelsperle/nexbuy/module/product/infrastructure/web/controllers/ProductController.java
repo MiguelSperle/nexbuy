@@ -48,7 +48,8 @@ public class ProductController {
     public ResponseEntity<Object> registerCategory(@RequestBody @Valid RegisterCategoryRequest registerCategoryRequest) {
         this.registerCategoryUseCase.execute(new RegisterCategoryUseCaseInput(
                 registerCategoryRequest.getName(),
-                registerCategoryRequest.getDescription()
+                registerCategoryRequest.getDescription(),
+                registerCategoryRequest.getParentCategoryId()
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Category registered successfully"));

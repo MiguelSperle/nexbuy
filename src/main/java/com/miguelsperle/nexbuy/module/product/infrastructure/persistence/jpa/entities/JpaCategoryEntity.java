@@ -1,10 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +24,10 @@ public class JpaCategoryEntity {
     @Column(nullable = false)
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    private JpaCategoryEntity jpaCategoryEntity;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -35,6 +36,7 @@ public class JpaCategoryEntity {
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
+                category.getParentCategory() != null ? JpaCategoryEntity.from(category.getParentCategory()) : null,
                 category.getCreatedAt()
         );
     }
@@ -44,6 +46,7 @@ public class JpaCategoryEntity {
                 this.id,
                 this.name,
                 this.description,
+                this.jpaCategoryEntity != null ? this.jpaCategoryEntity.toEntity() : null,
                 this.createdAt
         );
     }
