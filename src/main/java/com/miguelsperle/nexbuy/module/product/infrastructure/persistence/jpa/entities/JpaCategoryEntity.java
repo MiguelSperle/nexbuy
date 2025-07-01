@@ -24,6 +24,9 @@ public class JpaCategoryEntity {
     @Column(nullable = false)
     private String description;
 
+    @Column(unique = true, nullable = false, length = 50)
+    private String slug;
+
     @ManyToOne
     @JoinColumn(name = "parent_category_id")
     private JpaCategoryEntity jpaCategoryEntity;
@@ -36,6 +39,7 @@ public class JpaCategoryEntity {
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
+                category.getSlug(),
                 category.getParentCategory() != null ? JpaCategoryEntity.from(category.getParentCategory()) : null,
                 category.getCreatedAt()
         );
@@ -46,6 +50,7 @@ public class JpaCategoryEntity {
                 this.id,
                 this.name,
                 this.description,
+                this.slug,
                 this.jpaCategoryEntity != null ? this.jpaCategoryEntity.toEntity() : null,
                 this.createdAt
         );

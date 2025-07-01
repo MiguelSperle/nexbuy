@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, String> {
     @Query(nativeQuery = true, value = "SELECT * FROM categories c WHERE LOWER(c.name) = LOWER(:name)")
-    Optional<JpaCategoryEntity> findByName(@Param("name" ) String name);
+    Optional<JpaCategoryEntity> findByName(@Param("name") String name);
 }

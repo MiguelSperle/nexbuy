@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCa
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.core.application.utils.SlugUtils;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,16 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
             throw new CategoryAlreadyExistsException("Category already exists");
         }
 
+        final String parentCategoryId = registerCategoryUseCaseInput.getParentCategoryId();
         Category parentCategory = null;
 
-        if (registerCategoryUseCaseInput.getParentCategoryId() != null) {
-            parentCategory = this.getParentCategoryById(registerCategoryUseCaseInput.getParentCategoryId());
+        if (parentCategoryId != null && !parentCategoryId.isBlank()) {
+            parentCategory = this.getParentCategoryById(parentCategoryId);
         }
 
-        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName(), registerCategoryUseCaseInput.getDescription(), parentCategory);
+        final String slug = SlugUtils.createSlug(registerCategoryUseCaseInput.getName());
+
+        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName(), registerCategoryUseCaseInput.getDescription(), slug, parentCategory);
 
         this.categoryGateway.save(newCategory);
     }
@@ -33,8 +37,8 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
         return this.categoryGateway.findByName(name).isPresent();
     }
 
-    private Category getParentCategoryById(String id) {
-        return this.categoryGateway.findById(id)
+    private Category getParentCategoryById(String parentCategoryId) {
+        return this.categoryGateway.findById(parentCategoryId)
                 .orElseThrow(() -> new CategoryNotFoundException("Parent category not found"));
     }
 }

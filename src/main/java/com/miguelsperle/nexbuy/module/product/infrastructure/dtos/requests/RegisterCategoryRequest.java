@@ -18,5 +18,5 @@ public class RegisterCategoryRequest {
     @Size(max = 255, message = "Description should not exceed 255 characters")
     private String description;
 
-    private String parentCategoryId; // Optional, can be null if no parent category is specified
+    private String parentCategoryId; // Optional, for sub-categories
 }

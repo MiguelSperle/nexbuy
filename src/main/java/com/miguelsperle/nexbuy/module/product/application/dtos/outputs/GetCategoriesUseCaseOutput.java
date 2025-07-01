@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetCategoriesUseCaseOutput {
-    private List<Category> productCategories;
+    private List<Category> categories;
 }

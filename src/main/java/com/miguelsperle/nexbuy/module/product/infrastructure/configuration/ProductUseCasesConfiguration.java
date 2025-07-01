@@ -1,13 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration;
 
-import com.miguelsperle.nexbuy.module.product.application.usecases.GetBrandsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.GetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.RegisterBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.RegisterCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.*;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
 import org.springframework.context.annotation.Bean;
