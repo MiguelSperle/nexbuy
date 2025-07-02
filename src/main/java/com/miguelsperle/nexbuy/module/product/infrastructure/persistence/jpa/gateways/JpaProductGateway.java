@@ -34,4 +34,9 @@ public class JpaProductGateway implements IProductGateway {
     public void deleteById(String id) {
         this.jpaProductRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByBrandId(String brandId) {
+        return this.jpaProductRepository.existsByBrandId(brandId);
+    }
 }

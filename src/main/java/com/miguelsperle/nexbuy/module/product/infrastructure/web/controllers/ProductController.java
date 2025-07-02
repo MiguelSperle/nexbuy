@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandsUseCaseOutput;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ProductController {
     private final IRegisterBrandUseCase registerBrandUseCase;
     private final IGetBrandsUseCase getBrandsUseCase;
+    private final IDeleteBrandUseCase deleteBrandUseCase;
     private final IRegisterCategoryUseCase registerCategoryUseCase;
     private final IGetCategoriesUseCase getCategoriesUseCase;
 
@@ -39,6 +41,13 @@ public class ProductController {
         final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute();
 
         return GetBrandsResponse.fromOutput(getBrandsUseCaseOutput);
+    }
+
+    @DeleteMapping("/brands/{brandId}")
+    public ResponseEntity<Object> deleteBrand(@PathVariable String brandId) {
+        this.deleteBrandUseCase.execute(new DeleteBrandUseCaseInput(brandId));
+
+        return ResponseEntity.ok().body(new MessageResponse("Brand deleted successfully"));
     }
 
     @PostMapping("/categories")

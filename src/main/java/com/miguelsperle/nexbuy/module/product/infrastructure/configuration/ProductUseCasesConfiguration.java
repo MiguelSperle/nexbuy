@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
+import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,11 @@ public class ProductUseCasesConfiguration {
     @Bean
     public IGetBrandsUseCase getBrandsUseCase(IBrandGateway productBrandGateway) {
         return new GetBrandsUseCase(productBrandGateway);
+    }
+
+    @Bean
+    public IDeleteBrandUseCase deleteBrandUseCase(IBrandGateway brandGateway, IProductGateway productGateway) {
+        return new DeleteBrandUseCase(brandGateway, productGateway);
     }
 
     @Bean

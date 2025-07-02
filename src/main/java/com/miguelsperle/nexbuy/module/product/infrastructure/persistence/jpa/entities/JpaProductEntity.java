@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,8 +48,9 @@ public class JpaProductEntity {
     @JoinColumn(name = "color_id", nullable = false)
     private JpaColorEntity jpaColorEntity;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "status", nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -64,7 +66,7 @@ public class JpaProductEntity {
                 JpaBrandEntity.from(product.getBrand()),
                 JpaModelEntity.from(product.getModel()),
                 JpaColorEntity.from(product.getColor()),
-                product.getIsActive(),
+                product.getProductStatus(),
                 product.getCreatedAt()
         );
     }
@@ -80,7 +82,7 @@ public class JpaProductEntity {
                 this.jpaBrandEntity.toEntity(),
                 this.jpaModelEntity.toEntity(),
                 this.jpaColorEntity.toEntity(),
-                this.isActive,
+                this.productStatus,
                 this.createdAt
         );
     }

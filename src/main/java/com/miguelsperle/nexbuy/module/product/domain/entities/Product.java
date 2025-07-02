@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
+import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ public class Product {
     private final Brand brand;
     private final Model model;
     private final Color color;
-    private final Boolean isActive;
+    private final ProductStatus productStatus;
     private final LocalDateTime createdAt;
 
     private Product(
@@ -30,7 +31,7 @@ public class Product {
             Brand brand,
             Model model,
             Color color,
-            Boolean isActive,
+            ProductStatus productStatus,
             LocalDateTime createdAt
     ) {
         this.id = id;
@@ -42,7 +43,7 @@ public class Product {
         this.brand = brand;
         this.model = model;
         this.color = color;
-        this.isActive = isActive;
+        this.productStatus = productStatus;
         this.createdAt = createdAt;
     }
 
@@ -66,7 +67,7 @@ public class Product {
                 brand,
                 model,
                 color,
-                true,
+                ProductStatus.ACTIVE,
                 LocalDateTime.now()
         );
     }
@@ -81,7 +82,7 @@ public class Product {
             Brand brand,
             Model model,
             Color color,
-            Boolean isActive,
+            ProductStatus productStatus,
             LocalDateTime createdAt
     ) {
         return new Product(
@@ -94,7 +95,7 @@ public class Product {
                 brand,
                 model,
                 color,
-                isActive,
+                productStatus,
                 createdAt
         );
     }

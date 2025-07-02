@@ -3,9 +3,7 @@ package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.*;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,6 +169,20 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleCategoryNotFoundException(CategoryNotFoundException categoryNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
                 Collections.singletonList(categoryNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<Object> handleBrandNotFoundException(BrandNotFoundException brandNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(brandNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(BrandAssociatedProductException.class)
+    public ResponseEntity<Object> handleBrandAssociatedProductException(BrandAssociatedProductException brandAssociatedProductException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(brandAssociatedProductException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

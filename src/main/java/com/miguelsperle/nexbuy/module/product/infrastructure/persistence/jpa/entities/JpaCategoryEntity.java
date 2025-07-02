@@ -31,6 +31,9 @@ public class JpaCategoryEntity {
     @JoinColumn(name = "parent_category_id")
     private JpaCategoryEntity jpaCategoryEntity;
 
+    @Column(name = "hierarchy_level", nullable = false)
+    private Integer hierarchyLevel;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -41,6 +44,7 @@ public class JpaCategoryEntity {
                 category.getDescription(),
                 category.getSlug(),
                 category.getParentCategory() != null ? JpaCategoryEntity.from(category.getParentCategory()) : null,
+                category.getHierarchyLevel(),
                 category.getCreatedAt()
         );
     }
@@ -52,6 +56,7 @@ public class JpaCategoryEntity {
                 this.description,
                 this.slug,
                 this.jpaCategoryEntity != null ? this.jpaCategoryEntity.toEntity() : null,
+                this.hierarchyLevel,
                 this.createdAt
         );
     }

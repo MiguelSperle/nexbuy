@@ -10,4 +10,5 @@ public interface IProductGateway {
     Optional<Product> findById(String id);
     Product save(Product product);
     void deleteById(String id);
+    boolean existsByBrandId(String brandId);
 }
