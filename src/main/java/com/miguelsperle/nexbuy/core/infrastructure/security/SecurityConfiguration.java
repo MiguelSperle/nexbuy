@@ -25,14 +25,14 @@ public class SecurityConfiguration {
     private final AccessDeniedHandler accessDeniedHandler;
 
     private static final String[] USER_MODULE_PUBLIC_ENDPOINTS = {
-            "/api/user/create",
-            "/api/user/authenticate",
-            "/api/user/verification-code/resend",
-            "/api/user/confirm-verification",
-            "/api/user/refresh-token",
-            "/api/user/reset-password/send-recovery-email",
-            "/api/user/reset-password/validate-code",
-            "/api/user/reset-password"
+            "/api/users",
+            "/api/users/authentication",
+            "/api/users/verification-code",
+            "/api/users/verification",
+            "/api/users/token/refresh",
+            "/api/users/password-recovery",
+            "/api/users/password-recovery/validation",
+            "/api/users/password-reset"
     };
 
     private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
