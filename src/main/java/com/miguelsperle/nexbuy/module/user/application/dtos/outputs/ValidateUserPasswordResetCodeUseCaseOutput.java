@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValidateUserPasswordResetCodeUseCaseOutput {
-    private boolean codeIsValid;
+    private Boolean codeIsValid;
 }

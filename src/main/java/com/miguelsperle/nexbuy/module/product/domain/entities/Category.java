@@ -15,7 +15,15 @@ public class Category {
     private final Integer hierarchyLevel;
     private final LocalDateTime createdAt;
 
-    private Category(String id, String name, String description, String slug, Category parentCategory, Integer hierarchyLevel, LocalDateTime createdAt) {
+    private Category(
+            String id,
+            String name,
+            String description,
+            String slug,
+            Category parentCategory,
+            Integer hierarchyLevel,
+            LocalDateTime createdAt
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,11 +33,41 @@ public class Category {
         this.createdAt = createdAt;
     }
 
-    public static Category newCategory(String name, String description, String slug, Category parentCategory, Integer hierarchyLevel) {
-        return new Category(UUID.randomUUID().toString(), name, description, slug, parentCategory, hierarchyLevel, LocalDateTime.now());
+    public static Category newCategory(
+            String name,
+            String description,
+            String slug,
+            Category parentCategory,
+            Integer hierarchyLevel
+    ) {
+        return new Category(
+                UUID.randomUUID().toString(),
+                name,
+                description,
+                slug,
+                parentCategory,
+                hierarchyLevel,
+                LocalDateTime.now()
+        );
     }
 
-    public static Category with(String id, String name, String description, String slug, Category parentCategory, Integer hierarchyLevel, LocalDateTime createdAt) {
-        return new Category(id, name, description, slug, parentCategory, hierarchyLevel, createdAt);
+    public static Category with(
+            String id,
+            String name,
+            String description,
+            String slug,
+            Category parentCategory,
+            Integer hierarchyLevel,
+            LocalDateTime createdAt
+    ) {
+        return new Category(
+                id,
+                name,
+                description,
+                slug,
+                parentCategory,
+                hierarchyLevel,
+                createdAt
+        );
     }
 }

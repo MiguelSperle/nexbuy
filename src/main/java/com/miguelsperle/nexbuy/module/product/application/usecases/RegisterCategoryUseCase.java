@@ -21,14 +21,16 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
 
         final String parentCategoryId = registerCategoryUseCaseInput.getParentCategoryId();
         Category parentCategory = null;
+        int hierarchyLevel = 0;
 
         if (parentCategoryId != null && !parentCategoryId.isBlank()) {
             parentCategory = this.getParentCategoryById(parentCategoryId);
+            hierarchyLevel = parentCategory.getHierarchyLevel() + 1;
         }
 
         final String slug = SlugUtils.createSlug(registerCategoryUseCaseInput.getName());
 
-        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName(), registerCategoryUseCaseInput.getDescription(), slug, parentCategory);
+        final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.getName(), registerCategoryUseCaseInput.getDescription(), slug, parentCategory, hierarchyLevel);
 
         this.categoryGateway.save(newCategory);
     }

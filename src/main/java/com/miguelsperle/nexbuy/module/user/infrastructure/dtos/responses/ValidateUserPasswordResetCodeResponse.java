@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValidateUserPasswordResetCodeResponse {
-    private boolean codeIsValid;
+    private Boolean codeIsValid;
 
     public static ValidateUserPasswordResetCodeResponse fromOutput(ValidateUserPasswordResetCodeUseCaseOutput validateUserPasswordResetCodeUseCaseOutput) {
-        return new ValidateUserPasswordResetCodeResponse(validateUserPasswordResetCodeUseCaseOutput.isCodeIsValid());
+        return new ValidateUserPasswordResetCodeResponse(validateUserPasswordResetCodeUseCaseOutput.getCodeIsValid());
     }
 }

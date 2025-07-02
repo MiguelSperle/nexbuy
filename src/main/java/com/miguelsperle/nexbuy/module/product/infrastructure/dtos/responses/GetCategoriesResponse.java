@@ -16,6 +16,7 @@ public class GetCategoriesResponse {
     private String name;
     private String description;
     private String slug;
+    private Integer hierarchyLevel;
     private List<GetCategoriesResponse> subCategories;
 
     public static List<GetCategoriesResponse> fromOutput(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
@@ -30,6 +31,13 @@ public class GetCategoriesResponse {
                 .filter(category -> category.getParentCategory() != null && category.getParentCategory().getId().equals(parentCategory.getId()))
                 .map(subCategory -> buildCategoryTree(subCategory, allCategories)).toList();
 
-        return new GetCategoriesResponse(parentCategory.getId(), parentCategory.getName(), parentCategory.getDescription(), parentCategory.getSlug(), subCategories);
+        return new GetCategoriesResponse(
+                parentCategory.getId(),
+                parentCategory.getName(),
+                parentCategory.getDescription(),
+                parentCategory.getSlug(),
+                parentCategory.getHierarchyLevel(),
+                subCategories
+        );
     }
 }
