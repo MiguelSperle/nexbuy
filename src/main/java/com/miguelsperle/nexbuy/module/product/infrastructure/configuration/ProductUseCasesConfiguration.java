@@ -20,8 +20,8 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateBrandStatusUseCase deleteBrandUseCase(IBrandGateway brandGateway) {
-        return new UpdateBrandStatusUseCase(brandGateway);
+    public IUpdateBrandUseCase updateBrandUseCase(IBrandGateway brandGateway) {
+        return new UpdateBrandUseCase(brandGateway);
     }
 
     @Bean

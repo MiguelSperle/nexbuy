@@ -15,6 +15,6 @@ public class SlugUtils {
         final String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
         final String withoutNonLatin = NON_LATIN_PATTERN.matcher(normalized).replaceAll("");
         final String withoutEdges = EDGE_DASHES_PATTERN.matcher(withoutNonLatin).replaceAll("");
-        return withoutEdges.toLowerCase(Locale.ENGLISH);
+        return withoutEdges.toLowerCase(Locale.ROOT);
     }
 }

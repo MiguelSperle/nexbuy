@@ -10,6 +10,7 @@ import java.util.UUID;
 @Data
 public class Brand {
     private final String id;
+    @With
     private final String name;
     @With
     private final BrandStatus brandStatus;
