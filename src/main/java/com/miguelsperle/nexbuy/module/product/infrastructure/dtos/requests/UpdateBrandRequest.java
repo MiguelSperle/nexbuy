@@ -16,6 +16,6 @@ public class UpdateBrandRequest {
     @Size(max = 50, message = "Name should not exceed 50 characters")
     private String name;
 
-    @ValidEnum(enumClass = BrandStatus.class, message = "Brand status should be either ACTIVE or INACTIVE")
-    private String brandStatus;
+    @ValidEnum(enumClass = BrandStatus.class, message = "Status should be either ACTIVE or INACTIVE")
+    private String status;
 }

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class UpdateBrandUseCaseInput {
     private String brandId;
     private String name;
-    private String brandStatus;
+    private String status;
 }

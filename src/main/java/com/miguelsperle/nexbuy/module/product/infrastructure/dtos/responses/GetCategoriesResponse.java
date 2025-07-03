@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -20,24 +21,22 @@ public class GetCategoriesResponse {
     private List<GetCategoriesResponse> subCategories;
 
     public static List<GetCategoriesResponse> fromOutput(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
-        return getCategoriesUseCaseOutput.getCategories().stream()
-                .filter(category -> category.getParentCategory() == null)
-                .map(rootCategory -> buildCategoryTree(rootCategory, getCategoriesUseCaseOutput.getCategories()))
-                .toList();
+        return getCategoriesUseCaseOutput.getRootCategories().stream().map(rootCategory ->
+                buildCategoryTree(rootCategory, getCategoriesUseCaseOutput.getSubCategories())).toList();
     }
 
-    private static GetCategoriesResponse buildCategoryTree(Category parentCategory, List<Category> allCategories) {
-        final List<GetCategoriesResponse> subCategories = allCategories.stream()
-                .filter(category -> category.getParentCategory() != null && category.getParentCategory().getId().equals(parentCategory.getId()))
-                .map(subCategory -> buildCategoryTree(subCategory, allCategories)).toList();
+    private static GetCategoriesResponse buildCategoryTree(Category currentCategory, List<Category> subCategories) {
+        final List<GetCategoriesResponse> subCategoriesResponse = subCategories.stream().filter(subCategory ->
+                Objects.equals(subCategory.getParentCategory().getId(), currentCategory.getId())).map(subCategory ->
+                buildCategoryTree(subCategory, subCategories)).toList();
 
         return new GetCategoriesResponse(
-                parentCategory.getId(),
-                parentCategory.getName(),
-                parentCategory.getDescription(),
-                parentCategory.getSlug(),
-                parentCategory.getHierarchyLevel(),
-                subCategories
+                currentCategory.getId(),
+                currentCategory.getName(),
+                currentCategory.getDescription(),
+                currentCategory.getSlug(),
+                currentCategory.getHierarchyLevel(),
+                subCategoriesResponse
         );
     }
 }

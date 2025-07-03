@@ -55,7 +55,7 @@ public class ProductController {
         this.updateBrandUseCase.execute(new UpdateBrandUseCaseInput(
                 brandId,
                 updateBrandRequest.getName(),
-                updateBrandRequest.getBrandStatus()
+                updateBrandRequest.getStatus()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Brand updated successfully"));

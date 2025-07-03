@@ -9,8 +9,6 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.enums.BrandStatus;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Locale;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 public class UpdateBrandUseCase implements IUpdateBrandUseCase {
@@ -20,13 +18,13 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
     public void execute(UpdateBrandUseCaseInput updateBrandUseCaseInput) {
         final Brand brand = this.getBrandById(updateBrandUseCaseInput.getBrandId());
 
-        if (!Objects.equals(updateBrandUseCaseInput.getName().toLowerCase(Locale.ROOT), brand.getName().toLowerCase(Locale.ROOT))) {
+        if (!updateBrandUseCaseInput.getName().equalsIgnoreCase(brand.getName())) {
             if (this.verifyBrandAlreadyExistsByName(updateBrandUseCaseInput.getName())) {
                 throw new BrandAlreadyExistsException("Brand already exists");
             }
         }
 
-        final BrandStatus convertedToBrandStatus = BrandStatus.valueOf(updateBrandUseCaseInput.getBrandStatus());
+        final BrandStatus convertedToBrandStatus = BrandStatus.valueOf(updateBrandUseCaseInput.getStatus());
 
         final Brand brandUpdated = brand.withName(updateBrandUseCaseInput.getName()).withBrandStatus(convertedToBrandStatus);
 
