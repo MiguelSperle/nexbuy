@@ -179,13 +179,6 @@ public class ControllerAdviceHandler {
         ));
     }
 
-    @ExceptionHandler(BrandAssociatedProductException.class)
-    public ResponseEntity<Object> handleBrandAssociatedProductException(BrandAssociatedProductException brandAssociatedProductException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(brandAssociatedProductException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
-        ));
-    }
-
     @ExceptionHandler(CategoryHierarchyLevelExceededException.class)
     public ResponseEntity<Object> handleCategoryHierarchyLevelExceededException(CategoryHierarchyLevelExceededException categoryHierarchyLevelExceededException) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ErrorMessageResponse(

@@ -1,10 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.miguelsperle.nexbuy.module.product.domain.enums.BrandStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +22,10 @@ public class JpaBrandEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String name;
 
+    @Column(name = "status", nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    private BrandStatus brandStatus;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -31,6 +33,7 @@ public class JpaBrandEntity {
         return new JpaBrandEntity(
                 brand.getId(),
                 brand.getName(),
+                brand.getBrandStatus(),
                 brand.getCreatedAt()
         );
     }
@@ -39,6 +42,7 @@ public class JpaBrandEntity {
         return Brand.with(
                 this.id,
                 this.name,
+                this.brandStatus,
                 this.createdAt
         );
     }

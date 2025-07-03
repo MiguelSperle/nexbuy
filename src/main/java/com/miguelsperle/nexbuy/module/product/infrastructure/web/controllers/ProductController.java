@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateBrandStatusUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterRootCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterSubCategoryUseCaseInput;
@@ -11,6 +11,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterBrandRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterRootCategoryRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterSubCategoryRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateBrandStatusRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetBrandsResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetCategoriesResponse;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ import java.util.List;
 public class ProductController {
     private final IRegisterBrandUseCase registerBrandUseCase;
     private final IGetBrandsUseCase getBrandsUseCase;
-    private final IDeleteBrandUseCase deleteBrandUseCase;
+    private final IUpdateBrandStatusUseCase updateBrandStatusUseCase;
     private final IRegisterRootCategoryUseCase registerRootCategoryUseCase;
     private final IRegisterSubCategoryUseCase registerSubCategoryUseCase;
     private final IGetCategoriesUseCase getCategoriesUseCase;
@@ -46,11 +47,17 @@ public class ProductController {
         return GetBrandsResponse.fromOutput(getBrandsUseCaseOutput);
     }
 
-    @DeleteMapping("/brands/{brandId}")
-    public ResponseEntity<Object> deleteBrand(@PathVariable String brandId) {
-        this.deleteBrandUseCase.execute(new DeleteBrandUseCaseInput(brandId));
+    @PatchMapping("/brands/{brandId}")
+    public ResponseEntity<Object> updateBrandStatus(
+            @PathVariable String brandId,
+            @RequestBody @Valid UpdateBrandStatusRequest updateBrandStatusRequest
+    ) {
+        this.updateBrandStatusUseCase.execute(new UpdateBrandStatusUseCaseInput(
+                brandId,
+                updateBrandStatusRequest.getBrandStatus()
+        ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Brand deleted successfully"));
+        return ResponseEntity.ok().body(new MessageResponse("Brand updated successfully"));
     }
 
     @PostMapping("/categories")
