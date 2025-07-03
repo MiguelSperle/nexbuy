@@ -20,7 +20,7 @@ public class GetAddressesUseCase implements IGetAddressesUseCase {
     public GetAddressesUseCaseOutput execute() {
         final User authenticatedUser = this.getAuthenticatedUser();
 
-        final List<Address> addresses = this.addressGateway.findAllByUserId(authenticatedUser.getId());
+        final List<Address> addresses = this.getAddressesByUserId(authenticatedUser.getId());
 
         return new GetAddressesUseCaseOutput(addresses);
     }
@@ -28,5 +28,9 @@ public class GetAddressesUseCase implements IGetAddressesUseCase {
     private User getAuthenticatedUser() {
         return this.authenticatedUserService.getAuthenticatedUser()
                 .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    }
+
+    private List<Address> getAddressesByUserId(String userId) {
+        return this.addressGateway.findAllByUserId(userId);
     }
 }

@@ -30,10 +30,10 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
     }
 
     private boolean verifyNaturalPersonAlreadyExistsByCpf(String cpf) {
-        return this.naturalPersonGateway.findByCpf(cpf).isPresent();
+        return this.naturalPersonGateway.existsByCpf(cpf);
     }
 
     private boolean verifyNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
-        return this.naturalPersonGateway.findByGeneralRegister(generalRegister).isPresent();
+        return this.naturalPersonGateway.existsByGeneralRegister(generalRegister);
     }
 }

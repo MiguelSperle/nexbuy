@@ -11,4 +11,5 @@ public interface IUserGateway {
     User save(User user);
     void deleteById(String id);
     Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);
 }

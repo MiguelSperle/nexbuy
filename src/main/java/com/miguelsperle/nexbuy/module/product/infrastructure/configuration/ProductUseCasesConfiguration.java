@@ -26,8 +26,13 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public IRegisterCategoryUseCase registerCategoryUseCase(ICategoryGateway categoryGateway) {
-        return new RegisterCategoryUseCase(categoryGateway);
+    public IRegisterRootCategoryUseCase registerRootCategoryUseCase(ICategoryGateway categoryGateway) {
+        return new RegisterRootCategoryUseCase(categoryGateway);
+    }
+
+    @Bean
+    public IRegisterSubCategoryUseCase registerSubCategoryUseCase(ICategoryGateway categoryGateway) {
+        return new RegisterSubCategoryUseCase(categoryGateway);
     }
 
     @Bean

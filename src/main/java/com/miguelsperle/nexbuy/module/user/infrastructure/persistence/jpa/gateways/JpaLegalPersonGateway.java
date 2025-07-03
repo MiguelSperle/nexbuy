@@ -36,23 +36,23 @@ public class JpaLegalPersonGateway implements ILegalPersonGateway {
     }
 
     @Override
-    public Optional<LegalPerson> findByCnpj(String cnpj) {
-        return this.jpaLegalPersonRepository.findByCnpj(cnpj).map(JpaLegalPersonEntity::toEntity);
+    public boolean existsByCnpj(String cnpj) {
+        return this.jpaLegalPersonRepository.existsByCnpj(cnpj);
     }
 
     @Override
-    public Optional<LegalPerson> findByFantasyName(String fantasyName) {
-        return this.jpaLegalPersonRepository.findByFantasyName(fantasyName).map(JpaLegalPersonEntity::toEntity);
+    public boolean existsByFantasyName(String fantasyName) {
+        return this.jpaLegalPersonRepository.existsByFantasyName(fantasyName);
     }
 
     @Override
-    public Optional<LegalPerson> findByLegalName(String legalName) {
-        return this.jpaLegalPersonRepository.findByLegalName(legalName).map(JpaLegalPersonEntity::toEntity);
+    public boolean existsByLegalName(String legalName) {
+        return this.jpaLegalPersonRepository.existsByLegalName(legalName);
     }
 
     @Override
-    public Optional<LegalPerson> findByStateRegistration(String stateRegistration) {
-        return this.jpaLegalPersonRepository.findByStateRegistration(stateRegistration).map(JpaLegalPersonEntity::toEntity);
+    public boolean existsByStateRegistration(String stateRegistration) {
+        return this.jpaLegalPersonRepository.existsByStateRegistration(stateRegistration);
     }
 
     @Override

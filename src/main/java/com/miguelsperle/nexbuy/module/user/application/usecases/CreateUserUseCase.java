@@ -65,7 +65,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     }
 
     private boolean verifyUserAlreadyExistsByEmail(String email) {
-        return this.userGateway.findByEmail(email).isPresent();
+        return this.userGateway.existsByEmail(email);
     }
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {

@@ -36,13 +36,13 @@ public class JpaNaturalPersonGateway implements INaturalPersonGateway {
     }
 
     @Override
-    public Optional<NaturalPerson> findByCpf(String cpf) {
-        return this.jpaNaturalPersonRepository.findByCpf(cpf).map(JpaNaturalPersonEntity::toEntity);
+    public boolean existsByCpf(String cpf) {
+        return this.jpaNaturalPersonRepository.existsByCpf(cpf);
     }
 
     @Override
-    public Optional<NaturalPerson> findByGeneralRegister(String generalRegister) {
-        return this.jpaNaturalPersonRepository.findByGeneralRegister(generalRegister).map(JpaNaturalPersonEntity::toEntity);
+    public boolean existsByGeneralRegister(String generalRegister) {
+        return this.jpaNaturalPersonRepository.existsByGeneralRegister(generalRegister);
     }
 
     @Override

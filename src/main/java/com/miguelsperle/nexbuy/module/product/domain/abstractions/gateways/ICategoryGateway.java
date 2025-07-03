@@ -10,5 +10,5 @@ public interface ICategoryGateway {
     Optional<Category> findById(String id);
     Category save(Category category);
     void deleteById(String id);
-    Optional<Category> findByName(String name);
+    boolean existsByName(String name);
 }

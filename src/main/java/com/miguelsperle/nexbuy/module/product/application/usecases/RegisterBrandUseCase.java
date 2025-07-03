@@ -23,6 +23,6 @@ public class RegisterBrandUseCase implements IRegisterBrandUseCase {
     }
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
-        return this.brandGateway.findByName(name).isPresent();
+        return this.brandGateway.existsByName(name);
     }
 }

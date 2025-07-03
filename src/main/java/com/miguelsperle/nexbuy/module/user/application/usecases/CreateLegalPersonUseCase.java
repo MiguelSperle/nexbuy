@@ -38,20 +38,20 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
     }
 
     private boolean verifyLegalPersonAlreadyExistsByCnpj(String cnpj) {
-        return this.legalPersonGateway.findByCnpj(cnpj).isPresent();
+        return this.legalPersonGateway.existsByCnpj(cnpj);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByFantasyName(String fantasyName) {
-        return this.legalPersonGateway.findByFantasyName(fantasyName).isPresent();
+        return this.legalPersonGateway.existsByFantasyName(fantasyName);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByLegalName(String legalName) {
-        return this.legalPersonGateway.findByLegalName(legalName).isPresent();
+        return this.legalPersonGateway.existsByLegalName(legalName);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByStateRegistration(String stateRegistration) {
         if (stateRegistration != null) {
-            return this.legalPersonGateway.findByStateRegistration(stateRegistration).isPresent();
+            return this.legalPersonGateway.existsByStateRegistration(stateRegistration);
         }
         return false;
     }

@@ -10,9 +10,9 @@ public interface ILegalPersonGateway {
     Optional<LegalPerson> findById(String id);
     LegalPerson save(LegalPerson legalPerson);
     void deleteById(String id);
-    Optional<LegalPerson> findByCnpj(String cnpj);
-    Optional<LegalPerson> findByFantasyName(String fantasyName);
-    Optional<LegalPerson> findByLegalName(String legalName);
-    Optional<LegalPerson> findByStateRegistration(String stateRegistration);
+    boolean existsByCnpj(String cnpj);
+    boolean existsByFantasyName(String fantasyName);
+    boolean existsByLegalName(String legalName);
+    boolean existsByStateRegistration(String stateRegistration);
     Optional<LegalPerson> findByUserId(String userId);
 }

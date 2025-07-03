@@ -36,7 +36,7 @@ public class JpaBrandGateway implements IBrandGateway {
     }
 
     @Override
-    public Optional<Brand> findByName(String name) {
-        return this.jpaBrandRepository.findByName(name).map(JpaBrandEntity::toEntity);
+    public boolean existsByName(String name) {
+        return this.jpaBrandRepository.existsByName(name);
     }
 }

@@ -10,5 +10,5 @@ public interface IBrandGateway {
     Optional<Brand> findById(String id);
     Brand save(Brand brand);
     void deleteById(String id);
-    Optional<Brand> findByName(String name);
+    boolean existsByName(String name);
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterCategoryRequest {
+public class RegisterSubCategoryRequest {
     @NotBlank(message = "Name should not be neither null nor blank")
     @Size(max = 50, message = "Name should not exceed 50 characters")
     private String name;
@@ -18,5 +18,6 @@ public class RegisterCategoryRequest {
     @Size(max = 255, message = "Description should not exceed 255 characters")
     private String description;
 
-    private String parentCategoryId; // Optional, for sub-categories
+    @NotBlank(message = "Parent category id should not be neither null nor blank")
+    private String parentCategoryId;
 }

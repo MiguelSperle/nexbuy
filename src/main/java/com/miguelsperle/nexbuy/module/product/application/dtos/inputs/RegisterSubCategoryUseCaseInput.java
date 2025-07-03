@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterCategoryUseCaseInput {
+public class RegisterSubCategoryUseCaseInput {
     private String name;
     private String description;
     private String parentCategoryId;

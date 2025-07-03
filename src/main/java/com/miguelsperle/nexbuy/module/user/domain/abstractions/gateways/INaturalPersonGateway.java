@@ -10,7 +10,7 @@ public interface INaturalPersonGateway {
     Optional<NaturalPerson> findById(String id);
     NaturalPerson save(NaturalPerson naturalPerson);
     void deleteById(String id);
-    Optional<NaturalPerson> findByCpf(String cpf);
-    Optional<NaturalPerson> findByGeneralRegister(String generalRegister);
+    boolean existsByCpf(String cpf);
+    boolean existsByGeneralRegister(String generalRegister);
     Optional<NaturalPerson> findByUserId(String userId);
 }

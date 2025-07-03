@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, String> {
-    @Query(nativeQuery = true, value = "SELECT * FROM categories c WHERE LOWER(c.name) = LOWER(:name)")
-    Optional<JpaCategoryEntity> findByName(@Param("name") String name);
+    @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM categories c WHERE LOWER(c.name) = LOWER(:name))")
+    boolean existsByName(@Param("name") String name);
 }

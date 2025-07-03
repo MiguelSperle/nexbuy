@@ -39,4 +39,9 @@ public class JpaUserGateway implements IUserGateway {
     public Optional<User> findByEmail(String email) {
         return this.jpaUserRepository.findByEmail(email).map(JpaUserEntity::toEntity);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return this.jpaUserRepository.existsByEmail(email);
+    }
 }
