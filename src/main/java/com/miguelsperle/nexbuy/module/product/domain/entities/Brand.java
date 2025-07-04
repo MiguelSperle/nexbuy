@@ -1,6 +1,5 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
-import com.miguelsperle.nexbuy.module.product.domain.enums.BrandStatus;
 import lombok.Data;
 import lombok.With;
 
@@ -12,22 +11,19 @@ public class Brand {
     private final String id;
     @With
     private final String name;
-    @With
-    private final BrandStatus brandStatus;
     private final LocalDateTime createdAt;
 
-    private Brand(String id, String name, BrandStatus brandStatus, LocalDateTime createdAt) {
+    private Brand(String id, String name, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
-        this.brandStatus = brandStatus;
         this.createdAt = createdAt;
     }
 
     public static Brand newBrand(String name) {
-        return new Brand(UUID.randomUUID().toString(), name, BrandStatus.ACTIVE, LocalDateTime.now());
+        return new Brand(UUID.randomUUID().toString(), name, LocalDateTime.now());
     }
 
-    public static Brand with(String id, String name, BrandStatus brandStatus, LocalDateTime createdAt) {
-        return new Brand(id, name, brandStatus, createdAt);
+    public static Brand with(String id, String name, LocalDateTime createdAt) {
+        return new Brand(id, name, createdAt);
     }
 }

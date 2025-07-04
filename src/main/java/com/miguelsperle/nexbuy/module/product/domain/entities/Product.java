@@ -67,7 +67,7 @@ public class Product {
                 brand,
                 model,
                 color,
-                ProductStatus.ACTIVE,
+                ProductStatus.AVAILABLE,
                 LocalDateTime.now()
         );
     }

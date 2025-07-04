@@ -41,12 +41,12 @@ public class JpaCategoryGateway implements ICategoryGateway {
     }
 
     @Override
-    public List<Category> findAllByParentCategoryIdIsNull() {
-        return this.jpaCategoryRepository.findAllByParentCategoryIdIsNull().stream().map(JpaCategoryEntity::toEntity).toList();
+    public List<Category> findAllByParentCategoryIdNull() {
+        return this.jpaCategoryRepository.findAllByParentCategoryIdNull().stream().map(JpaCategoryEntity::toEntity).toList();
     }
 
     @Override
-    public List<Category> findAllByParentCategoryIdIsNotNull() {
-        return this.jpaCategoryRepository.findAllByParentCategoryIdIsNotNull().stream().map(JpaCategoryEntity::toEntity).toList();
+    public List<Category> findAllByParentCategoryIdNotNull() {
+        return this.jpaCategoryRepository.findAllByParentCategoryIdNotNull().stream().map(JpaCategoryEntity::toEntity).toList();
     }
 }

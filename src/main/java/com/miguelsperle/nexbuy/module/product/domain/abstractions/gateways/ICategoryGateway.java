@@ -11,6 +11,6 @@ public interface ICategoryGateway {
     Category save(Category category);
     void deleteById(String id);
     boolean existsByName(String name);
-    List<Category> findAllByParentCategoryIdIsNull();
-    List<Category> findAllByParentCategoryIdIsNotNull();
+    List<Category> findAllByParentCategoryIdNull();
+    List<Category> findAllByParentCategoryIdNotNull();
 }

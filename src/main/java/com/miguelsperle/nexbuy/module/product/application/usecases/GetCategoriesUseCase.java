@@ -14,10 +14,18 @@ public class GetCategoriesUseCase implements IGetCategoriesUseCase {
 
     @Override
     public GetCategoriesUseCaseOutput execute() {
-        final List<Category> rootCategories = this.categoryGateway.findAllByParentCategoryIdIsNull();
+        final List<Category> rootCategories = this.getRootCategoriesByParentCategoryIdNull();
 
-        final List<Category> subCategories = this.categoryGateway.findAllByParentCategoryIdIsNotNull();
+        final List<Category> subCategories = this.getSubCategoriesByParentCategoryIdNotNull();
 
         return new GetCategoriesUseCaseOutput(rootCategories, subCategories);
+    }
+
+    private List<Category> getRootCategoriesByParentCategoryIdNull() {
+        return this.categoryGateway.findAllByParentCategoryIdNull();
+    }
+
+    private List<Category> getSubCategoriesByParentCategoryIdNotNull() {
+        return this.categoryGateway.findAllByParentCategoryIdNotNull();
     }
 }

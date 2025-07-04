@@ -14,8 +14,12 @@ public class GetBrandsUseCase implements IGetBrandsUseCase {
 
     @Override
     public GetBrandsUseCaseOutput execute() {
-        final List<Brand> brands = this.brandGateway.findAll();
+        final List<Brand> brands = this.getAllBrands();
 
         return new GetBrandsUseCaseOutput(brands);
+    }
+
+    private List<Brand> getAllBrands() {
+        return this.brandGateway.findAll();
     }
 }

@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBrandUseCaseInput {
+public class DeleteBrandUseCaseInput {
     private String brandId;
-    private String name;
-    private String status;
 }

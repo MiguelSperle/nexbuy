@@ -12,8 +12,8 @@ public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, 
     boolean existsByName(@Param("name") String name);
 
     @Query(nativeQuery = true, value = "SELECT * FROM categories c WHERE c.parent_category_id IS NULL")
-    List<JpaCategoryEntity> findAllByParentCategoryIdIsNull();
+    List<JpaCategoryEntity> findAllByParentCategoryIdNull();
 
     @Query(nativeQuery = true, value = "SELECT * FROM categories c WHERE c.parent_category_id IS NOT NULL")
-    List<JpaCategoryEntity> findAllByParentCategoryIdIsNotNull();
+    List<JpaCategoryEntity> findAllByParentCategoryIdNotNull();
 }
