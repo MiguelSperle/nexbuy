@@ -30,10 +30,10 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
             throw new UserCodeExpiredException("User code has expired");
         }
 
-        final User userUpdated = userCode.getUser().withIsVerified(true);
+        final User updatedUser = userCode.getUser().withIsVerified(true);
 
         this.transactionExecutor.runTransaction(() -> {
-            this.userGateway.save(userUpdated);
+            this.userGateway.save(updatedUser);
             this.userCodeGateway.deleteById(userCode.getId());
         });
     }

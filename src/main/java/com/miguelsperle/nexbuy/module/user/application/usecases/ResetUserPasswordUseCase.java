@@ -34,10 +34,10 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(resetUserPasswordUseCaseInput.getPassword());
 
-        final User userUpdated = userCode.getUser().withPassword(encodedPassword);
+        final User updatedUser = userCode.getUser().withPassword(encodedPassword);
 
         this.transactionExecutor.runTransaction(() -> {
-            this.userGateway.save(userUpdated);
+            this.userGateway.save(updatedUser);
             this.userCodeGateway.deleteById(userCode.getId());
         });
     }

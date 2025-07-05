@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
+import com.miguelsperle.nexbuy.core.application.exceptions.ActionNotAllowedException;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAssociatedProductException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
@@ -18,8 +18,8 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
     public void execute(DeleteBrandUseCaseInput deleteBrandUseCaseInput) {
         final Brand brand = this.getBrandById(deleteBrandUseCaseInput.getBrandId());
 
-        if (this.verifyExistsProductAssociatedWithBrandId(brand.getId())) {
-            throw new BrandAssociatedProductException("Brand cannot be deleted because it has associated products");
+        if (this.verifyExistsProductLinkedToBrandId(brand.getId())) {
+            throw new ActionNotAllowedException("Brand cannot be deleted because it has linked products");
         }
 
         this.brandGateway.deleteById(brand.getId());
@@ -30,7 +30,7 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
                 .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
     }
 
-    private boolean verifyExistsProductAssociatedWithBrandId(String brandId) {
+    private boolean verifyExistsProductLinkedToBrandId(String brandId) {
         return this.productGateway.existsByBrandId(brandId);
     }
 }

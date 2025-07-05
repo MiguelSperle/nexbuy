@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
 import lombok.Data;
+import lombok.With;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,8 +9,11 @@ import java.util.UUID;
 @Data
 public class Category {
     private final String id;
+    @With
     private final String name;
+    @With
     private final String description;
+    @With
     private final String slug;
     private final Category parentCategory;
     private final Integer hierarchyLevel;

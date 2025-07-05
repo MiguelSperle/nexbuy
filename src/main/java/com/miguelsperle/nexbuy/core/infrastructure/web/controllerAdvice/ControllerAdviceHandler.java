@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 
+import com.miguelsperle.nexbuy.core.application.exceptions.ActionNotAllowedException;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
@@ -183,6 +184,13 @@ public class ControllerAdviceHandler {
     public ResponseEntity<Object> handleCategoryHierarchyLevelExceededException(CategoryHierarchyLevelExceededException categoryHierarchyLevelExceededException) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ErrorMessageResponse(
                 Collections.singletonList(categoryHierarchyLevelExceededException.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(ActionNotAllowedException.class)
+    public ResponseEntity<Object> handleActionNotAllowedException(ActionNotAllowedException actionNotAllowedException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
+                Collections.singletonList(actionNotAllowedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
         ));
     }
 }

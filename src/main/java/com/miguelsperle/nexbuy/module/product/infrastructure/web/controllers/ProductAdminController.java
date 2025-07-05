@@ -2,47 +2,30 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.*;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetCategoriesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterBrandRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterRootCategoryRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterSubCategoryRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateBrandNameRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetBrandsResponse;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetCategoriesResponse;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/admin/products")
 @RequiredArgsConstructor
 public class ProductAdminController {
     private final IRegisterBrandUseCase registerBrandUseCase;
-    private final IGetBrandsUseCase getBrandsUseCase;
     private final IUpdateBrandNameUseCase updateBrandNameUseCase;
     private final IDeleteBrandUseCase deleteBrandUseCase;
     private final IRegisterRootCategoryUseCase registerRootCategoryUseCase;
     private final IRegisterSubCategoryUseCase registerSubCategoryUseCase;
-    private final IGetCategoriesUseCase getCategoriesUseCase;
+    private final IUpdateCategoryUseCase updateCategoryUseCase;
 
     @PostMapping("/brands")
     public ResponseEntity<Object> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
         this.registerBrandUseCase.execute(new RegisterBrandUseCaseInput(registerBrandRequest.getName()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Brand registered successfully"));
-    }
-
-    @GetMapping("/brands")
-    public List<GetBrandsResponse> getBrands() {
-        final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute();
-
-        return GetBrandsResponse.fromOutput(getBrandsUseCaseOutput);
     }
 
     @PatchMapping("/brands/{brandId}")
@@ -86,10 +69,31 @@ public class ProductAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Sub category registered successfully"));
     }
 
-    @GetMapping("/categories")
-    public List<GetCategoriesResponse> getCategories() {
-        final GetCategoriesUseCaseOutput getCategoriesUseCaseOutput = this.getCategoriesUseCase.execute();
+    @PatchMapping("/categories/{categoryId}")
+    public ResponseEntity<Object> updateRootCategory(
+            @PathVariable String categoryId,
+            @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
+    ) {
+        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
+                categoryId,
+                updateCategoryRequest.getName(),
+                updateCategoryRequest.getDescription()
+        ));
 
-        return GetCategoriesResponse.fromOutput(getCategoriesUseCaseOutput);
+        return ResponseEntity.ok().body(new MessageResponse("Root category updated successfully"));
+    }
+
+    @PatchMapping("/categories/sub/{categoryId}")
+    public ResponseEntity<Object> updateSubCategory(
+            @PathVariable String categoryId,
+            @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
+    ) {
+        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
+                categoryId,
+                updateCategoryRequest.getName(),
+                updateCategoryRequest.getDescription()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse("Sub category updated successfully"));
     }
 }

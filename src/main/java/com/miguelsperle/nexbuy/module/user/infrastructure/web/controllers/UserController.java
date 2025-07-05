@@ -34,6 +34,7 @@ public class UserController {
     private final ICreateAddressUseCase createAddressUseCase;
     private final IUpdateAddressUseCase updateAddressUseCase;
     private final IGetAddressesUseCase getAddressesUseCase;
+    private final IGetAddressUseCase getAddressUseCase;
     private final IDeleteAddressUseCase deleteAddressUseCase;
 
     @PostMapping
@@ -199,10 +200,17 @@ public class UserController {
     }
 
     @GetMapping("/addresses")
-    public List<GetAddressesResponse> getAddresses() {
+    public ResponseEntity<List<GetAddressesResponse>> getAddresses() {
         final GetAddressesUseCaseOutput getAddressesUseCaseOutput = this.getAddressesUseCase.execute();
 
-        return GetAddressesResponse.fromOutput(getAddressesUseCaseOutput);
+        return ResponseEntity.ok().body(GetAddressesResponse.fromOutput(getAddressesUseCaseOutput));
+    }
+
+    @GetMapping("/addresses/{addressId}")
+    public ResponseEntity<Object> getAddress(@PathVariable String addressId) {
+        final GetAddressUseCaseOutput getAddressUseCaseOutput = this.getAddressUseCase.execute(new GetAddressUseCaseInput(addressId));
+
+        return ResponseEntity.ok().body(GetAddressResponse.fromOutput(getAddressUseCaseOutput));
     }
 
     @DeleteMapping("/addresses/{addressId}")

@@ -15,7 +15,7 @@ public class UpdateAddressUseCase implements IUpdateAddressUseCase {
     public void execute(UpdateAddressUseCaseInput updateAddressUseCaseInput) {
         final Address address = this.getAddressById(updateAddressUseCaseInput.getAddressId());
 
-        final Address addressUpdated = address.withAddressLine(updateAddressUseCaseInput.getAddressLine())
+        final Address updatedAddress = address.withAddressLine(updateAddressUseCaseInput.getAddressLine())
                 .withAddressNumber(updateAddressUseCaseInput.getAddressNumber())
                 .withZipCode(updateAddressUseCaseInput.getZipCode())
                 .withNeighborhood(updateAddressUseCaseInput.getNeighborhood())
@@ -23,7 +23,7 @@ public class UpdateAddressUseCase implements IUpdateAddressUseCase {
                 .withUf(updateAddressUseCaseInput.getUf())
                 .withComplement(updateAddressUseCaseInput.getComplement());
 
-        this.addressGateway.save(addressUpdated);
+        this.addressGateway.save(updatedAddress);
     }
 
     private Address getAddressById(String addressId) {

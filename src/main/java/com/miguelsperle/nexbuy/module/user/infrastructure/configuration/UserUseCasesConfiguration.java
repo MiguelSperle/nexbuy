@@ -207,6 +207,11 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
+    public IGetAddressUseCase getAddressUseCase(IAddressGateway addressGateway) {
+        return new GetAddressUseCase(addressGateway);
+    }
+
+    @Bean
     public IDeleteAddressUseCase deleteAddressUseCase(IAddressGateway addressGateway) {
         return new DeleteAddressUseCase(addressGateway);
     }
