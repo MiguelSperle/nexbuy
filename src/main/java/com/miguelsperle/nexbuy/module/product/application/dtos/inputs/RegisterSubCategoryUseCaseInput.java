@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterSubCategoryUseCaseInput {
+    private String categoryId;
     private String name;
     private String description;
-    private String parentCategoryId;
 }

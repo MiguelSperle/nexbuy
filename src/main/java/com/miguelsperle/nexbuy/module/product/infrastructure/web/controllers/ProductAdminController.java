@@ -58,12 +58,29 @@ public class ProductAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Root category registered successfully"));
     }
 
-    @PostMapping("/categories/sub")
-    public ResponseEntity<Object> registerSubCategory(@RequestBody @Valid RegisterSubCategoryRequest registerSubCategoryRequest) {
+    @PostMapping("/categories/{categoryId}/sub")
+    public ResponseEntity<Object> registerSubCategoryOfRoot(
+            @PathVariable String categoryId,
+            @RequestBody @Valid RegisterSubCategoryRequest registerSubCategoryRequest
+    ) {
         this.registerSubCategoryUseCase.execute(new RegisterSubCategoryUseCaseInput(
+                categoryId,
                 registerSubCategoryRequest.getName(),
-                registerSubCategoryRequest.getDescription(),
-                registerSubCategoryRequest.getParentCategoryId()
+                registerSubCategoryRequest.getDescription()
+        ));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Sub category registered successfully"));
+    }
+
+    @PostMapping("/categories/sub/{categoryId}")
+    public ResponseEntity<Object> registerSubCategoryOfSub(
+            @PathVariable String categoryId,
+            @RequestBody @Valid RegisterSubCategoryRequest registerSubCategoryRequest
+    ) {
+        this.registerSubCategoryUseCase.execute(new RegisterSubCategoryUseCaseInput(
+                categoryId,
+                registerSubCategoryRequest.getName(),
+                registerSubCategoryRequest.getDescription()
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Sub category registered successfully"));

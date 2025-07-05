@@ -17,7 +17,4 @@ public class RegisterSubCategoryRequest {
     @NotBlank(message = "Description should not be neither null nor blank")
     @Size(max = 255, message = "Description should not exceed 255 characters")
     private String description;
-
-    @NotBlank(message = "Parent category id should not be neither null nor blank")
-    private String parentCategoryId;
 }

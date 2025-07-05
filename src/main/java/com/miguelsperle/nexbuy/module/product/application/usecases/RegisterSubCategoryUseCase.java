@@ -22,17 +22,17 @@ public class RegisterSubCategoryUseCase implements IRegisterSubCategoryUseCase {
             throw new CategoryAlreadyExistsException("Category already exists");
         }
 
-        final Category parentCategory = this.getParentCategoryById(registerSubCategoryUseCaseInput.getParentCategoryId());
+        final Category category = this.getCategoryById(registerSubCategoryUseCaseInput.getCategoryId());
 
-        final int hierarchyLevel = parentCategory.getHierarchyLevel() + 1;
+        final int hierarchyLevel = category.getHierarchyLevel() + 1;
 
         if (hierarchyLevel > MAX_HIERARCHY_LEVEL) {
-            throw new CategoryHierarchyLevelExceededException("Category hierarchy level exceeded the maximum allowed limit");
+            throw new CategoryHierarchyLevelExceededException("Category hierarchy level reached the maximum allowed limit");
         }
 
         final String slug = SlugUtils.createSlug(registerSubCategoryUseCaseInput.getName());
 
-        final Category newCategory = Category.newCategory(registerSubCategoryUseCaseInput.getName(), registerSubCategoryUseCaseInput.getDescription(), slug, parentCategory, hierarchyLevel);
+        final Category newCategory = Category.newCategory(registerSubCategoryUseCaseInput.getName(), registerSubCategoryUseCaseInput.getDescription(), slug, category, hierarchyLevel);
 
         this.categoryGateway.save(newCategory);
     }
@@ -41,8 +41,8 @@ public class RegisterSubCategoryUseCase implements IRegisterSubCategoryUseCase {
         return this.categoryGateway.existsByName(name);
     }
 
-    private Category getParentCategoryById(String parentCategoryId) {
-        return this.categoryGateway.findById(parentCategoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Parent category not found"));
+    private Category getCategoryById(String categoryId) {
+        return this.categoryGateway.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
     }
 }
