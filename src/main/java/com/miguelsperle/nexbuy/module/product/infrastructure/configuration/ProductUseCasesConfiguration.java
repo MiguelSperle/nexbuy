@@ -49,4 +49,9 @@ public class ProductUseCasesConfiguration {
     public IUpdateCategoryUseCase updateCategoryUseCase(ICategoryGateway categoryGateway) {
         return new UpdateCategoryUseCase(categoryGateway);
     }
+
+    @Bean
+    public IGetBrandUseCase getBrandUseCase(IBrandGateway brandGateway) {
+        return new GetBrandUseCase(brandGateway);
+    }
 }
