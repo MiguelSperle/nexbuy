@@ -39,4 +39,9 @@ public class ProductUseCasesConfiguration {
     public IRegisterCategoryUseCase registerCategoryUseCase(ICategoryGateway categoryGateway) {
         return new RegisterCategoryUseCase(categoryGateway);
     }
+
+    @Bean
+    public IUpdateCategoryUseCase updateCategoryUseCase(ICategoryGateway categoryGateway) {
+        return new UpdateCategoryUseCase(categoryGateway);
+    }
 }

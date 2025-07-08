@@ -18,6 +18,7 @@ public class ProductAdminController {
     private final IUpdateBrandUseCase updateBrandUseCase;
     private final IDeleteBrandUseCase deleteBrandUseCase;
     private final IRegisterCategoryUseCase registerCategoryUseCase;
+    private final IUpdateCategoryUseCase updateCategoryUseCase;
 
     @PostMapping("/brands")
     public ResponseEntity<Object> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
@@ -54,5 +55,19 @@ public class ProductAdminController {
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Category registered successfully"));
+    }
+
+    @PatchMapping("/categories/{categoryId}")
+    public ResponseEntity<Object> updateCategory(
+            @PathVariable String categoryId,
+            @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
+    ) {
+        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
+                categoryId,
+                updateCategoryRequest.name(),
+                updateCategoryRequest.description()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse("Category updated successfully"));
     }
 }

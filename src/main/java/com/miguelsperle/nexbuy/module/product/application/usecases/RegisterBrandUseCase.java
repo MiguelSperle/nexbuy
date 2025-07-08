@@ -16,7 +16,7 @@ public class RegisterBrandUseCase implements IRegisterBrandUseCase {
     @Override
     public void execute(RegisterBrandUseCaseInput registerBrandUseCaseInput) {
         if (this.verifyBrandAlreadyExistsByName(registerBrandUseCaseInput.name())) {
-            throw new BrandAlreadyExistsException("Brand already exists");
+            throw new BrandAlreadyExistsException("Brand with this name already exists");
         }
 
         final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.name());

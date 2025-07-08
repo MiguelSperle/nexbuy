@@ -39,6 +39,7 @@ public class SecurityConfiguration {
             "/api/admin/products/brands",
             "/api/admin/products/brands/{brandId}",
             "/api/admin/products/categories",
+            "/api/admin/products/categories/{categoryId}"
     };
 
     @Bean

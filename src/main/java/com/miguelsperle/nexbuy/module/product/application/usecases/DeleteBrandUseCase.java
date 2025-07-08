@@ -22,7 +22,7 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
         final Brand brand = this.getBrandById(deleteBrandUseCaseInput.brandId());
 
         if (this.verifyProductAlreadyExistsByBrandId(brand.getId())) {
-            throw new BrandAssociatedWithProductsException("Brand cannot be deleted because it is associated with products");
+            throw new BrandAssociatedWithProductsException("Brand cannot be deleted because it is already associated with products");
         }
 
         this.brandGateway.deleteById(brand.getId());

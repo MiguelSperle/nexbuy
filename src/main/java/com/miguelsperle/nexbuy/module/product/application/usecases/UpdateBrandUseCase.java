@@ -20,13 +20,13 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
 
         if (!updateBrandUseCaseInput.name().equalsIgnoreCase(brand.getName())) {
             if (this.verifyBrandAlreadyExistsByName(updateBrandUseCaseInput.name())) {
-                throw new BrandAlreadyExistsException("Brand already exists");
+                throw new BrandAlreadyExistsException("Brand with this name already exists");
             }
         }
 
-        final Brand brandUpdated = brand.withName(updateBrandUseCaseInput.name());
+        final Brand updatedBrand = brand.withName(updateBrandUseCaseInput.name());
 
-        this.brandGateway.save(brandUpdated);
+        this.brandGateway.save(updatedBrand);
     }
 
     private Brand getBrandById(String brandId) {

@@ -24,6 +24,10 @@ public class Category {
         return new Category(id, name, description, createdAt);
     }
 
+    public Category withName(String name) {
+        return new Category(this.id, name, this.description, this.createdAt);
+    }
+
     public String getId() {
         return id;
     }
