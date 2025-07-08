@@ -17,6 +17,7 @@ public class ProductAdminController {
     private final IRegisterBrandUseCase registerBrandUseCase;
     private final IUpdateBrandUseCase updateBrandUseCase;
     private final IDeleteBrandUseCase deleteBrandUseCase;
+    private final IRegisterCategoryUseCase registerCategoryUseCase;
 
     @PostMapping("/brands")
     public ResponseEntity<Object> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
@@ -43,5 +44,15 @@ public class ProductAdminController {
         this.deleteBrandUseCase.execute(new DeleteBrandUseCaseInput(brandId));
 
         return ResponseEntity.ok().body(new MessageResponse("Brand deleted successfully"));
+    }
+
+    @PostMapping("/categories")
+    public ResponseEntity<Object> registerCategory(@RequestBody @Valid RegisterCategoryRequest registerCategoryRequest) {
+        this.registerCategoryUseCase.execute(new RegisterCategoryUseCaseInput(
+                registerCategoryRequest.name(),
+                registerCategoryRequest.description()
+        ));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Category registered successfully"));
     }
 }

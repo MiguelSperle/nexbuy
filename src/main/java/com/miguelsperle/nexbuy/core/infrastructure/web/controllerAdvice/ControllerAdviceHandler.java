@@ -164,4 +164,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(brandAssociatedWithProductsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<Object> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException categoryAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(categoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
 }
