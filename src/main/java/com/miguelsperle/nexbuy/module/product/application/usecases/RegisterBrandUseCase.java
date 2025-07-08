@@ -5,19 +5,21 @@ import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlread
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class RegisterBrandUseCase implements IRegisterBrandUseCase {
     private final IBrandGateway brandGateway;
 
+    public RegisterBrandUseCase(IBrandGateway brandGateway) {
+        this.brandGateway = brandGateway;
+    }
+
     @Override
     public void execute(RegisterBrandUseCaseInput registerBrandUseCaseInput) {
-        if (this.verifyBrandAlreadyExistsByName(registerBrandUseCaseInput.getName())) {
+        if (this.verifyBrandAlreadyExistsByName(registerBrandUseCaseInput.name())) {
             throw new BrandAlreadyExistsException("Brand already exists");
         }
 
-        final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.getName());
+        final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.name());
 
         this.brandGateway.save(newBrand);
     }

@@ -5,23 +5,25 @@ import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoun
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class UpdateAddressUseCase implements IUpdateAddressUseCase {
     private final IAddressGateway addressGateway;
 
+    public UpdateAddressUseCase(IAddressGateway addressGateway) {
+        this.addressGateway = addressGateway;
+    }
+
     @Override
     public void execute(UpdateAddressUseCaseInput updateAddressUseCaseInput) {
-        final Address address = this.getAddressById(updateAddressUseCaseInput.getAddressId());
+        final Address address = this.getAddressById(updateAddressUseCaseInput.addressId());
 
-        final Address updatedAddress = address.withAddressLine(updateAddressUseCaseInput.getAddressLine())
-                .withAddressNumber(updateAddressUseCaseInput.getAddressNumber())
-                .withZipCode(updateAddressUseCaseInput.getZipCode())
-                .withNeighborhood(updateAddressUseCaseInput.getNeighborhood())
-                .withCity(updateAddressUseCaseInput.getCity())
-                .withUf(updateAddressUseCaseInput.getUf())
-                .withComplement(updateAddressUseCaseInput.getComplement());
+        final Address updatedAddress = address.withAddressLine(updateAddressUseCaseInput.addressLine())
+                .withAddressNumber(updateAddressUseCaseInput.addressNumber())
+                .withZipCode(updateAddressUseCaseInput.zipCode())
+                .withNeighborhood(updateAddressUseCaseInput.neighborhood())
+                .withCity(updateAddressUseCaseInput.city())
+                .withUf(updateAddressUseCaseInput.uf())
+                .withComplement(updateAddressUseCaseInput.complement());
 
         this.addressGateway.save(updatedAddress);
     }

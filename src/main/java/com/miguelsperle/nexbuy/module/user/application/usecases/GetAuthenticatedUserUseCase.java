@@ -13,13 +13,21 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase {
     private final IAuthenticatedUserService authenticatedUserService;
     private final INaturalPersonGateway naturalPersonGateway;
     private final ILegalPersonGateway legalPersonGateway;
+
+    public GetAuthenticatedUserUseCase(
+            IAuthenticatedUserService authenticatedUserService,
+            INaturalPersonGateway naturalPersonGateway,
+            ILegalPersonGateway legalPersonGateway
+    ) {
+        this.authenticatedUserService = authenticatedUserService;
+        this.naturalPersonGateway = naturalPersonGateway;
+        this.legalPersonGateway = legalPersonGateway;
+    }
 
     @Override
     public GetAuthenticatedUserUseCaseOutput execute() {

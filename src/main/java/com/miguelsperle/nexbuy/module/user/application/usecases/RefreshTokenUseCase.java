@@ -9,18 +9,21 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IRe
 import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@RequiredArgsConstructor
 public class RefreshTokenUseCase implements IRefreshTokenUseCase {
     private final IRefreshTokenGateway refreshTokenGateway;
     private final IJwtService jwtService;
 
+    public RefreshTokenUseCase(IRefreshTokenGateway refreshTokenGateway, IJwtService jwtService) {
+        this.refreshTokenGateway = refreshTokenGateway;
+        this.jwtService = jwtService;
+    }
+
     @Override
     public RefreshTokenUseCaseOutput execute(RefreshTokenUseCaseInput refreshTokenUseCaseInput) {
-        final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.getRefreshToken());
+        final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.refreshToken());
 
         if (ExpirationUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
             this.refreshTokenGateway.deleteById(refreshToken.getId());

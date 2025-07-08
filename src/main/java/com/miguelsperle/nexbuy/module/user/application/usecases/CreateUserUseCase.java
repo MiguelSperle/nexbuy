@@ -5,39 +5,53 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransaction
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class CreateUserUseCase implements ICreateUserUseCase {
     private final IUserGateway userGateway;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final ICreateLegalPersonUseCase createLegalPersonUseCase;
     private final ICreateNaturalPersonUseCase createNaturalPersonUseCase;
-    private final ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase;
+    private final ICreateVerificationCodeUseCase createVerificationCodeUseCase;
     private final ITransactionExecutor transactionExecutor;
+
+    public CreateUserUseCase(
+            IUserGateway userGateway,
+            IPasswordEncryptorProvider passwordEncryptorProvider,
+            ICreateLegalPersonUseCase createLegalPersonUseCase,
+            ICreateNaturalPersonUseCase createNaturalPersonUseCase,
+            ICreateVerificationCodeUseCase createVerificationCodeUseCase,
+            ITransactionExecutor transactionExecutor
+    ) {
+        this.userGateway = userGateway;
+        this.passwordEncryptorProvider = passwordEncryptorProvider;
+        this.createLegalPersonUseCase = createLegalPersonUseCase;
+        this.createNaturalPersonUseCase = createNaturalPersonUseCase;
+        this.createVerificationCodeUseCase = createVerificationCodeUseCase;
+        this.transactionExecutor = transactionExecutor;
+    }
 
     @Override
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
-        this.ensureComplementBasedPersonType(createUserUseCaseInput.getPersonType(),createUserUseCaseInput.getPersonComplementInput());
+        this.ensureComplementBasedPersonType(createUserUseCaseInput.personType(),createUserUseCaseInput.personComplementInput());
 
-        if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.getEmail())) {
+        if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.email())) {
             throw new UserAlreadyExistsException("This email is already being used");
         }
 
-        final String encodedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.getPassword());
+        final String encodedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.password());
 
-        final User newUser = User.newUser(createUserUseCaseInput.getFirstName(), createUserUseCaseInput.getLastName(), createUserUseCaseInput.getEmail().toLowerCase(), encodedPassword, createUserUseCaseInput.getPhoneNumber(), createUserUseCaseInput.getPersonType());
+        final User newUser = User.newUser(createUserUseCaseInput.firstName(), createUserUseCaseInput.lastName(), createUserUseCaseInput.email().toLowerCase(), encodedPassword, createUserUseCaseInput.phoneNumber(), createUserUseCaseInput.personType());
 
         this.transactionExecutor.runTransaction(() -> {
             final User savedUser = this.userGateway.save(newUser);
@@ -45,20 +59,20 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
                 this.createNaturalPersonUseCase.execute(new CreateNaturalPersonUseCaseInput(
                         savedUser,
-                        createUserUseCaseInput.getPersonComplementInput().getCpf(),
-                        createUserUseCaseInput.getPersonComplementInput().getGeneralRegister()
+                        createUserUseCaseInput.personComplementInput().cpf(),
+                        createUserUseCaseInput.personComplementInput().generalRegister()
                 ));
             } else {
                 this.createLegalPersonUseCase.execute(new CreateLegalPersonUseCaseInput(
                         savedUser,
-                        createUserUseCaseInput.getPersonComplementInput().getCnpj(),
-                        createUserUseCaseInput.getPersonComplementInput().getFantasyName(),
-                        createUserUseCaseInput.getPersonComplementInput().getLegalName(),
-                        createUserUseCaseInput.getPersonComplementInput().getStateRegistration()
+                        createUserUseCaseInput.personComplementInput().cnpj(),
+                        createUserUseCaseInput.personComplementInput().fantasyName(),
+                        createUserUseCaseInput.personComplementInput().legalName(),
+                        createUserUseCaseInput.personComplementInput().stateRegistration()
                 ));
             }
 
-            this.createUserVerificationCodeUseCase.execute(new CreateUserVerificationCodeUseCaseInput(
+            this.createVerificationCodeUseCase.execute(new CreateVerificationCodeUseCaseInput(
                     savedUser
             ));
         });

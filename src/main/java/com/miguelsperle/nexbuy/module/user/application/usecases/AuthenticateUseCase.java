@@ -12,20 +12,30 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAu
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class AuthenticateUseCase implements IAuthenticateUseCase {
     private final IUserGateway userGateway;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final IJwtService jwtService;
     private final ICreateRefreshTokenUseCase createRefreshTokenUseCase;
 
+    public AuthenticateUseCase(
+            IUserGateway userGateway,
+            IPasswordEncryptorProvider passwordEncryptorProvider,
+            IJwtService jwtService,
+            ICreateRefreshTokenUseCase createRefreshTokenUseCase
+    ) {
+        this.userGateway = userGateway;
+        this.passwordEncryptorProvider = passwordEncryptorProvider;
+        this.jwtService = jwtService;
+        this.createRefreshTokenUseCase = createRefreshTokenUseCase;
+    }
+
     @Override
     public AuthenticateUseCaseOutput execute(AuthenticateUseCaseInput authenticateUseCaseInput) {
-        final User user = this.getUserByEmail(authenticateUseCaseInput.getEmail());
+        final User user = this.getUserByEmail(authenticateUseCaseInput.email());
 
-        if (!this.validatePassword(authenticateUseCaseInput.getPassword(), user.getPassword())) {
+        if (!this.validatePassword(authenticateUseCaseInput.password(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
@@ -39,7 +49,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
                 user
         ));
 
-        return new AuthenticateUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.getRefreshToken().getToken());
+        return new AuthenticateUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.refreshToken().getToken());
     }
 
     private User getUserByEmail(String email) {

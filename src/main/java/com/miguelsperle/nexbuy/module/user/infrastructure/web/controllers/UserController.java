@@ -22,13 +22,13 @@ import java.util.List;
 public class UserController {
     private final ICreateUserUseCase createUserUseCase;
     private final IAuthenticateUseCase authenticateUseCase;
-    private final IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase;
+    private final IResendVerificationCodeUseCase resendVerificationCodeUseCase;
     private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
     private final IRefreshTokenUseCase refreshTokenUseCase;
-    private final ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase;
-    private final IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase;
+    private final ICreatePasswordResetCodeUseCase createPasswordResetCodeUseCase;
+    private final IValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase;
     private final IResetUserPasswordUseCase resetUserPasswordUseCase;
-    private final IUpdateUserInformationUseCase updateUserInformationUseCase;
+    private final IUpdateUserUseCase updateUserUseCase;
     private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
     private final ICreateAddressUseCase createAddressUseCase;
@@ -41,30 +41,30 @@ public class UserController {
     public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         PersonComplementInput personComplementInput = null;
 
-        final PersonType convertedToPersonType = PersonType.valueOf(createUserRequest.getPersonType());
+        final PersonType convertedToPersonType = PersonType.valueOf(createUserRequest.personType());
 
-        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.getNaturalPersonComplement() != null) {
+        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.naturalPersonComplement() != null) {
             personComplementInput = new PersonComplementInput(
-                    createUserRequest.getNaturalPersonComplement().getCpf(),
-                    createUserRequest.getNaturalPersonComplement().getGeneralRegister(),
+                    createUserRequest.naturalPersonComplement().cpf(),
+                    createUserRequest.naturalPersonComplement().generalRegister(),
                     null, null, null, null
             );
-        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.getLegalPersonComplement() != null) {
+        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.legalPersonComplement() != null) {
             personComplementInput = new PersonComplementInput(
                     null, null,
-                    createUserRequest.getLegalPersonComplement().getCnpj(),
-                    createUserRequest.getLegalPersonComplement().getFantasyName(),
-                    createUserRequest.getLegalPersonComplement().getLegalName(),
-                    createUserRequest.getLegalPersonComplement().getStateRegistration()
+                    createUserRequest.legalPersonComplement().cnpj(),
+                    createUserRequest.legalPersonComplement().fantasyName(),
+                    createUserRequest.legalPersonComplement().legalName(),
+                    createUserRequest.legalPersonComplement().stateRegistration()
             );
         }
 
         this.createUserUseCase.execute(new CreateUserUseCaseInput(
-                createUserRequest.getFirstName(),
-                createUserRequest.getLastName(),
-                createUserRequest.getEmail(),
-                createUserRequest.getPassword(),
-                createUserRequest.getPhoneNumber(),
+                createUserRequest.firstName(),
+                createUserRequest.lastName(),
+                createUserRequest.email(),
+                createUserRequest.password(),
+                createUserRequest.phoneNumber(),
                 convertedToPersonType,
                 personComplementInput
         ));
@@ -75,25 +75,25 @@ public class UserController {
     @PostMapping("/authentication")
     public ResponseEntity<Object> authenticate(@RequestBody @Valid AuthenticateRequest authenticateRequest) {
         final AuthenticateUseCaseOutput authenticateUseCaseOutput = this.authenticateUseCase.execute(new AuthenticateUseCaseInput(
-                authenticateRequest.getEmail(), authenticateRequest.getPassword()
+                authenticateRequest.email(), authenticateRequest.password()
         ));
 
         return ResponseEntity.ok().body(AuthenticateResponse.fromOutput(authenticateUseCaseOutput));
     }
 
     @PostMapping("/verification-code")
-    public ResponseEntity<Object> resendUserVerificationCode(@RequestBody @Valid ResendUserVerificationCodeRequest resendUserVerificationCodeRequest) {
-        this.resendUserVerificationCodeUseCase.execute(new ResendUserVerificationCodeUseCaseInput(
-                resendUserVerificationCodeRequest.getEmail()
+    public ResponseEntity<Object> resendVerificationCode(@RequestBody @Valid ResendVerificationCodeRequest resendVerificationCodeRequest) {
+        this.resendVerificationCodeUseCase.execute(new ResendVerificationCodeUseCaseInput(
+                resendVerificationCodeRequest.email()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User verification code sent successfully"));
+        return ResponseEntity.ok().body(new MessageResponse("Verification code sent successfully"));
     }
 
     @PatchMapping("/verification")
     public ResponseEntity<Object> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {
         this.updateUserToVerifiedUseCase.execute(new UpdateUserToVerifiedUseCaseInput(
-                updateUserToVerifiedRequest.getCode()
+                updateUserToVerifiedRequest.code()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("User verified successfully"));
@@ -102,53 +102,53 @@ public class UserController {
     @PostMapping("/token/refresh")
     public ResponseEntity<Object> refreshToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
         final RefreshTokenUseCaseOutput refreshTokenUseCaseOutput = this.refreshTokenUseCase.execute(new RefreshTokenUseCaseInput(
-                refreshTokenRequest.getRefreshToken()
+                refreshTokenRequest.refreshToken()
         ));
 
         return ResponseEntity.ok().body(RefreshTokenResponse.fromOutput(refreshTokenUseCaseOutput));
     }
 
     @PostMapping("/password-recovery")
-    public ResponseEntity<Object> createUserPasswordResetCode(@RequestBody @Valid CreateUserPasswordResetCodeRequest createUserPasswordResetCodeRequest) {
-        this.createUserPasswordResetCodeUseCase.execute(new CreateUserPasswordResetCodeUseCaseInput(
-                createUserPasswordResetCodeRequest.getEmail()
+    public ResponseEntity<Object> createPasswordResetCode(@RequestBody @Valid CreatePasswordResetCodeRequest createPasswordResetCodeRequest) {
+        this.createPasswordResetCodeUseCase.execute(new CreatePasswordResetCodeUseCaseInput(
+                createPasswordResetCodeRequest.email()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Password reset code sent successfully"));
     }
 
     @PostMapping("/password-recovery/validation")
-    public ResponseEntity<Object> validateUserPasswordResetCode(@RequestBody @Valid ValidateUserPasswordResetCodeRequest validateUserPasswordResetCodeRequest) {
-        final ValidateUserPasswordResetCodeUseCaseOutput validateUserPasswordResetCodeUseCaseOutput = this.validateUserPasswordResetCodeUseCase.execute(new ValidateUserPasswordResetCodeUseCaseInput(
-                validateUserPasswordResetCodeRequest.getCode()
+    public ResponseEntity<Object> validatePasswordResetCode(@RequestBody @Valid ValidatePasswordResetCodeRequest validatePasswordResetCodeRequest) {
+        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput = this.validatePasswordResetCodeUseCase.execute(new ValidatePasswordResetCodeUseCaseInput(
+                validatePasswordResetCodeRequest.code()
         ));
 
-        return ResponseEntity.ok().body(ValidateUserPasswordResetCodeResponse.fromOutput(validateUserPasswordResetCodeUseCaseOutput));
+        return ResponseEntity.ok().body(ValidatePasswordResetCodeResponse.fromOutput(validatePasswordResetCodeUseCaseOutput));
     }
 
     @PatchMapping("/password-reset")
     public ResponseEntity<Object> resetUserPassword(@RequestBody @Valid ResetUserPasswordRequest resetUserPasswordRequest) {
         this.resetUserPasswordUseCase.execute(new ResetUserPasswordUseCaseInput(
-                resetUserPasswordRequest.getCode(), resetUserPasswordRequest.getPassword()
+                resetUserPasswordRequest.code(), resetUserPasswordRequest.password()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("User password reset successfully"));
     }
 
     @PatchMapping("/information")
-    public ResponseEntity<Object> updateUserInformation(@RequestBody @Valid UpdateUserInformationRequest updateUserInformationRequest) {
-        this.updateUserInformationUseCase.execute(new UpdateUserInformationUseCaseInput(
-                updateUserInformationRequest.getFirstName(), updateUserInformationRequest.getLastName(),
-                updateUserInformationRequest.getPhoneNumber()
+    public ResponseEntity<Object> updateUser(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
+        this.updateUserUseCase.execute(new UpdateUserUseCaseInput(
+                updateUserRequest.firstName(), updateUserRequest.lastName(),
+                updateUserRequest.phoneNumber()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User information updated successfully"));
+        return ResponseEntity.ok().body(new MessageResponse("User updated successfully"));
     }
 
     @PatchMapping("/password")
     public ResponseEntity<Object> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest) {
         this.updateUserPasswordUseCase.execute(new UpdateUserPasswordUseCaseInput(
-                updateUserPasswordRequest.getCurrentPassword(), updateUserPasswordRequest.getPassword()
+                updateUserPasswordRequest.currentPassword(), updateUserPasswordRequest.password()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("User password updated successfully"));
@@ -158,7 +158,7 @@ public class UserController {
     public ResponseEntity<Object> getAuthenticatedUser() {
         final GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput = this.getAuthenticatedUserUseCase.execute();
 
-        if (getAuthenticatedUserUseCaseOutput.getAuthenticatedUser().getPersonType() == PersonType.NATURAL_PERSON) {
+        if (getAuthenticatedUserUseCaseOutput.authenticatedUser().getPersonType() == PersonType.NATURAL_PERSON) {
             return ResponseEntity.ok().body(GetAuthenticatedUserNaturalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
         } else {
             return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
@@ -168,13 +168,13 @@ public class UserController {
     @PostMapping("/addresses")
     public ResponseEntity<Object> createAddress(@RequestBody @Valid CreateAddressRequest createAddressRequest) {
         this.createAddressUseCase.execute(new CreateAddressUseCaseInput(
-                createAddressRequest.getAddressLine(),
-                createAddressRequest.getAddressNumber(),
-                createAddressRequest.getZipCode(),
-                createAddressRequest.getNeighborhood(),
-                createAddressRequest.getCity(),
-                createAddressRequest.getUf(),
-                createAddressRequest.getComplement()
+                createAddressRequest.addressLine(),
+                createAddressRequest.addressNumber(),
+                createAddressRequest.zipCode(),
+                createAddressRequest.neighborhood(),
+                createAddressRequest.city(),
+                createAddressRequest.uf(),
+                createAddressRequest.complement()
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Address created successfully"));
@@ -187,13 +187,13 @@ public class UserController {
     ) {
         this.updateAddressUseCase.execute(new UpdateAddressUseCaseInput(
                 addressId,
-                updateAddressRequest.getAddressLine(),
-                updateAddressRequest.getAddressNumber(),
-                updateAddressRequest.getZipCode(),
-                updateAddressRequest.getNeighborhood(),
-                updateAddressRequest.getCity(),
-                updateAddressRequest.getUf(),
-                updateAddressRequest.getComplement()
+                updateAddressRequest.addressLine(),
+                updateAddressRequest.addressNumber(),
+                updateAddressRequest.zipCode(),
+                updateAddressRequest.neighborhood(),
+                updateAddressRequest.city(),
+                updateAddressRequest.uf(),
+                updateAddressRequest.complement()
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Address updated successfully"));

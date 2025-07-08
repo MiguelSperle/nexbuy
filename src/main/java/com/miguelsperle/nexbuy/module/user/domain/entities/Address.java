@@ -1,28 +1,17 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
-import lombok.Data;
-import lombok.With;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class Address {
     private final String id;
     private final User user;
-    @With
     private final String addressLine;
-    @With
     private final String addressNumber;
-    @With
     private final String zipCode;
-    @With
     private final String neighborhood;
-    @With
     private final String city;
-    @With
     private final String uf;
-    @With
     private final String complement;
     private final LocalDateTime createdAt;
 
@@ -98,5 +87,166 @@ public class Address {
                 complement,
                 createdAt
         );
+    }
+
+    public Address withAddressLine(String addressLine) {
+        return new Address(
+                this.id,
+                this.user,
+                addressLine,
+                this.addressNumber,
+                this.zipCode,
+                this.neighborhood,
+                this.city,
+                this.uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withAddressNumber(String addressNumber) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                addressNumber,
+                this.zipCode,
+                this.neighborhood,
+                this.city,
+                this.uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withZipCode(String zipCode) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                this.addressNumber,
+                zipCode,
+                this.neighborhood,
+                this.city,
+                this.uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withNeighborhood(String neighborhood) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                this.addressNumber,
+                this.zipCode,
+                neighborhood,
+                this.city,
+                this.uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withCity(String city) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                this.addressNumber,
+                this.zipCode,
+                this.neighborhood,
+                city,
+                this.uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withUf(String uf) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                this.addressNumber,
+                this.zipCode,
+                this.neighborhood,
+                this.city,
+                uf,
+                this.complement,
+                this.createdAt
+        );
+    }
+
+    public Address withComplement(String complement) {
+        return new Address(
+                this.id,
+                this.user,
+                this.addressLine,
+                this.addressNumber,
+                this.zipCode,
+                this.neighborhood,
+                this.city,
+                this.uf,
+                complement,
+                this.createdAt
+        );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public String getAddressNumber() {
+        return addressNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", addressLine='" + addressLine + '\'' +
+                ", addressNumber='" + addressNumber + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", neighborhood='" + neighborhood + '\'' +
+                ", city='" + city + '\'' +
+                ", uf='" + uf + '\'' +
+                ", complement='" + complement + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

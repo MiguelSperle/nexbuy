@@ -4,13 +4,15 @@ import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrands
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class GetBrandsUseCase implements IGetBrandsUseCase {
     private final IBrandGateway brandGateway;
+
+    public GetBrandsUseCase(IBrandGateway brandGateway) {
+        this.brandGateway = brandGateway;
+    }
 
     @Override
     public GetBrandsUseCaseOutput execute() {

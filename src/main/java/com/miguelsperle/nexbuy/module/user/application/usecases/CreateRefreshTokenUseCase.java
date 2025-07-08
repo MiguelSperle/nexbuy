@@ -6,17 +6,19 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
     private final IRefreshTokenGateway refreshTokenGateway;
 
+    public CreateRefreshTokenUseCase(IRefreshTokenGateway refreshTokenGateway) {
+        this.refreshTokenGateway = refreshTokenGateway;
+    }
+
     @Override
     public CreateRefreshTokenUseCaseOutput execute(CreateRefreshTokenUseCaseInput createRefreshTokenUseCaseInput) {
-        final User user = createRefreshTokenUseCaseInput.getUser();
+        final User user = createRefreshTokenUseCaseInput.user();
 
         this.getPreviousRefreshTokenByUserId(user.getId()).ifPresent(refreshToken ->
                 this.refreshTokenGateway.deleteById(refreshToken.getId())

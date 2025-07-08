@@ -3,14 +3,12 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.en
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categories")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaCategoryEntity {
@@ -24,16 +22,6 @@ public class JpaCategoryEntity {
     @Column(nullable = false)
     private String description;
 
-    @Column(unique = true, nullable = false, length = 50)
-    private String slug;
-
-    @ManyToOne
-    @JoinColumn(name = "parent_category_id")
-    private JpaCategoryEntity jpaCategoryEntity;
-
-    @Column(name = "hierarchy_level", nullable = false)
-    private Integer hierarchyLevel;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -42,9 +30,6 @@ public class JpaCategoryEntity {
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
-                category.getSlug(),
-                category.getParentCategory() != null ? JpaCategoryEntity.from(category.getParentCategory()) : null,
-                category.getHierarchyLevel(),
                 category.getCreatedAt()
         );
     }
@@ -54,9 +39,6 @@ public class JpaCategoryEntity {
                 this.id,
                 this.name,
                 this.description,
-                this.slug,
-                this.jpaCategoryEntity != null ? this.jpaCategoryEntity.toEntity() : null,
-                this.hierarchyLevel,
                 this.createdAt
         );
     }

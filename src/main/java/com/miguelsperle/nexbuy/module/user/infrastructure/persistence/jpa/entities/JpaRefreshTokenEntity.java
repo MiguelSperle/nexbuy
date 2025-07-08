@@ -3,14 +3,12 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "refresh_tokens")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaRefreshTokenEntity {

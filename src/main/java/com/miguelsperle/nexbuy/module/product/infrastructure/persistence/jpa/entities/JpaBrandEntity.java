@@ -3,14 +3,12 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.en
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "brands")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaBrandEntity {

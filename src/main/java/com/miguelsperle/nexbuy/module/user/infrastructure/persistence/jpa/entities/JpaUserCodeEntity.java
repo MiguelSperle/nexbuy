@@ -3,13 +3,13 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_codes")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaUserCodeEntity {

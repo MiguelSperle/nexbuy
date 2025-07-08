@@ -16,12 +16,12 @@ public class SendEmailUserCodeListener {
     @Async
     @EventListener
     public void handleUserCodeCreatedEvent(UserCodeCreatedEvent userCodeCreatedEvent) {
-        final String message = userCodeCreatedEvent.getCodeType() == CodeType.USER_VERIFICATION
-                ? "Hello, your verification code is " + userCodeCreatedEvent.getCode() + " and it will expire in 15 minutes."
-                : "Hello, your password reset code is " + userCodeCreatedEvent.getCode() + " and it will expire in 15 minutes.";
+        final String message = userCodeCreatedEvent.codeType() == CodeType.USER_VERIFICATION
+                ? "Hello, your verification code is " + userCodeCreatedEvent.code() + " and it will expire in 15 minutes."
+                : "Hello, your password reset code is " + userCodeCreatedEvent.code() + " and it will expire in 15 minutes.";
 
-        final String subject = userCodeCreatedEvent.getCodeType() == CodeType.USER_VERIFICATION ? "User Verification Code" : "Password Reset Code";
+        final String subject = userCodeCreatedEvent.codeType() == CodeType.USER_VERIFICATION ? "User Verification Code" : "Password Reset Code";
 
-        this.emailService.sendEmail(userCodeCreatedEvent.getEmail(), message, subject);
+        this.emailService.sendEmail(userCodeCreatedEvent.email(), message, subject);
     }
 }

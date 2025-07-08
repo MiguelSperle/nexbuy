@@ -2,13 +2,13 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.persistence.jpa.entit
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "legal_persons")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaLegalPersonEntity {

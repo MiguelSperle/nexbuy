@@ -1,13 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class Product {
     private final String id;
     private final String name;
@@ -67,7 +65,7 @@ public class Product {
                 brand,
                 model,
                 color,
-                ProductStatus.AVAILABLE,
+                ProductStatus.ACTIVE,
                 LocalDateTime.now()
         );
     }
@@ -98,5 +96,66 @@ public class Product {
                 productStatus,
                 createdAt
         );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public ProductStatus getProductStatus() {
+        return productStatus;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                ", price=" + price +
+                ", sku='" + sku + '\'' +
+                ", brand=" + brand +
+                ", model=" + model +
+                ", color=" + color +
+                ", productStatus=" + productStatus +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

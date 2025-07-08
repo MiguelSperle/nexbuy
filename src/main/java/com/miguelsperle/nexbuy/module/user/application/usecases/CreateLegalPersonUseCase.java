@@ -6,33 +6,35 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
     private final ILegalPersonGateway legalPersonGateway;
 
+    public CreateLegalPersonUseCase(ILegalPersonGateway legalPersonGateway) {
+        this.legalPersonGateway = legalPersonGateway;
+    }
+
     @Override
     public void execute(CreateLegalPersonUseCaseInput createLegalPersonUseCaseInput) {
-        if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.getCnpj())) {
+        if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.cnpj())) {
             throw new LegalPersonAlreadyExistsException("This cnpj is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.getFantasyName())) {
+        if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.fantasyName())) {
             throw new LegalPersonAlreadyExistsException("This fantasy name is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.getLegalName())) {
+        if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.legalName())) {
             throw new LegalPersonAlreadyExistsException("This legal name is already being used");
         }
 
-        if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.getStateRegistration())) {
+        if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.stateRegistration())) {
             throw new LegalPersonAlreadyExistsException("This state registration is already being used");
         }
 
-        final User user = createLegalPersonUseCaseInput.getUser();
+        final User user = createLegalPersonUseCaseInput.user();
 
-        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.getCnpj(), createLegalPersonUseCaseInput.getFantasyName(), createLegalPersonUseCaseInput.getLegalName(), createLegalPersonUseCaseInput.getStateRegistration());
+        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.cnpj(), createLegalPersonUseCaseInput.fantasyName(), createLegalPersonUseCaseInput.legalName(), createLegalPersonUseCaseInput.stateRegistration());
 
         this.legalPersonGateway.save(newLegalPerson);
     }

@@ -1,0 +1,40 @@
+package com.miguelsperle.nexbuy.module.product.application.usecases;
+
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
+import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
+
+public class UpdateBrandUseCase implements IUpdateBrandUseCase {
+    private final IBrandGateway brandGateway;
+
+    public UpdateBrandUseCase(IBrandGateway brandGateway) {
+        this.brandGateway = brandGateway;
+    }
+
+    @Override
+    public void execute(UpdateBrandUseCaseInput updateBrandUseCaseInput) {
+        final Brand brand = this.getBrandById(updateBrandUseCaseInput.brandId());
+
+        if (!updateBrandUseCaseInput.name().equalsIgnoreCase(brand.getName())) {
+            if (this.verifyBrandAlreadyExistsByName(updateBrandUseCaseInput.name())) {
+                throw new BrandAlreadyExistsException("Brand already exists");
+            }
+        }
+
+        final Brand brandUpdated = brand.withName(updateBrandUseCaseInput.name());
+
+        this.brandGateway.save(brandUpdated);
+    }
+
+    private Brand getBrandById(String brandId) {
+        return this.brandGateway.findById(brandId)
+                .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
+    }
+
+    private boolean verifyBrandAlreadyExistsByName(String name) {
+        return this.brandGateway.existsByName(name);
+    }
+}

@@ -11,19 +11,27 @@ import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCod
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@RequiredArgsConstructor
 public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase {
     private final IUserGateway userGateway;
     private final IUserCodeGateway userCodeGateway;
     private final ITransactionExecutor transactionExecutor;
 
+    public UpdateUserToVerifiedUseCase(
+            IUserGateway userGateway,
+            IUserCodeGateway userCodeGateway,
+            ITransactionExecutor transactionExecutor
+    ) {
+        this.userGateway = userGateway;
+        this.userCodeGateway = userCodeGateway;
+        this.transactionExecutor = transactionExecutor;
+    }
+
     @Override
     public void execute(UpdateUserToVerifiedUseCaseInput updateUserToVerifiedUseCaseInput) {
-        final UserCode userCode = this.getUserCodeByCodeAndCodeType(updateUserToVerifiedUseCaseInput.getCode());
+        final UserCode userCode = this.getUserCodeByCodeAndCodeType(updateUserToVerifiedUseCaseInput.code());
 
         if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.userCodeGateway.deleteById(userCode.getId());

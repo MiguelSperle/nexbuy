@@ -1,19 +1,14 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "colors")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaColorEntity {

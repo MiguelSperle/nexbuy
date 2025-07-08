@@ -5,15 +5,17 @@ import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoun
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IDeleteAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class DeleteAddressUseCase implements IDeleteAddressUseCase {
     private final IAddressGateway addressGateway;
 
+    public DeleteAddressUseCase(IAddressGateway addressGateway) {
+        this.addressGateway = addressGateway;
+    }
+
     @Override
     public void execute(DeleteAddressUseCaseInput deleteAddressUseCaseInput) {
-        final Address address = this.getAddressById(deleteAddressUseCaseInput.getAddressId());
+        final Address address = this.getAddressById(deleteAddressUseCaseInput.addressId());
 
         this.addressGateway.deleteById(address.getId());
     }

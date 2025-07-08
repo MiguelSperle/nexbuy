@@ -6,15 +6,17 @@ import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoun
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class GetAddressUseCase implements IGetAddressUseCase {
     private final IAddressGateway addressGateway;
 
+    public GetAddressUseCase(IAddressGateway addressGateway) {
+        this.addressGateway = addressGateway;
+    }
+
     @Override
     public GetAddressUseCaseOutput execute(GetAddressUseCaseInput getAddressUseCaseInput) {
-        final Address address = this.getAddressById(getAddressUseCaseInput.getAddressId());
+        final Address address = this.getAddressById(getAddressUseCaseInput.addressId());
 
         return new GetAddressUseCaseOutput(address);
     }

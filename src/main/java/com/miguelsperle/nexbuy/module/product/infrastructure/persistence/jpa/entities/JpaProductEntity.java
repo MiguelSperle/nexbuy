@@ -4,7 +4,6 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class JpaProductEntity {

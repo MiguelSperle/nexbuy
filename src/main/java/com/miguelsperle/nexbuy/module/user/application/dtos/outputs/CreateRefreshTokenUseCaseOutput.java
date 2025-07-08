@@ -1,13 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.dtos.outputs;
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateRefreshTokenUseCaseOutput {
-    private RefreshToken refreshToken;
+public record CreateRefreshTokenUseCaseOutput(
+        RefreshToken refreshToken
+) {
 }
+

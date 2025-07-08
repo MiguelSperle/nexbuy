@@ -1,12 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class UserCode {
     private final String id;
     private final User user;
@@ -62,5 +60,41 @@ public class UserCode {
                 expiresIn,
                 createdAt
         );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public CodeType getCodeType() {
+        return codeType;
+    }
+
+    public LocalDateTime getExpiresIn() {
+        return expiresIn;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserCode{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", code='" + code + '\'' +
+                ", codeType=" + codeType +
+                ", expiresIn=" + expiresIn +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

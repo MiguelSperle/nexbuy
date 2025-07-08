@@ -8,23 +8,31 @@ import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotF
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
     private final IAuthenticatedUserService authenticatedUserService;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final IUserGateway userGateway;
 
+    public UpdateUserPasswordUseCase(
+            IAuthenticatedUserService authenticatedUserService,
+            IPasswordEncryptorProvider passwordEncryptorProvider,
+            IUserGateway userGateway
+    ) {
+        this.authenticatedUserService = authenticatedUserService;
+        this.passwordEncryptorProvider = passwordEncryptorProvider;
+        this.userGateway = userGateway;
+    }
+
     @Override
     public void execute(UpdateUserPasswordUseCaseInput updateUserPasswordUseCaseInput) {
         final User authenticatedUser = this.getAuthenticatedUser();
 
-        if (!this.validatePassword(updateUserPasswordUseCaseInput.getCurrentPassword(), authenticatedUser.getPassword())) {
+        if (!this.validatePassword(updateUserPasswordUseCaseInput.currentPassword(), authenticatedUser.getPassword())) {
             throw new InvalidCurrentPasswordException("Invalid current password");
         }
 
-        final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.getPassword());
+        final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.password());
 
         final User authenticatedUserUpdated = authenticatedUser.withPassword(encodedPassword);
 

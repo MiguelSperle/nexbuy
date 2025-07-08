@@ -20,7 +20,7 @@ public class UserUseCasesConfiguration {
             IPasswordEncryptorProvider passwordEncryptorProvider,
             ICreateLegalPersonUseCase createLegalPersonUseCase,
             ICreateNaturalPersonUseCase createNaturalPersonUseCase,
-            ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase,
+            ICreateVerificationCodeUseCase createUserVerificationCodeUseCase,
             ITransactionExecutor transactionExecutor
     ) {
         return new CreateUserUseCase(
@@ -48,13 +48,13 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public ICreateUserVerificationCodeUseCase createUserVerificationCodeUseCase(
+    public ICreateVerificationCodeUseCase createVerificationCodeUseCase(
             IUserCodeGateway userCodeGateway,
             ICodeProvider codeProvider,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ITransactionExecutor transactionExecutor
     ) {
-        return new CreateUserVerificationCodeUseCase(
+        return new CreateVerificationCodeUseCase(
                 userCodeGateway,
                 codeProvider,
                 domainEventPublisherProvider,
@@ -78,13 +78,13 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IResendUserVerificationCodeUseCase resendUserVerificationCodeUseCase(
+    public IResendVerificationCodeUseCase resendVerificationCodeUseCase(
             IUserCodeGateway userCodeGateway,
             IUserGateway userGateway,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ICodeProvider codeProvider
     ) {
-        return new ResendUserVerificationCodeUseCase(
+        return new ResendVerificationCodeUseCase(
                 userCodeGateway,
                 userGateway,
                 domainEventPublisherProvider,
@@ -121,13 +121,13 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public ICreateUserPasswordResetCodeUseCase createUserPasswordResetCodeUseCase(
+    public ICreatePasswordResetCodeUseCase createPasswordResetCodeUseCase(
             IUserCodeGateway userCodeGateway,
             IUserGateway userGateway,
             ICodeProvider codeProvider,
             IDomainEventPublisherProvider domainEventPublisherProvider
     ) {
-        return new CreateUserPasswordResetCodeUseCase(
+        return new CreatePasswordResetCodeUseCase(
                 userCodeGateway,
                 userGateway,
                 codeProvider,
@@ -136,10 +136,10 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IValidateUserPasswordResetCodeUseCase validateUserPasswordResetCodeUseCase(
+    public IValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase(
             IUserCodeGateway userCodeGateway
     ) {
-        return new ValidateUserPasswordResetCodeUseCase(userCodeGateway);
+        return new ValidatePasswordResetCodeUseCase(userCodeGateway);
     }
 
     @Bean
@@ -158,10 +158,10 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateUserInformationUseCase updateUserInformationUseCase(
+    public IUpdateUserUseCase updateUserUseCase(
             IAuthenticatedUserService authenticatedUserService, IUserGateway userGateway
     ) {
-        return new UpdateUserInformationUseCase(authenticatedUserService, userGateway);
+        return new UpdateUserUseCase(authenticatedUserService, userGateway);
     }
 
     @Bean

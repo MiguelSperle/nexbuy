@@ -2,25 +2,17 @@ package com.miguelsperle.nexbuy.module.user.domain.entities;
 
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import lombok.Data;
-import lombok.With;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class User {
     private final String id;
-    @With
     private final String firstName;
-    @With
     private final String lastName;
     private final String email;
-    @With
     private final String password;
-    @With
     private final String phoneNumber;
-    @With
     private final Boolean isVerified;
     private final AuthorizationRole authorizationRole;
     private final PersonType personType;
@@ -96,5 +88,136 @@ public class User {
                 personType,
                 createdAt
         );
+    }
+
+    public User withFirstName(String firstName) {
+        return new User(
+                this.id,
+                firstName,
+                this.lastName,
+                this.email,
+                this.password,
+                this.phoneNumber,
+                this.isVerified,
+                this.authorizationRole,
+                this.personType,
+                this.createdAt
+        );
+    }
+
+    public User withLastName(String lastName) {
+        return new User(
+                this.id,
+                this.firstName,
+                lastName,
+                this.email,
+                this.password,
+                this.phoneNumber,
+                this.isVerified,
+                this.authorizationRole,
+                this.personType,
+                this.createdAt
+        );
+    }
+
+    public User withPassword(String password) {
+        return new User(
+                this.id,
+                this.firstName,
+                this.lastName,
+                this.email,
+                password,
+                this.phoneNumber,
+                this.isVerified,
+                this.authorizationRole,
+                this.personType,
+                this.createdAt
+        );
+    }
+
+    public User withPhoneNumber(String phoneNumber) {
+        return new User(
+                this.id,
+                this.firstName,
+                this.lastName,
+                this.email,
+                this.password,
+                phoneNumber,
+                this.isVerified,
+                this.authorizationRole,
+                this.personType,
+                this.createdAt
+        );
+    }
+
+    public User withIsVerified(Boolean isVerified) {
+        return new User(
+                this.id,
+                this.firstName,
+                this.lastName,
+                this.email,
+                this.password,
+                this.phoneNumber,
+                isVerified,
+                this.authorizationRole,
+                this.personType,
+                this.createdAt
+        );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public AuthorizationRole getAuthorizationRole() {
+        return authorizationRole;
+    }
+
+    public PersonType getPersonType() {
+        return personType;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", isVerified=" + isVerified +
+                ", authorizationRole=" + authorizationRole +
+                ", personType=" + personType +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

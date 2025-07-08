@@ -1,11 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class LegalPerson {
     private final String id;
     private final User user;
@@ -69,5 +66,46 @@ public class LegalPerson {
                 stateRegistration,
                 createdAt
         );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public String getFantasyName() {
+        return fantasyName;
+    }
+
+    public String getLegalName() {
+        return legalName;
+    }
+
+    public String getStateRegistration() {
+        return stateRegistration;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "LegalPerson{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", cnpj='" + cnpj + '\'' +
+                ", fantasyName='" + fantasyName + '\'' +
+                ", legalName='" + legalName + '\'' +
+                ", stateRegistration='" + stateRegistration + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

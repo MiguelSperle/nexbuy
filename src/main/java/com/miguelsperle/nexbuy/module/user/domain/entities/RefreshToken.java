@@ -1,11 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class RefreshToken {
     private final String id;
     private final User user;
@@ -53,5 +50,36 @@ public class RefreshToken {
                 expiresIn,
                 createdAt
         );
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public LocalDateTime getExpiresIn() {
+        return expiresIn;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "RefreshToken{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", token='" + token + '\'' +
+                ", expiresIn=" + expiresIn +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

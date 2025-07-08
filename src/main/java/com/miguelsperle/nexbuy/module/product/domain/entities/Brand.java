@@ -1,15 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
-import lombok.Data;
-import lombok.With;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class Brand {
     private final String id;
-    @With
     private final String name;
     private final LocalDateTime createdAt;
 
@@ -25,5 +20,30 @@ public class Brand {
 
     public static Brand with(String id, String name, LocalDateTime createdAt) {
         return new Brand(id, name, createdAt);
+    }
+
+    public Brand withName(String name) {
+        return new Brand(this.id, name, this.createdAt);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

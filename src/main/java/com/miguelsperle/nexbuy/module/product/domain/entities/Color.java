@@ -1,11 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
 public class Color {
     private final String id;
     private final String name;
@@ -17,11 +14,32 @@ public class Color {
         this.createdAt = createdAt;
     }
 
-    public static Color newProductColor(String name) {
+    public static Color newColor(String name) {
         return new Color(UUID.randomUUID().toString(), name, LocalDateTime.now());
     }
 
     public static Color with(String id, String name, LocalDateTime createdAt) {
         return new Color(id, name, createdAt);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

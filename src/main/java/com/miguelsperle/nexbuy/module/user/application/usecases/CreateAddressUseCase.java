@@ -7,12 +7,18 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICr
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class CreateAddressUseCase implements ICreateAddressUseCase {
     private final IAddressGateway addressGateway;
     private final IAuthenticatedUserService authenticatedUserService;
+
+    public CreateAddressUseCase(
+            final IAddressGateway addressGateway,
+            final IAuthenticatedUserService authenticatedUserService
+    ) {
+        this.addressGateway = addressGateway;
+        this.authenticatedUserService = authenticatedUserService;
+    }
 
     @Override
     public void execute(CreateAddressUseCaseInput createAddressUseCaseInput) {
@@ -20,13 +26,13 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
 
         final Address newAddress = Address.newAddress(
                 authenticatedUser,
-                createAddressUseCaseInput.getAddressLine(),
-                createAddressUseCaseInput.getAddressNumber(),
-                createAddressUseCaseInput.getZipCode(),
-                createAddressUseCaseInput.getNeighborhood(),
-                createAddressUseCaseInput.getCity(),
-                createAddressUseCaseInput.getUf(),
-                createAddressUseCaseInput.getComplement()
+                createAddressUseCaseInput.addressLine(),
+                createAddressUseCaseInput.addressNumber(),
+                createAddressUseCaseInput.zipCode(),
+                createAddressUseCaseInput.neighborhood(),
+                createAddressUseCaseInput.city(),
+                createAddressUseCaseInput.uf(),
+                createAddressUseCaseInput.complement()
         );
 
         this.addressGateway.save(newAddress);

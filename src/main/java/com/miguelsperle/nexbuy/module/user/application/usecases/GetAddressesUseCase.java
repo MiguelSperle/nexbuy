@@ -7,14 +7,17 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGe
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class GetAddressesUseCase implements IGetAddressesUseCase {
     private final IAddressGateway addressGateway;
     private final IAuthenticatedUserService authenticatedUserService;
+
+    public GetAddressesUseCase(IAddressGateway addressGateway, IAuthenticatedUserService authenticatedUserService) {
+        this.addressGateway = addressGateway;
+        this.authenticatedUserService = authenticatedUserService;
+    }
 
     @Override
     public GetAddressesUseCaseOutput execute() {

@@ -15,30 +15,27 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductAdminController {
     private final IRegisterBrandUseCase registerBrandUseCase;
-    private final IUpdateBrandNameUseCase updateBrandNameUseCase;
+    private final IUpdateBrandUseCase updateBrandUseCase;
     private final IDeleteBrandUseCase deleteBrandUseCase;
-    private final IRegisterRootCategoryUseCase registerRootCategoryUseCase;
-    private final IRegisterSubCategoryUseCase registerSubCategoryUseCase;
-    private final IUpdateCategoryUseCase updateCategoryUseCase;
 
     @PostMapping("/brands")
     public ResponseEntity<Object> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
-        this.registerBrandUseCase.execute(new RegisterBrandUseCaseInput(registerBrandRequest.getName()));
+        this.registerBrandUseCase.execute(new RegisterBrandUseCaseInput(registerBrandRequest.name()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Brand registered successfully"));
     }
 
     @PatchMapping("/brands/{brandId}")
-    public ResponseEntity<Object> updateBrandName(
+    public ResponseEntity<Object> updateBrand(
             @PathVariable String brandId,
-            @RequestBody @Valid UpdateBrandNameRequest updateBrandNameRequest
+            @RequestBody @Valid UpdateBrandRequest updateBrandRequest
     ) {
-        this.updateBrandNameUseCase.execute(new UpdateBrandNameUseCaseInput(
+        this.updateBrandUseCase.execute(new UpdateBrandUseCaseInput(
                 brandId,
-                updateBrandNameRequest.getName()
+                updateBrandRequest.name()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Brand name updated successfully"));
+        return ResponseEntity.ok().body(new MessageResponse("Brand updated successfully"));
     }
 
     @DeleteMapping("/brands/{brandId}")
@@ -46,71 +43,5 @@ public class ProductAdminController {
         this.deleteBrandUseCase.execute(new DeleteBrandUseCaseInput(brandId));
 
         return ResponseEntity.ok().body(new MessageResponse("Brand deleted successfully"));
-    }
-
-    @PostMapping("/categories")
-    public ResponseEntity<Object> registerRootCategory(@RequestBody @Valid RegisterRootCategoryRequest registerRootCategoryRequest) {
-        this.registerRootCategoryUseCase.execute(new RegisterRootCategoryUseCaseInput(
-                registerRootCategoryRequest.getName(),
-                registerRootCategoryRequest.getDescription()
-        ));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Root category registered successfully"));
-    }
-
-    @PostMapping("/categories/{categoryId}/sub")
-    public ResponseEntity<Object> registerSubCategoryOfRoot(
-            @PathVariable String categoryId,
-            @RequestBody @Valid RegisterSubCategoryRequest registerSubCategoryRequest
-    ) {
-        this.registerSubCategoryUseCase.execute(new RegisterSubCategoryUseCaseInput(
-                categoryId,
-                registerSubCategoryRequest.getName(),
-                registerSubCategoryRequest.getDescription()
-        ));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Sub category registered successfully"));
-    }
-
-    @PostMapping("/categories/sub/{categoryId}")
-    public ResponseEntity<Object> registerSubCategoryOfSub(
-            @PathVariable String categoryId,
-            @RequestBody @Valid RegisterSubCategoryRequest registerSubCategoryRequest
-    ) {
-        this.registerSubCategoryUseCase.execute(new RegisterSubCategoryUseCaseInput(
-                categoryId,
-                registerSubCategoryRequest.getName(),
-                registerSubCategoryRequest.getDescription()
-        ));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Sub category registered successfully"));
-    }
-
-    @PatchMapping("/categories/{categoryId}")
-    public ResponseEntity<Object> updateRootCategory(
-            @PathVariable String categoryId,
-            @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
-    ) {
-        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
-                categoryId,
-                updateCategoryRequest.getName(),
-                updateCategoryRequest.getDescription()
-        ));
-
-        return ResponseEntity.ok().body(new MessageResponse("Root category updated successfully"));
-    }
-
-    @PatchMapping("/categories/sub/{categoryId}")
-    public ResponseEntity<Object> updateSubCategory(
-            @PathVariable String categoryId,
-            @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
-    ) {
-        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
-                categoryId,
-                updateCategoryRequest.getName(),
-                updateCategoryRequest.getDescription()
-        ));
-
-        return ResponseEntity.ok().body(new MessageResponse("Sub category updated successfully"));
     }
 }

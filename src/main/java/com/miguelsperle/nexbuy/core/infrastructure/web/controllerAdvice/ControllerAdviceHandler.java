@@ -1,6 +1,5 @@
 package com.miguelsperle.nexbuy.core.infrastructure.web.controllerAdvice;
 
-import com.miguelsperle.nexbuy.core.application.exceptions.ActionNotAllowedException;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
@@ -159,38 +158,10 @@ public class ControllerAdviceHandler {
         ));
     }
 
-    @ExceptionHandler(CategoryAlreadyExistsException.class)
-    public ResponseEntity<Object> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException categoryAlreadyExistsException) {
+    @ExceptionHandler(BrandAssociatedWithProductsException.class)
+    public ResponseEntity<Object> handleBrandAssociatedWithProductsException(BrandAssociatedWithProductsException brandAssociatedWithProductsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
-                Collections.singletonList(categoryAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
-        ));
-    }
-
-    @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<Object> handleCategoryNotFoundException(CategoryNotFoundException categoryNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(categoryNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
-        ));
-    }
-
-    @ExceptionHandler(BrandNotFoundException.class)
-    public ResponseEntity<Object> handleBrandNotFoundException(BrandNotFoundException brandNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
-                Collections.singletonList(brandNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
-        ));
-    }
-
-    @ExceptionHandler(CategoryHierarchyLevelExceededException.class)
-    public ResponseEntity<Object> handleCategoryHierarchyLevelExceededException(CategoryHierarchyLevelExceededException categoryHierarchyLevelExceededException) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ErrorMessageResponse(
-                Collections.singletonList(categoryHierarchyLevelExceededException.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase()
-        ));
-    }
-
-    @ExceptionHandler(ActionNotAllowedException.class)
-    public ResponseEntity<Object> handleActionNotAllowedException(ActionNotAllowedException actionNotAllowedException) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorMessageResponse(
-                Collections.singletonList(actionNotAllowedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
+                Collections.singletonList(brandAssociatedWithProductsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }
