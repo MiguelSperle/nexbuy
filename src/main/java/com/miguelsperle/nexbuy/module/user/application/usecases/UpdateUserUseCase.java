@@ -23,11 +23,11 @@ public class UpdateUserUseCase implements IUpdateUserUseCase {
     public void execute(UpdateUserUseCaseInput updateUserUseCaseInput) {
         final User authenticatedUser = this.getAuthenticatedUser();
 
-        final User authenticatedUserUpdated = authenticatedUser.withFirstName(updateUserUseCaseInput.firstName())
+        final User updatedAuthenticatedUser = authenticatedUser.withFirstName(updateUserUseCaseInput.firstName())
                 .withLastName(updateUserUseCaseInput.lastName())
                 .withPhoneNumber(updateUserUseCaseInput.phoneNumber());
 
-        this.userGateway.save(authenticatedUserUpdated);
+        this.userGateway.save(updatedAuthenticatedUser);
     }
 
     private User getAuthenticatedUser() {

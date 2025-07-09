@@ -10,10 +10,10 @@ public record GetBrandsResponse(
         String description
 ) {
     public static List<GetBrandsResponse> fromOutput(GetBrandsUseCaseOutput getBrandsUseCaseOutput) {
-        return getBrandsUseCaseOutput.brands().stream().map(productBrand -> new GetBrandsResponse(
-                productBrand.getId(),
-                productBrand.getName(),
-                productBrand.getDescription()
+        return getBrandsUseCaseOutput.brands().stream().map(brand -> new GetBrandsResponse(
+                brand.getId(),
+                brand.getName(),
+                brand.getDescription()
         )).toList();
     }
 }

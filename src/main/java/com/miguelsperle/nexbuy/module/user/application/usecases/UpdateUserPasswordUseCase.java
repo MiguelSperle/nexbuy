@@ -34,9 +34,9 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.password());
 
-        final User authenticatedUserUpdated = authenticatedUser.withPassword(encodedPassword);
+        final User updatedAuthenticatedUser = authenticatedUser.withPassword(encodedPassword);
 
-        this.userGateway.save(authenticatedUserUpdated);
+        this.userGateway.save(updatedAuthenticatedUser);
     }
 
     private boolean validatePassword(String password, String encodedPassword) {
