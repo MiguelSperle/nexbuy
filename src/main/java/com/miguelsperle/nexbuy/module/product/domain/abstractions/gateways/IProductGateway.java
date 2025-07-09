@@ -11,4 +11,5 @@ public interface IProductGateway {
     Product save(Product product);
     void deleteById(String id);
     boolean existsByBrandId(String brandId);
+    boolean existsByCategoryId(String categoryId);
 }

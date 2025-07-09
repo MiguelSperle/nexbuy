@@ -179,4 +179,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(categoryNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(CategoryAssociatedWithProductsException.class)
+    public ResponseEntity<Object> handleCategoryAssociatedWithProductsException(CategoryAssociatedWithProductsException categoryAssociatedWithProductsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(categoryAssociatedWithProductsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
 }

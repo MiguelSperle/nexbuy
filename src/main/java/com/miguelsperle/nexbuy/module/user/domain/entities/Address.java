@@ -195,58 +195,58 @@ public class Address {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public String getAddressLine() {
-        return addressLine;
+        return this.addressLine;
     }
 
     public String getAddressNumber() {
-        return addressNumber;
+        return this.addressNumber;
     }
 
     public String getZipCode() {
-        return zipCode;
+        return this.zipCode;
     }
 
     public String getNeighborhood() {
-        return neighborhood;
+        return this.neighborhood;
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     public String getUf() {
-        return uf;
+        return this.uf;
     }
 
     public String getComplement() {
-        return complement;
+        return this.complement;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "id='" + id + '\'' +
-                ", user=" + user +
-                ", addressLine='" + addressLine + '\'' +
-                ", addressNumber='" + addressNumber + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", neighborhood='" + neighborhood + '\'' +
-                ", city='" + city + '\'' +
-                ", uf='" + uf + '\'' +
-                ", complement='" + complement + '\'' +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", user=" + this.user +
+                ", addressLine='" + this.addressLine + '\'' +
+                ", addressNumber='" + this.addressNumber + '\'' +
+                ", zipCode='" + this.zipCode + '\'' +
+                ", neighborhood='" + this.neighborhood + '\'' +
+                ", city='" + this.city + '\'' +
+                ", uf='" + this.uf + '\'' +
+                ", complement='" + this.complement + '\'' +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

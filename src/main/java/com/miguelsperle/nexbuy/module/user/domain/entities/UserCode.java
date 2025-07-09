@@ -63,38 +63,38 @@ public class UserCode {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public CodeType getCodeType() {
-        return codeType;
+        return this.codeType;
     }
 
     public LocalDateTime getExpiresIn() {
-        return expiresIn;
+        return this.expiresIn;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "UserCode{" +
-                "id='" + id + '\'' +
-                ", user=" + user +
-                ", code='" + code + '\'' +
-                ", codeType=" + codeType +
-                ", expiresIn=" + expiresIn +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", user=" + this.user +
+                ", code='" + this.code + '\'' +
+                ", codeType=" + this.codeType +
+                ", expiresIn=" + this.expiresIn +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

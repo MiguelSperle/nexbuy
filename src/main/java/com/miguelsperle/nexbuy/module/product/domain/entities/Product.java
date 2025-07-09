@@ -99,63 +99,63 @@ public class Product {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Category getCategory() {
-        return category;
+        return this.category;
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return this.price;
     }
 
     public String getSku() {
-        return sku;
+        return this.sku;
     }
 
     public Brand getBrand() {
-        return brand;
+        return this.brand;
     }
 
     public Model getModel() {
-        return model;
+        return this.model;
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     public ProductStatus getProductStatus() {
-        return productStatus;
+        return this.productStatus;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                ", price=" + price +
-                ", sku='" + sku + '\'' +
-                ", brand=" + brand +
-                ", model=" + model +
-                ", color=" + color +
-                ", productStatus=" + productStatus +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", description='" + this.description + '\'' +
+                ", category=" + this.category +
+                ", price=" + this.price +
+                ", sku='" + this.sku + '\'' +
+                ", brand=" + this.brand +
+                ", model=" + this.model +
+                ", color=" + this.color +
+                ", productStatus=" + this.productStatus +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

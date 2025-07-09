@@ -23,23 +23,23 @@ public class Color {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "Color{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

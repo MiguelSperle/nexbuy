@@ -44,4 +44,9 @@ public class ProductUseCasesConfiguration {
     public IUpdateCategoryUseCase updateCategoryUseCase(ICategoryGateway categoryGateway) {
         return new UpdateCategoryUseCase(categoryGateway);
     }
+
+    @Bean
+    public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryGateway categoryGateway, IProductGateway productGateway) {
+        return new DeleteCategoryUseCase(categoryGateway, productGateway);
+    }
 }

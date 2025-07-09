@@ -19,7 +19,7 @@ public class RegisterBrandUseCase implements IRegisterBrandUseCase {
             throw new BrandAlreadyExistsException("Brand with this name already exists");
         }
 
-        final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.name());
+        final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.name(), registerBrandUseCaseInput.description());
 
         this.brandGateway.save(newBrand);
     }

@@ -24,7 +24,7 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
             }
         }
 
-        final Brand updatedBrand = brand.withName(updateBrandUseCaseInput.name());
+        final Brand updatedBrand = brand.withName(updateBrandUseCaseInput.name()).withDescription(updateBrandUseCaseInput.description());
 
         this.brandGateway.save(updatedBrand);
     }

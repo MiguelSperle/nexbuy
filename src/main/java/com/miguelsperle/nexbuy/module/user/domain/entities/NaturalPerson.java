@@ -55,33 +55,33 @@ public class NaturalPerson {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public String getGeneralRegister() {
-        return generalRegister;
+        return this.generalRegister;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "NaturalPerson{" +
-                "id='" + id + '\'' +
-                ", user=" + user +
-                ", cpf='" + cpf + '\'' +
-                ", generalRegister='" + generalRegister + '\'' +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", user=" + this.user +
+                ", cpf='" + this.cpf + '\'' +
+                ", generalRegister='" + this.generalRegister + '\'' +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

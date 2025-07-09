@@ -166,58 +166,58 @@ public class User {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public Boolean getIsVerified() {
-        return isVerified;
+        return this.isVerified;
     }
 
     public AuthorizationRole getAuthorizationRole() {
-        return authorizationRole;
+        return this.authorizationRole;
     }
 
     public PersonType getPersonType() {
-        return personType;
+        return this.personType;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", isVerified=" + isVerified +
-                ", authorizationRole=" + authorizationRole +
-                ", personType=" + personType +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", firstName='" + this.firstName + '\'' +
+                ", lastName='" + this.lastName + '\'' +
+                ", email='" + this.email + '\'' +
+                ", password='" + this.password + '\'' +
+                ", phoneNumber='" + this.phoneNumber + '\'' +
+                ", isVerified=" + this.isVerified +
+                ", authorizationRole=" + this.authorizationRole +
+                ", personType=" + this.personType +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

@@ -29,28 +29,28 @@ public class Category {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", description='" + this.description + '\'' +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

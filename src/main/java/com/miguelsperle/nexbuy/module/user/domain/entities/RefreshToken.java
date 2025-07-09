@@ -53,33 +53,33 @@ public class RefreshToken {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public String getToken() {
-        return token;
+        return this.token;
     }
 
     public LocalDateTime getExpiresIn() {
-        return expiresIn;
+        return this.expiresIn;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "RefreshToken{" +
-                "id='" + id + '\'' +
-                ", user=" + user +
-                ", token='" + token + '\'' +
-                ", expiresIn=" + expiresIn +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", user=" + this.user +
+                ", token='" + this.token + '\'' +
+                ", expiresIn=" + this.expiresIn +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

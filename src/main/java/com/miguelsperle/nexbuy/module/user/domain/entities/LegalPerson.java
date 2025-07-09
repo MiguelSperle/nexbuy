@@ -69,43 +69,43 @@ public class LegalPerson {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public String getCnpj() {
-        return cnpj;
+        return this.cnpj;
     }
 
     public String getFantasyName() {
-        return fantasyName;
+        return this.fantasyName;
     }
 
     public String getLegalName() {
-        return legalName;
+        return this.legalName;
     }
 
     public String getStateRegistration() {
-        return stateRegistration;
+        return this.stateRegistration;
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     @Override
     public String toString() {
         return "LegalPerson{" +
-                "id='" + id + '\'' +
-                ", user=" + user +
-                ", cnpj='" + cnpj + '\'' +
-                ", fantasyName='" + fantasyName + '\'' +
-                ", legalName='" + legalName + '\'' +
-                ", stateRegistration='" + stateRegistration + '\'' +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", user=" + this.user +
+                ", cnpj='" + this.cnpj + '\'' +
+                ", fantasyName='" + this.fantasyName + '\'' +
+                ", legalName='" + this.legalName + '\'' +
+                ", stateRegistration='" + this.stateRegistration + '\'' +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

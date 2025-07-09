@@ -9,7 +9,7 @@ public record UpdateCategoryRequest(
         String name,
 
         @NotBlank(message = "Description should not be neither null nor blank")
-        @Size(max = 255, message = "Description should not exceed 255 characters")
+        @Size(max = 500, message = "Description should not exceed 500 characters")
         String description
 ) {
 }

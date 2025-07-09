@@ -4,12 +4,14 @@ import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandU
 
 public record GetBrandResponse(
         String id,
-        String name
+        String name,
+        String description
 ) {
     public static GetBrandResponse fromOutput(GetBrandUseCaseOutput getBrandUseCaseOutput) {
         return new GetBrandResponse(
                 getBrandUseCaseOutput.brand().getId(),
-                getBrandUseCaseOutput.brand().getName()
+                getBrandUseCaseOutput.brand().getName(),
+                getBrandUseCaseOutput.brand().getDescription()
         );
     }
 }
