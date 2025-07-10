@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.product.application.dtos.inputs;
 
 public record UpdateCategoryUseCaseInput(
         String categoryId,
-        String name,
-        String description
+        String name
 ) {
 }

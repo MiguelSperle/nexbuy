@@ -6,14 +6,12 @@ import java.util.List;
 
 public record GetCategoriesResponse(
         String id,
-        String name,
-        String description
+        String name
 ) {
     public static List<GetCategoriesResponse> fromOutput(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
         return getCategoriesUseCaseOutput.categories().stream().map(category -> new GetCategoriesResponse(
                 category.getId(),
-                category.getName(),
-                category.getDescription()
+                category.getName()
         )).toList();
     }
 }

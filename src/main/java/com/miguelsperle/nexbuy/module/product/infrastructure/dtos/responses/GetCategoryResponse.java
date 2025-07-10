@@ -4,14 +4,12 @@ import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetCatego
 
 public record GetCategoryResponse(
         String id,
-        String name,
-        String description
+        String name
 ) {
     public static GetCategoryResponse fromOutput(GetCategoryUseCaseOutput getCategoryUseCaseOutput) {
         return new GetCategoryResponse(
                 getCategoryUseCaseOutput.category().getId(),
-                getCategoryUseCaseOutput.category().getName(),
-                getCategoryUseCaseOutput.category().getDescription()
+                getCategoryUseCaseOutput.category().getName()
         );
     }
 }

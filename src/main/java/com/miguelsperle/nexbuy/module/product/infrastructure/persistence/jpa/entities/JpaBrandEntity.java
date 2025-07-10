@@ -19,9 +19,6 @@ public class JpaBrandEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 500)
-    private String description;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -29,8 +26,7 @@ public class JpaBrandEntity {
         return new JpaBrandEntity(
                 brand.getId(),
                 brand.getName(),
-                brand.getDescription(),
-                brand.getCreatedAt()
+            brand.getCreatedAt()
         );
     }
 
@@ -38,7 +34,6 @@ public class JpaBrandEntity {
         return Brand.with(
                 this.id,
                 this.name,
-                this.description,
                 this.createdAt
         );
     }

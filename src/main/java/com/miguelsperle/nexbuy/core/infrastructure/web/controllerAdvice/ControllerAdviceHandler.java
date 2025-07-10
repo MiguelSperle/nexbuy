@@ -159,6 +159,13 @@ public class ControllerAdviceHandler {
         ));
     }
 
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<Object> handleBrandNotFoundException(BrandNotFoundException brandNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(brandNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
     @ExceptionHandler(BrandAssociatedWithProductsException.class)
     public ResponseEntity<Object> handleBrandAssociatedWithProductsException(BrandAssociatedWithProductsException brandAssociatedWithProductsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(

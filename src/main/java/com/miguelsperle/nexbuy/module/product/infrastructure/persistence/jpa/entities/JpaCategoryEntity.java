@@ -19,9 +19,6 @@ public class JpaCategoryEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 500)
-    private String description;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -29,7 +26,6 @@ public class JpaCategoryEntity {
         return new JpaCategoryEntity(
                 category.getId(),
                 category.getName(),
-                category.getDescription(),
                 category.getCreatedAt()
         );
     }
@@ -38,7 +34,6 @@ public class JpaCategoryEntity {
         return Category.with(
                 this.id,
                 this.name,
-                this.description,
                 this.createdAt
         );
     }
