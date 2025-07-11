@@ -44,4 +44,9 @@ public class JpaProductGateway implements IProductGateway {
     public boolean existsByCategoryId(String categoryId) {
         return this.jpaProductRepository.existsByCategoryId(categoryId);
     }
+
+    @Override
+    public boolean existsByColorId(String colorId) {
+        return this.jpaProductRepository.existsByColorId(colorId);
+    }
 }

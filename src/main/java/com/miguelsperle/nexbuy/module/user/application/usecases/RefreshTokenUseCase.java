@@ -26,7 +26,7 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
         final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.refreshToken());
 
         if (ExpirationUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
-            this.refreshTokenGateway.deleteById(refreshToken.getId());
+            this.deleteRefreshTokenById(refreshToken.getId());
             throw new RefreshTokenExpiredException("Refresh token has expired");
         }
 
@@ -38,5 +38,9 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
     private RefreshToken getRefreshTokenByToken(String token) {
         return this.refreshTokenGateway.findByToken(token)
                 .orElseThrow(() -> new RefreshTokenNotFoundException("Refresh token not found"));
+    }
+
+    private void deleteRefreshTokenById(String refreshTokenId) {
+        this.refreshTokenGateway.deleteById(refreshTokenId);
     }
 }

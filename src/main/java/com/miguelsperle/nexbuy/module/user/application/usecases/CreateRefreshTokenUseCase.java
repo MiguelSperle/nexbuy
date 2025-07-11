@@ -26,12 +26,16 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
 
         final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(user);
 
-        final RefreshToken savedRefreshToken = this.refreshTokenGateway.save(newRefreshToken);
+        final RefreshToken savedRefreshToken = this.saveRefreshToken(newRefreshToken);
 
         return new CreateRefreshTokenUseCaseOutput(savedRefreshToken);
     }
 
     private Optional<RefreshToken> getPreviousRefreshTokenByUserId(String userId) {
         return this.refreshTokenGateway.findByUserId(userId);
+    }
+
+    private RefreshToken saveRefreshToken(RefreshToken refreshToken) {
+        return this.refreshTokenGateway.save(refreshToken);
     }
 }

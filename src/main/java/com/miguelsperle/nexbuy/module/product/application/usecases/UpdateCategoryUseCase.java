@@ -26,7 +26,7 @@ public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
 
         final Category updatedCategory = category.withName(updateCategoryUseCaseInput.name());
 
-        this.categoryGateway.save(updatedCategory);
+        this.saveCategory(updatedCategory);
     }
 
     private Category getCategoryById(String id) {
@@ -36,5 +36,9 @@ public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {
         return this.categoryGateway.existsByName(name);
+    }
+
+    private void saveCategory(Category category) {
+        this.categoryGateway.save(category);
     }
 }

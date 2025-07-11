@@ -206,4 +206,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(colorNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(ColorAssociatedWithProductsException.class)
+    public ResponseEntity<ErrorMessageResponse> handleColorAssociatedWithProductsException(ColorAssociatedWithProductsException colorAssociatedWithProductsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(colorAssociatedWithProductsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
 }

@@ -43,7 +43,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     @Override
     public void execute(CreateUserUseCaseInput createUserUseCaseInput) {
-        this.ensureComplementBasedPersonType(createUserUseCaseInput.personType(),createUserUseCaseInput.personComplementInput());
+        this.ensureComplementBasedPersonType(createUserUseCaseInput.personType(), createUserUseCaseInput.personComplementInput());
 
         if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.email())) {
             throw new UserAlreadyExistsException("This email is already being used");
@@ -54,7 +54,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
         final User newUser = User.newUser(createUserUseCaseInput.firstName(), createUserUseCaseInput.lastName(), createUserUseCaseInput.email().toLowerCase(), encodedPassword, createUserUseCaseInput.phoneNumber(), createUserUseCaseInput.personType());
 
         this.transactionExecutor.runTransaction(() -> {
-            final User savedUser = this.userGateway.save(newUser);
+            final User savedUser = this.saveUser(newUser);
 
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
                 this.createNaturalPersonUseCase.execute(new CreateNaturalPersonUseCaseInput(
@@ -88,5 +88,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
         } else if (personType == PersonType.LEGAL_PERSON && personComplementInput == null) {
             throw new MissingRequiredComplementException("You should provide legalPersonComplement when the person type is a LEGAL_PERSON");
         }
+    }
+
+    private User saveUser(User user) {
+        return this.userGateway.save(user);
     }
 }

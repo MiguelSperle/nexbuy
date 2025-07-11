@@ -49,7 +49,7 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
 
-        final UserCode savedUserCode = this.userCodeGateway.save(newUserCode);
+        final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
                 savedUserCode.getUser().getEmail(),
@@ -64,5 +64,9 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
         return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.USER_VERIFICATION.name());
+    }
+
+    private UserCode saveUserCode(UserCode userCode) {
+        return this.userCodeGateway.save(userCode);
     }
 }

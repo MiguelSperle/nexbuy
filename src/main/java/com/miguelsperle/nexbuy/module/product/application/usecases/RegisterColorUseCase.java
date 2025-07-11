@@ -21,10 +21,14 @@ public class RegisterColorUseCase implements IRegisterColorUseCase {
 
         final Color newColor = Color.newColor(registerColorUseCaseInput.name());
 
-        this.colorGateway.save(newColor);
+        this.saveColor(newColor);
     }
 
     private boolean verifyColorAlreadyExistsByName(String name) {
         return this.colorGateway.existsByName(name);
+    }
+
+    private void saveColor(Color color) {
+        this.colorGateway.save(color);
     }
 }

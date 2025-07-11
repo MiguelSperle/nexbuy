@@ -25,7 +25,7 @@ public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
             throw new CategoryAssociatedWithProductsException("Category cannot be deleted because it is already associated with products");
         }
 
-        this.categoryGateway.deleteById(category.getId());
+        this.deleteCategoryById(category.getId());
     }
 
     private Category getCategoryById(String categoryId) {
@@ -35,5 +35,9 @@ public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
 
     private boolean verifyProductAlreadyExistsByCategoryId(String categoryId) {
         return this.productGateway.existsByCategoryId(categoryId);
+    }
+
+    private void deleteCategoryById(String categoryId) {
+        this.categoryGateway.deleteById(categoryId);
     }
 }

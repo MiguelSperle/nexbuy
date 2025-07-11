@@ -36,7 +36,7 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
 
         final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.cnpj(), createLegalPersonUseCaseInput.fantasyName(), createLegalPersonUseCaseInput.legalName(), createLegalPersonUseCaseInput.stateRegistration());
 
-        this.legalPersonGateway.save(newLegalPerson);
+        this.saveLegalPerson(newLegalPerson);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByCnpj(String cnpj) {
@@ -56,5 +56,9 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
             return this.legalPersonGateway.existsByStateRegistration(stateRegistration);
         }
         return false;
+    }
+
+    private void saveLegalPerson(LegalPerson legalPerson) {
+        this.legalPersonGateway.save(legalPerson);
     }
 }

@@ -27,11 +27,15 @@ public class UpdateUserUseCase implements IUpdateUserUseCase {
                 .withLastName(updateUserUseCaseInput.lastName())
                 .withPhoneNumber(updateUserUseCaseInput.phoneNumber());
 
-        this.userGateway.save(updatedAuthenticatedUser);
+        this.saveUser(updatedAuthenticatedUser);
     }
 
     private User getAuthenticatedUser() {
         return this.authenticatedUserService.getAuthenticatedUser()
                 .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    }
+
+    private void saveUser(User user) {
+        this.userGateway.save(user);
     }
 }

@@ -26,7 +26,7 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
 
         final Brand updatedBrand = brand.withName(updateBrandUseCaseInput.name());
 
-        this.brandGateway.save(updatedBrand);
+        this.saveBrand(updatedBrand);
     }
 
     private Brand getBrandById(String brandId) {
@@ -36,5 +36,9 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
         return this.brandGateway.existsByName(name);
+    }
+
+    private void saveBrand(Brand brand) {
+        this.brandGateway.save(brand);
     }
 }

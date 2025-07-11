@@ -17,11 +17,15 @@ public class DeleteAddressUseCase implements IDeleteAddressUseCase {
     public void execute(DeleteAddressUseCaseInput deleteAddressUseCaseInput) {
         final Address address = this.getAddressById(deleteAddressUseCaseInput.addressId());
 
-        this.addressGateway.deleteById(address.getId());
+        this.deleteAddressById(address.getId());
     }
 
     private Address getAddressById(String addressId) {
         return this.addressGateway.findById(addressId)
                 .orElseThrow(() -> new AddressNotFoundException("Address not found"));
+    }
+
+    private void deleteAddressById(String addressId) {
+        this.addressGateway.deleteById(addressId);
     }
 }

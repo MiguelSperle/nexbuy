@@ -24,7 +24,7 @@ public class ValidatePasswordResetCodeUseCase implements IValidatePasswordResetC
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(validatePasswordResetCodeUseCaseInput.code());
 
         if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
-            this.userCodeGateway.deleteById(userCode.getId());
+            this.deleteUserCodeById(userCode.getId());
             throw new UserCodeExpiredException("User code has expired");
         }
 
@@ -34,5 +34,9 @@ public class ValidatePasswordResetCodeUseCase implements IValidatePasswordResetC
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+    }
+
+    private void deleteUserCodeById(String userCodeId) {
+        this.userCodeGateway.deleteById(userCodeId);
     }
 }

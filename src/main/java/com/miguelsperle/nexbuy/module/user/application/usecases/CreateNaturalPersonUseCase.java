@@ -28,7 +28,7 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
 
         final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(user, createNaturalPersonUseCaseInput.cpf(), createNaturalPersonUseCaseInput.generalRegister());
 
-        this.naturalPersonGateway.save(newNaturalPerson);
+        this.saveNaturalPerson(newNaturalPerson);
     }
 
     private boolean verifyNaturalPersonAlreadyExistsByCpf(String cpf) {
@@ -37,5 +37,9 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
 
     private boolean verifyNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
         return this.naturalPersonGateway.existsByGeneralRegister(generalRegister);
+    }
+
+    private void saveNaturalPerson(NaturalPerson naturalPerson) {
+        this.naturalPersonGateway.save(naturalPerson);
     }
 }

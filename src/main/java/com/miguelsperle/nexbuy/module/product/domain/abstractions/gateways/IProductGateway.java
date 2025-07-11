@@ -12,4 +12,5 @@ public interface IProductGateway {
     void deleteById(String id);
     boolean existsByBrandId(String brandId);
     boolean existsByCategoryId(String categoryId);
+    boolean existsByColorId(String colorId);
 }

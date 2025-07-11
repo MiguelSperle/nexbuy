@@ -37,7 +37,7 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(resetUserPasswordUseCaseInput.code());
 
         if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
-            this.userCodeGateway.deleteById(userCode.getId());
+            this.deleteUserCodeById(userCode.getId());
             throw new UserCodeExpiredException("User code has expired");
         }
 
@@ -46,13 +46,21 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
         final User updatedUser = userCode.getUser().withPassword(encodedPassword);
 
         this.transactionExecutor.runTransaction(() -> {
-            this.userGateway.save(updatedUser);
-            this.userCodeGateway.deleteById(userCode.getId());
+            this.saveUser(updatedUser);
+            this.deleteUserCodeById(userCode.getId());
         });
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+    }
+
+    private void saveUser(User user) {
+        this.userGateway.save(user);
+    }
+
+    private void deleteUserCodeById(String userCodeId) {
+        this.userCodeGateway.deleteById(userCodeId);
     }
 }

@@ -26,7 +26,7 @@ public class UpdateColorUseCase implements IUpdateColorUseCase {
 
         final Color updatedColor = color.withName(updateColorUseCaseInput.name());
 
-        this.colorGateway.save(updatedColor);
+        this.saveColor(updatedColor);
     }
 
     private Color getColorById(String colorId) {
@@ -36,5 +36,9 @@ public class UpdateColorUseCase implements IUpdateColorUseCase {
 
     private boolean verifyColorAlreadyExistsByName(String name) {
         return this.colorGateway.existsByName(name);
+    }
+
+    private void saveColor(Color color) {
+        this.colorGateway.save(color);
     }
 }

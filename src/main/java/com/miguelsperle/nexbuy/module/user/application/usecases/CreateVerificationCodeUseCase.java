@@ -37,12 +37,16 @@ public class CreateVerificationCodeUseCase implements ICreateVerificationCodeUse
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
 
-        final UserCode savedUserCode = this.userCodeGateway.save(newUserCode);
+        final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
                 savedUserCode.getUser().getEmail(),
                 savedUserCode.getCode(),
                 savedUserCode.getCodeType())
         ));
+    }
+
+    private UserCode saveUserCode(UserCode userCode) {
+        return this.userCodeGateway.save(userCode);
     }
 }

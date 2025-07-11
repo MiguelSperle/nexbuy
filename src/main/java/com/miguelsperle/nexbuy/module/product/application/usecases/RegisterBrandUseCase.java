@@ -21,10 +21,14 @@ public class RegisterBrandUseCase implements IRegisterBrandUseCase {
 
         final Brand newBrand = Brand.newBrand(registerBrandUseCaseInput.name());
 
-        this.brandGateway.save(newBrand);
+        this.saveBrand(newBrand);
     }
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
         return this.brandGateway.existsByName(name);
+    }
+
+    private void saveBrand(Brand brand) {
+        this.brandGateway.save(brand);
     }
 }

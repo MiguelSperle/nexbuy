@@ -21,10 +21,14 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
 
         final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.name());
 
-        this.categoryGateway.save(newCategory);
+        this.saveCategory(newCategory);
     }
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {
         return this.categoryGateway.existsByName(name);
+    }
+
+    private void saveCategory(Category category) {
+        this.categoryGateway.save(category);
     }
 }

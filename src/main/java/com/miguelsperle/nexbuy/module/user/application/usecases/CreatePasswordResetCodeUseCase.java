@@ -44,7 +44,7 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
 
         final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.PASSWORD_RESET);
 
-        final UserCode savedUserCode = this.userCodeGateway.save(newUserCode);
+        final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
                 savedUserCode.getUser().getEmail(),
@@ -59,5 +59,9 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
         return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.PASSWORD_RESET.name());
+    }
+
+    private UserCode saveUserCode(UserCode userCode) {
+        return this.userCodeGateway.save(userCode);
     }
 }

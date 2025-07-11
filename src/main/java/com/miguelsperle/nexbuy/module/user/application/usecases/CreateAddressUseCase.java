@@ -35,11 +35,15 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
                 createAddressUseCaseInput.complement()
         );
 
-        this.addressGateway.save(newAddress);
+        this.saveAddress(newAddress);
     }
 
     private User getAuthenticatedUser() {
         return this.authenticatedUserService.getAuthenticatedUser()
                 .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    }
+
+    private void saveAddress(Address address) {
+        this.addressGateway.save(address);
     }
 }

@@ -36,7 +36,7 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
 
         final User updatedAuthenticatedUser = authenticatedUser.withPassword(encodedPassword);
 
-        this.userGateway.save(updatedAuthenticatedUser);
+        this.saveUser(updatedAuthenticatedUser);
     }
 
     private boolean validatePassword(String password, String encodedPassword) {
@@ -46,5 +46,9 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
     private User getAuthenticatedUser() {
         return this.authenticatedUserService.getAuthenticatedUser()
                 .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    }
+
+    private void saveUser(User user) {
+        this.userGateway.save(user);
     }
 }
