@@ -22,6 +22,10 @@ public class Color {
         return new Color(id, name, createdAt);
     }
 
+    public Color withName(String name) {
+        return new Color(this.id, name, this.createdAt);
+    }
+
     public String getId() {
         return this.id;
     }

@@ -199,4 +199,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(colorAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(ColorNotFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleColorNotFoundException(ColorNotFoundException colorNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(colorNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
 }
