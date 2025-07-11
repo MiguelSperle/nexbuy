@@ -10,4 +10,5 @@ public interface IColorGateway {
     Optional<Color> findById(String id);
     Color save(Color color);
     void deleteById(String id);
+    boolean existsByName(String name);
 }

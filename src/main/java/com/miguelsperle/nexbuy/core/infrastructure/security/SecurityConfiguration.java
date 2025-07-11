@@ -27,19 +27,20 @@ public class SecurityConfiguration {
     private static final String[] USER_MODULE_PUBLIC_ENDPOINTS = {
             "/api/users",
             "/api/users/authentication",
-            "/api/users/verification-code",
             "/api/users/verification",
-            "/api/users/token/refresh",
-            "/api/users/password-recovery",
-            "/api/users/password-recovery/validation",
-            "/api/users/password-reset"
+            "/api/users/password-reset",
+            "/api/refresh-tokens/access-token",
+            "/api/user-codes/verification/resend",
+            "/api/user-codes/password-recovery",
+            "/api/user-codes/password-recovery/validation"
     };
 
     private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
             "/api/admin/brands",
             "/api/admin/brands/{brandId}",
             "/api/admin/categories",
-            "/api/admin/categories/{categoryId}"
+            "/api/admin/categories/{categoryId}",
+            "/api/admin/colors"
     };
 
     @Bean

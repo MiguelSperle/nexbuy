@@ -34,4 +34,9 @@ public class JpaColorGateway implements IColorGateway {
     public void deleteById(String id) {
         this.jpaColorRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return this.jpaColorRepository.existsByName(name);
+    }
 }
