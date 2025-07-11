@@ -36,10 +36,10 @@ public class SecurityConfiguration {
     };
 
     private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
-            "/api/admin/products/brands",
-            "/api/admin/products/brands/{brandId}",
-            "/api/admin/products/categories",
-            "/api/admin/products/categories/{categoryId}"
+            "/api/admin/brands",
+            "/api/admin/brands/{brandId}",
+            "/api/admin/categories",
+            "/api/admin/categories/{categoryId}"
     };
 
     @Bean

@@ -10,4 +10,5 @@ public interface IModelGateway {
     Optional<Model> findById(String id);
     Model save(Model model);
     void deleteById(String id);
+    boolean existsByName(String name);
 }

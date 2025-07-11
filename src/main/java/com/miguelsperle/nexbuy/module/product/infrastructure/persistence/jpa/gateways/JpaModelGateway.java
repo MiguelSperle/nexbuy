@@ -34,4 +34,9 @@ public class JpaModelGateway implements IModelGateway {
     public void deleteById(String id) {
         this.jpaModelRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return this.jpaModelRepository.existsByName(name);
+    }
 }
