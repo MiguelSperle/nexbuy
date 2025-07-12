@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin/brands")
+@RequestMapping("/api/v1/admin/brands")
 @RequiredArgsConstructor
 public class BrandAdminController {
     private final IRegisterBrandUseCase registerBrandUseCase;

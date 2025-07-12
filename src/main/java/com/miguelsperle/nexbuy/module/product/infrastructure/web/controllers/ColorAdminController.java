@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin/colors")
+@RequestMapping("/api/v1/admin/colors")
 @RequiredArgsConstructor
 public class ColorAdminController {
     private final IRegisterColorUseCase registerColorUseCase;

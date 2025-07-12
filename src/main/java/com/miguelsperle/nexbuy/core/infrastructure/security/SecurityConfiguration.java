@@ -25,22 +25,23 @@ public class SecurityConfiguration {
     private final AccessDeniedHandler accessDeniedHandler;
 
     private static final String[] USER_MODULE_PUBLIC_ENDPOINTS = {
-            "/api/users",
-            "/api/users/authentication",
-            "/api/users/verification",
-            "/api/users/password-reset",
-            "/api/refresh-tokens/access-token",
-            "/api/user-codes/verification/resend",
-            "/api/user-codes/password-recovery",
-            "/api/user-codes/password-recovery/validation"
+            "/api/v1/auth/register",
+            "/api/v1/auth/login",
+            "/api/v1/auth/refresh",
+            "/api/v1/users/verification",
+            "/api/v1/users/password-reset",
+            "/api/v1/user-codes/verification/resend",
+            "/api/v1/user-codes/password-recovery",
+            "/api/v1/user-codes/password-recovery/validation"
     };
 
     private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
-            "/api/admin/brands",
-            "/api/admin/brands/{brandId}",
-            "/api/admin/categories",
-            "/api/admin/categories/{categoryId}",
-            "/api/admin/colors"
+            "/api/v1/admin/brands",
+            "/api/v1/admin/brands/{brandId}",
+            "/api/v1/admin/categories",
+            "/api/v1/admin/categories/{categoryId}",
+            "/api/v1/admin/colors",
+            "/api/v1/admin/colors/{colorId}"
     };
 
     @Bean

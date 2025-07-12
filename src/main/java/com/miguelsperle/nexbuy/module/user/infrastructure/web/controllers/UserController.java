@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.*;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
@@ -10,65 +9,18 @@ import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.*;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final ICreateUserUseCase createUserUseCase;
-    private final IAuthenticateUseCase authenticateUseCase;
     private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
     private final IResetUserPasswordUseCase resetUserPasswordUseCase;
     private final IUpdateUserUseCase updateUserUseCase;
     private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
-
-    @PostMapping
-    public ResponseEntity<MessageResponse> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        PersonComplementInput personComplementInput = null;
-
-        final PersonType convertedToPersonType = PersonType.valueOf(createUserRequest.personType());
-
-        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.naturalPersonComplement() != null) {
-            personComplementInput = new PersonComplementInput(
-                    createUserRequest.naturalPersonComplement().cpf(),
-                    createUserRequest.naturalPersonComplement().generalRegister(),
-                    null, null, null, null
-            );
-        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.legalPersonComplement() != null) {
-            personComplementInput = new PersonComplementInput(
-                    null, null,
-                    createUserRequest.legalPersonComplement().cnpj(),
-                    createUserRequest.legalPersonComplement().fantasyName(),
-                    createUserRequest.legalPersonComplement().legalName(),
-                    createUserRequest.legalPersonComplement().stateRegistration()
-            );
-        }
-
-        this.createUserUseCase.execute(new CreateUserUseCaseInput(
-                createUserRequest.firstName(),
-                createUserRequest.lastName(),
-                createUserRequest.email(),
-                createUserRequest.password(),
-                createUserRequest.phoneNumber(),
-                convertedToPersonType,
-                personComplementInput
-        ));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User created successfully"));
-    }
-
-    @PostMapping("/authentication")
-    public ResponseEntity<AuthenticateResponse> authenticate(@RequestBody @Valid AuthenticateRequest authenticateRequest) {
-        final AuthenticateUseCaseOutput authenticateUseCaseOutput = this.authenticateUseCase.execute(new AuthenticateUseCaseInput(
-                authenticateRequest.email(), authenticateRequest.password()
-        ));
-
-        return ResponseEntity.ok().body(AuthenticateResponse.fromOutput(authenticateUseCaseOutput));
-    }
 
     @PatchMapping("/verification")
     public ResponseEntity<MessageResponse> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {

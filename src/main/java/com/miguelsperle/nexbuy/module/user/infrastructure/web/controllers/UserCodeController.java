@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user-codes")
+@RequestMapping("/api/v1/user-codes")
 @RequiredArgsConstructor
 public class UserCodeController {
     private final IResendVerificationCodeUseCase resendVerificationCodeUseCase;
