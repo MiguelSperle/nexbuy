@@ -39,16 +39,24 @@ public class JpaProductEntity {
     private JpaBrandEntity jpaBrandEntity;
 
     @ManyToOne
-    @JoinColumn(name = "model_id", nullable = false)
-    private JpaModelEntity jpaModelEntity;
-
-    @ManyToOne
     @JoinColumn(name = "color_id", nullable = false)
     private JpaColorEntity jpaColorEntity;
 
     @Column(name = "status", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
+
+    @Column(nullable = false)
+    private Integer weight;
+
+    @Column(nullable = false)
+    private Integer height;
+
+    @Column(nullable = false)
+    private Integer width;
+
+    @Column(nullable = false)
+    private Integer length;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -62,9 +70,12 @@ public class JpaProductEntity {
                 product.getPrice(),
                 product.getSku(),
                 JpaBrandEntity.from(product.getBrand()),
-                JpaModelEntity.from(product.getModel()),
                 JpaColorEntity.from(product.getColor()),
                 product.getProductStatus(),
+                product.getWeight(),
+                product.getHeight(),
+                product.getWidth(),
+                product.getLength(),
                 product.getCreatedAt()
         );
     }
@@ -78,9 +89,12 @@ public class JpaProductEntity {
                 this.price,
                 this.sku,
                 this.jpaBrandEntity.toEntity(),
-                this.jpaModelEntity.toEntity(),
                 this.jpaColorEntity.toEntity(),
                 this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
                 this.createdAt
         );
     }

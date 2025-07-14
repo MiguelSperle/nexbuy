@@ -14,9 +14,12 @@ public class Product {
     private final BigDecimal price;
     private final String sku;
     private final Brand brand;
-    private final Model model;
     private final Color color;
     private final ProductStatus productStatus;
+    private final Integer weight;
+    private final Integer height;
+    private final Integer width;
+    private final Integer length;
     private final LocalDateTime createdAt;
 
     private Product(
@@ -27,9 +30,12 @@ public class Product {
             BigDecimal price,
             String sku,
             Brand brand,
-            Model model,
             Color color,
             ProductStatus productStatus,
+            Integer weight,
+            Integer height,
+            Integer width,
+            Integer length,
             LocalDateTime createdAt
     ) {
         this.id = id;
@@ -39,9 +45,12 @@ public class Product {
         this.price = price;
         this.sku = sku;
         this.brand = brand;
-        this.model = model;
         this.color = color;
         this.productStatus = productStatus;
+        this.weight = weight;
+        this.height = height;
+        this.width = width;
+        this.length = length;
         this.createdAt = createdAt;
     }
 
@@ -52,8 +61,11 @@ public class Product {
             BigDecimal price,
             String sku,
             Brand brand,
-            Model model,
-            Color color
+            Color color,
+            Integer weight,
+            Integer height,
+            Integer width,
+            Integer length
     ) {
         return new Product(
                 UUID.randomUUID().toString(),
@@ -63,9 +75,12 @@ public class Product {
                 price,
                 sku,
                 brand,
-                model,
                 color,
                 ProductStatus.ACTIVE,
+                weight,
+                height,
+                width,
+                length,
                 LocalDateTime.now()
         );
     }
@@ -78,9 +93,12 @@ public class Product {
             BigDecimal price,
             String sku,
             Brand brand,
-            Model model,
             Color color,
             ProductStatus productStatus,
+            Integer weight,
+            Integer height,
+            Integer width,
+            Integer length,
             LocalDateTime createdAt
     ) {
         return new Product(
@@ -91,9 +109,12 @@ public class Product {
                 price,
                 sku,
                 brand,
-                model,
                 color,
                 productStatus,
+                weight,
+                height,
+                width,
+                length,
                 createdAt
         );
     }
@@ -126,16 +147,28 @@ public class Product {
         return this.brand;
     }
 
-    public Model getModel() {
-        return this.model;
-    }
-
     public Color getColor() {
         return this.color;
     }
 
     public ProductStatus getProductStatus() {
         return this.productStatus;
+    }
+
+    public Integer getWeight() {
+        return this.weight;
+    }
+
+    public Integer getHeight() {
+        return this.height;
+    }
+
+    public Integer getWidth() {
+        return this.width;
+    }
+
+    public Integer getLength() {
+        return this.length;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -152,9 +185,12 @@ public class Product {
                 ", price=" + this.price +
                 ", sku='" + this.sku + '\'' +
                 ", brand=" + this.brand +
-                ", model=" + this.model +
                 ", color=" + this.color +
                 ", productStatus=" + this.productStatus +
+                ", weight=" + this.weight +
+                ", height=" + this.height +
+                ", width=" + this.width +
+                ", length=" + this.length +
                 ", createdAt=" + this.createdAt +
                 '}';
     }

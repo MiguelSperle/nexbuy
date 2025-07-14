@@ -6,18 +6,19 @@ import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetColorUs
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterColorRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateColorRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorResponse;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorsResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/colors")
@@ -26,6 +27,7 @@ public class ColorAdminController {
     private final IRegisterColorUseCase registerColorUseCase;
     private final IUpdateColorUseCase updateColorUseCase;
     private final IDeleteColorUseCase deleteColorUseCase;
+    private final IGetColorsUseCase getColorsUseCase;
     private final IGetColorUseCase getColorUseCase;
 
     @PostMapping
@@ -53,6 +55,13 @@ public class ColorAdminController {
         this.deleteColorUseCase.execute(new DeleteColorUseCaseInput(colorId));
 
         return ResponseEntity.ok().body(new MessageResponse("Color deleted successfully"));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GetColorsResponse>> getColors() {
+        final GetColorsUseCaseOutput getColorsUseCaseOutput = this.getColorsUseCase.execute();
+
+        return ResponseEntity.ok().body(GetColorsResponse.fromOutput(getColorsUseCaseOutput));
     }
 
     @GetMapping("/{colorId}")
