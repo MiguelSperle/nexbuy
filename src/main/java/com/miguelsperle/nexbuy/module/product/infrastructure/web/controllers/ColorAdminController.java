@@ -2,13 +2,17 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateColorUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterColorRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateColorRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ public class ColorAdminController {
     private final IRegisterColorUseCase registerColorUseCase;
     private final IUpdateColorUseCase updateColorUseCase;
     private final IDeleteColorUseCase deleteColorUseCase;
+    private final IGetColorUseCase getColorUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerColor(@RequestBody @Valid RegisterColorRequest registerColorRequest) {
@@ -48,5 +53,12 @@ public class ColorAdminController {
         this.deleteColorUseCase.execute(new DeleteColorUseCaseInput(colorId));
 
         return ResponseEntity.ok().body(new MessageResponse("Color deleted successfully"));
+    }
+
+    @GetMapping("/{colorId}")
+    public ResponseEntity<GetColorResponse> getColor(@PathVariable String colorId) {
+        final GetColorUseCaseOutput getColorUseCaseOutput = this.getColorUseCase.execute(new GetColorUseCaseInput(colorId));
+
+        return ResponseEntity.ok().body(GetColorResponse.fromOutput(getColorUseCaseOutput));
     }
 }
