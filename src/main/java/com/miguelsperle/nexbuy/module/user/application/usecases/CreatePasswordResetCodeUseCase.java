@@ -37,7 +37,7 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
         final User user = this.getUserByEmail(createPasswordResetCodeUseCaseInput.email());
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->
-                this.userCodeGateway.deleteById(userCode.getId())
+                this.deleteUserCodeById(userCode.getId())
         );
 
         final String codeGenerated = this.codeProvider.generateCode();
@@ -59,6 +59,10 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
         return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.PASSWORD_RESET.name());
+    }
+
+    private void deleteUserCodeById(String userCodeId) {
+        this.userCodeGateway.deleteById(userCodeId);
     }
 
     private UserCode saveUserCode(UserCode userCode) {

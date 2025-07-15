@@ -1,0 +1,17 @@
+package com.miguelsperle.nexbuy.module.product.application.dtos.inputs;
+
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.complements.DimensionComplementInput;
+
+import java.math.BigDecimal;
+
+public record RegisterProductUseCaseInput(
+        String name,
+        String description,
+        String categoryId,
+        BigDecimal price,
+        String brandId,
+        String colorId,
+        Integer weight,
+        DimensionComplementInput dimensionComplementInput
+) {
+}

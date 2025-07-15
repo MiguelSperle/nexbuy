@@ -18,7 +18,7 @@ public class JpaProductEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 150)
     private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -31,7 +31,7 @@ public class JpaProductEntity {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 80)
     private String sku;
 
     @ManyToOne
@@ -46,16 +46,16 @@ public class JpaProductEntity {
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // grams
     private Integer weight;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // mm
     private Integer height;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // mm
     private Integer width;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // mm
     private Integer length;
 
     @Column(name = "created_at", nullable = false)

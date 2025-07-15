@@ -10,7 +10,7 @@ public class CodeProvider implements ICodeProvider {
     private final SecureRandom secureRandom = new SecureRandom();
 
     private final static int CODE_LENGTH = 6;
-    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     @Override
     public String generateCode() {
