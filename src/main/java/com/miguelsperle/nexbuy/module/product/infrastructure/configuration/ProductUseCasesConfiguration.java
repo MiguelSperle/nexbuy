@@ -1,8 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.RegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
@@ -46,5 +48,10 @@ public class ProductUseCasesConfiguration {
                 colorGateway,
                 skuProvider
         );
+    }
+
+    @Bean
+    public IUpdateProductStatusUseCase updateProductStatusUseCase(IProductGateway productGateway) {
+        return new UpdateProductStatusUseCase(productGateway);
     }
 }

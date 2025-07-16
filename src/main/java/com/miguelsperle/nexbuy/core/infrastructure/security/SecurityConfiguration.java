@@ -43,7 +43,8 @@ public class SecurityConfiguration {
             "/api/v1/admin/colors",
             "/api/v1/admin/colors/{colorId}",
             "/api/v1/admin/products",
-            "/api/v1/admin/products/{productId}"
+            "/api/v1/admin/products/{productId}",
+            "/api/v1/admin/products/{productId}/status"
     };
 
     @Bean

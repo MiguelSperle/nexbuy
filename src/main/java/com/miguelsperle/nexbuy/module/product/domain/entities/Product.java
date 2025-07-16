@@ -252,6 +252,25 @@ public class Product {
         );
     }
 
+    public Product withProductStatus(ProductStatus productStatus) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
     public Product withWeight(Integer weight) {
         return new Product(
                 this.id,

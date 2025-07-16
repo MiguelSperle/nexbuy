@@ -2,12 +2,15 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterProductUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductStatusUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.complements.DimensionComplementInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterProductRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateProductRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateProductStatusRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductAdminController {
     private final IRegisterProductUseCase registerProductUseCase;
     private final IUpdateProductUseCase updateProductUseCase;
+    private final IUpdateProductStatusUseCase updateProductStatusUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerProduct(@RequestBody @Valid RegisterProductRequest registerProductRequest) {
@@ -67,5 +71,18 @@ public class ProductAdminController {
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Product updated successfully"));
+    }
+
+    @PatchMapping("/{productId}/status")
+    public ResponseEntity<MessageResponse> updateProductStatus(
+            @PathVariable String productId,
+            @RequestBody @Valid UpdateProductStatusRequest updateProductStatusRequest
+    ) {
+        this.updateProductStatusUseCase.execute(new UpdateProductStatusUseCaseInput(
+                productId,
+                updateProductStatusRequest.productStatus()
+        ));
+
+        return ResponseEntity.ok().body(new MessageResponse("Product status updated successfully"));
     }
 }
