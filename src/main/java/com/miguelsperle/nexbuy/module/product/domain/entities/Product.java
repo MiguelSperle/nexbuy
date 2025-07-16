@@ -119,6 +119,215 @@ public class Product {
         );
     }
 
+    public Product withName(String name) {
+        return new Product(
+                this.id,
+                name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withDescription(String description) {
+        return new Product(
+                this.id,
+                this.name,
+                description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withCategory(Category category) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withPrice(BigDecimal price) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withSku(String sku) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withBrand(Brand brand) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withColor(Color color) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withWeight(Integer weight) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                weight,
+                this.height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withHeight(Integer height) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                height,
+                this.width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withWidth(Integer width) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                width,
+                this.length,
+                this.createdAt
+        );
+    }
+
+    public Product withLength(Integer length) {
+        return new Product(
+                this.id,
+                this.name,
+                this.description,
+                this.category,
+                this.price,
+                this.sku,
+                this.brand,
+                this.color,
+                this.productStatus,
+                this.weight,
+                this.height,
+                this.width,
+                length,
+                this.createdAt
+        );
+    }
+
     public String getId() {
         return this.id;
     }

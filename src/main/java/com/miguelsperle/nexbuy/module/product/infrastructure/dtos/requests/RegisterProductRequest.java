@@ -18,7 +18,7 @@ public record RegisterProductRequest(
         String categoryId,
 
         @NotNull(message = "Price should not be null")
-        @DecimalMin(value = "0", message = "Price should be at least 0")
+        @PositiveOrZero(message = "Price should be zero or a positive number")
         @Digits(integer = 17, fraction = 2, message = "Price should have up to 17 digits before the decimal point and 2 after")
         BigDecimal price,
 

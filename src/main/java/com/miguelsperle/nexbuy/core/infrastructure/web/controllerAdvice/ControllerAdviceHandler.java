@@ -213,4 +213,11 @@ public class ControllerAdviceHandler {
                 Collections.singletonList(colorAssociatedWithProductsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleProductNotFoundException(ProductNotFoundException productNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList(productNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
 }

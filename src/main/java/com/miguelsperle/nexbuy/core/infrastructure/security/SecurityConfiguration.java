@@ -42,7 +42,8 @@ public class SecurityConfiguration {
             "/api/v1/admin/categories/{categoryId}",
             "/api/v1/admin/colors",
             "/api/v1/admin/colors/{colorId}",
-            "/api/v1/admin/products"
+            "/api/v1/admin/products",
+            "/api/v1/admin/products/{productId}/basic-info"
     };
 
     @Bean
