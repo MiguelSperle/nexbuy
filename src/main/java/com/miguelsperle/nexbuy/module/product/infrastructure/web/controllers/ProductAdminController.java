@@ -43,7 +43,7 @@ public class ProductAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Product registered successfully"));
     }
 
-    @PatchMapping("/{productId}/basic-information")
+    @PatchMapping("/{productId}")
     public ResponseEntity<MessageResponse> updateProduct(
             @PathVariable String productId,
             @RequestBody @Valid UpdateProductRequest updateProductRequest
@@ -56,8 +56,12 @@ public class ProductAdminController {
 
         this.updateProductUseCase.execute(new UpdateProductUseCaseInput(
                 productId,
+                updateProductRequest.name(),
                 updateProductRequest.description(),
+                updateProductRequest.categoryId(),
                 updateProductRequest.price(),
+                updateProductRequest.brandId(),
+                updateProductRequest.colorId(),
                 updateProductRequest.weight(),
                 dimensionComplementInput
         ));

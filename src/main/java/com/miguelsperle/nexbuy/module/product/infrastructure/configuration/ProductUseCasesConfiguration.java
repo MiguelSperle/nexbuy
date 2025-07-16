@@ -32,7 +32,19 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateProductUseCase updateProductUseCase(IProductGateway productGateway) {
-        return new UpdateProductUseCase(productGateway);
+    public IUpdateProductUseCase updateProductUseCase(
+            IProductGateway productGateway,
+            ICategoryGateway categoryGateway,
+            IBrandGateway brandGateway,
+            IColorGateway colorGateway,
+            ISkuProvider skuProvider
+    ) {
+        return new UpdateProductUseCase(
+                productGateway,
+                categoryGateway,
+                brandGateway,
+                colorGateway,
+                skuProvider
+        );
     }
 }

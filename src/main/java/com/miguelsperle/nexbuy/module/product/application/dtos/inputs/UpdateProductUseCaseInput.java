@@ -6,8 +6,12 @@ import java.math.BigDecimal;
 
 public record UpdateProductUseCaseInput(
         String productId,
+        String name,
         String description,
+        String categoryId,
         BigDecimal price,
+        String brandId,
+        String colorId,
         Integer weight,
         DimensionComplementInput dimensionComplementInput
 ) {
