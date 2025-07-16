@@ -19,15 +19,15 @@ public class SkuProvider implements ISkuProvider {
         final String abbreviatedCategoryName = this.abbreviate(categoryName);
         final String abbreviatedBrandName = this.abbreviate(brandName);
         final String abbreviatedColorName = this.abbreviate(colorName);
-        final String shortUuid = UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        final String shortUUID = UUID.randomUUID().toString().substring(0, 5).toUpperCase();
 
-        return String.format("%s-%s-%s-%s-%s", compressedProductName, abbreviatedCategoryName, abbreviatedBrandName, abbreviatedColorName, shortUuid);
+        return String.format("%s-%s-%s-%s-%s", compressedProductName, abbreviatedCategoryName, abbreviatedBrandName, abbreviatedColorName, shortUUID);
     }
 
     private String abbreviate(String value) {
         if (value == null || value.isBlank()) return DEFAULT_SKU_VALUE;
         final String cleaned = value.trim().replaceAll(REMOVE_WHITE_SPACES, "").toUpperCase();
-        return cleaned.length() <= 4 ? cleaned : cleaned.substring(0, 4);
+        return cleaned.length() <= 3 ? cleaned : cleaned.substring(0, 3);
     }
 
     private String compressProductName(String productName) {
