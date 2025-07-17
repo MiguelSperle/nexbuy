@@ -23,7 +23,7 @@ public class UpdateProductStatusUseCase implements IUpdateProductStatusUseCase {
         final ProductStatus convertedToProductStatus = ProductStatus.valueOf(updateProductStatusUseCaseInput.productStatus());
 
         if (convertedToProductStatus == ProductStatus.DELETED) {
-            throw new ProductStatusNotAllowedException("Status DELETE is not allowed to be set");
+            throw new ProductStatusNotAllowedException("Status DELETED is not allowed to be set");
         }
 
         if (product.getProductStatus() == ProductStatus.DELETED) {

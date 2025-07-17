@@ -1,10 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductStatusUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.complements.DimensionComplementInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
@@ -24,6 +26,7 @@ public class ProductAdminController {
     private final IRegisterProductUseCase registerProductUseCase;
     private final IUpdateProductUseCase updateProductUseCase;
     private final IUpdateProductStatusUseCase updateProductStatusUseCase;
+    private final IDeleteProductUseCase deleteProductUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerProduct(@RequestBody @Valid RegisterProductRequest registerProductRequest) {
@@ -84,5 +87,12 @@ public class ProductAdminController {
         ));
 
         return ResponseEntity.ok().body(new MessageResponse("Product status updated successfully"));
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<MessageResponse> deleteProduct(@PathVariable String productId) {
+        this.deleteProductUseCase.execute(new DeleteProductUseCaseInput(productId));
+
+        return ResponseEntity.ok().body(new MessageResponse("Product deleted successfully"));
     }
 }

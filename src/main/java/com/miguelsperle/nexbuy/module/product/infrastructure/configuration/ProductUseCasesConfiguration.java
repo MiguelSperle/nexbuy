@@ -1,8 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration;
 
+import com.miguelsperle.nexbuy.module.product.application.usecases.DeleteProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.RegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
@@ -53,5 +55,10 @@ public class ProductUseCasesConfiguration {
     @Bean
     public IUpdateProductStatusUseCase updateProductStatusUseCase(IProductGateway productGateway) {
         return new UpdateProductStatusUseCase(productGateway);
+    }
+
+    @Bean
+    public IDeleteProductUseCase deleteProductUseCase(IProductGateway productGateway) {
+        return new DeleteProductUseCase(productGateway);
     }
 }
