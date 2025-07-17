@@ -24,15 +24,12 @@ public class SecurityConfiguration {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
-    private static final String[] USER_MODULE_PUBLIC_ENDPOINTS = {
-            "/api/v1/auth/register",
-            "/api/v1/auth/login",
-            "/api/v1/auth/refresh",
-            "/api/v1/users/verification",
-            "/api/v1/users/password-reset",
-            "/api/v1/user-codes/verification/resend",
-            "/api/v1/user-codes/password-recovery",
-            "/api/v1/user-codes/password-recovery/validation"
+    private static final String[] USER_MODULE_AUTHENTICATED_ENDPOINTS = {
+            "/api/v1/users/information",
+            "/api/v1/users/password",
+            "/api/v1/users/me",
+            "/api/v1/addresses",
+            "/api/v1/addresses/{addressId}"
     };
 
     private static final String[] PRODUCT_MODULE_RESTRICTED_ENDPOINTS = {
@@ -53,9 +50,9 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(USER_MODULE_PUBLIC_ENDPOINTS).permitAll()
+                                .requestMatchers(USER_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(PRODUCT_MODULE_RESTRICTED_ENDPOINTS).hasRole("ADMIN")
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -19,9 +19,9 @@ public class SkuProvider implements ISkuProvider {
         final String abbreviatedCategoryName = this.abbreviate(categoryName);
         final String abbreviatedBrandName = this.abbreviate(brandName);
         final String abbreviatedColorName = this.abbreviate(colorName);
-        final String shortUUID = UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        final String uniqueId = UUID.randomUUID().toString().substring(0, 8);
 
-        return String.format("%s-%s-%s-%s-%s", compressedProductName, abbreviatedCategoryName, abbreviatedBrandName, abbreviatedColorName, shortUUID);
+        return String.format("%s-%s-%s-%s-%s", compressedProductName, abbreviatedCategoryName, abbreviatedBrandName, abbreviatedColorName, uniqueId);
     }
 
     private String abbreviate(String value) {

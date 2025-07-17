@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,13 @@ public class ControllerAdviceHandler {
     public ResponseEntity<ErrorMessageResponse> handleHttpMessageNotReadableException() {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
                 Collections.singletonList("Invalid request body"), HttpStatus.BAD_REQUEST.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleNoResourceFoundException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
+                Collections.singletonList("Resource not found"), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 
@@ -75,7 +83,7 @@ public class ControllerAdviceHandler {
     }
 
     @ExceptionHandler(MissingRequiredComplementException.class)
-    public ResponseEntity<ErrorMessageResponse> handleMissingRequiredDataException(MissingRequiredComplementException missingRequiredComplementException) {
+    public ResponseEntity<ErrorMessageResponse> handleMissingRequiredComplementException(MissingRequiredComplementException missingRequiredComplementException) {
         return ResponseEntity.badRequest().body(new ErrorMessageResponse(
                 Collections.singletonList(missingRequiredComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase()
         ));
@@ -218,6 +226,20 @@ public class ControllerAdviceHandler {
     public ResponseEntity<ErrorMessageResponse> handleProductNotFoundException(ProductNotFoundException productNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageResponse(
                 Collections.singletonList(productNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(ProductStatusNotAllowedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleProductStatusNotAllowedException(ProductStatusNotAllowedException productStatusNotAllowedException) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ErrorMessageResponse(
+                Collections.singletonList(productStatusNotAllowedException.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(ProductAlreadyDeletedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleProductAlreadyDeletedException(ProductAlreadyDeletedException productAlreadyDeletedException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessageResponse(
+                Collections.singletonList(productAlreadyDeletedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

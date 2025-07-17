@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductStatusUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductAlreadyDeletedException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductStatusNotAllowedException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
@@ -19,6 +21,14 @@ public class UpdateProductStatusUseCase implements IUpdateProductStatusUseCase {
         final Product product = this.getProductById(updateProductStatusUseCaseInput.productId());
 
         final ProductStatus convertedToProductStatus = ProductStatus.valueOf(updateProductStatusUseCaseInput.productStatus());
+
+        if (convertedToProductStatus == ProductStatus.DELETED) {
+            throw new ProductStatusNotAllowedException("Status DELETE is not allowed to be set");
+        }
+
+        if (product.getProductStatus() == ProductStatus.DELETED) {
+            throw new ProductAlreadyDeletedException("This product has already been deleted and cannot be updated");
+        }
 
         final Product updatedProduct = product.withProductStatus(convertedToProductStatus);
 

@@ -1,10 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.exceptions.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
@@ -15,6 +12,7 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 
 import java.util.Objects;
 
@@ -42,6 +40,10 @@ public class UpdateProductUseCase implements IUpdateProductUseCase {
     @Override
     public void execute(UpdateProductUseCaseInput updateProductUseCaseInput) {
         final Product product = this.getProductById(updateProductUseCaseInput.productId());
+
+        if (product.getProductStatus() == ProductStatus.DELETED) {
+            throw new ProductAlreadyDeletedException("This product has already been deleted and cannot be updated");
+        }
 
         final Category category = this.getCategoryById(updateProductUseCaseInput.categoryId());
 
