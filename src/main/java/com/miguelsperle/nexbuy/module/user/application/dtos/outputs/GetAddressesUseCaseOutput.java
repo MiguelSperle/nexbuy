@@ -7,5 +7,8 @@ import java.util.List;
 public record GetAddressesUseCaseOutput(
         List<Address> addresses
 ) {
+    public static GetAddressesUseCaseOutput from(List<Address> addresses) {
+        return new GetAddressesUseCaseOutput(addresses);
+    }
 }
 

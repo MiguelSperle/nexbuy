@@ -30,11 +30,9 @@ public class BrandAdminController {
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {
-        this.registerBrandUseCase.execute(new RegisterBrandUseCaseInput(
-                registerBrandRequest.name()
-        ));
+        this.registerBrandUseCase.execute(RegisterBrandUseCaseInput.with(registerBrandRequest.name()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Brand registered successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("Brand registered successfully"));
     }
 
     @PatchMapping("/{brandId}")
@@ -42,25 +40,25 @@ public class BrandAdminController {
             @PathVariable String brandId,
             @RequestBody @Valid UpdateBrandRequest updateBrandRequest
     ) {
-        this.updateBrandUseCase.execute(new UpdateBrandUseCaseInput(
+        this.updateBrandUseCase.execute(UpdateBrandUseCaseInput.with(
                 brandId,
                 updateBrandRequest.name()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Brand updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Brand updated successfully"));
     }
 
     @DeleteMapping("/{brandId}")
     public ResponseEntity<MessageResponse> deleteBrand(@PathVariable String brandId) {
-        this.deleteBrandUseCase.execute(new DeleteBrandUseCaseInput(brandId));
+        this.deleteBrandUseCase.execute(DeleteBrandUseCaseInput.with(brandId));
 
-        return ResponseEntity.ok().body(new MessageResponse("Brand deleted successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Brand deleted successfully"));
     }
 
     @GetMapping("/{brandId}")
     public ResponseEntity<GetBrandResponse> getBrand(@PathVariable String brandId) {
-        final GetBrandUseCaseOutput getBrandUseCaseOutput = this.getBrandUseCase.execute(new GetBrandUseCaseInput(brandId));
+        final GetBrandUseCaseOutput getBrandUseCaseOutput = this.getBrandUseCase.execute(GetBrandUseCaseInput.with(brandId));
 
-        return ResponseEntity.ok().body(GetBrandResponse.fromOutput(getBrandUseCaseOutput));
+        return ResponseEntity.ok().body(GetBrandResponse.from(getBrandUseCaseOutput));
     }
 }

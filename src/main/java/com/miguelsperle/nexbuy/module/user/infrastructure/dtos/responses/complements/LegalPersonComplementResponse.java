@@ -8,7 +8,7 @@ public record LegalPersonComplementResponse(
         String legalName,
         String stateRegistration
 ) {
-    public static LegalPersonComplementResponse fromOutput(PersonComplementOutput personComplementOutput) {
+    public static LegalPersonComplementResponse from(PersonComplementOutput personComplementOutput) {
         return new LegalPersonComplementResponse(
                 personComplementOutput.cnpj(),
                 personComplementOutput.fantasyName(),

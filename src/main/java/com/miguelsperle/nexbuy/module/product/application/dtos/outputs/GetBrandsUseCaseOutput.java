@@ -7,5 +7,8 @@ import java.util.List;
 public record GetBrandsUseCaseOutput(
         List<Brand> brands
 ) {
+    public static GetBrandsUseCaseOutput from(List<Brand> brands) {
+        return new GetBrandsUseCaseOutput(brands);
+    }
 }
 

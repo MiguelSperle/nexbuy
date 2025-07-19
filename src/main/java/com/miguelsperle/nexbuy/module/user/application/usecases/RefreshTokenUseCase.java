@@ -32,7 +32,7 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(refreshToken.getUser().getId());
 
-        return new RefreshTokenUseCaseOutput(jwtTokenGenerated);
+        return RefreshTokenUseCaseOutput.from(jwtTokenGenerated);
     }
 
     private RefreshToken getRefreshTokenByToken(String token) {

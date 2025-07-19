@@ -6,7 +6,7 @@ public record NaturalPersonComplementResponse(
         String cpf,
         String generalRegister
 ) {
-    public static NaturalPersonComplementResponse fromOutput(PersonComplementOutput personComplementOutput) {
+    public static NaturalPersonComplementResponse from(PersonComplementOutput personComplementOutput) {
         return new NaturalPersonComplementResponse(
                 personComplementOutput.cpf(),
                 personComplementOutput.generalRegister()

@@ -32,7 +32,7 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<MessageResponse> createAddress(@RequestBody @Valid CreateAddressRequest createAddressRequest) {
-        this.createAddressUseCase.execute(new CreateAddressUseCaseInput(
+        this.createAddressUseCase.execute(CreateAddressUseCaseInput.with(
                 createAddressRequest.addressLine(),
                 createAddressRequest.addressNumber(),
                 createAddressRequest.zipCode(),
@@ -42,7 +42,7 @@ public class AddressController {
                 createAddressRequest.complement()
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Address created successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("Address created successfully"));
     }
 
     @PatchMapping("/{addressId}")
@@ -50,7 +50,7 @@ public class AddressController {
             @PathVariable String addressId,
             @RequestBody @Valid UpdateAddressRequest updateAddressRequest
     ) {
-        this.updateAddressUseCase.execute(new UpdateAddressUseCaseInput(
+        this.updateAddressUseCase.execute(UpdateAddressUseCaseInput.with(
                 addressId,
                 updateAddressRequest.addressLine(),
                 updateAddressRequest.addressNumber(),
@@ -61,27 +61,27 @@ public class AddressController {
                 updateAddressRequest.complement()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Address updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Address updated successfully"));
     }
 
     @GetMapping
     public ResponseEntity<List<GetAddressesResponse>> getAddresses() {
         final GetAddressesUseCaseOutput getAddressesUseCaseOutput = this.getAddressesUseCase.execute();
 
-        return ResponseEntity.ok().body(GetAddressesResponse.fromOutput(getAddressesUseCaseOutput));
+        return ResponseEntity.ok().body(GetAddressesResponse.from(getAddressesUseCaseOutput));
     }
 
     @GetMapping("/{addressId}")
     public ResponseEntity<GetAddressResponse> getAddress(@PathVariable String addressId) {
-        final GetAddressUseCaseOutput getAddressUseCaseOutput = this.getAddressUseCase.execute(new GetAddressUseCaseInput(addressId));
+        final GetAddressUseCaseOutput getAddressUseCaseOutput = this.getAddressUseCase.execute(GetAddressUseCaseInput.with(addressId));
 
-        return ResponseEntity.ok().body(GetAddressResponse.fromOutput(getAddressUseCaseOutput));
+        return ResponseEntity.ok().body(GetAddressResponse.from(getAddressUseCaseOutput));
     }
 
     @DeleteMapping("/{addressId}")
     public ResponseEntity<MessageResponse> deleteAddress(@PathVariable String addressId) {
-        this.deleteAddressUseCase.execute(new DeleteAddressUseCaseInput(addressId));
+        this.deleteAddressUseCase.execute(DeleteAddressUseCaseInput.with(addressId));
 
-        return ResponseEntity.ok().body(new MessageResponse("Address deleted successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Address deleted successfully"));
     }
 }

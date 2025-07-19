@@ -44,6 +44,11 @@ public class SecurityConfiguration {
             "/api/v1/admin/products/{productId}/status"
     };
 
+    private static final String[] PRODUCT_MODULE_AUTHENTICATED_ENDPOINTS = {
+            "/api/v1/brands",
+            "/api/v1/categories"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
@@ -52,6 +57,7 @@ public class SecurityConfiguration {
                         authorize
                                 .requestMatchers(USER_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(PRODUCT_MODULE_RESTRICTED_ENDPOINTS).hasRole("ADMIN")
+                                .requestMatchers(PRODUCT_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .anyRequest().permitAll())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)

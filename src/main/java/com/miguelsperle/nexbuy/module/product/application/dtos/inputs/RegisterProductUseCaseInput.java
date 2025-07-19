@@ -14,4 +14,25 @@ public record RegisterProductUseCaseInput(
         Integer weight,
         DimensionComplementInput dimensionComplementInput
 ) {
+    public static RegisterProductUseCaseInput with(
+            String name,
+            String description,
+            String categoryId,
+            BigDecimal price,
+            String brandId,
+            String colorId,
+            Integer weight,
+            DimensionComplementInput dimensionComplementInput
+    ) {
+        return new RegisterProductUseCaseInput(
+                name,
+                description,
+                categoryId,
+                price,
+                brandId,
+                colorId,
+                weight,
+                dimensionComplementInput
+        );
+    }
 }

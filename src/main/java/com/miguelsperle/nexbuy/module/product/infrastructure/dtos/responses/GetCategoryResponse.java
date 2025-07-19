@@ -6,7 +6,7 @@ public record GetCategoryResponse(
         String id,
         String name
 ) {
-    public static GetCategoryResponse fromOutput(GetCategoryUseCaseOutput getCategoryUseCaseOutput) {
+    public static GetCategoryResponse from(GetCategoryUseCaseOutput getCategoryUseCaseOutput) {
         return new GetCategoryResponse(
                 getCategoryUseCaseOutput.category().getId(),
                 getCategoryUseCaseOutput.category().getName()

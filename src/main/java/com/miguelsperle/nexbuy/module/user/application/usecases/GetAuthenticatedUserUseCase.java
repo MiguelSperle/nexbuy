@@ -38,21 +38,21 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
         if (authenticatedUser.getPersonType() == PersonType.NATURAL_PERSON) {
             final NaturalPerson naturalPerson = this.getNaturalPersonByUserId(authenticatedUser.getId());
 
-            personComplementOutput = new PersonComplementOutput(
+            personComplementOutput = PersonComplementOutput.from(
                     naturalPerson.getCpf(), naturalPerson.getGeneralRegister(),
                     null, null, null, null
             );
         } else {
             final LegalPerson legalPerson = this.getLegalPersonByUserId(authenticatedUser.getId());
 
-            personComplementOutput = new PersonComplementOutput(
+            personComplementOutput = PersonComplementOutput.from(
                     null, null, legalPerson.getCnpj(),
                     legalPerson.getFantasyName(), legalPerson.getLegalName(),
                     legalPerson.getStateRegistration()
             );
         }
 
-        return new GetAuthenticatedUserUseCaseOutput(authenticatedUser, personComplementOutput);
+        return GetAuthenticatedUserUseCaseOutput.from(authenticatedUser, personComplementOutput);
     }
 
     private NaturalPerson getNaturalPersonByUserId(String userId) {

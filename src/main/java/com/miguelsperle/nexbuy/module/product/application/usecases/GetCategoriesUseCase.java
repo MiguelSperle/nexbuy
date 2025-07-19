@@ -18,7 +18,7 @@ public class GetCategoriesUseCase implements IGetCategoriesUseCase {
     public GetCategoriesUseCaseOutput execute() {
         final List<Category> categories = this.getAllCategories();
 
-        return new GetCategoriesUseCaseOutput(categories);
+        return GetCategoriesUseCaseOutput.from(categories);
     }
 
     private List<Category> getAllCategories() {

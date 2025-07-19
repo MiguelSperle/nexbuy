@@ -6,7 +6,7 @@ public record GetColorResponse(
         String id,
         String name
 ) {
-    public static GetColorResponse fromOutput(GetColorUseCaseOutput getColorUseCaseOutput) {
+    public static GetColorResponse from(GetColorUseCaseOutput getColorUseCaseOutput) {
         return new GetColorResponse(
                 getColorUseCaseOutput.color().getId(),
                 getColorUseCaseOutput.color().getName()

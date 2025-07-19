@@ -7,5 +7,8 @@ public record GetAuthenticatedUserUseCaseOutput(
         User authenticatedUser,
         PersonComplementOutput personComplementOutput
 ) {
+    public static GetAuthenticatedUserUseCaseOutput from(User authenticatedUser, PersonComplementOutput personComplementOutput) {
+        return new GetAuthenticatedUserUseCaseOutput(authenticatedUser, personComplementOutput);
+    }
 }
 

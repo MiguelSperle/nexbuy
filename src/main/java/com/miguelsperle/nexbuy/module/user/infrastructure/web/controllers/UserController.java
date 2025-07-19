@@ -24,39 +24,40 @@ public class UserController {
 
     @PatchMapping("/verification")
     public ResponseEntity<MessageResponse> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {
-        this.updateUserToVerifiedUseCase.execute(new UpdateUserToVerifiedUseCaseInput(
+        this.updateUserToVerifiedUseCase.execute(UpdateUserToVerifiedUseCaseInput.with(
                 updateUserToVerifiedRequest.code()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User verified successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("User verified successfully"));
     }
 
     @PatchMapping("/password-reset")
     public ResponseEntity<MessageResponse> resetUserPassword(@RequestBody @Valid ResetUserPasswordRequest resetUserPasswordRequest) {
-        this.resetUserPasswordUseCase.execute(new ResetUserPasswordUseCaseInput(
+        this.resetUserPasswordUseCase.execute(ResetUserPasswordUseCaseInput.with(
                 resetUserPasswordRequest.code(), resetUserPasswordRequest.password()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User password reset successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("User password reset successfully"));
     }
 
     @PatchMapping("/information")
     public ResponseEntity<MessageResponse> updateUser(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
-        this.updateUserUseCase.execute(new UpdateUserUseCaseInput(
-                updateUserRequest.firstName(), updateUserRequest.lastName(),
+        this.updateUserUseCase.execute(UpdateUserUseCaseInput.with(
+                updateUserRequest.firstName(),
+                updateUserRequest.lastName(),
                 updateUserRequest.phoneNumber()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("User updated successfully"));
     }
 
     @PatchMapping("/password")
     public ResponseEntity<MessageResponse> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest) {
-        this.updateUserPasswordUseCase.execute(new UpdateUserPasswordUseCaseInput(
+        this.updateUserPasswordUseCase.execute(UpdateUserPasswordUseCaseInput.with(
                 updateUserPasswordRequest.currentPassword(), updateUserPasswordRequest.password()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("User password updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("User password updated successfully"));
     }
 
     @GetMapping("/me")
@@ -64,9 +65,9 @@ public class UserController {
         final GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput = this.getAuthenticatedUserUseCase.execute();
 
         if (getAuthenticatedUserUseCaseOutput.authenticatedUser().getPersonType() == PersonType.NATURAL_PERSON) {
-            return ResponseEntity.ok().body(GetAuthenticatedUserNaturalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
+            return ResponseEntity.ok().body(GetAuthenticatedUserNaturalPersonResponse.from(getAuthenticatedUserUseCaseOutput));
         } else {
-            return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.fromOutput(getAuthenticatedUserUseCaseOutput));
+            return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.from(getAuthenticatedUserUseCaseOutput));
         }
     }
 }

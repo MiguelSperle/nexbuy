@@ -6,7 +6,7 @@ public record AuthenticateResponse(
         String accessToken,
         String refreshToken
 ) {
-    public static AuthenticateResponse fromOutput(AuthenticateUseCaseOutput authenticateUseCaseOutput) {
+    public static AuthenticateResponse from(AuthenticateUseCaseOutput authenticateUseCaseOutput) {
         return new AuthenticateResponse(
                 authenticateUseCaseOutput.accessToken(),
                 authenticateUseCaseOutput.refreshToken()

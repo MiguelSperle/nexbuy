@@ -39,7 +39,7 @@ public class CreateVerificationCodeUseCase implements ICreateVerificationCodeUse
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
+        this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
                 savedUserCode.getUser().getEmail(),
                 savedUserCode.getCode(),
                 savedUserCode.getCodeType())

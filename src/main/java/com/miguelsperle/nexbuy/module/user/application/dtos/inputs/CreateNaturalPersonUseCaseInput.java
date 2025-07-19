@@ -7,4 +7,15 @@ public record CreateNaturalPersonUseCaseInput(
         String cpf,
         String generalRegister
 ) {
+    public static CreateNaturalPersonUseCaseInput with(
+            User user,
+            String cpf,
+            String generalRegister
+    ) {
+        return new CreateNaturalPersonUseCaseInput(
+                user,
+                cpf,
+                generalRegister
+        );
+    }
 }

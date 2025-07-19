@@ -30,28 +30,28 @@ public class UserCodeController {
 
     @PostMapping("/verification/resend")
     public ResponseEntity<MessageResponse> resendVerificationCode(@RequestBody @Valid ResendVerificationCodeRequest resendVerificationCodeRequest) {
-        this.resendVerificationCodeUseCase.execute(new ResendVerificationCodeUseCaseInput(
+        this.resendVerificationCodeUseCase.execute(ResendVerificationCodeUseCaseInput.with(
                 resendVerificationCodeRequest.email()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Verification code sent successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Verification code sent successfully"));
     }
 
     @PostMapping("/password-recovery")
     public ResponseEntity<MessageResponse> createPasswordResetCode(@RequestBody @Valid CreatePasswordResetCodeRequest createPasswordResetCodeRequest) {
-        this.createPasswordResetCodeUseCase.execute(new CreatePasswordResetCodeUseCaseInput(
+        this.createPasswordResetCodeUseCase.execute(CreatePasswordResetCodeUseCaseInput.with(
                 createPasswordResetCodeRequest.email()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Password reset code sent successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Password reset code sent successfully"));
     }
 
     @PostMapping("/password-recovery/validation")
     public ResponseEntity<ValidatePasswordResetCodeResponse> validatePasswordResetCode(@RequestBody @Valid ValidatePasswordResetCodeRequest validatePasswordResetCodeRequest) {
-        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput = this.validatePasswordResetCodeUseCase.execute(new ValidatePasswordResetCodeUseCaseInput(
+        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput = this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(
                 validatePasswordResetCodeRequest.code()
         ));
 
-        return ResponseEntity.ok().body(ValidatePasswordResetCodeResponse.fromOutput(validatePasswordResetCodeUseCaseOutput));
+        return ResponseEntity.ok().body(ValidatePasswordResetCodeResponse.from(validatePasswordResetCodeUseCaseOutput));
     }
 }

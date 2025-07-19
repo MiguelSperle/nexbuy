@@ -30,11 +30,11 @@ public class CategoryAdminController {
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerCategory(@RequestBody @Valid RegisterCategoryRequest registerCategoryRequest) {
-        this.registerCategoryUseCase.execute(new RegisterCategoryUseCaseInput(
+        this.registerCategoryUseCase.execute(RegisterCategoryUseCaseInput.with(
                 registerCategoryRequest.name()
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Category registered successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("Category registered successfully"));
     }
 
     @PatchMapping("/{categoryId}")
@@ -42,25 +42,25 @@ public class CategoryAdminController {
             @PathVariable String categoryId,
             @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest
     ) {
-        this.updateCategoryUseCase.execute(new UpdateCategoryUseCaseInput(
+        this.updateCategoryUseCase.execute(UpdateCategoryUseCaseInput.with(
                 categoryId,
                 updateCategoryRequest.name()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Category updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Category updated successfully"));
     }
 
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<MessageResponse> deleteCategory(@PathVariable String categoryId) {
-        this.deleteCategoryUseCase.execute(new DeleteCategoryUseCaseInput(categoryId));
+        this.deleteCategoryUseCase.execute(DeleteCategoryUseCaseInput.with(categoryId));
 
-        return ResponseEntity.ok().body(new MessageResponse("Category deleted successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Category deleted successfully"));
     }
 
     @GetMapping("/{categoryId}")
     public ResponseEntity<GetCategoryResponse> getCategory(@PathVariable String categoryId) {
-        final GetCategoryUseCaseOutput getCategoryUseCaseOutput = this.getCategoryUseCase.execute(new GetCategoryUseCaseInput(categoryId));
+        final GetCategoryUseCaseOutput getCategoryUseCaseOutput = this.getCategoryUseCase.execute(GetCategoryUseCaseInput.with(categoryId));
 
-        return ResponseEntity.ok().body(GetCategoryResponse.fromOutput(getCategoryUseCaseOutput));
+        return ResponseEntity.ok().body(GetCategoryResponse.from(getCategoryUseCaseOutput));
     }
 }

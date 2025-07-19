@@ -9,5 +9,20 @@ public record CreateLegalPersonUseCaseInput(
         String legalName,
         String stateRegistration
 ) {
+    public static CreateLegalPersonUseCaseInput with(
+            User user,
+            String cnpj,
+            String fantasyName,
+            String legalName,
+            String stateRegistration
+    ) {
+        return new CreateLegalPersonUseCaseInput(
+                user,
+                cnpj,
+                fantasyName,
+                legalName,
+                stateRegistration
+        );
+    }
 }
 

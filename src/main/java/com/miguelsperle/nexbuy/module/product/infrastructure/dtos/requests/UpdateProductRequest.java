@@ -32,7 +32,7 @@ public record UpdateProductRequest(
         Integer weight,
 
         @Valid
-        @NotNull(message = "Dimension complement should not be null")
-        DimensionComplementRequest dimensionComplement
+        @NotNull(message = "Dimension should not be null")
+        DimensionComplementRequest dimension
 ) {
 }

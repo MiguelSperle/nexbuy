@@ -5,5 +5,16 @@ public record UpdateUserUseCaseInput(
         String lastName,
         String phoneNumber
 ) {
+    public static UpdateUserUseCaseInput with(
+            String firstName,
+            String lastName,
+            String phoneNumber
+    ) {
+        return new UpdateUserUseCaseInput(
+                firstName,
+                lastName,
+                phoneNumber
+        );
+    }
 }
 

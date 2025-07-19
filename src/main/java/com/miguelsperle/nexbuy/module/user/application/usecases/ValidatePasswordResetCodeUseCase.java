@@ -28,7 +28,7 @@ public class ValidatePasswordResetCodeUseCase implements IValidatePasswordResetC
             throw new UserCodeExpiredException("User code has expired");
         }
 
-        return new ValidatePasswordResetCodeUseCaseOutput(true);
+        return ValidatePasswordResetCodeUseCaseOutput.from(true);
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {

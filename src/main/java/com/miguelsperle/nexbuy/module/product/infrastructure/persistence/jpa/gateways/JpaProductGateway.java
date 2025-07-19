@@ -1,10 +1,18 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.gateways;
 
+import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.core.domain.pagination.PaginationMetadata;
+import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities.JpaProductEntity;
+import com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.specifications.JpaProductSpecification;
 import com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.repositories.JpaProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,5 +56,41 @@ public class JpaProductGateway implements IProductGateway {
     @Override
     public boolean existsByColorId(String colorId) {
         return this.jpaProductRepository.existsByColorId(colorId);
+    }
+
+    @Override
+    public Pagination<Product> findAllPaginated(SearchQuery searchQuery) {
+        final Sort sort = searchQuery.direction().equalsIgnoreCase("asc")
+                ? Sort.by(searchQuery.sort()).ascending() : Sort.by(searchQuery.sort()).descending();
+
+        final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
+
+        Specification<JpaProductEntity> specification = Specification.where(null);
+
+        final String terms = searchQuery.terms();
+        final String brandId = searchQuery.filters().get("brandId");
+        final String categoryId = searchQuery.filters().get("categoryId");
+        final String status = searchQuery.filters().get("status");
+
+        specification = specification.and(JpaProductSpecification.filterByTerms(terms));
+        specification = specification.and(JpaProductSpecification.filterByBrandId(brandId));
+        specification = specification.and(JpaProductSpecification.filterByCategoryId(categoryId));
+        specification = specification.and(JpaProductSpecification.filterByStatus(status));
+
+        final Page<JpaProductEntity> pageResult = this.jpaProductRepository.findAll(specification, pageable);
+
+        final List<Product> products = pageResult.getContent().stream().map(JpaProductEntity::toEntity).toList();
+
+        final PaginationMetadata paginationMetadata = new PaginationMetadata(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalPages(),
+                pageResult.getTotalElements()
+        );
+
+        return new Pagination<>(
+                paginationMetadata,
+                products
+        );
     }
 }

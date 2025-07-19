@@ -21,6 +21,6 @@ public class CategoryController {
     public ResponseEntity<List<GetCategoriesResponse>> getCategories() {
         final GetCategoriesUseCaseOutput getCategoriesUseCaseOutput = this.getCategoriesUseCase.execute();
 
-        return ResponseEntity.ok().body(GetCategoriesResponse.fromOutput(getCategoriesUseCaseOutput));
+        return ResponseEntity.ok().body(GetCategoriesResponse.from(getCategoriesUseCaseOutput));
     }
 }

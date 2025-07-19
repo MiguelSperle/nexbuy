@@ -32,9 +32,11 @@ public class ColorAdminController {
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerColor(@RequestBody @Valid RegisterColorRequest registerColorRequest) {
-        this.registerColorUseCase.execute(new RegisterColorUseCaseInput(registerColorRequest.name()));
+        this.registerColorUseCase.execute(RegisterColorUseCaseInput.with(
+                registerColorRequest.name()
+        ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Color registered successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("Color registered successfully"));
     }
 
     @PatchMapping("/{colorId}")
@@ -42,32 +44,32 @@ public class ColorAdminController {
             @PathVariable String colorId,
             @RequestBody @Valid UpdateColorRequest updateColorRequest
     ) {
-        this.updateColorUseCase.execute(new UpdateColorUseCaseInput(
+        this.updateColorUseCase.execute(UpdateColorUseCaseInput.with(
                 colorId,
                 updateColorRequest.name()
         ));
 
-        return ResponseEntity.ok().body(new MessageResponse("Color updated successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Color updated successfully"));
     }
 
     @DeleteMapping("/{colorId}")
     public ResponseEntity<MessageResponse> deleteColor(@PathVariable String colorId) {
-        this.deleteColorUseCase.execute(new DeleteColorUseCaseInput(colorId));
+        this.deleteColorUseCase.execute(DeleteColorUseCaseInput.with(colorId));
 
-        return ResponseEntity.ok().body(new MessageResponse("Color deleted successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Color deleted successfully"));
     }
 
     @GetMapping
     public ResponseEntity<List<GetColorsResponse>> getColors() {
         final GetColorsUseCaseOutput getColorsUseCaseOutput = this.getColorsUseCase.execute();
 
-        return ResponseEntity.ok().body(GetColorsResponse.fromOutput(getColorsUseCaseOutput));
+        return ResponseEntity.ok().body(GetColorsResponse.from(getColorsUseCaseOutput));
     }
 
     @GetMapping("/{colorId}")
     public ResponseEntity<GetColorResponse> getColor(@PathVariable String colorId) {
-        final GetColorUseCaseOutput getColorUseCaseOutput = this.getColorUseCase.execute(new GetColorUseCaseInput(colorId));
+        final GetColorUseCaseOutput getColorUseCaseOutput = this.getColorUseCase.execute(GetColorUseCaseInput.with(colorId));
 
-        return ResponseEntity.ok().body(GetColorResponse.fromOutput(getColorUseCaseOutput));
+        return ResponseEntity.ok().body(GetColorResponse.from(getColorUseCaseOutput));
     }
 }

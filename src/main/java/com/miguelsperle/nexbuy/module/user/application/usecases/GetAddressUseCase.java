@@ -18,7 +18,7 @@ public class GetAddressUseCase implements IGetAddressUseCase {
     public GetAddressUseCaseOutput execute(GetAddressUseCaseInput getAddressUseCaseInput) {
         final Address address = this.getAddressById(getAddressUseCaseInput.addressId());
 
-        return new GetAddressUseCaseOutput(address);
+        return GetAddressUseCaseOutput.from(address);
     }
 
     private Address getAddressById(String addressId) {

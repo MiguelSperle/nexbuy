@@ -18,7 +18,7 @@ public class GetBrandsUseCase implements IGetBrandsUseCase {
     public GetBrandsUseCaseOutput execute() {
         final List<Brand> brands = this.getAllBrands();
 
-        return new GetBrandsUseCaseOutput(brands);
+        return GetBrandsUseCaseOutput.from(brands);
     }
 
     private List<Brand> getAllBrands() {

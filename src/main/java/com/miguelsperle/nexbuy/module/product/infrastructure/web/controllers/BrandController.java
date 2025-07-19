@@ -21,6 +21,6 @@ public class BrandController {
     public ResponseEntity<List<GetBrandsResponse>> getBrands() {
         final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute();
 
-        return ResponseEntity.ok().body(GetBrandsResponse.fromOutput(getBrandsUseCaseOutput));
+        return ResponseEntity.ok().body(GetBrandsResponse.from(getBrandsUseCaseOutput));
     }
 }

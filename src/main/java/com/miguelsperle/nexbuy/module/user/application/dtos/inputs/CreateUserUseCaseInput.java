@@ -12,5 +12,24 @@ public record CreateUserUseCaseInput(
         PersonType personType,
         PersonComplementInput personComplementInput
 ) {
+    public static CreateUserUseCaseInput with(
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            String phoneNumber,
+            PersonType personType,
+            PersonComplementInput personComplementInput
+    ) {
+        return new CreateUserUseCaseInput(
+                firstName,
+                lastName,
+                email,
+                password,
+                phoneNumber,
+                personType,
+                personComplementInput
+        );
+    }
 }
 

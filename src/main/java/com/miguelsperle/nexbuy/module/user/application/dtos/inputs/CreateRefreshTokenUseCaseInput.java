@@ -5,4 +5,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 public record CreateRefreshTokenUseCaseInput(
         User user
 ) {
+    public static CreateRefreshTokenUseCaseInput with(User user) {
+        return new CreateRefreshTokenUseCaseInput(user);
+    }
 }

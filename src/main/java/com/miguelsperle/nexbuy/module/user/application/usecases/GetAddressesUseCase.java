@@ -25,7 +25,7 @@ public class GetAddressesUseCase implements IGetAddressesUseCase {
 
         final List<Address> addresses = this.getAddressesByUserId(authenticatedUser.getId());
 
-        return new GetAddressesUseCaseOutput(addresses);
+        return GetAddressesUseCaseOutput.from(addresses);
     }
 
     private User getAuthenticatedUser() {

@@ -18,7 +18,7 @@ public class GetColorsUseCase implements IGetColorsUseCase {
     public GetColorsUseCaseOutput execute() {
         final List<Color> colors = this.getAllColors();
 
-        return new GetColorsUseCaseOutput(colors);
+        return GetColorsUseCaseOutput.from(colors);
     }
 
     private List<Color> getAllColors() {

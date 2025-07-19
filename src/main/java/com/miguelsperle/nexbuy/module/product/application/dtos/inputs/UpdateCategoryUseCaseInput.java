@@ -4,4 +4,7 @@ public record UpdateCategoryUseCaseInput(
         String categoryId,
         String name
 ) {
+    public static UpdateCategoryUseCaseInput with(String categoryId, String name) {
+        return new UpdateCategoryUseCaseInput(categoryId, name);
+    }
 }

@@ -7,4 +7,7 @@ import java.util.List;
 public record GetColorsUseCaseOutput(
         List<Color> colors
 ) {
+    public static GetColorsUseCaseOutput from(List<Color> colors) {
+        return new GetColorsUseCaseOutput(colors);
+    }
 }

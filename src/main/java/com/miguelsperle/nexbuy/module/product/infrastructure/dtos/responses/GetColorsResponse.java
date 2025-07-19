@@ -8,7 +8,7 @@ public record GetColorsResponse(
         String id,
         String name
 ) {
-    public static List<GetColorsResponse> fromOutput(GetColorsUseCaseOutput getColorsUseCaseOutput) {
+    public static List<GetColorsResponse> from(GetColorsUseCaseOutput getColorsUseCaseOutput) {
         return getColorsUseCaseOutput.colors().stream().map(color -> new GetColorsResponse(
                 color.getId(),
                 color.getName()

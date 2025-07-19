@@ -1,13 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration;
 
-import com.miguelsperle.nexbuy.module.product.application.usecases.DeleteProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.RegisterProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductStatusUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.UpdateProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductStatusUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.*;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
@@ -60,5 +54,10 @@ public class ProductUseCasesConfiguration {
     @Bean
     public IDeleteProductUseCase deleteProductUseCase(IProductGateway productGateway) {
         return new DeleteProductUseCase(productGateway);
+    }
+
+    @Bean
+    public IGetProductsUseCase getProductsUseCase(IProductGateway productGateway) {
+        return new GetProductsUseCase(productGateway);
     }
 }

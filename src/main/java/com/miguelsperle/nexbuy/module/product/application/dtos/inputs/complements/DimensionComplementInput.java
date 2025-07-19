@@ -5,4 +5,7 @@ public record DimensionComplementInput(
         Integer width,
         Integer length
 ) {
+    public static DimensionComplementInput with(Integer height, Integer width, Integer length) {
+        return new DimensionComplementInput(height, width, length);
+    }
 }

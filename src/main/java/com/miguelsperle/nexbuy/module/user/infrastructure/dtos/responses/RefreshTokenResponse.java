@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshToken
 public record RefreshTokenResponse(
         String accessToken
 ) {
-    public static RefreshTokenResponse fromOutput(RefreshTokenUseCaseOutput refreshTokenUseCaseOutput) {
+    public static RefreshTokenResponse from(RefreshTokenUseCaseOutput refreshTokenUseCaseOutput) {
         return new RefreshTokenResponse(refreshTokenUseCaseOutput.accessToken());
     }
 }

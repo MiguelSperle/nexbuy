@@ -12,7 +12,7 @@ public record GetAddressResponse(
         String uf,
         String complement
 ) {
-    public static GetAddressResponse fromOutput(GetAddressUseCaseOutput getAddressUseCaseOutput) {
+    public static GetAddressResponse from(GetAddressUseCaseOutput getAddressUseCaseOutput) {
         return new GetAddressResponse(
                 getAddressUseCaseOutput.address().getId(),
                 getAddressUseCaseOutput.address().getAddressLine(),

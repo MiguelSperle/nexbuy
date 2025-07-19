@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidatePass
 public record ValidatePasswordResetCodeResponse(
         Boolean codeIsValid
 ) {
-    public static ValidatePasswordResetCodeResponse fromOutput(ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput) {
+    public static ValidatePasswordResetCodeResponse from(ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput) {
         return new ValidatePasswordResetCodeResponse(validatePasswordResetCodeUseCaseOutput.codeIsValid());
     }
 }

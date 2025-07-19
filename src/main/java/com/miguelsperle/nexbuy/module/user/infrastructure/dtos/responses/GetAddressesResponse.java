@@ -14,7 +14,7 @@ public record GetAddressesResponse(
         String uf,
         String complement
 ) {
-    public static List<GetAddressesResponse> fromOutput(GetAddressesUseCaseOutput getAddressesUseCaseOutput) {
+    public static List<GetAddressesResponse> from(GetAddressesUseCaseOutput getAddressesUseCaseOutput) {
         return getAddressesUseCaseOutput.addresses().stream().map(address -> new GetAddressesResponse(
                 address.getId(),
                 address.getAddressLine(),

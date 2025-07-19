@@ -46,7 +46,7 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
+        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
                 savedUserCode.getUser().getEmail(),
                 savedUserCode.getCode(),
                 savedUserCode.getCodeType()

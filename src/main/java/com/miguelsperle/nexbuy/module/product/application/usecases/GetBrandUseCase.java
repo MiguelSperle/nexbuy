@@ -18,7 +18,7 @@ public class GetBrandUseCase implements IGetBrandUseCase {
     public GetBrandUseCaseOutput execute(GetBrandUseCaseInput getBrandUseCaseInput) {
         final Brand brand = this.getBrandById(getBrandUseCaseInput.brandId());
 
-        return new GetBrandUseCaseOutput(brand);
+        return GetBrandUseCaseOutput.from(brand);
     }
 
     private Brand getBrandById(String brandId) {

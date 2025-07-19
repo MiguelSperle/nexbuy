@@ -15,4 +15,27 @@ public record UpdateProductUseCaseInput(
         Integer weight,
         DimensionComplementInput dimensionComplementInput
 ) {
+    public static UpdateProductUseCaseInput with(
+            String productId,
+            String name,
+            String description,
+            String categoryId,
+            BigDecimal price,
+            String brandId,
+            String colorId,
+            Integer weight,
+            DimensionComplementInput dimensionComplementInput
+    ) {
+        return new UpdateProductUseCaseInput(
+                productId,
+                name,
+                description,
+                categoryId,
+                price,
+                brandId,
+                colorId,
+                weight,
+                dimensionComplementInput
+        );
+    }
 }

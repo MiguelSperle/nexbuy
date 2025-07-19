@@ -18,7 +18,7 @@ public class GetColorUseCase implements IGetColorUseCase {
     public GetColorUseCaseOutput execute(GetColorUseCaseInput getColorUseCaseInput) {
         final Color color = this.getColorById(getColorUseCaseInput.colorId());
 
-        return new GetColorUseCaseOutput(color);
+        return GetColorUseCaseOutput.from(color);
     }
 
     private Color getColorById(String colorId) {

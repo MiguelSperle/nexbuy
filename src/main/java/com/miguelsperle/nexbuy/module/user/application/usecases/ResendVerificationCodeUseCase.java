@@ -42,7 +42,7 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
         }
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->
-                this.userCodeGateway.deleteById(userCode.getId())
+                this.deleteUserCodeById(userCode.getId())
         );
 
         final String codeGenerated = this.codeProvider.generateCode();
@@ -51,7 +51,7 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(new UserCodeCreatedEvent(
+        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
                 savedUserCode.getUser().getEmail(),
                 savedUserCode.getCode(),
                 savedUserCode.getCodeType()
@@ -68,5 +68,9 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
 
     private UserCode saveUserCode(UserCode userCode) {
         return this.userCodeGateway.save(userCode);
+    }
+
+    private void deleteUserCodeById(String userCodeId) {
+        this.userCodeGateway.deleteById(userCodeId);
     }
 }

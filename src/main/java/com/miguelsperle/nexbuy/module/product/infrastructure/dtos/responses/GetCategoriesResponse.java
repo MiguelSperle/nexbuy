@@ -8,7 +8,7 @@ public record GetCategoriesResponse(
         String id,
         String name
 ) {
-    public static List<GetCategoriesResponse> fromOutput(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
+    public static List<GetCategoriesResponse> from(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
         return getCategoriesUseCaseOutput.categories().stream().map(category -> new GetCategoriesResponse(
                 category.getId(),
                 category.getName()

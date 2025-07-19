@@ -7,4 +7,7 @@ public record UserCodeCreatedEvent(
         String code,
         CodeType codeType
 ) {
+    public static UserCodeCreatedEvent from(String email, String code, CodeType codeType) {
+        return new UserCodeCreatedEvent(email, code, codeType);
+    }
 }

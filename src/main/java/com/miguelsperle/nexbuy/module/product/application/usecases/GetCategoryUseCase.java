@@ -18,7 +18,7 @@ public class GetCategoryUseCase implements IGetCategoryUseCase {
     public GetCategoryUseCaseOutput execute(GetCategoryUseCaseInput getCategoryUseCaseInput) {
         final Category category = this.getCategoryById(getCategoryUseCaseInput.categoryId());
 
-        return new GetCategoryUseCaseOutput(category);
+        return GetCategoryUseCaseOutput.from(category);
     }
 
     private Category getCategoryById(String categoryId) {

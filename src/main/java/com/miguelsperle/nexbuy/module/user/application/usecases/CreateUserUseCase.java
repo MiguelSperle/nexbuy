@@ -57,13 +57,13 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             final User savedUser = this.saveUser(newUser);
 
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
-                this.createNaturalPersonUseCase.execute(new CreateNaturalPersonUseCaseInput(
+                this.createNaturalPersonUseCase.execute(CreateNaturalPersonUseCaseInput.with(
                         savedUser,
                         createUserUseCaseInput.personComplementInput().cpf(),
                         createUserUseCaseInput.personComplementInput().generalRegister()
                 ));
             } else {
-                this.createLegalPersonUseCase.execute(new CreateLegalPersonUseCaseInput(
+                this.createLegalPersonUseCase.execute(CreateLegalPersonUseCaseInput.with(
                         savedUser,
                         createUserUseCaseInput.personComplementInput().cnpj(),
                         createUserUseCaseInput.personComplementInput().fantasyName(),
@@ -72,7 +72,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
                 ));
             }
 
-            this.createVerificationCodeUseCase.execute(new CreateVerificationCodeUseCaseInput(
+            this.createVerificationCodeUseCase.execute(CreateVerificationCodeUseCaseInput.with(
                     savedUser
             ));
         });
@@ -84,9 +84,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {
         if (personType == PersonType.NATURAL_PERSON && personComplementInput == null) {
-            throw new MissingRequiredComplementException("You should provide naturalPersonComplement when the person type is a NATURAL_PERSON");
+            throw new MissingRequiredComplementException("You should provide naturalPerson when the person type is a NATURAL_PERSON");
         } else if (personType == PersonType.LEGAL_PERSON && personComplementInput == null) {
-            throw new MissingRequiredComplementException("You should provide legalPersonComplement when the person type is a LEGAL_PERSON");
+            throw new MissingRequiredComplementException("You should provide legalPerson when the person type is a LEGAL_PERSON");
         }
     }
 

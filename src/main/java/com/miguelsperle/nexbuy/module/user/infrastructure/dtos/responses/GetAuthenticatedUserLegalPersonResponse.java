@@ -12,9 +12,9 @@ public record GetAuthenticatedUserLegalPersonResponse(
         String phoneNumber,
         AuthorizationRole authorizationRole,
         PersonType personType,
-        LegalPersonComplementResponse legalPersonComplement
+        LegalPersonComplementResponse legalPerson
 ) {
-    public static GetAuthenticatedUserLegalPersonResponse fromOutput(GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput) {
+    public static GetAuthenticatedUserLegalPersonResponse from(GetAuthenticatedUserUseCaseOutput getAuthenticatedUserUseCaseOutput) {
         return new GetAuthenticatedUserLegalPersonResponse(
                 getAuthenticatedUserUseCaseOutput.authenticatedUser().getFirstName(),
                 getAuthenticatedUserUseCaseOutput.authenticatedUser().getLastName(),
@@ -22,7 +22,7 @@ public record GetAuthenticatedUserLegalPersonResponse(
                 getAuthenticatedUserUseCaseOutput.authenticatedUser().getPhoneNumber(),
                 getAuthenticatedUserUseCaseOutput.authenticatedUser().getAuthorizationRole(),
                 getAuthenticatedUserUseCaseOutput.authenticatedUser().getPersonType(),
-                LegalPersonComplementResponse.fromOutput(getAuthenticatedUserUseCaseOutput.personComplementOutput())
+                LegalPersonComplementResponse.from(getAuthenticatedUserUseCaseOutput.personComplementOutput())
         );
     }
 }

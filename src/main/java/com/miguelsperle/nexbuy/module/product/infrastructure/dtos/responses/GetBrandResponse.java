@@ -6,7 +6,7 @@ public record GetBrandResponse(
         String id,
         String name
 ) {
-    public static GetBrandResponse fromOutput(GetBrandUseCaseOutput getBrandUseCaseOutput) {
+    public static GetBrandResponse from(GetBrandUseCaseOutput getBrandUseCaseOutput) {
         return new GetBrandResponse(
                 getBrandUseCaseOutput.brand().getId(),
                 getBrandUseCaseOutput.brand().getName()

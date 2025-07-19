@@ -33,10 +33,10 @@ public record CreateUserRequest(
         String personType,
 
         @Valid
-        NaturalPersonComplementRequest naturalPersonComplement,
+        NaturalPersonComplementRequest naturalPerson,
 
         @Valid
-        LegalPersonComplementRequest legalPersonComplement
+        LegalPersonComplementRequest legalPerson
 ) {
 }
 

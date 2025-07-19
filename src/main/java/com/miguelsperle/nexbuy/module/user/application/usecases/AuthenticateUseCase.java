@@ -45,11 +45,11 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId());
 
-        final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(new CreateRefreshTokenUseCaseInput(
+        final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(CreateRefreshTokenUseCaseInput.with(
                 user
         ));
 
-        return new AuthenticateUseCaseOutput(jwtTokenGenerated, createRefreshTokenUseCaseOutput.refreshToken().getToken());
+        return AuthenticateUseCaseOutput.from(jwtTokenGenerated, createRefreshTokenUseCaseOutput.refreshToken().getToken());
     }
 
     private User getUserByEmail(String email) {

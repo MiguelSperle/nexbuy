@@ -39,23 +39,23 @@ public class AuthController {
 
         final PersonType convertedToPersonType = PersonType.valueOf(createUserRequest.personType());
 
-        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.naturalPersonComplement() != null) {
-            personComplementInput = new PersonComplementInput(
-                    createUserRequest.naturalPersonComplement().cpf(),
-                    createUserRequest.naturalPersonComplement().generalRegister(),
+        if (convertedToPersonType == PersonType.NATURAL_PERSON && createUserRequest.naturalPerson() != null) {
+            personComplementInput = PersonComplementInput.with(
+                    createUserRequest.naturalPerson().cpf(),
+                    createUserRequest.naturalPerson().generalRegister(),
                     null, null, null, null
             );
-        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.legalPersonComplement() != null) {
-            personComplementInput = new PersonComplementInput(
+        } else if (convertedToPersonType == PersonType.LEGAL_PERSON && createUserRequest.legalPerson() != null) {
+            personComplementInput = PersonComplementInput.with(
                     null, null,
-                    createUserRequest.legalPersonComplement().cnpj(),
-                    createUserRequest.legalPersonComplement().fantasyName(),
-                    createUserRequest.legalPersonComplement().legalName(),
-                    createUserRequest.legalPersonComplement().stateRegistration()
+                    createUserRequest.legalPerson().cnpj(),
+                    createUserRequest.legalPerson().fantasyName(),
+                    createUserRequest.legalPerson().legalName(),
+                    createUserRequest.legalPerson().stateRegistration()
             );
         }
 
-        this.createUserUseCase.execute(new CreateUserUseCaseInput(
+        this.createUserUseCase.execute(CreateUserUseCaseInput.with(
                 createUserRequest.firstName(),
                 createUserRequest.lastName(),
                 createUserRequest.email(),
@@ -65,24 +65,24 @@ public class AuthController {
                 personComplementInput
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("User created successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("User created successfully"));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticateResponse> authenticate(@RequestBody @Valid AuthenticateRequest authenticateRequest) {
-        final AuthenticateUseCaseOutput authenticateUseCaseOutput = this.authenticateUseCase.execute(new AuthenticateUseCaseInput(
+        final AuthenticateUseCaseOutput authenticateUseCaseOutput = this.authenticateUseCase.execute(AuthenticateUseCaseInput.with(
                 authenticateRequest.email(), authenticateRequest.password()
         ));
 
-        return ResponseEntity.ok().body(AuthenticateResponse.fromOutput(authenticateUseCaseOutput));
+        return ResponseEntity.ok().body(AuthenticateResponse.from(authenticateUseCaseOutput));
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
-        final RefreshTokenUseCaseOutput refreshTokenUseCaseOutput = this.refreshTokenUseCase.execute(new RefreshTokenUseCaseInput(
+        final RefreshTokenUseCaseOutput refreshTokenUseCaseOutput = this.refreshTokenUseCase.execute(RefreshTokenUseCaseInput.with(
                 refreshTokenRequest.refreshToken()
         ));
 
-        return ResponseEntity.ok().body(RefreshTokenResponse.fromOutput(refreshTokenUseCaseOutput));
+        return ResponseEntity.ok().body(RefreshTokenResponse.from(refreshTokenUseCaseOutput));
     }
 }
