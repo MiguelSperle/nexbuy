@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 
 public record GetProductsUseCaseOutput(
-        Pagination<Product> productsPaginated
+        Pagination<Product> paginatedProducts
 ) {
-    public static GetProductsUseCaseOutput from(Pagination<Product> productsPaginated) {
-        return new GetProductsUseCaseOutput(productsPaginated);
+    public static GetProductsUseCaseOutput from(Pagination<Product> paginatedProducts) {
+        return new GetProductsUseCaseOutput(paginatedProducts);
     }
 }

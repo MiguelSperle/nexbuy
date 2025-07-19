@@ -17,9 +17,9 @@ public class GetProductsUseCase implements IGetProductsUseCase {
 
     @Override
     public GetProductsUseCaseOutput execute(GetProductsUseCaseInput getProductsUseCaseInput) {
-        final Pagination<Product> productsPaginated = this.getAllProductsPaginated(getProductsUseCaseInput.searchQuery());
+        final Pagination<Product> paginatedProducts = this.getAllProductsPaginated(getProductsUseCaseInput.searchQuery());
 
-        return GetProductsUseCaseOutput.from(productsPaginated);
+        return GetProductsUseCaseOutput.from(paginatedProducts);
     }
 
     private Pagination<Product> getAllProductsPaginated(SearchQuery searchQuery) {

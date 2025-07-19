@@ -25,20 +25,20 @@ public record GetProductsResponse(
         DimensionComplementResponse dimension
 ) {
     public static Pagination<GetProductsResponse> from(GetProductsUseCaseOutput getProductsUseCaseOutput) {
-        final Pagination<Product> productsPaginated = getProductsUseCaseOutput.productsPaginated();
+        final Pagination<Product> paginatedProducts = getProductsUseCaseOutput.paginatedProducts();
 
-        return productsPaginated.map(productPaginated -> new GetProductsResponse(
-                productPaginated.getId(),
-                productPaginated.getName(),
-                productPaginated.getDescription(),
-                CategoryComplementResponse.from(productPaginated.getCategory().getName()),
-                productPaginated.getPrice(),
-                productPaginated.getSku(),
-                BrandComplementResponse.from(productPaginated.getBrand().getName()),
-                ColorComplementResponse.from(productPaginated.getColor().getName()),
-                productPaginated.getProductStatus(),
-                productPaginated.getWeight(),
-                DimensionComplementResponse.from(productPaginated.getHeight(), productPaginated.getWidth(), productPaginated.getLength())
+        return paginatedProducts.map(paginatedProduct -> new GetProductsResponse(
+                paginatedProduct.getId(),
+                paginatedProduct.getName(),
+                paginatedProduct.getDescription(),
+                CategoryComplementResponse.from(paginatedProduct.getCategory().getName()),
+                paginatedProduct.getPrice(),
+                paginatedProduct.getSku(),
+                BrandComplementResponse.from(paginatedProduct.getBrand().getName()),
+                ColorComplementResponse.from(paginatedProduct.getColor().getName()),
+                paginatedProduct.getProductStatus(),
+                paginatedProduct.getWeight(),
+                DimensionComplementResponse.from(paginatedProduct.getHeight(), paginatedProduct.getWidth(), paginatedProduct.getLength())
         ));
     }
 }
