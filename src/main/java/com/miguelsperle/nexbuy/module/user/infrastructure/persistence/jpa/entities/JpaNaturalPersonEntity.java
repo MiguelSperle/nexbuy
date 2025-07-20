@@ -16,9 +16,8 @@ public class JpaNaturalPersonEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private JpaUserEntity jpaUserEntity;
+    @Column(name = "user_id", nullable = false, unique = true, length = 36)
+    private String userId;
 
     @Column(nullable = false, length = 14, unique = true)
     private String cpf;
@@ -32,7 +31,7 @@ public class JpaNaturalPersonEntity {
     public static JpaNaturalPersonEntity from(NaturalPerson naturalPerson) {
         return new JpaNaturalPersonEntity(
                 naturalPerson.getId(),
-                JpaUserEntity.from(naturalPerson.getUser()),
+                naturalPerson.getUserId(),
                 naturalPerson.getCpf(),
                 naturalPerson.getGeneralRegister(),
                 naturalPerson.getCreatedAt()
@@ -42,7 +41,7 @@ public class JpaNaturalPersonEntity {
     public NaturalPerson toEntity() {
         return NaturalPerson.with(
                 this.id,
-                this.jpaUserEntity.toEntity(),
+                this.userId,
                 this.cpf,
                 this.generalRegister,
                 this.createdAt

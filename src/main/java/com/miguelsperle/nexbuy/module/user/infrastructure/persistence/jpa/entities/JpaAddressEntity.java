@@ -16,9 +16,8 @@ public class JpaAddressEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private JpaUserEntity jpaUserEntity;
+    @Column(name = "user_id", nullable = false, length = 36)
+    private String userId;
 
     @Column(name = "address_line", nullable = false, length = 100)
     private String addressLine;
@@ -47,7 +46,7 @@ public class JpaAddressEntity {
     public static JpaAddressEntity from(Address address) {
         return new JpaAddressEntity(
                 address.getId(),
-                JpaUserEntity.from(address.getUser()),
+                address.getUserId(),
                 address.getAddressLine(),
                 address.getAddressNumber(),
                 address.getZipCode(),
@@ -62,7 +61,7 @@ public class JpaAddressEntity {
     public Address toEntity() {
         return Address.with(
                 this.id,
-                this.jpaUserEntity.toEntity(),
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 this.zipCode,

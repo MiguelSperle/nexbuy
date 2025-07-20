@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses;
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetProductsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.complements.BrandComplementResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.complements.CategoryComplementResponse;
@@ -25,17 +24,15 @@ public record GetProductsResponse(
         DimensionComplementResponse dimension
 ) {
     public static Pagination<GetProductsResponse> from(GetProductsUseCaseOutput getProductsUseCaseOutput) {
-        final Pagination<Product> paginatedProducts = getProductsUseCaseOutput.paginatedProducts();
-
-        return paginatedProducts.map(paginatedProduct -> new GetProductsResponse(
+        return getProductsUseCaseOutput.paginatedProducts().map(paginatedProduct -> new GetProductsResponse(
                 paginatedProduct.getId(),
                 paginatedProduct.getName(),
                 paginatedProduct.getDescription(),
-                CategoryComplementResponse.from(paginatedProduct.getCategory().getName()),
+                CategoryComplementResponse.from(getProductsUseCaseOutput.categoriesMap().get(paginatedProduct.getCategoryId()).getName()),
                 paginatedProduct.getPrice(),
                 paginatedProduct.getSku(),
-                BrandComplementResponse.from(paginatedProduct.getBrand().getName()),
-                ColorComplementResponse.from(paginatedProduct.getColor().getName()),
+                BrandComplementResponse.from(getProductsUseCaseOutput.brandsMap().get(paginatedProduct.getBrandId()).getName()),
+                ColorComplementResponse.from(getProductsUseCaseOutput.colorsMap().get(paginatedProduct.getColorId()).getName()),
                 paginatedProduct.getProductStatus(),
                 paginatedProduct.getWeight(),
                 DimensionComplementResponse.from(paginatedProduct.getHeight(), paginatedProduct.getWidth(), paginatedProduct.getLength())

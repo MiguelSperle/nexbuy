@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonAlr
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
     private final ILegalPersonGateway legalPersonGateway;
@@ -32,9 +31,13 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
             throw new LegalPersonAlreadyExistsException("This state registration is already being used");
         }
 
-        final User user = createLegalPersonUseCaseInput.user();
-
-        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(user, createLegalPersonUseCaseInput.cnpj(), createLegalPersonUseCaseInput.fantasyName(), createLegalPersonUseCaseInput.legalName(), createLegalPersonUseCaseInput.stateRegistration());
+        final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(
+                createLegalPersonUseCaseInput.userId(),
+                createLegalPersonUseCaseInput.cnpj(),
+                createLegalPersonUseCaseInput.fantasyName(),
+                createLegalPersonUseCaseInput.legalName(),
+                createLegalPersonUseCaseInput.stateRegistration()
+        );
 
         this.saveLegalPerson(newLegalPerson);
     }

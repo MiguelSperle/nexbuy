@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class UserCode {
     private final String id;
-    private final User user;
+    private final String userId;
     private final String code;
     private final CodeType codeType;
     private final LocalDateTime expiresIn;
@@ -15,14 +15,14 @@ public class UserCode {
 
     private UserCode(
             String id,
-            User user,
+            String userId,
             String code,
             CodeType codeType,
             LocalDateTime expiresIn,
             LocalDateTime createdAt
     ) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.code = code;
         this.codeType = codeType;
         this.expiresIn = expiresIn;
@@ -30,13 +30,13 @@ public class UserCode {
     }
 
     public static UserCode newUserCode(
-            User user,
+            String userId,
             String code,
             CodeType codeType
     ) {
         return new UserCode(
                 UUID.randomUUID().toString(),
-                user,
+                userId,
                 code,
                 codeType,
                 LocalDateTime.now().plusMinutes(15),
@@ -46,7 +46,7 @@ public class UserCode {
 
     public static UserCode with(
             String id,
-            User user,
+            String userId,
             String code,
             CodeType codeType,
             LocalDateTime expiresIn,
@@ -54,7 +54,7 @@ public class UserCode {
     ) {
         return new UserCode(
                 id,
-                user,
+                userId,
                 code,
                 codeType,
                 expiresIn,
@@ -66,8 +66,8 @@ public class UserCode {
         return this.id;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getUserId() {
+        return this.userId;
     }
 
     public String getCode() {
@@ -90,7 +90,7 @@ public class UserCode {
     public String toString() {
         return "UserCode{" +
                 "id='" + this.id + '\'' +
-                ", user=" + this.user +
+                ", userId=" + this.userId +
                 ", code='" + this.code + '\'' +
                 ", codeType=" + this.codeType +
                 ", expiresIn=" + this.expiresIn +

@@ -16,9 +16,8 @@ public class JpaRefreshTokenEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private JpaUserEntity jpaUserEntity;
+    @Column(name = "user_id", nullable = false, unique = true, length = 36)
+    private String userId;
 
     @Column(nullable = false, unique = true, length = 36)
     private String token;
@@ -32,7 +31,7 @@ public class JpaRefreshTokenEntity {
     public static JpaRefreshTokenEntity from(RefreshToken refreshToken) {
         return new JpaRefreshTokenEntity(
                 refreshToken.getId(),
-                JpaUserEntity.from(refreshToken.getUser()),
+                refreshToken.getUserId(),
                 refreshToken.getToken(),
                 refreshToken.getExpiresIn(),
                 refreshToken.getCreatedAt()
@@ -42,7 +41,7 @@ public class JpaRefreshTokenEntity {
     public RefreshToken toEntity() {
         return RefreshToken.with(
                 this.id,
-                this.jpaUserEntity.toEntity(),
+                this.userId,
                 this.token,
                 this.expiresIn,
                 this.createdAt

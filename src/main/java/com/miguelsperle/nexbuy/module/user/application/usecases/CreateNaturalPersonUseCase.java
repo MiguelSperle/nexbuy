@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonA
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
     private final INaturalPersonGateway naturalPersonGateway;
@@ -24,9 +23,11 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
             throw new NaturalPersonAlreadyExistsException("This general register is already being used");
         }
 
-        final User user = createNaturalPersonUseCaseInput.user();
-
-        final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(user, createNaturalPersonUseCaseInput.cpf(), createNaturalPersonUseCaseInput.generalRegister());
+        final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(
+                createNaturalPersonUseCaseInput.userId(),
+                createNaturalPersonUseCaseInput.cpf(),
+                createNaturalPersonUseCaseInput.generalRegister()
+        );
 
         this.saveNaturalPerson(newNaturalPerson);
     }

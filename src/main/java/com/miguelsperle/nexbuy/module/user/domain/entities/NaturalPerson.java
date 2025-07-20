@@ -5,33 +5,33 @@ import java.util.UUID;
 
 public class NaturalPerson {
     private final String id;
-    private final User user;
+    private final String userId;
     private final String cpf;
     private final String generalRegister;
     private final LocalDateTime createdAt;
 
     private NaturalPerson(
             String id,
-            User user,
+            String userId,
             String cpf,
             String generalRegister,
             LocalDateTime createdAt
     ) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.cpf = cpf;
         this.generalRegister = generalRegister;
         this.createdAt = createdAt;
     }
 
     public static NaturalPerson newNaturalPerson(
-            User user,
+            String userId,
             String cpf,
             String generalRegister
     ) {
         return new NaturalPerson(
                 UUID.randomUUID().toString(),
-                user,
+                userId,
                 cpf,
                 generalRegister,
                 LocalDateTime.now()
@@ -40,14 +40,14 @@ public class NaturalPerson {
 
     public static NaturalPerson with(
             String id,
-            User user,
+            String userId,
             String cpf,
             String generalRegister,
             LocalDateTime createdAt
     ) {
         return new NaturalPerson(
                 id,
-                user,
+                userId,
                 cpf,
                 generalRegister,
                 createdAt
@@ -58,8 +58,8 @@ public class NaturalPerson {
         return this.id;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getUserId() {
+        return this.userId;
     }
 
     public String getCpf() {
@@ -78,7 +78,7 @@ public class NaturalPerson {
     public String toString() {
         return "NaturalPerson{" +
                 "id='" + this.id + '\'' +
-                ", user=" + this.user +
+                ", userId=" + this.userId +
                 ", cpf='" + this.cpf + '\'' +
                 ", generalRegister='" + this.generalRegister + '\'' +
                 ", createdAt=" + this.createdAt +

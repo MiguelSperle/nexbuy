@@ -47,15 +47,11 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
 
         final String codeGenerated = this.codeProvider.generateCode();
 
-        final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
+        final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, CodeType.USER_VERIFICATION);
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
-                savedUserCode.getUser().getEmail(),
-                savedUserCode.getCode(),
-                savedUserCode.getCodeType()
-        ));
+        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(savedUserCode.getId()));
     }
 
     private User getUserByEmail(String email) {

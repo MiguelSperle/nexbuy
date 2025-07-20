@@ -6,7 +6,6 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransaction
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
@@ -31,19 +30,15 @@ public class CreateVerificationCodeUseCase implements ICreateVerificationCodeUse
 
     @Override
     public void execute(CreateVerificationCodeUseCaseInput createVerificationCodeUseCaseInput) {
-        final User user = createVerificationCodeUseCaseInput.user();
-
         final String codeGenerated = this.codeProvider.generateCode();
 
-        final UserCode newUserCode = UserCode.newUserCode(user, codeGenerated, CodeType.USER_VERIFICATION);
+        final UserCode newUserCode = UserCode.newUserCode(createVerificationCodeUseCaseInput.userId(), codeGenerated, CodeType.USER_VERIFICATION);
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
-                savedUserCode.getUser().getEmail(),
-                savedUserCode.getCode(),
-                savedUserCode.getCodeType())
-        ));
+                savedUserCode.getId()
+        )));
     }
 
     private UserCode saveUserCode(UserCode userCode) {

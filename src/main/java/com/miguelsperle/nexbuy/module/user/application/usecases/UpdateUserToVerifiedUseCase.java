@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransaction
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
 import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
@@ -38,7 +39,9 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
             throw new UserCodeExpiredException("User code has expired");
         }
 
-        final User updatedUser = userCode.getUser().withIsVerified(true);
+        final User user = this.getUserById(userCode.getUserId());
+
+        final User updatedUser = user.withIsVerified(true);
 
         this.transactionExecutor.runTransaction(() -> {
             this.saveUser(updatedUser);
@@ -49,6 +52,11 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.USER_VERIFICATION.name())
                 .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+    }
+
+    private User getUserById(String userId) {
+        return this.userGateway.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private void saveUser(User user) {

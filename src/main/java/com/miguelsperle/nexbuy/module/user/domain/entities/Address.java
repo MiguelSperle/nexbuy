@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Address {
     private final String id;
-    private final User user;
+    private final String userId;
     private final String addressLine;
     private final String addressNumber;
     private final String zipCode;
@@ -17,7 +17,7 @@ public class Address {
 
     private Address(
             String id,
-            User user,
+            String userId,
             String addressLine,
             String addressNumber,
             String zipCode,
@@ -28,7 +28,7 @@ public class Address {
             LocalDateTime createdAt
     ) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.addressLine = addressLine;
         this.addressNumber = addressNumber;
         this.zipCode = zipCode;
@@ -40,7 +40,7 @@ public class Address {
     }
 
     public static Address newAddress(
-            User user,
+            String userId,
             String addressLine,
             String addressNumber,
             String zipCode,
@@ -51,7 +51,7 @@ public class Address {
     ) {
         return new Address(
                 UUID.randomUUID().toString(),
-                user,
+                userId,
                 addressLine,
                 addressNumber,
                 zipCode,
@@ -65,7 +65,7 @@ public class Address {
 
     public static Address with(
             String id,
-            User user,
+            String userId,
             String addressLine,
             String addressNumber,
             String zipCode,
@@ -77,7 +77,7 @@ public class Address {
     ) {
         return new Address(
                 id,
-                user,
+                userId,
                 addressLine,
                 addressNumber,
                 zipCode,
@@ -92,7 +92,7 @@ public class Address {
     public Address withAddressLine(String addressLine) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 addressLine,
                 this.addressNumber,
                 this.zipCode,
@@ -107,7 +107,7 @@ public class Address {
     public Address withAddressNumber(String addressNumber) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 addressNumber,
                 this.zipCode,
@@ -122,7 +122,7 @@ public class Address {
     public Address withZipCode(String zipCode) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 zipCode,
@@ -137,7 +137,7 @@ public class Address {
     public Address withNeighborhood(String neighborhood) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 this.zipCode,
@@ -152,7 +152,7 @@ public class Address {
     public Address withCity(String city) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 this.zipCode,
@@ -167,7 +167,7 @@ public class Address {
     public Address withUf(String uf) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 this.zipCode,
@@ -182,7 +182,7 @@ public class Address {
     public Address withComplement(String complement) {
         return new Address(
                 this.id,
-                this.user,
+                this.userId,
                 this.addressLine,
                 this.addressNumber,
                 this.zipCode,
@@ -198,8 +198,8 @@ public class Address {
         return this.id;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getUserId() {
+        return this.userId;
     }
 
     public String getAddressLine() {
@@ -238,7 +238,7 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id='" + this.id + '\'' +
-                ", user=" + this.user +
+                ", userId=" + this.userId +
                 ", addressLine='" + this.addressLine + '\'' +
                 ", addressNumber='" + this.addressNumber + '\'' +
                 ", zipCode='" + this.zipCode + '\'' +

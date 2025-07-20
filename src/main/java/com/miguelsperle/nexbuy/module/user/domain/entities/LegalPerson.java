@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class LegalPerson {
     private final String id;
-    private final User user;
+    private final String userId;
     private final String cnpj;
     private final String fantasyName;
     private final String legalName;
@@ -14,7 +14,7 @@ public class LegalPerson {
 
     private LegalPerson(
             String id,
-            User user,
+            String userId,
             String cnpj,
             String fantasyName,
             String legalName,
@@ -22,7 +22,7 @@ public class LegalPerson {
             LocalDateTime createdAt
     ) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.cnpj = cnpj;
         this.fantasyName = fantasyName;
         this.legalName = legalName;
@@ -31,7 +31,7 @@ public class LegalPerson {
     }
 
     public static LegalPerson newLegalPerson(
-            User user,
+            String userId,
             String cnpj,
             String fantasyName,
             String legalName,
@@ -39,7 +39,7 @@ public class LegalPerson {
     ) {
         return new LegalPerson(
                 UUID.randomUUID().toString(),
-                user,
+                userId,
                 cnpj,
                 fantasyName,
                 legalName,
@@ -50,7 +50,7 @@ public class LegalPerson {
 
     public static LegalPerson with(
             String id,
-            User user,
+            String userId,
             String cnpj,
             String fantasyName,
             String legalName,
@@ -59,7 +59,7 @@ public class LegalPerson {
     ) {
         return new LegalPerson(
                 id,
-                user,
+                userId,
                 cnpj,
                 fantasyName,
                 legalName,
@@ -72,8 +72,8 @@ public class LegalPerson {
         return this.id;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getUserId() {
+        return this.userId;
     }
 
     public String getCnpj() {
@@ -100,7 +100,7 @@ public class LegalPerson {
     public String toString() {
         return "LegalPerson{" +
                 "id='" + this.id + '\'' +
-                ", user=" + this.user +
+                ", userId=" + this.userId +
                 ", cnpj='" + this.cnpj + '\'' +
                 ", fantasyName='" + this.fantasyName + '\'' +
                 ", legalName='" + this.legalName + '\'' +

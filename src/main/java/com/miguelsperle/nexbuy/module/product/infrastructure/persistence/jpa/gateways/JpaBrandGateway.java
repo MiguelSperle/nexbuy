@@ -39,4 +39,9 @@ public class JpaBrandGateway implements IBrandGateway {
     public boolean existsByName(String name) {
         return this.jpaBrandRepository.existsByName(name);
     }
+
+    @Override
+    public List<Brand> findAllByIds(List<String> ids) {
+        return this.jpaBrandRepository.findAllByIds(ids).stream().map(JpaBrandEntity::toEntity).toList();
+    }
 }

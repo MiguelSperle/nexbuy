@@ -57,7 +57,17 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public IGetProductsUseCase getProductsUseCase(IProductGateway productGateway) {
-        return new GetProductsUseCase(productGateway);
+    public IGetProductsUseCase getProductsUseCase(
+            IProductGateway productGateway,
+            ICategoryGateway categoryGateway,
+            IBrandGateway brandGateway,
+            IColorGateway colorGateway
+    ) {
+        return new GetProductsUseCase(
+                productGateway,
+                categoryGateway,
+                brandGateway,
+                colorGateway
+        );
     }
 }

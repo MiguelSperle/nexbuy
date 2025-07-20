@@ -16,9 +16,8 @@ public class JpaLegalPersonEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private JpaUserEntity jpaUserEntity;
+    @Column(name = "user_id", nullable = false, unique = true, length = 36)
+    private String userId;
 
     @Column(nullable = false, length = 18, unique = true)
     private String cnpj;
@@ -38,7 +37,7 @@ public class JpaLegalPersonEntity {
     public static JpaLegalPersonEntity from(LegalPerson legalPerson) {
         return new JpaLegalPersonEntity(
                 legalPerson.getId(),
-                JpaUserEntity.from(legalPerson.getUser()),
+                legalPerson.getUserId(),
                 legalPerson.getCnpj(),
                 legalPerson.getFantasyName(),
                 legalPerson.getLegalName(),
@@ -50,7 +49,7 @@ public class JpaLegalPersonEntity {
     public LegalPerson toEntity() {
         return LegalPerson.with(
                 this.id,
-                this.jpaUserEntity.toEntity(),
+                this.userId,
                 this.cnpj,
                 this.fantasyName,
                 this.legalName,

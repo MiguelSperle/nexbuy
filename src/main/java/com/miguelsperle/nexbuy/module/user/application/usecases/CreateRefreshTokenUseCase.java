@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.CreateRefres
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 import java.util.Optional;
 
@@ -18,13 +17,13 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
 
     @Override
     public CreateRefreshTokenUseCaseOutput execute(CreateRefreshTokenUseCaseInput createRefreshTokenUseCaseInput) {
-        final User user = createRefreshTokenUseCaseInput.user();
+        final String userId = createRefreshTokenUseCaseInput.userId();
 
-        this.getPreviousRefreshTokenByUserId(user.getId()).ifPresent(refreshToken ->
+        this.getPreviousRefreshTokenByUserId(userId).ifPresent(refreshToken ->
                 this.refreshTokenGateway.deleteById(refreshToken.getId())
         );
 
-        final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(user);
+        final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(userId);
 
         final RefreshToken savedRefreshToken = this.saveRefreshToken(newRefreshToken);
 

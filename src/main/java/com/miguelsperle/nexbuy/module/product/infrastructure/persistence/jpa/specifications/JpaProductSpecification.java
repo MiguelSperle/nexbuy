@@ -8,14 +8,14 @@ public class JpaProductSpecification {
         return (root, query, criteriaBuilder) ->
                 (categoryId == null || categoryId.isBlank())
                         ? criteriaBuilder.conjunction()
-                        : criteriaBuilder.equal(root.get("jpaCategoryEntity").get("id"), categoryId);
+                        : criteriaBuilder.equal(root.get("categoryId"), categoryId);
     }
 
     public static Specification<JpaProductEntity> filterByBrandId(String brandId) {
         return (root, query, criteriaBuilder) ->
                 (brandId == null || brandId.isBlank())
                         ? criteriaBuilder.conjunction()
-                        : criteriaBuilder.equal(root.get("jpaBrandEntity").get("id"), brandId);
+                        : criteriaBuilder.equal(root.get("brandId"), brandId);
     }
 
     public static Specification<JpaProductEntity> filterByTerms(String terms) {

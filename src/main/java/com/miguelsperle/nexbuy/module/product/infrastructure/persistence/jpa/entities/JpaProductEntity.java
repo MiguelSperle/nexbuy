@@ -24,9 +24,8 @@ public class JpaProductEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private JpaCategoryEntity jpaCategoryEntity;
+    @Column(name = "category_id", nullable = false, length = 36)
+    private String categoryId;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
@@ -34,13 +33,11 @@ public class JpaProductEntity {
     @Column(unique = true, nullable = false, length = 80)
     private String sku;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id", nullable = false)
-    private JpaBrandEntity jpaBrandEntity;
+    @Column(name = "brand_id", nullable = false, length = 36)
+    private String brandId;
 
-    @ManyToOne
-    @JoinColumn(name = "color_id", nullable = false)
-    private JpaColorEntity jpaColorEntity;
+    @Column(name = "color_id", nullable = false, length = 36)
+    private String colorId;
 
     @Column(name = "status", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
@@ -66,11 +63,11 @@ public class JpaProductEntity {
                 product.getId(),
                 product.getName(),
                 product.getDescription(),
-                JpaCategoryEntity.from(product.getCategory()),
+                product.getCategoryId(),
                 product.getPrice(),
                 product.getSku(),
-                JpaBrandEntity.from(product.getBrand()),
-                JpaColorEntity.from(product.getColor()),
+                product.getBrandId(),
+                product.getColorId(),
                 product.getProductStatus(),
                 product.getWeight(),
                 product.getHeight(),
@@ -85,11 +82,11 @@ public class JpaProductEntity {
                 this.id,
                 this.name,
                 this.description,
-                this.jpaCategoryEntity.toEntity(),
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.jpaBrandEntity.toEntity(),
-                this.jpaColorEntity.toEntity(),
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,

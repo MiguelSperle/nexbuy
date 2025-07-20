@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransaction
 import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.ResetUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResetUserPasswordUseCase;
 import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
@@ -43,7 +44,9 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(resetUserPasswordUseCaseInput.password());
 
-        final User updatedUser = userCode.getUser().withPassword(encodedPassword);
+        final User user = this.getUserById(userCode.getUserId());
+
+        final User updatedUser = user.withPassword(encodedPassword);
 
         this.transactionExecutor.runTransaction(() -> {
             this.saveUser(updatedUser);
@@ -54,6 +57,11 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+    }
+
+    private User getUserById(String userId) {
+        return this.userGateway.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private void saveUser(User user) {

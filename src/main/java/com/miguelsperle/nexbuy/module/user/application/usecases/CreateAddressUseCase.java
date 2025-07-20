@@ -25,7 +25,7 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
         final User authenticatedUser = this.getAuthenticatedUser();
 
         final Address newAddress = Address.newAddress(
-                authenticatedUser,
+                authenticatedUser.getId(),
                 createAddressUseCaseInput.addressLine(),
                 createAddressUseCaseInput.addressNumber(),
                 createAddressUseCaseInput.zipCode(),

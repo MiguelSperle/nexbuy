@@ -30,7 +30,7 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
             throw new RefreshTokenExpiredException("Refresh token has expired");
         }
 
-        final String jwtTokenGenerated = this.jwtService.generateJwt(refreshToken.getUser().getId());
+        final String jwtTokenGenerated = this.jwtService.generateJwt(refreshToken.getUserId());
 
         return RefreshTokenUseCaseOutput.from(jwtTokenGenerated);
     }

@@ -17,9 +17,8 @@ public class JpaUserCodeEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private JpaUserEntity jpaUserEntity;
+    @Column(name = "user_id", nullable = false, length = 36)
+    private String userId;
 
     @Column(nullable = false, unique = true, length = 6)
     private String code;
@@ -37,7 +36,7 @@ public class JpaUserCodeEntity {
     public static JpaUserCodeEntity from(UserCode userCode) {
         return new JpaUserCodeEntity(
                 userCode.getId(),
-                JpaUserEntity.from(userCode.getUser()),
+                userCode.getUserId(),
                 userCode.getCode(),
                 userCode.getCodeType(),
                 userCode.getExpiresIn(),
@@ -48,7 +47,7 @@ public class JpaUserCodeEntity {
     public UserCode toEntity() {
         return UserCode.with(
                 this.id,
-                this.jpaUserEntity.toEntity(),
+                this.userId,
                 this.code,
                 this.codeType,
                 this.expiresIn,

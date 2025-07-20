@@ -10,11 +10,11 @@ public class Product {
     private final String id;
     private final String name;
     private final String description;
-    private final Category category;
+    private final String categoryId;
     private final BigDecimal price;
     private final String sku;
-    private final Brand brand;
-    private final Color color;
+    private final String brandId;
+    private final String colorId;
     private final ProductStatus productStatus;
     private final Integer weight;
     private final Integer height;
@@ -26,11 +26,11 @@ public class Product {
             String id,
             String name,
             String description,
-            Category category,
+            String categoryId,
             BigDecimal price,
             String sku,
-            Brand brand,
-            Color color,
+            String brandId,
+            String colorId,
             ProductStatus productStatus,
             Integer weight,
             Integer height,
@@ -41,11 +41,11 @@ public class Product {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
         this.price = price;
         this.sku = sku;
-        this.brand = brand;
-        this.color = color;
+        this.brandId = brandId;
+        this.colorId = colorId;
         this.productStatus = productStatus;
         this.weight = weight;
         this.height = height;
@@ -57,11 +57,11 @@ public class Product {
     public static Product newProduct(
             String name,
             String description,
-            Category category,
+            String categoryId,
             BigDecimal price,
             String sku,
-            Brand brand,
-            Color color,
+            String brandId,
+            String colorId,
             Integer weight,
             Integer height,
             Integer width,
@@ -71,11 +71,11 @@ public class Product {
                 UUID.randomUUID().toString(),
                 name,
                 description,
-                category,
+                categoryId,
                 price,
                 sku,
-                brand,
-                color,
+                brandId,
+                colorId,
                 ProductStatus.ACTIVE,
                 weight,
                 height,
@@ -89,11 +89,11 @@ public class Product {
             String id,
             String name,
             String description,
-            Category category,
+            String categoryId,
             BigDecimal price,
             String sku,
-            Brand brand,
-            Color color,
+            String brandId,
+            String colorId,
             ProductStatus productStatus,
             Integer weight,
             Integer height,
@@ -105,11 +105,11 @@ public class Product {
                 id,
                 name,
                 description,
-                category,
+                categoryId,
                 price,
                 sku,
-                brand,
-                color,
+                brandId,
+                colorId,
                 productStatus,
                 weight,
                 height,
@@ -124,11 +124,11 @@ public class Product {
                 this.id,
                 name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -143,11 +143,11 @@ public class Product {
                 this.id,
                 this.name,
                 description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -157,16 +157,16 @@ public class Product {
         );
     }
 
-    public Product withCategory(Category category) {
+    public Product withCategory(String categoryId) {
         return new Product(
                 this.id,
                 this.name,
                 this.description,
-                category,
+                categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -181,11 +181,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -200,11 +200,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -214,16 +214,16 @@ public class Product {
         );
     }
 
-    public Product withBrand(Brand brand) {
+    public Product withBrand(String brandId) {
         return new Product(
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                brand,
-                this.color,
+                brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -233,16 +233,16 @@ public class Product {
         );
     }
 
-    public Product withColor(Color color) {
+    public Product withColor(String colorId) {
         return new Product(
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                color,
+                this.brandId,
+                colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -257,11 +257,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 productStatus,
                 this.weight,
                 this.height,
@@ -276,11 +276,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 weight,
                 this.height,
@@ -295,11 +295,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 height,
@@ -314,11 +314,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -333,11 +333,11 @@ public class Product {
                 this.id,
                 this.name,
                 this.description,
-                this.category,
+                this.categoryId,
                 this.price,
                 this.sku,
-                this.brand,
-                this.color,
+                this.brandId,
+                this.colorId,
                 this.productStatus,
                 this.weight,
                 this.height,
@@ -359,8 +359,8 @@ public class Product {
         return this.description;
     }
 
-    public Category getCategory() {
-        return this.category;
+    public String getCategoryId() {
+        return this.categoryId;
     }
 
     public BigDecimal getPrice() {
@@ -371,12 +371,12 @@ public class Product {
         return this.sku;
     }
 
-    public Brand getBrand() {
-        return this.brand;
+    public String getBrandId() {
+        return this.brandId;
     }
 
-    public Color getColor() {
-        return this.color;
+    public String getColorId() {
+        return this.colorId;
     }
 
     public ProductStatus getProductStatus() {
@@ -409,11 +409,11 @@ public class Product {
                 "id='" + this.id + '\'' +
                 ", name='" + this.name + '\'' +
                 ", description='" + this.description + '\'' +
-                ", category=" + this.category +
+                ", categoryId=" + this.categoryId +
                 ", price=" + this.price +
                 ", sku='" + this.sku + '\'' +
-                ", brand=" + this.brand +
-                ", color=" + this.color +
+                ", brandId=" + this.brandId +
+                ", colorId=" + this.colorId +
                 ", productStatus=" + this.productStatus +
                 ", weight=" + this.weight +
                 ", height=" + this.height +

@@ -58,13 +58,13 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
                 this.createNaturalPersonUseCase.execute(CreateNaturalPersonUseCaseInput.with(
-                        savedUser,
+                        savedUser.getId(),
                         createUserUseCaseInput.personComplementInput().cpf(),
                         createUserUseCaseInput.personComplementInput().generalRegister()
                 ));
             } else {
                 this.createLegalPersonUseCase.execute(CreateLegalPersonUseCaseInput.with(
-                        savedUser,
+                        savedUser.getId(),
                         createUserUseCaseInput.personComplementInput().cnpj(),
                         createUserUseCaseInput.personComplementInput().fantasyName(),
                         createUserUseCaseInput.personComplementInput().legalName(),
@@ -73,7 +73,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
             }
 
             this.createVerificationCodeUseCase.execute(CreateVerificationCodeUseCaseInput.with(
-                    savedUser
+                    savedUser.getId()
             ));
         });
     }

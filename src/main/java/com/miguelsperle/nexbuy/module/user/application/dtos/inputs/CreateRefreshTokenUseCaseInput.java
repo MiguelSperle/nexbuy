@@ -1,11 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.dtos.inputs;
 
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-
 public record CreateRefreshTokenUseCaseInput(
-        User user
+        String userId
 ) {
-    public static CreateRefreshTokenUseCaseInput with(User user) {
-        return new CreateRefreshTokenUseCaseInput(user);
+    public static CreateRefreshTokenUseCaseInput with(String userId) {
+        return new CreateRefreshTokenUseCaseInput(userId);
     }
 }

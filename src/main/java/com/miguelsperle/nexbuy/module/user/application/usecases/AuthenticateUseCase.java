@@ -46,7 +46,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId());
 
         final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(CreateRefreshTokenUseCaseInput.with(
-                user
+                user.getId()
         ));
 
         return AuthenticateUseCaseOutput.from(jwtTokenGenerated, createRefreshTokenUseCaseOutput.refreshToken().getToken());

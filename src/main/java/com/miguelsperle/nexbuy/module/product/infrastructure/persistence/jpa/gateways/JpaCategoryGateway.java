@@ -39,4 +39,9 @@ public class JpaCategoryGateway implements ICategoryGateway {
     public boolean existsByName(String name) {
         return this.jpaCategoryRepository.existsByName(name);
     }
+
+    @Override
+    public List<Category> findAllByIds(List<String> ids) {
+        return this.jpaCategoryRepository.findAllByIds(ids).stream().map(JpaCategoryEntity::toEntity).toList();
+    }
 }

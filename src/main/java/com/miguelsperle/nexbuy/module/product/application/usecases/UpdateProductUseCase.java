@@ -51,17 +51,22 @@ public class UpdateProductUseCase implements IUpdateProductUseCase {
 
         final Color color = this.getColorById(updateProductUseCaseInput.colorId());
 
-        final String sku = this.verifySkuUpdateRequired(updateProductUseCaseInput, product)
-                ? this.skuProvider.generateSku(updateProductUseCaseInput.name(), category.getName(), brand.getName(), color.getName())
+        final String sku = this.verifySkuUpdateRequired(
+                updateProductUseCaseInput.name(),
+                category,
+                brand,
+                color,
+                product
+        ) ? this.skuProvider.generateSku(updateProductUseCaseInput.name(), category.getName(), brand.getName(), color.getName())
                 : product.getSku();
 
         final Product updatedProduct = product.withName(updateProductUseCaseInput.name())
                 .withDescription(updateProductUseCaseInput.description())
-                .withCategory(category)
+                .withCategory(category.getId())
                 .withPrice(updateProductUseCaseInput.price())
                 .withSku(sku)
-                .withBrand(brand)
-                .withColor(color)
+                .withBrand(brand.getId())
+                .withColor(color.getId())
                 .withWeight(updateProductUseCaseInput.weight())
                 .withHeight(updateProductUseCaseInput.dimensionComplementInput().height())
                 .withWidth(updateProductUseCaseInput.dimensionComplementInput().width())
@@ -94,10 +99,16 @@ public class UpdateProductUseCase implements IUpdateProductUseCase {
         this.productGateway.save(product);
     }
 
-    private boolean verifySkuUpdateRequired(UpdateProductUseCaseInput updateProductUseCaseInput, Product product) {
-        return !Objects.equals(updateProductUseCaseInput.name(), product.getName()) ||
-                !Objects.equals(updateProductUseCaseInput.categoryId(), product.getCategory().getId()) ||
-                !Objects.equals(updateProductUseCaseInput.brandId(), product.getBrand().getId()) ||
-                !Objects.equals(updateProductUseCaseInput.colorId(), product.getColor().getId());
+    private boolean verifySkuUpdateRequired(
+            String productName,
+            Category category,
+            Brand brand,
+            Color color,
+            Product product
+    ) {
+        return !Objects.equals(productName, product.getName()) ||
+                !Objects.equals(category.getId(), product.getCategoryId()) ||
+                !Objects.equals(brand.getId(), product.getBrandId()) ||
+                !Objects.equals(color.getId(), product.getColorId());
     }
 }

@@ -1,13 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.domain.events;
 
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
-
 public record UserCodeCreatedEvent(
-        String email,
-        String code,
-        CodeType codeType
+        String id
 ) {
-    public static UserCodeCreatedEvent from(String email, String code, CodeType codeType) {
-        return new UserCodeCreatedEvent(email, code, codeType);
+    public static UserCodeCreatedEvent from(String id) {
+        return new UserCodeCreatedEvent(id);
     }
 }
