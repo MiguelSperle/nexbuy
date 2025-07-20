@@ -11,5 +11,4 @@ public interface IBrandGateway {
     Brand save(Brand brand);
     void deleteById(String id);
     boolean existsByName(String name);
-    List<Brand> findAllByIds(List<String> ids);
 }

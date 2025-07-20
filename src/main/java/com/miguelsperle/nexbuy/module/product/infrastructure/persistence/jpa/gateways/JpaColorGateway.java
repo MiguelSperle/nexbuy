@@ -39,9 +39,4 @@ public class JpaColorGateway implements IColorGateway {
     public boolean existsByName(String name) {
         return this.jpaColorRepository.existsByName(name);
     }
-
-    @Override
-    public List<Color> findAllByIds(List<String> ids) {
-        return this.jpaColorRepository.findAllByIds(ids).stream().map(JpaColorEntity::toEntity).toList();
-    }
 }

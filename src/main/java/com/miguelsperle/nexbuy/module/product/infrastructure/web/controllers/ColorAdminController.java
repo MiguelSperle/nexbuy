@@ -2,15 +2,12 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterColorRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateColorRequest;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorsResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +25,6 @@ public class ColorAdminController {
     private final IUpdateColorUseCase updateColorUseCase;
     private final IDeleteColorUseCase deleteColorUseCase;
     private final IGetColorsUseCase getColorsUseCase;
-    private final IGetColorUseCase getColorUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerColor(@RequestBody @Valid RegisterColorRequest registerColorRequest) {
@@ -64,12 +60,5 @@ public class ColorAdminController {
         final GetColorsUseCaseOutput getColorsUseCaseOutput = this.getColorsUseCase.execute();
 
         return ResponseEntity.ok().body(GetColorsResponse.from(getColorsUseCaseOutput));
-    }
-
-    @GetMapping("/{colorId}")
-    public ResponseEntity<GetColorResponse> getColor(@PathVariable String colorId) {
-        final GetColorUseCaseOutput getColorUseCaseOutput = this.getColorUseCase.execute(GetColorUseCaseInput.with(colorId));
-
-        return ResponseEntity.ok().body(GetColorResponse.from(getColorUseCaseOutput));
     }
 }

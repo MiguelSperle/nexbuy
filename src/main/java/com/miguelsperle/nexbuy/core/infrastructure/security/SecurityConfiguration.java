@@ -46,7 +46,10 @@ public class SecurityConfiguration {
 
     private static final String[] PRODUCT_MODULE_AUTHENTICATED_ENDPOINTS = {
             "/api/v1/brands",
-            "/api/v1/categories"
+            "/api/v1/categories",
+            "/api/v1/brands/{brandId}",
+            "/api/v1/categories/{categoryId}",
+            "/api/v1/colors/{colorId}"
     };
 
     @Bean
