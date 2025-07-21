@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAddressUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
 
 public record GetAddressResponse(
         String id,

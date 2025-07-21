@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorsUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;

@@ -1,9 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.core.infrastructure.exceptions.UnexpectedJwtTokenUserIdException;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.core.domain.jwt.JwtPayload;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
     private final IJwtService jwtService;
-    private final IUserGateway userGateway;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Override
@@ -32,10 +29,8 @@ public class SecurityFilter extends OncePerRequestFilter {
             final String jwtToken = this.recoverToken(request);
 
             if (jwtToken != null) {
-                final String userId = this.jwtService.validateJwt(jwtToken);
-                final User user = this.userGateway.findById(userId)
-                        .orElseThrow(() -> new UnexpectedJwtTokenUserIdException("No user was found by id " + userId + " extracted from JWT token"));
-                this.setAuthentication(user);
+                final JwtPayload jwtPayload = this.jwtService.validateJwt(jwtToken);
+                this.setAuthentication(jwtPayload.subject(), jwtPayload.role());
             }
 
             filterChain.doFilter(request, response);
@@ -54,9 +49,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         return authorizationHeader.replace("Bearer ", "");
     }
 
-    private void setAuthentication(User user) {
-        final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getAuthorizationRole()));
-        final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
+    private void setAuthentication(String subject, String role) {
+        final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
+        final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(subject, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
 }

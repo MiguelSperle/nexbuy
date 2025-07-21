@@ -1,7 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,11 +12,11 @@ import java.util.Optional;
 public class AuthenticatedUserService implements IAuthenticatedUserService {
 
     @Override
-    public Optional<User> getAuthenticatedUser() {
+    public Optional<String> getAuthenticatedUserId() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return Optional.of((User) authentication.getPrincipal());
+            return Optional.of((String) authentication.getPrincipal());
         }
 
         return Optional.empty();

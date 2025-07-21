@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.GetAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAddressUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.GetAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;

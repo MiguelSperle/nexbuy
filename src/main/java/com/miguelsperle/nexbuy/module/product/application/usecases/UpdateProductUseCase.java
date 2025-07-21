@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;

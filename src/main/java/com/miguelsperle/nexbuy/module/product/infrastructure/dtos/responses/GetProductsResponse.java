@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses;
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetProductsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.complements.DimensionComplementResponse;
 

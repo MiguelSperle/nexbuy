@@ -1,12 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAddressesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressesUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 import java.util.List;
 
@@ -21,16 +20,16 @@ public class GetAddressesUseCase implements IGetAddressesUseCase {
 
     @Override
     public GetAddressesUseCaseOutput execute() {
-        final User authenticatedUser = this.getAuthenticatedUser();
+        final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        final List<Address> addresses = this.getAddressesByUserId(authenticatedUser.getId());
+        final List<Address> addresses = this.getAddressesByUserId(authenticatedUserId);
 
         return GetAddressesUseCaseOutput.from(addresses);
     }
 
-    private User getAuthenticatedUser() {
-        return this.authenticatedUserService.getAuthenticatedUser()
-                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    private String getAuthenticatedUserId() {
+        return this.authenticatedUserService.getAuthenticatedUserId()
+                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
     }
 
     private List<Address> getAddressesByUserId(String userId) {

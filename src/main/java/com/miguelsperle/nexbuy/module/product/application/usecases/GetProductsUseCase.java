@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetProductsUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetProductsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductsUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetProductsUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;

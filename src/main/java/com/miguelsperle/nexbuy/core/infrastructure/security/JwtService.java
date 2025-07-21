@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
+import com.miguelsperle.nexbuy.core.domain.jwt.JwtPayload;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenCreationFailedException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +21,14 @@ public class JwtService implements IJwtService {
     private String secret;
 
     @Override
-    public String generateJwt(String userId) {
+    public String generateJwt(String userId, String role) {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
             return JWT.create()
                     .withIssuer("nexbuy")
                     .withSubject(userId)
+                    .withClaim("role", role)
                     .withExpiresAt(this.genExpirationDate(Instant.now()))
                     .sign(algorithm);
         } catch (JWTCreationException jwtCreationException) {
@@ -34,15 +37,13 @@ public class JwtService implements IJwtService {
     }
 
     @Override
-    public String validateJwt(String jwtToken) {
+    public JwtPayload validateJwt(String jwtToken) {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
-            return JWT.require(algorithm)
-                    .withIssuer("nexbuy")
-                    .build()
-                    .verify(jwtToken)
-                    .getSubject();
+            final DecodedJWT decodedJWT = JWT.require(algorithm).withIssuer("nexbuy").build().verify(jwtToken);
+
+            return JwtPayload.from(decodedJWT.getSubject(), decodedJWT.getClaim("role").asString());
         } catch (JWTVerificationException jwtVerificationException) {
             throw new JwtTokenValidationFailedException("Invalid JWT token", jwtVerificationException);
         }

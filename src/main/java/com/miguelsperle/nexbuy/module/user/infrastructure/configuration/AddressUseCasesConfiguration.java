@@ -1,8 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.application.usecases.*;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
+import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IDeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.UpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

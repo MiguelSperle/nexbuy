@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.complements;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.complements.PersonComplementOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
 
 public record NaturalPersonComplementResponse(
         String cpf,

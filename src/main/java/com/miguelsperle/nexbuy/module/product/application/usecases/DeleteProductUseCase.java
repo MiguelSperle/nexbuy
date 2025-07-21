@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteProductUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteProductUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;

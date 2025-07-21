@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateColorUseCase;

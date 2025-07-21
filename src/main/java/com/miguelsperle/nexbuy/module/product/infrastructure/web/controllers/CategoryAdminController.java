@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateCategoryUseCase;

@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorAssociatedWithProductsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteColorUseCase;

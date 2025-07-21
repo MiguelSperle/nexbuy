@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAuthenticatedUserUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.complements.LegalPersonComplementResponse;

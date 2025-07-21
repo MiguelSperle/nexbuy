@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetBrandResponse;

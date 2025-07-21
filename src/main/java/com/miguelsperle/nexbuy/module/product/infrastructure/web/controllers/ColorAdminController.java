@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterColorRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateColorRequest;

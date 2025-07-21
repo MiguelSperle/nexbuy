@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;

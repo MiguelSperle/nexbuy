@@ -1,9 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.*;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.*;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.*;

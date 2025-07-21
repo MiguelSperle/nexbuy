@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorUseCaseOutput;
 
 public record GetColorResponse(
         String id,

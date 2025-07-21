@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
 
 import java.util.List;
 

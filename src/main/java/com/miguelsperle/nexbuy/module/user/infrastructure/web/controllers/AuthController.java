@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.AuthenticateUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.RefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.AuthenticateUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IRefreshTokenUseCase;

@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetColorUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetColorResponse;
 import lombok.RequiredArgsConstructor;

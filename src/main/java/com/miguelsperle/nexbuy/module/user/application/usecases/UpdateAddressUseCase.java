@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 

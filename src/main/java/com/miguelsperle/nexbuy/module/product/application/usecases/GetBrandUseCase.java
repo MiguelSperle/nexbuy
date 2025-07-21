@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetBrandUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;

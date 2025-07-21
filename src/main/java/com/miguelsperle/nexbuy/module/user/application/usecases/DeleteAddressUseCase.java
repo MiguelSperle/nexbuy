@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.DeleteAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.DeleteAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IDeleteAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;

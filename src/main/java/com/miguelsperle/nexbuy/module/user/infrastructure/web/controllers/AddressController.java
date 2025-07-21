@@ -1,13 +1,17 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.DeleteAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.GetAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAddressUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.GetAddressesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.DeleteAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IDeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.GetAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressesUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.CreateAddressRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.requests.UpdateAddressRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses.GetAddressResponse;

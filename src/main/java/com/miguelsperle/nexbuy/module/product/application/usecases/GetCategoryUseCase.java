@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.GetCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetCategoryUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;

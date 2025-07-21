@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateProductStatusUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductStatusUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductAlreadyDeletedException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductStatusNotAllowedException;

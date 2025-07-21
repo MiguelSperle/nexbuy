@@ -1,24 +1,33 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.RefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.RefreshTokenNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IRefreshTokenUseCase;
-import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
+import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 import java.time.LocalDateTime;
 
 public class RefreshTokenUseCase implements IRefreshTokenUseCase {
     private final IRefreshTokenGateway refreshTokenGateway;
     private final IJwtService jwtService;
+    private final IUserGateway userGateway;
 
-    public RefreshTokenUseCase(IRefreshTokenGateway refreshTokenGateway, IJwtService jwtService) {
+    public RefreshTokenUseCase(
+            IRefreshTokenGateway refreshTokenGateway,
+            IJwtService jwtService,
+            IUserGateway userGateway
+    ) {
         this.refreshTokenGateway = refreshTokenGateway;
         this.jwtService = jwtService;
+        this.userGateway = userGateway;
     }
 
     @Override
@@ -30,7 +39,9 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
             throw new RefreshTokenExpiredException("Refresh token has expired");
         }
 
-        final String jwtTokenGenerated = this.jwtService.generateJwt(refreshToken.getUserId());
+        final User user = this.getUserById(refreshToken.getUserId());
+
+        final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
 
         return RefreshTokenUseCaseOutput.from(jwtTokenGenerated);
     }
@@ -42,5 +53,10 @@ public class RefreshTokenUseCase implements IRefreshTokenUseCase {
 
     private void deleteRefreshTokenById(String refreshTokenId) {
         this.refreshTokenGateway.deleteById(refreshTokenId);
+    }
+
+    private User getUserById(String userId) {
+        return this.userGateway.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }

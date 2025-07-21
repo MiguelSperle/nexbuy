@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.ResendVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.ValidatePasswordResetCodeUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.ValidatePasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResendVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IValidatePasswordResetCodeUseCase;

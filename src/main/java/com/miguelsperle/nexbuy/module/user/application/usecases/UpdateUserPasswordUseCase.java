@@ -2,9 +2,10 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateUserPasswordUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCurrentPasswordException;
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -26,15 +27,17 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
 
     @Override
     public void execute(UpdateUserPasswordUseCaseInput updateUserPasswordUseCaseInput) {
-        final User authenticatedUser = this.getAuthenticatedUser();
+        final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        if (!this.validatePassword(updateUserPasswordUseCaseInput.currentPassword(), authenticatedUser.getPassword())) {
+        final User user = this.getUserById(authenticatedUserId);
+
+        if (!this.validatePassword(updateUserPasswordUseCaseInput.currentPassword(), user.getPassword())) {
             throw new InvalidCurrentPasswordException("Invalid current password");
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.password());
 
-        final User updatedAuthenticatedUser = authenticatedUser.withPassword(encodedPassword);
+        final User updatedAuthenticatedUser = user.withPassword(encodedPassword);
 
         this.saveUser(updatedAuthenticatedUser);
     }
@@ -43,9 +46,14 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
         return this.passwordEncryptorProvider.matches(password, encodedPassword);
     }
 
-    private User getAuthenticatedUser() {
-        return this.authenticatedUserService.getAuthenticatedUser()
-                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    private String getAuthenticatedUserId() {
+        return this.authenticatedUserService.getAuthenticatedUserId()
+                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
+    }
+
+    private User getUserById(String userId) {
+        return this.userGateway.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private void saveUser(User user) {

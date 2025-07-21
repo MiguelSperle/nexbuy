@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases.abstractions;
 
 import com.miguelsperle.nexbuy.core.application.usecases.abstractions.IUseCaseWithoutReturn;
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
 
 public interface IRegisterCategoryUseCase extends IUseCaseWithoutReturn<RegisterCategoryUseCaseInput> {
 }

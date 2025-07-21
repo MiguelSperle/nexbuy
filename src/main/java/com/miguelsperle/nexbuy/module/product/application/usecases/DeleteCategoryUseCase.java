@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteCategoryUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAssociatedWithProductsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteCategoryUseCase;

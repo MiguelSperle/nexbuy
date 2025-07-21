@@ -1,8 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateUserUseCaseInput;
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserUseCaseInput;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -21,18 +22,25 @@ public class UpdateUserUseCase implements IUpdateUserUseCase {
 
     @Override
     public void execute(UpdateUserUseCaseInput updateUserUseCaseInput) {
-        final User authenticatedUser = this.getAuthenticatedUser();
+        final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        final User updatedAuthenticatedUser = authenticatedUser.withFirstName(updateUserUseCaseInput.firstName())
+        final User user = this.getUserById(authenticatedUserId);
+
+        final User updatedAuthenticatedUser = user.withFirstName(updateUserUseCaseInput.firstName())
                 .withLastName(updateUserUseCaseInput.lastName())
                 .withPhoneNumber(updateUserUseCaseInput.phoneNumber());
 
         this.saveUser(updatedAuthenticatedUser);
     }
 
-    private User getAuthenticatedUser() {
-        return this.authenticatedUserService.getAuthenticatedUser()
-                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    private String getAuthenticatedUserId() {
+        return this.authenticatedUserService.getAuthenticatedUserId()
+                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
+    }
+
+    private User getUserById(String userId) {
+        return this.userGateway.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     private void saveUser(User user) {

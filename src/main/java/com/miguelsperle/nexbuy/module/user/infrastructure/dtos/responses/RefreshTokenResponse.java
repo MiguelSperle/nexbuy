@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.RefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 
 public record RefreshTokenResponse(
         String accessToken

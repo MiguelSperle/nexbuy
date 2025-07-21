@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateRefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.CreateRefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;

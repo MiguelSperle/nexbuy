@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.UpdateBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateBrandUseCase;

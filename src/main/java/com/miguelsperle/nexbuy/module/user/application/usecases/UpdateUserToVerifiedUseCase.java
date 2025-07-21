@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.UpdateUserToVerifiedUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
-import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;

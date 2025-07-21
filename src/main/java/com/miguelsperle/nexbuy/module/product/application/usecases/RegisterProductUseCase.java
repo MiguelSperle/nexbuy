@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.RegisterProductUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;

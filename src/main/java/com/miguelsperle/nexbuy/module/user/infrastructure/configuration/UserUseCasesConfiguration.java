@@ -6,6 +6,9 @@ import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
@@ -86,10 +89,17 @@ public class UserUseCasesConfiguration {
 
     @Bean
     public IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
-            IAuthenticatedUserService authenticatedUserService, INaturalPersonGateway naturalPersonGateway,
-            ILegalPersonGateway legalPersonGateway
+            IAuthenticatedUserService authenticatedUserService,
+            INaturalPersonGateway naturalPersonGateway,
+            ILegalPersonGateway legalPersonGateway,
+            IUserGateway userGateway
     ) {
-        return new GetAuthenticatedUserUseCase(authenticatedUserService, naturalPersonGateway, legalPersonGateway);
+        return new GetAuthenticatedUserUseCase(
+                authenticatedUserService,
+                naturalPersonGateway,
+                legalPersonGateway,
+                userGateway
+        );
     }
 
     @Bean

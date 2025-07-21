@@ -2,12 +2,12 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateLegalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateNaturalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.complements.PersonComplementInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;

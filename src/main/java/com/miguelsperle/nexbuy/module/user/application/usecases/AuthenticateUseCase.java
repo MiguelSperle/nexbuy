@@ -2,10 +2,10 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.AuthenticateUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.AuthenticateUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateRefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.dtos.outputs.CreateRefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCredentialsException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IAuthenticateUseCase;
@@ -43,7 +43,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
             throw new UserNotVerifiedException("User not verified");
         }
 
-        final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId());
+        final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
 
         final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(CreateRefreshTokenUseCaseInput.with(
                 user.getId()

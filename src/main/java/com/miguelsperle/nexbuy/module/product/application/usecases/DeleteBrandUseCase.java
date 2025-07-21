@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.inputs.DeleteBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAssociatedWithProductsException;
 import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteBrandUseCase;

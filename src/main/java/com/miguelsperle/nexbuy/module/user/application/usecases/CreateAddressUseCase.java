@@ -1,12 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserNotFoundException;
+import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateAddressUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class CreateAddressUseCase implements ICreateAddressUseCase {
     private final IAddressGateway addressGateway;
@@ -22,10 +21,10 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
 
     @Override
     public void execute(CreateAddressUseCaseInput createAddressUseCaseInput) {
-        final User authenticatedUser = this.getAuthenticatedUser();
+        final String authenticatedUserId = this.getAuthenticatedUserId();
 
         final Address newAddress = Address.newAddress(
-                authenticatedUser.getId(),
+                authenticatedUserId,
                 createAddressUseCaseInput.addressLine(),
                 createAddressUseCaseInput.addressNumber(),
                 createAddressUseCaseInput.zipCode(),
@@ -38,9 +37,9 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
         this.saveAddress(newAddress);
     }
 
-    private User getAuthenticatedUser() {
-        return this.authenticatedUserService.getAuthenticatedUser()
-                .orElseThrow(() -> new AuthenticatedUserNotFoundException("Authenticated user not found in security context"));
+    private String getAuthenticatedUserId() {
+        return this.authenticatedUserService.getAuthenticatedUserId()
+                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
     }
 
     private void saveAddress(Address address) {

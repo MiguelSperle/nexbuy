@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses;
 
-import com.miguelsperle.nexbuy.module.product.application.dtos.outputs.GetCategoryUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
 
 public record GetCategoryResponse(
         String id,

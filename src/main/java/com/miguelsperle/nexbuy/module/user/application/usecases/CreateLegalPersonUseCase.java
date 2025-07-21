@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.dtos.inputs.CreateLegalPersonUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
