@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCase;
@@ -19,9 +19,10 @@ import org.springframework.context.annotation.Configuration;
 public class AddressUseCasesConfiguration {
     @Bean
     public ICreateAddressUseCase createAddressUseCase(
-            IAddressGateway addressGateway, IAuthenticatedUserService authenticatedUserService
+            IAddressGateway addressGateway,
+            ISecurityContextService securityContextService
     ) {
-        return new CreateAddressUseCase(addressGateway, authenticatedUserService);
+        return new CreateAddressUseCase(addressGateway, securityContextService);
     }
 
     @Bean
@@ -33,7 +34,7 @@ public class AddressUseCasesConfiguration {
 
     @Bean
     public IGetAddressesUseCase getAddressesUseCase(
-            IAddressGateway addressGateway, IAuthenticatedUserService authenticatedUserService
+            IAddressGateway addressGateway, ISecurityContextService authenticatedUserService
     ) {
         return new GetAddressesUseCase(addressGateway, authenticatedUserService);
     }

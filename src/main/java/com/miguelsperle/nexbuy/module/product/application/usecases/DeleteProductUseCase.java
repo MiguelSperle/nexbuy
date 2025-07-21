@@ -25,7 +25,7 @@ public class DeleteProductUseCase implements IDeleteProductUseCase {
 
     private Product getProductById(String productId) {
         return this.productGateway.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 
     private void saveProduct(Product product) {

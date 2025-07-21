@@ -20,7 +20,7 @@ public class UpdateColorUseCase implements IUpdateColorUseCase {
 
         if (!updateColorUseCaseInput.name().equalsIgnoreCase(color.getName())) {
             if (this.verifyColorAlreadyExistsByName(updateColorUseCaseInput.name())) {
-                throw new ColorAlreadyExistsException("Color with this name already exists");
+                throw ColorAlreadyExistsException.with("Color with this name already exists");
             }
         }
 
@@ -31,7 +31,7 @@ public class UpdateColorUseCase implements IUpdateColorUseCase {
 
     private Color getColorById(String colorId) {
         return this.colorGateway.findById(colorId)
-                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private boolean verifyColorAlreadyExistsByName(String name) {

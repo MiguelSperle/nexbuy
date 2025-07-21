@@ -22,7 +22,7 @@ public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
         final Category category = this.getCategoryById(deleteCategoryUseCaseInput.categoryId());
 
         if (this.verifyProductAlreadyExistsByCategoryId(category.getId())) {
-            throw new CategoryAssociatedWithProductsException("Category cannot be deleted because it is already associated with products");
+            throw CategoryAssociatedWithProductsException.with("Category cannot be deleted because it is already associated with products");
         }
 
         this.deleteCategoryById(category.getId());
@@ -30,7 +30,7 @@ public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.categoryGateway.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private boolean verifyProductAlreadyExistsByCategoryId(String categoryId) {

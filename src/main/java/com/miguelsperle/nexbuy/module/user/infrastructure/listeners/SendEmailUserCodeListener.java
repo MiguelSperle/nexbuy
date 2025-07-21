@@ -39,11 +39,11 @@ public class SendEmailUserCodeListener {
 
     private UserCode getUserCodeById(String userCodeId) {
         return this.userCodeGateway.findById(userCodeId)
-                .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
         return this.userGateway.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 }

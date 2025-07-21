@@ -39,7 +39,7 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
 
         if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
-            throw new UserCodeExpiredException("User code has expired");
+            throw UserCodeExpiredException.with("User code has expired");
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(resetUserPasswordUseCaseInput.password());
@@ -56,12 +56,12 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
-                .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
         return this.userGateway.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

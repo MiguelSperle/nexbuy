@@ -23,6 +23,6 @@ public class GetAddressUseCase implements IGetAddressUseCase {
 
     private Address getAddressById(String addressId) {
         return this.addressGateway.findById(addressId)
-                .orElseThrow(() -> new AddressNotFoundException("Address not found"));
+                .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
     }
 }

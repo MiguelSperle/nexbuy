@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.transaction;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.infrastructure.exceptions.TransactionSynchronizationNotActiveException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -30,7 +31,9 @@ public class TransactionExecutor implements ITransactionExecutor {
     @Override
     public void registerAfterCommit(Runnable runnable) {
         if (!TransactionSynchronizationManager.isSynchronizationActive()) {
-            throw new IllegalStateException("Transaction synchronization is not active, ensure this method is being called within a transaction");
+            throw TransactionSynchronizationNotActiveException.with(
+                    "Transaction synchronization is not active. Ensure this method is being called within an active transaction"
+            );
         }
 
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {

@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.core.domain.jwt.JwtPayload;
+import com.miguelsperle.nexbuy.core.domain.jwt.DecodedToken;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenCreationFailedException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,20 +32,20 @@ public class JwtService implements IJwtService {
                     .withExpiresAt(this.genExpirationDate(Instant.now()))
                     .sign(algorithm);
         } catch (JWTCreationException jwtCreationException) {
-            throw new JwtTokenCreationFailedException("JWT token creation failed", jwtCreationException);
+            throw JwtTokenCreationFailedException.with("JWT token creation failed", jwtCreationException);
         }
     }
 
     @Override
-    public JwtPayload validateJwt(String jwtToken) {
+    public DecodedToken validateJwt(String jwtToken) {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
             final DecodedJWT decodedJWT = JWT.require(algorithm).withIssuer("nexbuy").build().verify(jwtToken);
 
-            return JwtPayload.from(decodedJWT.getSubject(), decodedJWT.getClaim("role").asString());
+            return DecodedToken.from(decodedJWT.getSubject(), decodedJWT.getClaim("role").asString());
         } catch (JWTVerificationException jwtVerificationException) {
-            throw new JwtTokenValidationFailedException("Invalid JWT token", jwtVerificationException);
+            throw JwtTokenValidationFailedException.with("Invalid JWT token", jwtVerificationException);
         }
     }
 

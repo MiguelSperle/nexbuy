@@ -46,7 +46,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
         this.ensureComplementBasedPersonType(createUserUseCaseInput.personType(), createUserUseCaseInput.personComplementInput());
 
         if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.email())) {
-            throw new UserAlreadyExistsException("This email is already being used");
+            throw UserAlreadyExistsException.with("This email is already being used");
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.password());
@@ -84,9 +84,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {
         if (personType == PersonType.NATURAL_PERSON && personComplementInput == null) {
-            throw new MissingRequiredComplementException("You should provide naturalPerson when the person type is a NATURAL_PERSON");
+            throw MissingRequiredComplementException.with("You should provide naturalPerson when the person type is a NATURAL_PERSON");
         } else if (personType == PersonType.LEGAL_PERSON && personComplementInput == null) {
-            throw new MissingRequiredComplementException("You should provide legalPerson when the person type is a LEGAL_PERSON");
+            throw MissingRequiredComplementException.with("You should provide legalPerson when the person type is a LEGAL_PERSON");
         }
     }
 

@@ -1,14 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
 import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.*;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
@@ -82,20 +79,20 @@ public class UserUseCasesConfiguration {
 
     @Bean
     public IUpdateUserUseCase updateUserUseCase(
-            IAuthenticatedUserService authenticatedUserService, IUserGateway userGateway
+            ISecurityContextService securityContextService, IUserGateway userGateway
     ) {
-        return new UpdateUserUseCase(authenticatedUserService, userGateway);
+        return new UpdateUserUseCase(securityContextService, userGateway);
     }
 
     @Bean
     public IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
-            IAuthenticatedUserService authenticatedUserService,
+            ISecurityContextService securityContextService,
             INaturalPersonGateway naturalPersonGateway,
             ILegalPersonGateway legalPersonGateway,
             IUserGateway userGateway
     ) {
         return new GetAuthenticatedUserUseCase(
-                authenticatedUserService,
+                securityContextService,
                 naturalPersonGateway,
                 legalPersonGateway,
                 userGateway
@@ -104,12 +101,12 @@ public class UserUseCasesConfiguration {
 
     @Bean
     public IUpdateUserPasswordUseCase updateUserPasswordUseCase(
-            IAuthenticatedUserService authenticatedUserService,
+            ISecurityContextService securityContextService,
             IPasswordEncryptorProvider passwordEncryptorProvider,
             IUserGateway userGateway
     ) {
         return new UpdateUserPasswordUseCase(
-                authenticatedUserService,
+                securityContextService,
                 passwordEncryptorProvider,
                 userGateway
         );

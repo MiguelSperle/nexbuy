@@ -49,7 +49,7 @@ public class SmtpEmailService implements IEmailService {
             this.javaMailSender.send(mimeMessage);
         } catch (MessagingException | MailException exception) {
             log.error("Handling email sending failure - To: [{}], ExceptionMessage: [{}]", to, exception.getMessage(), exception);
-            throw new EmailSendFailedException("Email sending failed", exception);
+            throw EmailSendFailedException.with("Email sending failed", exception);
         }
     }
 

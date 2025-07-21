@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
+package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;

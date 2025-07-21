@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.core.domain.jwt.JwtPayload;
+import com.miguelsperle.nexbuy.core.domain.jwt.DecodedToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,8 +29,17 @@ public class SecurityFilter extends OncePerRequestFilter {
             final String jwtToken = this.recoverToken(request);
 
             if (jwtToken != null) {
-                final JwtPayload jwtPayload = this.jwtService.validateJwt(jwtToken);
-                this.setAuthentication(jwtPayload.subject(), jwtPayload.role());
+                final DecodedToken decodedToken = this.jwtService.validateJwt(jwtToken);
+
+                final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(
+                        "ROLE_" + decodedToken.role()
+                ));
+
+                final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        decodedToken.subject(), null, authorities
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
             filterChain.doFilter(request, response);
@@ -47,11 +56,5 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
 
         return authorizationHeader.replace("Bearer ", "");
-    }
-
-    private void setAuthentication(String subject, String role) {
-        final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
-        final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(subject, null, authorities);
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
 }

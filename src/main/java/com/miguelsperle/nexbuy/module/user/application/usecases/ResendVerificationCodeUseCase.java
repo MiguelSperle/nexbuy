@@ -38,7 +38,7 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
         final User user = this.getUserByEmail(resendVerificationCodeUseCaseInput.email());
 
         if (user.getIsVerified()) {
-            throw new UserAlreadyVerifiedException("User already verified");
+            throw UserAlreadyVerifiedException.with("User already verified");
         }
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->
@@ -55,7 +55,7 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

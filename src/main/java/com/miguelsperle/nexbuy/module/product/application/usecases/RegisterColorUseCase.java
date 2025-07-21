@@ -16,7 +16,7 @@ public class RegisterColorUseCase implements IRegisterColorUseCase {
     @Override
     public void execute(RegisterColorUseCaseInput registerColorUseCaseInput) {
         if (this.verifyColorAlreadyExistsByName(registerColorUseCaseInput.name())) {
-            throw new ColorAlreadyExistsException("Color with this name already exists");
+            throw ColorAlreadyExistsException.with("Color with this name already exists");
         }
 
         final Color newColor = Color.newColor(registerColorUseCaseInput.name());

@@ -70,17 +70,17 @@ public class RegisterProductUseCase implements IRegisterProductUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.categoryGateway.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private Brand getBrandById(String brandId) {
         return this.brandGateway.findById(brandId)
-                .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
+                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private Color getColorById(String colorId) {
         return this.colorGateway.findById(colorId)
-                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private void saveProduct(Product product) {

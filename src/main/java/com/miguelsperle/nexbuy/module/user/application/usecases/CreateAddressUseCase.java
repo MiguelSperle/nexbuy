@@ -1,7 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
@@ -9,14 +8,14 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class CreateAddressUseCase implements ICreateAddressUseCase {
     private final IAddressGateway addressGateway;
-    private final IAuthenticatedUserService authenticatedUserService;
+    private final ISecurityContextService securityContextService;
 
     public CreateAddressUseCase(
             final IAddressGateway addressGateway,
-            final IAuthenticatedUserService authenticatedUserService
+            final ISecurityContextService securityContextService
     ) {
         this.addressGateway = addressGateway;
-        this.authenticatedUserService = authenticatedUserService;
+        this.securityContextService = securityContextService;
     }
 
     @Override
@@ -38,8 +37,7 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.authenticatedUserService.getAuthenticatedUserId()
-                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
+        return this.securityContextService.getAuthenticatedUserId();
     }
 
     private void saveAddress(Address address) {

@@ -16,19 +16,19 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
     @Override
     public void execute(CreateLegalPersonUseCaseInput createLegalPersonUseCaseInput) {
         if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.cnpj())) {
-            throw new LegalPersonAlreadyExistsException("This cnpj is already being used");
+            throw LegalPersonAlreadyExistsException.with("This cnpj is already being used");
         }
 
         if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.fantasyName())) {
-            throw new LegalPersonAlreadyExistsException("This fantasy name is already being used");
+            throw LegalPersonAlreadyExistsException.with("This fantasy name is already being used");
         }
 
         if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.legalName())) {
-            throw new LegalPersonAlreadyExistsException("This legal name is already being used");
+            throw LegalPersonAlreadyExistsException.with("This legal name is already being used");
         }
 
         if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.stateRegistration())) {
-            throw new LegalPersonAlreadyExistsException("This state registration is already being used");
+            throw LegalPersonAlreadyExistsException.with("This state registration is already being used");
         }
 
         final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(

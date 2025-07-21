@@ -30,7 +30,7 @@ public class UpdateAddressUseCase implements IUpdateAddressUseCase {
 
     private Address getAddressById(String addressId) {
         return this.addressGateway.findById(addressId)
-                .orElseThrow(() -> new AddressNotFoundException("Address not found"));
+                .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
     }
 
     private void saveAddress(Address address) {

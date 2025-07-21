@@ -36,7 +36,7 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
 
         if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
-            throw new UserCodeExpiredException("User code has expired");
+            throw UserCodeExpiredException.with("User code has expired");
         }
 
         final User user = this.getUserById(userCode.getUserId());
@@ -51,12 +51,12 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.USER_VERIFICATION.name())
-                .orElseThrow(() -> new UserCodeNotFoundException("User code not found"));
+                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
         return this.userGateway.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

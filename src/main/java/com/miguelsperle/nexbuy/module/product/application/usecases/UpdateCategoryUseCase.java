@@ -20,7 +20,7 @@ public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
 
         if (!updateCategoryUseCaseInput.name().equalsIgnoreCase(category.getName())) {
             if (this.verifyCategoryAlreadyExistsByName(updateCategoryUseCaseInput.name())) {
-                throw new CategoryAlreadyExistsException("Category with this name already exists");
+                throw CategoryAlreadyExistsException.with("Category with this name already exists");
             }
         }
 
@@ -31,7 +31,7 @@ public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
 
     private Category getCategoryById(String id) {
         return this.categoryGateway.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {

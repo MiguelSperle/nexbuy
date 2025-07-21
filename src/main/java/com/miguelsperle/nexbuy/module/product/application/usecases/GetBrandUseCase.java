@@ -23,6 +23,6 @@ public class GetBrandUseCase implements IGetBrandUseCase {
 
     private Brand getBrandById(String brandId) {
         return this.brandGateway.findById(brandId)
-                .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
+                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 }

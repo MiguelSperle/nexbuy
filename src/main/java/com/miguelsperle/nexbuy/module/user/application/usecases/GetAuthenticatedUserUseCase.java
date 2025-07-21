@@ -1,11 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonNotFoundException;
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAuthenticatedUserUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
@@ -17,13 +16,13 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase {
-    private final IAuthenticatedUserService authenticatedUserService;
+    private final ISecurityContextService authenticatedUserService;
     private final INaturalPersonGateway naturalPersonGateway;
     private final ILegalPersonGateway legalPersonGateway;
     private final IUserGateway userGateway;
 
     public GetAuthenticatedUserUseCase(
-            IAuthenticatedUserService authenticatedUserService,
+            ISecurityContextService authenticatedUserService,
             INaturalPersonGateway naturalPersonGateway,
             ILegalPersonGateway legalPersonGateway,
             IUserGateway userGateway
@@ -64,21 +63,20 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
 
     private NaturalPerson getNaturalPersonByUserId(String userId) {
         return this.naturalPersonGateway.findByUserId(userId)
-                .orElseThrow(() -> new NaturalPersonNotFoundException("Natural person not found"));
+                .orElseThrow(() -> NaturalPersonNotFoundException.with("Natural person not found"));
     }
 
     private LegalPerson getLegalPersonByUserId(String userId) {
         return this.legalPersonGateway.findByUserId(userId)
-                .orElseThrow(() -> new LegalPersonNotFoundException("Legal person not found"));
+                .orElseThrow(() -> LegalPersonNotFoundException.with("Legal person not found"));
     }
 
     private String getAuthenticatedUserId() {
-        return this.authenticatedUserService.getAuthenticatedUserId()
-                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
+        return this.authenticatedUserService.getAuthenticatedUserId();
     }
 
     private User getUserById(String userId) {
         return this.userGateway.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 }

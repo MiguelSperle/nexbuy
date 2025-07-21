@@ -36,11 +36,11 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
         final User user = this.getUserByEmail(authenticateUseCaseInput.email());
 
         if (!this.validatePassword(authenticateUseCaseInput.password(), user.getPassword())) {
-            throw new InvalidCredentialsException("Invalid credentials");
+            throw InvalidCredentialsException.with("Invalid credentials");
         }
 
         if (!user.getIsVerified()) {
-            throw new UserNotVerifiedException("User not verified");
+            throw UserNotVerifiedException.with("User not verified");
         }
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
@@ -53,7 +53,7 @@ public class AuthenticateUseCase implements IAuthenticateUseCase {
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> InvalidCredentialsException.with("Invalid credentials"));
     }
 
     private boolean validatePassword(String password, String encodedPassword) {

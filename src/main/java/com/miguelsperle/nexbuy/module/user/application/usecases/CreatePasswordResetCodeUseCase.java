@@ -50,7 +50,7 @@ public class CreatePasswordResetCodeUseCase implements ICreatePasswordResetCodeU
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return this.userGateway.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

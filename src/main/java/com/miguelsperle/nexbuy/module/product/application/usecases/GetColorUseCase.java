@@ -23,6 +23,6 @@ public class GetColorUseCase implements IGetColorUseCase {
 
     private Color getColorById(String colorId) {
         return this.colorGateway.findById(colorId)
-                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 }

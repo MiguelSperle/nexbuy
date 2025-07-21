@@ -16,7 +16,7 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
     @Override
     public void execute(RegisterCategoryUseCaseInput registerCategoryUseCaseInput) {
         if (this.verifyCategoryAlreadyExistsByName(registerCategoryUseCaseInput.name())) {
-            throw new CategoryAlreadyExistsException("Category with this name already exists");
+            throw CategoryAlreadyExistsException.with("Category with this name already exists");
         }
 
         final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.name());

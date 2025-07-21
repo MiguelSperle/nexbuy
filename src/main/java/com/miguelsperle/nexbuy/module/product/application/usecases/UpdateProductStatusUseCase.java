@@ -23,11 +23,11 @@ public class UpdateProductStatusUseCase implements IUpdateProductStatusUseCase {
         final ProductStatus convertedToProductStatus = ProductStatus.valueOf(updateProductStatusUseCaseInput.productStatus());
 
         if (convertedToProductStatus == ProductStatus.DELETED) {
-            throw new ProductStatusNotAllowedException("Status DELETED is not allowed to be set");
+            throw ProductStatusNotAllowedException.with("Status DELETED is not allowed to be set");
         }
 
         if (product.getProductStatus() == ProductStatus.DELETED) {
-            throw new ProductAlreadyDeletedException("This product has already been deleted and cannot be updated");
+            throw ProductAlreadyDeletedException.with("This product has already been deleted and cannot be updated");
         }
 
         final Product updatedProduct = product.withProductStatus(convertedToProductStatus);
@@ -37,7 +37,7 @@ public class UpdateProductStatusUseCase implements IUpdateProductStatusUseCase {
 
     private Product getProductById(String productId) {
         return this.productGateway.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 
     private void saveProduct(Product product) {

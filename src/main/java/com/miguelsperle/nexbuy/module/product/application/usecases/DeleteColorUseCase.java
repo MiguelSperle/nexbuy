@@ -22,7 +22,7 @@ public class DeleteColorUseCase implements IDeleteColorUseCase {
         final Color color = this.getColorById(deleteColorUseCaseInput.colorId());
 
         if (this.verifyProductAlreadyExistsByColorId(color.getId())) {
-            throw new ColorAssociatedWithProductsException("Color cannot be deleted because it is already associated with products");
+            throw ColorAssociatedWithProductsException.with("Color cannot be deleted because it is already associated with products");
         }
 
         this.deleteColorById(color.getId());
@@ -30,7 +30,7 @@ public class DeleteColorUseCase implements IDeleteColorUseCase {
 
     private Color getColorById(String colorId) {
         return this.colorGateway.findById(colorId)
-                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private boolean verifyProductAlreadyExistsByColorId(String colorId) {

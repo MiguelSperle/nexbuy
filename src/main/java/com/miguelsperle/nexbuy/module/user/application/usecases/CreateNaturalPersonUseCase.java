@@ -16,11 +16,11 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
     @Override
     public void execute(CreateNaturalPersonUseCaseInput createNaturalPersonUseCaseInput) {
         if (this.verifyNaturalPersonAlreadyExistsByCpf(createNaturalPersonUseCaseInput.cpf())) {
-            throw new NaturalPersonAlreadyExistsException("This cpf is already being used");
+            throw NaturalPersonAlreadyExistsException.with("This cpf is already being used");
         }
 
         if (this.verifyNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.generalRegister())) {
-            throw new NaturalPersonAlreadyExistsException("This general register is already being used");
+            throw NaturalPersonAlreadyExistsException.with("This general register is already being used");
         }
 
         final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(

@@ -22,7 +22,7 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
         final Brand brand = this.getBrandById(deleteBrandUseCaseInput.brandId());
 
         if (this.verifyProductAlreadyExistsByBrandId(brand.getId())) {
-            throw new BrandAssociatedWithProductsException("Brand cannot be deleted because it is already associated with products");
+            throw BrandAssociatedWithProductsException.with("Brand cannot be deleted because it is already associated with products");
         }
 
         this.deleteBrandById(brand.getId());
@@ -30,7 +30,7 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
 
     private Brand getBrandById(String brandId) {
         return this.brandGateway.findById(brandId)
-                .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
+                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private boolean verifyProductAlreadyExistsByBrandId(String brandId) {

@@ -42,7 +42,7 @@ public class UpdateProductUseCase implements IUpdateProductUseCase {
         final Product product = this.getProductById(updateProductUseCaseInput.productId());
 
         if (product.getProductStatus() == ProductStatus.DELETED) {
-            throw new ProductAlreadyDeletedException("This product has already been deleted and cannot be updated");
+            throw ProductAlreadyDeletedException.with("This product has already been deleted and cannot be updated");
         }
 
         final Category category = this.getCategoryById(updateProductUseCaseInput.categoryId());
@@ -77,22 +77,22 @@ public class UpdateProductUseCase implements IUpdateProductUseCase {
 
     private Product getProductById(String productId) {
         return this.productGateway.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 
     private Category getCategoryById(String categoryId) {
         return this.categoryGateway.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private Brand getBrandById(String brandId) {
         return this.brandGateway.findById(brandId)
-                .orElseThrow(() -> new BrandNotFoundException("Brand not found"));
+                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private Color getColorById(String colorId) {
         return this.colorGateway.findById(colorId)
-                .orElseThrow(() -> new ColorNotFoundException("Color not found"));
+                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private void saveProduct(Product product) {

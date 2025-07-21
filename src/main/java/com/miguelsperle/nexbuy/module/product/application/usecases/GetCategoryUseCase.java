@@ -23,6 +23,6 @@ public class GetCategoryUseCase implements IGetCategoryUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.categoryGateway.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 }

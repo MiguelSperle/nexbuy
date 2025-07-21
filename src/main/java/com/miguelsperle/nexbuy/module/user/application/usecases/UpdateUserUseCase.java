@@ -1,19 +1,18 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IAuthenticatedUserService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserUseCaseInput;
-import com.miguelsperle.nexbuy.core.application.exceptions.AuthenticatedUserIdNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class UpdateUserUseCase implements IUpdateUserUseCase {
-    private final IAuthenticatedUserService authenticatedUserService;
+    private final ISecurityContextService authenticatedUserService;
     private final IUserGateway userGateway;
 
     public UpdateUserUseCase(
-            IAuthenticatedUserService authenticatedUserService,
+            ISecurityContextService authenticatedUserService,
             IUserGateway userGateway
     ) {
         this.authenticatedUserService = authenticatedUserService;
@@ -34,13 +33,12 @@ public class UpdateUserUseCase implements IUpdateUserUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.authenticatedUserService.getAuthenticatedUserId()
-                .orElseThrow(() -> new AuthenticatedUserIdNotFoundException("Authenticated user id not found in security context"));
+        return this.authenticatedUserService.getAuthenticatedUserId();
     }
 
     private User getUserById(String userId) {
         return this.userGateway.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

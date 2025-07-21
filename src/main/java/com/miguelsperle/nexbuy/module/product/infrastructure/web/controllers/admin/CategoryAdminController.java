@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
+package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
