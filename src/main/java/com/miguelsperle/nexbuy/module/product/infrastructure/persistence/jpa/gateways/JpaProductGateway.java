@@ -127,4 +127,9 @@ public class JpaProductGateway implements IProductGateway {
                 products
         );
     }
+
+    @Override
+    public Optional<Product> findActiveById(String id) {
+        return this.jpaProductRepository.findActiveById(id).map(JpaProductEntity::toEntity);
+    }
 }

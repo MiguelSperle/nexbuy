@@ -15,7 +15,7 @@ public record GetProductResponse(
         String sku,
         String brandId,
         String colorId,
-        ProductStatus productStatus,
+        ProductStatus status,
         Integer weight,
         DimensionComplementResponse dimension
 ) {

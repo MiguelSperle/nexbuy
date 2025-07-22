@@ -17,4 +17,5 @@ public interface IProductGateway {
     boolean existsByColorId(String colorId);
     Pagination<Product> findAllPaginated(SearchQuery searchQuery);
     Pagination<Product> findAllActivePaginated(SearchQuery searchQuery);
+    Optional<Product> findActiveById(String id);
 }

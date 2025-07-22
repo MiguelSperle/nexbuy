@@ -23,6 +23,6 @@ public class GetProductUseCase implements IGetProductUseCase {
 
     private Product getProductById(String productId) {
         return this.productGateway.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 }

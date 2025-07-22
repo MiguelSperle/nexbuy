@@ -5,6 +5,7 @@ import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.complements.DimensionComplementInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetActiveProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;

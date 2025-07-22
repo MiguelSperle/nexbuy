@@ -3,15 +3,16 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetActiveProductsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetActiveProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetActiveProductsUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetActiveProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetActiveProductsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetActiveProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetActiveProductsResponse;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetActiveProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductController {
     private final IGetActiveProductsUseCase getActiveProductsUseCase;
+    private final IGetActiveProductUseCase getActiveProductUseCase;
 
     @GetMapping("/active")
     public ResponseEntity<Pagination<GetActiveProductsResponse>> getActiveProducts(
@@ -35,5 +37,12 @@ public class ProductController {
         ));
 
         return ResponseEntity.ok().body(GetActiveProductsResponse.from(getActiveProductsUseCaseOutput));
+    }
+
+    @GetMapping("/{productId}/active")
+    public ResponseEntity<GetActiveProductResponse> getActiveProduct(@PathVariable String productId) {
+        final GetActiveProductUseCaseOutput getActiveProductUseCaseOutput = this.getActiveProductUseCase.execute(GetActiveProductUseCaseInput.with(productId));
+
+        return ResponseEntity.ok().body(GetActiveProductResponse.from(getActiveProductUseCaseOutput));
     }
 }
