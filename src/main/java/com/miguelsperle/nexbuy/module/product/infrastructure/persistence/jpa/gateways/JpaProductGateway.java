@@ -93,4 +93,38 @@ public class JpaProductGateway implements IProductGateway {
                 products
         );
     }
+
+    @Override
+    public Pagination<Product> findAllActivePaginated(SearchQuery searchQuery) {
+        final Sort sort = searchQuery.direction().equalsIgnoreCase("asc")
+                ? Sort.by(searchQuery.sort()).ascending() : Sort.by(searchQuery.sort()).descending();
+
+        final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
+
+        Specification<JpaProductEntity> specification = Specification.where(JpaProductSpecification.filterByActiveStatus());
+
+        final String terms = searchQuery.terms();
+        final String brandId = searchQuery.filters().get("brandId");
+        final String categoryId = searchQuery.filters().get("categoryId");
+
+        specification = specification.and(JpaProductSpecification.filterByTerms(terms));
+        specification = specification.and(JpaProductSpecification.filterByBrandId(brandId));
+        specification = specification.and(JpaProductSpecification.filterByCategoryId(categoryId));
+
+        final Page<JpaProductEntity> pageResult = this.jpaProductRepository.findAll(specification, pageable);
+
+        final List<Product> products = pageResult.getContent().stream().map(JpaProductEntity::toEntity).toList();
+
+        final PaginationMetadata paginationMetadata = new PaginationMetadata(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalPages(),
+                pageResult.getTotalElements()
+        );
+
+        return new Pagination<>(
+                paginationMetadata,
+                products
+        );
+    }
 }

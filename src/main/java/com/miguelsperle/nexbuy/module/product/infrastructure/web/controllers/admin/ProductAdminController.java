@@ -95,9 +95,9 @@ public class ProductAdminController {
 
     @GetMapping
     public ResponseEntity<Pagination<GetProductsResponse>> getProducts(
-            @RequestParam(name = "search", required = false, defaultValue = "") String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "perPage", required = false, defaultValue = "10") int perPage,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
             @RequestParam(name = "sort", required = false, defaultValue = "name") String sort,
             @RequestParam(name = "direction", required = false, defaultValue = "asc") String direction,
             @RequestParam Map<String, String> filters

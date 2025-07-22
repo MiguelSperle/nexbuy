@@ -60,4 +60,9 @@ public class ProductUseCasesConfiguration {
     public IGetProductsUseCase getProductsUseCase(IProductGateway productGateway) {
         return new GetProductsUseCase(productGateway);
     }
+
+    @Bean
+    public IGetActiveProductsUseCase getActiveProductsUseCase(IProductGateway productGateway) {
+        return new GetActiveProductsUseCase(productGateway);
+    }
 }

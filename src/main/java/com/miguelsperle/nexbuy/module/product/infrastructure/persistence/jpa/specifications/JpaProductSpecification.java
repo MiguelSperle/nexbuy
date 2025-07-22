@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.specifications;
 
+import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import com.miguelsperle.nexbuy.module.product.infrastructure.persistence.jpa.entities.JpaProductEntity;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -33,5 +34,10 @@ public class JpaProductSpecification {
                 (status == null || status.isBlank())
                         ? criterialBuilder.conjunction()
                         : criterialBuilder.equal(root.get("productStatus"), status);
+    }
+
+    public static Specification<JpaProductEntity> filterByActiveStatus() {
+        return (root, query, criterialBuilder) ->
+                criterialBuilder.equal(root.get("productStatus"), ProductStatus.ACTIVE);
     }
 }
