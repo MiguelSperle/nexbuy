@@ -2,14 +2,14 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.web.controllers;
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetActiveProductsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetActiveProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetActiveProductsUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetActiveProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetActiveProductsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetActiveProductUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetActiveProductsResponse;
-import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetActiveProductResponse;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetProductsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductsUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetProductResponse;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetProductsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +20,11 @@ import java.util.Map;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
-    private final IGetActiveProductsUseCase getActiveProductsUseCase;
-    private final IGetActiveProductUseCase getActiveProductUseCase;
+    private final IGetProductsUseCase getProductsUseCase;
+    private final IGetProductUseCase getProductUseCase;
 
-    @GetMapping("/active")
-    public ResponseEntity<Pagination<GetActiveProductsResponse>> getActiveProducts(
+    @GetMapping
+    public ResponseEntity<Pagination<GetProductsResponse>> getProducts(
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "perPage", required = false, defaultValue = "10") int perPage,
             @RequestParam(name = "search", required = false, defaultValue = "") String search,
@@ -32,17 +32,17 @@ public class ProductController {
             @RequestParam(name = "direction", required = false, defaultValue = "asc") String direction,
             @RequestParam Map<String, String> filters
     ) {
-        final GetActiveProductsUseCaseOutput getActiveProductsUseCaseOutput = this.getActiveProductsUseCase.execute(GetActiveProductsUseCaseInput.with(
+        final GetProductsUseCaseOutput getProductsUseCaseOutput = this.getProductsUseCase.execute(GetProductsUseCaseInput.with(
                 SearchQuery.newSearchQuery(page, perPage, search, sort, direction, filters)
         ));
 
-        return ResponseEntity.ok().body(GetActiveProductsResponse.from(getActiveProductsUseCaseOutput));
+        return ResponseEntity.ok().body(GetProductsResponse.from(getProductsUseCaseOutput));
     }
 
-    @GetMapping("/{productId}/active")
-    public ResponseEntity<GetActiveProductResponse> getActiveProduct(@PathVariable String productId) {
-        final GetActiveProductUseCaseOutput getActiveProductUseCaseOutput = this.getActiveProductUseCase.execute(GetActiveProductUseCaseInput.with(productId));
+    @GetMapping("/{productId}")
+    public ResponseEntity<GetProductResponse> getProduct(@PathVariable String productId) {
+        final GetProductUseCaseOutput getProductUseCaseOutput = this.getProductUseCase.execute(GetProductUseCaseInput.with(productId));
 
-        return ResponseEntity.ok().body(GetActiveProductResponse.from(getActiveProductUseCaseOutput));
+        return ResponseEntity.ok().body(GetProductResponse.from(getProductUseCaseOutput));
     }
 }
