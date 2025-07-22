@@ -10,7 +10,7 @@ public record GetProductsResponse(
         String id,
         String name,
         BigDecimal price,
-        ProductStatus productStatus
+        ProductStatus status
 ) {
     public static Pagination<GetProductsResponse> from(GetProductsUseCaseOutput getProductsUseCaseOutput) {
         return getProductsUseCaseOutput.paginatedProducts().map(paginatedProduct -> new GetProductsResponse(

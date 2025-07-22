@@ -5,11 +5,13 @@ import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.complements.DimensionComplementInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.*;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.RegisterProductRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateProductRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.requests.UpdateProductStatusRequest;
+import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetProductResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.dtos.responses.GetProductsResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class ProductAdminController {
     private final IUpdateProductStatusUseCase updateProductStatusUseCase;
     private final IDeleteProductUseCase deleteProductUseCase;
     private final IGetProductsUseCase getProductsUseCase;
+    private final IGetProductUseCase getProductUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerProduct(@RequestBody @Valid RegisterProductRequest registerProductRequest) {
@@ -107,5 +110,12 @@ public class ProductAdminController {
         ));
 
         return ResponseEntity.ok().body(GetProductsResponse.from(getProductsUseCaseOutput));
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<GetProductResponse> getProduct(@PathVariable String productId) {
+        final GetProductUseCaseOutput getProductUseCaseOutput = this.getProductUseCase.execute(GetProductUseCaseInput.with(productId));
+
+        return ResponseEntity.ok().body(GetProductResponse.from(getProductUseCaseOutput));
     }
 }
