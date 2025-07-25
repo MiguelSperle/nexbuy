@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.miguelsperle.nexbuy.core.domain.abstractions.security.jwt.IJwtService;
 import com.miguelsperle.nexbuy.core.domain.jwt.DecodedJwtToken;
+import com.miguelsperle.nexbuy.core.infrastructure.exceptions.InternalErrorException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,15 +28,10 @@ public class JwtService implements IJwtService {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
-            return JWT.create()
-                    .withIssuer("nexbuy")
-                    .withSubject(userId)
-                    .withClaim("role", role)
-                    .withExpiresAt(this.genExpirationDate(Instant.now()))
-                    .sign(algorithm);
+            throw new JWTCreationException("", new Exception());
         } catch (Exception exception) {
             log.error("Failed to create JWT token for userId: [{}] with role: [{}]", userId, role, exception);
-            throw exception;
+            throw InternalErrorException.with("Internal authentication error");
         }
     }
 

@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.core.infrastructure.web;
 
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
+import com.miguelsperle.nexbuy.core.infrastructure.exceptions.InternalErrorException;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessageResponse> handleNoResourceFoundException(NoResourceFoundException noResourceFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
                 Collections.singletonList("Resource not found"), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(InternalErrorException.class)
+    public ResponseEntity<ErrorMessageResponse> handleInternalErrorException(InternalErrorException internalErrorException) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorMessageResponse.from(
+                Collections.singletonList(internalErrorException.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
         ));
     }
 
