@@ -12,6 +12,7 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGe
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.UpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,9 +35,15 @@ public class AddressUseCasesConfiguration {
 
     @Bean
     public IGetAddressesUseCase getAddressesUseCase(
-            IAddressGateway addressGateway, ISecurityContextService authenticatedUserService
+            IAddressGateway addressGateway,
+            ISecurityContextService securityContextService,
+            IUserGateway userGateway
     ) {
-        return new GetAddressesUseCase(addressGateway, authenticatedUserService);
+        return new GetAddressesUseCase(
+                addressGateway,
+                securityContextService,
+                userGateway
+        );
     }
 
     @Bean

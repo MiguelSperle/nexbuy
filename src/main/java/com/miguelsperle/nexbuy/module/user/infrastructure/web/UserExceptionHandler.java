@@ -28,10 +28,24 @@ public class UserExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(NaturalPersonNotFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleNaturalPersonNotFoundException(NaturalPersonNotFoundException naturalPersonNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
+                Collections.singletonList(naturalPersonNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
     @ExceptionHandler(LegalPersonAlreadyExistsException.class)
     public ResponseEntity<ErrorMessageResponse> handleLegalPersonAlreadyExistsException(LegalPersonAlreadyExistsException legalPersonAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
                 Collections.singletonList(legalPersonAlreadyExistsException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(LegalPersonNotFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleLegalPersonNotFoundException(LegalPersonNotFoundException legalPersonNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
+                Collections.singletonList(legalPersonNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 

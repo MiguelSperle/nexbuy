@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.Create
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
+import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
@@ -84,9 +84,9 @@ public class CreateUserUseCase implements ICreateUserUseCase {
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {
         if (personType == PersonType.NATURAL_PERSON && personComplementInput == null) {
-            throw MissingRequiredComplementException.with("You should provide naturalPerson when the person type is a NATURAL_PERSON");
+            throw MissingComplementException.with("You should provide naturalPerson when the person type is a NATURAL_PERSON");
         } else if (personType == PersonType.LEGAL_PERSON && personComplementInput == null) {
-            throw MissingRequiredComplementException.with("You should provide legalPerson when the person type is a LEGAL_PERSON");
+            throw MissingComplementException.with("You should provide legalPerson when the person type is a LEGAL_PERSON");
         }
     }
 

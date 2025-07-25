@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.web;
 
-import com.miguelsperle.nexbuy.core.application.exceptions.MissingRequiredComplementException;
+import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,15 +30,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ErrorMessageResponse.from(errors, HttpStatus.BAD_REQUEST.getReasonPhrase()));
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorMessageResponse> handleHttpMessageNotReadableException() {
-        return ResponseEntity.badRequest().body(ErrorMessageResponse.from(
-                Collections.singletonList("Invalid request body"), HttpStatus.BAD_REQUEST.getReasonPhrase()
-        ));
-    }
-
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ErrorMessageResponse> handleNoResourceFoundException() {
+    public ResponseEntity<ErrorMessageResponse> handleNoResourceFoundException(NoResourceFoundException noResourceFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
                 Collections.singletonList("Resource not found"), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
@@ -47,7 +39,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(JwtTokenValidationFailedException.class)
     public ResponseEntity<ErrorMessageResponse> handleJwtTokenValidationFailedException(JwtTokenValidationFailedException jwtTokenValidationFailedException) {
-        log.warn("Handling Jwt token validation failed exception - ExceptionMessage: [{}]", jwtTokenValidationFailedException.getMessage(), jwtTokenValidationFailedException);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorMessageResponse.from(
                 Collections.singletonList(jwtTokenValidationFailedException.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase()
         ));
@@ -55,16 +46,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessageResponse> handleException(Exception exception) {
-        log.error("Handling unexpected exception - ExceptionMessage: [{}]", exception.getMessage(), exception);
+        log.error("Handling unexpected exception", exception);
         return ResponseEntity.internalServerError().body(ErrorMessageResponse.from(
                 Collections.singletonList("An unexpected error occurred"), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
         ));
     }
 
-    @ExceptionHandler(MissingRequiredComplementException.class)
-    public ResponseEntity<ErrorMessageResponse> handleMissingRequiredComplementException(MissingRequiredComplementException missingRequiredComplementException) {
+    @ExceptionHandler(MissingComplementException.class)
+    public ResponseEntity<ErrorMessageResponse> handleMissingComplementException(MissingComplementException missingComplementException) {
         return ResponseEntity.badRequest().body(ErrorMessageResponse.from(
-                Collections.singletonList(missingRequiredComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase()
+                Collections.singletonList(missingComplementException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase()
         ));
     }
 }

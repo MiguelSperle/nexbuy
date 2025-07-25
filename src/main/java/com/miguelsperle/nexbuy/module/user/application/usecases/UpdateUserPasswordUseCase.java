@@ -10,16 +10,16 @@ import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGat
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
-    private final ISecurityContextService authenticatedUserService;
+    private final ISecurityContextService securityContextService;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final IUserGateway userGateway;
 
     public UpdateUserPasswordUseCase(
-            ISecurityContextService authenticatedUserService,
+            ISecurityContextService securityContextService,
             IPasswordEncryptorProvider passwordEncryptorProvider,
             IUserGateway userGateway
     ) {
-        this.authenticatedUserService = authenticatedUserService;
+        this.securityContextService = securityContextService;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.userGateway = userGateway;
     }
@@ -46,7 +46,7 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.authenticatedUserService.getAuthenticatedUserId();
+        return this.securityContextService.getAuthenticatedUserId();
     }
 
     private User getUserById(String userId) {

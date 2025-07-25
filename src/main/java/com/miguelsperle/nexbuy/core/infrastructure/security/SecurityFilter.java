@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.security;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
-import com.miguelsperle.nexbuy.core.domain.jwt.DecodedToken;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.jwt.IJwtService;
+import com.miguelsperle.nexbuy.core.domain.jwt.DecodedJwtToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,14 +29,14 @@ public class SecurityFilter extends OncePerRequestFilter {
             final String jwtToken = this.recoverToken(request);
 
             if (jwtToken != null) {
-                final DecodedToken decodedToken = this.jwtService.validateJwt(jwtToken);
+                final DecodedJwtToken decodedJwtToken = this.jwtService.validateJwt(jwtToken);
 
                 final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(
-                        "ROLE_" + decodedToken.role()
+                        "ROLE_" + decodedJwtToken.role()
                 ));
 
                 final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        decodedToken.subject(), null, authorities
+                        decodedJwtToken.subject(), null, authorities
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);

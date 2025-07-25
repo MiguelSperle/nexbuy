@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.IJwtService;
+import com.miguelsperle.nexbuy.core.domain.abstractions.security.jwt.IJwtService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.RefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;

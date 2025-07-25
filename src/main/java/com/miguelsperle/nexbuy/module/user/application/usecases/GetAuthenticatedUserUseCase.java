@@ -16,18 +16,18 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase {
-    private final ISecurityContextService authenticatedUserService;
+    private final ISecurityContextService securityContextService;
     private final INaturalPersonGateway naturalPersonGateway;
     private final ILegalPersonGateway legalPersonGateway;
     private final IUserGateway userGateway;
 
     public GetAuthenticatedUserUseCase(
-            ISecurityContextService authenticatedUserService,
+            ISecurityContextService securityContextService,
             INaturalPersonGateway naturalPersonGateway,
             ILegalPersonGateway legalPersonGateway,
             IUserGateway userGateway
     ) {
-        this.authenticatedUserService = authenticatedUserService;
+        this.securityContextService = securityContextService;
         this.naturalPersonGateway = naturalPersonGateway;
         this.legalPersonGateway = legalPersonGateway;
         this.userGateway = userGateway;
@@ -72,7 +72,7 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
     }
 
     private String getAuthenticatedUserId() {
-        return this.authenticatedUserService.getAuthenticatedUserId();
+        return this.securityContextService.getAuthenticatedUserId();
     }
 
     private User getUserById(String userId) {

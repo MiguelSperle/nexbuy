@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.core.domain.utils;
+package com.miguelsperle.nexbuy.core.application.utils;
 
 import java.time.LocalDateTime;
 
