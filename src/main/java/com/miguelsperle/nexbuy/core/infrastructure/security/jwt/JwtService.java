@@ -27,7 +27,12 @@ public class JwtService implements IJwtService {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
-            throw new JWTCreationException("", new Exception());
+            return JWT.create()
+                    .withIssuer("nexbuy")
+                    .withSubject(userId)
+                    .withClaim("role", role)
+                    .withExpiresAt(this.genExpirationDate(Instant.now()))
+                    .sign(algorithm);
         } catch (Exception exception) {
             log.error("Failed to create JWT token for userId: [{}] with role: [{}]", userId, role, exception);
             throw exception;
