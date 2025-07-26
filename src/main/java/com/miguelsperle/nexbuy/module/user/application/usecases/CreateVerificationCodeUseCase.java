@@ -1,28 +1,28 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.ICodeProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.IDomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
 
 public class CreateVerificationCodeUseCase implements ICreateVerificationCodeUseCase {
-    private final IUserCodeGateway userCodeGateway;
+    private final IUserCodeRepository userCodeRepository;
     private final ICodeProvider codeProvider;
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ITransactionExecutor transactionExecutor;
 
     public CreateVerificationCodeUseCase(
-            IUserCodeGateway userCodeGateway,
+            IUserCodeRepository userCodeRepository,
             ICodeProvider codeProvider,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ITransactionExecutor transactionExecutor
     ) {
-        this.userCodeGateway = userCodeGateway;
+        this.userCodeRepository = userCodeRepository;
         this.codeProvider = codeProvider;
         this.domainEventPublisherProvider = domainEventPublisherProvider;
         this.transactionExecutor = transactionExecutor;
@@ -42,6 +42,6 @@ public class CreateVerificationCodeUseCase implements ICreateVerificationCodeUse
     }
 
     private UserCode saveUserCode(UserCode userCode) {
-        return this.userCodeGateway.save(userCode);
+        return this.userCodeRepository.save(userCode);
     }
 }

@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.ICodeProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IDomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.ICodeProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.IDomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyVerifiedException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResendVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyVerifiedException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -16,19 +16,19 @@ import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
 import java.util.Optional;
 
 public class ResendVerificationCodeUseCase implements IResendVerificationCodeUseCase {
-    private final IUserCodeGateway userCodeGateway;
-    private final IUserGateway userGateway;
+    private final IUserCodeRepository userCodeRepository;
+    private final IUserRepository userRepository;
     private final IDomainEventPublisherProvider domainEventPublisherProvider;
     private final ICodeProvider codeProvider;
 
     public ResendVerificationCodeUseCase(
-            IUserCodeGateway userCodeGateway,
-            IUserGateway userGateway,
+            IUserCodeRepository userCodeRepository,
+            IUserRepository userRepository,
             IDomainEventPublisherProvider domainEventPublisherProvider,
             ICodeProvider codeProvider
     ) {
-        this.userCodeGateway = userCodeGateway;
-        this.userGateway = userGateway;
+        this.userCodeRepository = userCodeRepository;
+        this.userRepository = userRepository;
         this.domainEventPublisherProvider = domainEventPublisherProvider;
         this.codeProvider = codeProvider;
     }
@@ -55,18 +55,18 @@ public class ResendVerificationCodeUseCase implements IResendVerificationCodeUse
     }
 
     private User getUserByEmail(String email) {
-        return this.userGateway.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
-        return this.userCodeGateway.findByUserIdAndCodeType(userId, CodeType.USER_VERIFICATION.name());
+        return this.userCodeRepository.findByUserIdAndCodeType(userId, CodeType.USER_VERIFICATION.name());
     }
 
     private UserCode saveUserCode(UserCode userCode) {
-        return this.userCodeGateway.save(userCode);
+        return this.userCodeRepository.save(userCode);
     }
 
     private void deleteUserCodeById(String userCodeId) {
-        this.userCodeGateway.deleteById(userCodeId);
+        this.userCodeRepository.deleteById(userCodeId);
     }
 }

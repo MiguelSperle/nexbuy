@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.DeleteAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IDeleteAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.AddressNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IDeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class DeleteAddressUseCase implements IDeleteAddressUseCase {
-    private final IAddressGateway addressGateway;
+    private final IAddressRepository addressRepository;
 
-    public DeleteAddressUseCase(IAddressGateway addressGateway) {
-        this.addressGateway = addressGateway;
+    public DeleteAddressUseCase(IAddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -21,11 +21,11 @@ public class DeleteAddressUseCase implements IDeleteAddressUseCase {
     }
 
     private Address getAddressById(String addressId) {
-        return this.addressGateway.findById(addressId)
+        return this.addressRepository.findById(addressId)
                 .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
     }
 
     private void deleteAddressById(String addressId) {
-        this.addressGateway.deleteById(addressId);
+        this.addressRepository.deleteById(addressId);
     }
 }

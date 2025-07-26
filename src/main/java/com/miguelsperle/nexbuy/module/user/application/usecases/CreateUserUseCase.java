@@ -1,24 +1,24 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.IPasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateLegalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class CreateUserUseCase implements ICreateUserUseCase {
-    private final IUserGateway userGateway;
+    private final IUserRepository userRepository;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final ICreateLegalPersonUseCase createLegalPersonUseCase;
     private final ICreateNaturalPersonUseCase createNaturalPersonUseCase;
@@ -26,14 +26,14 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     private final ITransactionExecutor transactionExecutor;
 
     public CreateUserUseCase(
-            IUserGateway userGateway,
+            IUserRepository userRepository,
             IPasswordEncryptorProvider passwordEncryptorProvider,
             ICreateLegalPersonUseCase createLegalPersonUseCase,
             ICreateNaturalPersonUseCase createNaturalPersonUseCase,
             ICreateVerificationCodeUseCase createVerificationCodeUseCase,
             ITransactionExecutor transactionExecutor
     ) {
-        this.userGateway = userGateway;
+        this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.createLegalPersonUseCase = createLegalPersonUseCase;
         this.createNaturalPersonUseCase = createNaturalPersonUseCase;
@@ -79,7 +79,7 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     }
 
     private boolean verifyUserAlreadyExistsByEmail(String email) {
-        return this.userGateway.existsByEmail(email);
+        return this.userRepository.existsByEmail(email);
     }
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {
@@ -91,6 +91,6 @@ public class CreateUserUseCase implements ICreateUserUseCase {
     }
 
     private User saveUser(User user) {
-        return this.userGateway.save(user);
+        return this.userRepository.save(user);
     }
 }

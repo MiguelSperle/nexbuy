@@ -1,14 +1,14 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserToVerifiedUseCase;
-import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateUserToVerifiedUseCase;
+import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -16,17 +16,17 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 import java.time.LocalDateTime;
 
 public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase {
-    private final IUserGateway userGateway;
-    private final IUserCodeGateway userCodeGateway;
+    private final IUserRepository userRepository;
+    private final IUserCodeRepository userCodeRepository;
     private final ITransactionExecutor transactionExecutor;
 
     public UpdateUserToVerifiedUseCase(
-            IUserGateway userGateway,
-            IUserCodeGateway userCodeGateway,
+            IUserRepository userRepository,
+            IUserCodeRepository userCodeRepository,
             ITransactionExecutor transactionExecutor
     ) {
-        this.userGateway = userGateway;
-        this.userCodeGateway = userCodeGateway;
+        this.userRepository = userRepository;
+        this.userCodeRepository = userCodeRepository;
         this.transactionExecutor = transactionExecutor;
     }
 
@@ -50,20 +50,20 @@ public class UpdateUserToVerifiedUseCase implements IUpdateUserToVerifiedUseCase
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
-        return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.USER_VERIFICATION.name())
+        return this.userCodeRepository.findByCodeAndCodeType(code, CodeType.USER_VERIFICATION.name())
                 .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId)
+        return this.userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {
-        this.userGateway.save(user);
+        this.userRepository.save(user);
     }
 
     private void deleteUserCodeById(String userCodeId) {
-        this.userCodeGateway.deleteById(userCodeId);
+        this.userCodeRepository.deleteById(userCodeId);
     }
 }

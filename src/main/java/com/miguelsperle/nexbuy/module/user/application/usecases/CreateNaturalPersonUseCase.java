@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateNaturalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.NaturalPersonAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.INaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 
 public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
-    private final INaturalPersonGateway naturalPersonGateway;
+    private final INaturalPersonRepository naturalPersonRepository;
 
-    public CreateNaturalPersonUseCase(INaturalPersonGateway naturalPersonGateway) {
-        this.naturalPersonGateway = naturalPersonGateway;
+    public CreateNaturalPersonUseCase(INaturalPersonRepository naturalPersonRepository) {
+        this.naturalPersonRepository = naturalPersonRepository;
     }
 
     @Override
@@ -33,14 +33,14 @@ public class CreateNaturalPersonUseCase implements ICreateNaturalPersonUseCase {
     }
 
     private boolean verifyNaturalPersonAlreadyExistsByCpf(String cpf) {
-        return this.naturalPersonGateway.existsByCpf(cpf);
+        return this.naturalPersonRepository.existsByCpf(cpf);
     }
 
     private boolean verifyNaturalPersonAlreadyExistsByGeneralRegister(String generalRegister) {
-        return this.naturalPersonGateway.existsByGeneralRegister(generalRegister);
+        return this.naturalPersonRepository.existsByGeneralRegister(generalRegister);
     }
 
     private void saveNaturalPerson(NaturalPerson naturalPerson) {
-        this.naturalPersonGateway.save(naturalPerson);
+        this.naturalPersonRepository.save(naturalPerson);
     }
 }

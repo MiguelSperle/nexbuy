@@ -1,15 +1,15 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.NaturalPersonNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAuthenticatedUserUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.INaturalPersonGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.LegalPersonNotFoundException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.NaturalPersonNotFoundException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAuthenticatedUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.ILegalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.INaturalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -17,20 +17,20 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase {
     private final ISecurityContextService securityContextService;
-    private final INaturalPersonGateway naturalPersonGateway;
-    private final ILegalPersonGateway legalPersonGateway;
-    private final IUserGateway userGateway;
+    private final INaturalPersonRepository naturalPersonRepository;
+    private final ILegalPersonRepository legalPersonRepository;
+    private final IUserRepository userRepository;
 
     public GetAuthenticatedUserUseCase(
             ISecurityContextService securityContextService,
-            INaturalPersonGateway naturalPersonGateway,
-            ILegalPersonGateway legalPersonGateway,
-            IUserGateway userGateway
+            INaturalPersonRepository naturalPersonRepository,
+            ILegalPersonRepository legalPersonRepository,
+            IUserRepository userRepository
     ) {
         this.securityContextService = securityContextService;
-        this.naturalPersonGateway = naturalPersonGateway;
-        this.legalPersonGateway = legalPersonGateway;
-        this.userGateway = userGateway;
+        this.naturalPersonRepository = naturalPersonRepository;
+        this.legalPersonRepository = legalPersonRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -62,12 +62,12 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
     }
 
     private NaturalPerson getNaturalPersonByUserId(String userId) {
-        return this.naturalPersonGateway.findByUserId(userId)
+        return this.naturalPersonRepository.findByUserId(userId)
                 .orElseThrow(() -> NaturalPersonNotFoundException.with("Natural person not found"));
     }
 
     private LegalPerson getLegalPersonByUserId(String userId) {
-        return this.legalPersonGateway.findByUserId(userId)
+        return this.legalPersonRepository.findByUserId(userId)
                 .orElseThrow(() -> LegalPersonNotFoundException.with("Legal person not found"));
     }
 
@@ -76,7 +76,7 @@ public class GetAuthenticatedUserUseCase implements IGetAuthenticatedUserUseCase
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId)
+        return this.userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 }

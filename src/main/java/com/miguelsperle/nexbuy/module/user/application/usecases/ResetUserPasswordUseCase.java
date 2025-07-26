@@ -1,15 +1,15 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.IPasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeExpiredException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserCodeNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IResetUserPasswordUseCase;
-import com.miguelsperle.nexbuy.core.application.utils.ExpirationUtils;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserCodeGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IResetUserPasswordUseCase;
+import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -17,18 +17,18 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 import java.time.LocalDateTime;
 
 public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
-    private final IUserCodeGateway userCodeGateway;
-    private final IUserGateway userGateway;
+    private final IUserCodeRepository userCodeRepository;
+    private final IUserRepository userRepository;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
     private final ITransactionExecutor transactionExecutor;
 
     public ResetUserPasswordUseCase(
-            IUserCodeGateway userCodeGateway,
-            IUserGateway userGateway,
+            IUserCodeRepository userCodeRepository,
+            IUserRepository userRepository,
             IPasswordEncryptorProvider passwordEncryptorProvider,
             ITransactionExecutor transactionExecutor) {
-        this.userCodeGateway = userCodeGateway;
-        this.userGateway = userGateway;
+        this.userCodeRepository = userCodeRepository;
+        this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.transactionExecutor = transactionExecutor;
     }
@@ -55,20 +55,20 @@ public class ResetUserPasswordUseCase implements IResetUserPasswordUseCase {
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
-        return this.userCodeGateway.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
+        return this.userCodeRepository.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId)
+        return this.userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {
-        this.userGateway.save(user);
+        this.userRepository.save(user);
     }
 
     private void deleteUserCodeById(String userCodeId) {
-        this.userCodeGateway.deleteById(userCodeId);
+        this.userCodeRepository.deleteById(userCodeId);
     }
 }

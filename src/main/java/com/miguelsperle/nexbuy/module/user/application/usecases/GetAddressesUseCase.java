@@ -1,29 +1,29 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressesUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 import java.util.List;
 
 public class GetAddressesUseCase implements IGetAddressesUseCase {
-    private final IAddressGateway addressGateway;
+    private final IAddressRepository addressRepository;
     private final ISecurityContextService securityContextService;
-    private final IUserGateway userGateway;
+    private final IUserRepository userRepository;
 
     public GetAddressesUseCase(
-            IAddressGateway addressGateway,
+            IAddressRepository addressRepository,
             ISecurityContextService securityContextService,
-            IUserGateway userGateway
+            IUserRepository userRepository
     ) {
-        this.addressGateway = addressGateway;
+        this.addressRepository = addressRepository;
         this.securityContextService = securityContextService;
-        this.userGateway = userGateway;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -42,10 +42,10 @@ public class GetAddressesUseCase implements IGetAddressesUseCase {
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private List<Address> getAddressesByUserId(String userId) {
-        return this.addressGateway.findAllByUserId(userId);
+        return this.addressRepository.findAllByUserId(userId);
     }
 }

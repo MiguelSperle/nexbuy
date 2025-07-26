@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.LegalPersonAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateLegalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.ILegalPersonGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.LegalPersonAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateLegalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.ILegalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 
 public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
-    private final ILegalPersonGateway legalPersonGateway;
+    private final ILegalPersonRepository legalPersonRepository;
 
-    public CreateLegalPersonUseCase(ILegalPersonGateway legalPersonGateway) {
-        this.legalPersonGateway = legalPersonGateway;
+    public CreateLegalPersonUseCase(ILegalPersonRepository legalPersonRepository) {
+        this.legalPersonRepository = legalPersonRepository;
     }
 
     @Override
@@ -43,25 +43,25 @@ public class CreateLegalPersonUseCase implements ICreateLegalPersonUseCase {
     }
 
     private boolean verifyLegalPersonAlreadyExistsByCnpj(String cnpj) {
-        return this.legalPersonGateway.existsByCnpj(cnpj);
+        return this.legalPersonRepository.existsByCnpj(cnpj);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByFantasyName(String fantasyName) {
-        return this.legalPersonGateway.existsByFantasyName(fantasyName);
+        return this.legalPersonRepository.existsByFantasyName(fantasyName);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByLegalName(String legalName) {
-        return this.legalPersonGateway.existsByLegalName(legalName);
+        return this.legalPersonRepository.existsByLegalName(legalName);
     }
 
     private boolean verifyLegalPersonAlreadyExistsByStateRegistration(String stateRegistration) {
         if (stateRegistration != null) {
-            return this.legalPersonGateway.existsByStateRegistration(stateRegistration);
+            return this.legalPersonRepository.existsByStateRegistration(stateRegistration);
         }
         return false;
     }
 
     private void saveLegalPerson(LegalPerson legalPerson) {
-        this.legalPersonGateway.save(legalPerson);
+        this.legalPersonRepository.save(legalPerson);
     }
 }

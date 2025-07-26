@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.AddressNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class UpdateAddressUseCase implements IUpdateAddressUseCase {
-    private final IAddressGateway addressGateway;
+    private final IAddressRepository addressRepository;
 
-    public UpdateAddressUseCase(IAddressGateway addressGateway) {
-        this.addressGateway = addressGateway;
+    public UpdateAddressUseCase(IAddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -29,11 +29,11 @@ public class UpdateAddressUseCase implements IUpdateAddressUseCase {
     }
 
     private Address getAddressById(String addressId) {
-        return this.addressGateway.findById(addressId)
+        return this.addressRepository.findById(addressId)
                 .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
     }
 
     private void saveAddress(Address address) {
-        this.addressGateway.save(address);
+        this.addressRepository.save(address);
     }
 }

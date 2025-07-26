@@ -2,17 +2,17 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateRefreshTokenUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IRefreshTokenGateway;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IRefreshTokenRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 
 import java.util.Optional;
 
 public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
-    private final IRefreshTokenGateway refreshTokenGateway;
+    private final IRefreshTokenRepository refreshTokenRepository;
 
-    public CreateRefreshTokenUseCase(IRefreshTokenGateway refreshTokenGateway) {
-        this.refreshTokenGateway = refreshTokenGateway;
+    public CreateRefreshTokenUseCase(IRefreshTokenRepository refreshTokenRepository) {
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
         final String userId = createRefreshTokenUseCaseInput.userId();
 
         this.getPreviousRefreshTokenByUserId(userId).ifPresent(refreshToken ->
-                this.refreshTokenGateway.deleteById(refreshToken.getId())
+                this.refreshTokenRepository.deleteById(refreshToken.getId())
         );
 
         final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(userId);
@@ -31,10 +31,10 @@ public class CreateRefreshTokenUseCase implements ICreateRefreshTokenUseCase {
     }
 
     private Optional<RefreshToken> getPreviousRefreshTokenByUserId(String userId) {
-        return this.refreshTokenGateway.findByUserId(userId);
+        return this.refreshTokenRepository.findByUserId(userId);
     }
 
     private RefreshToken saveRefreshToken(RefreshToken refreshToken) {
-        return this.refreshTokenGateway.save(refreshToken);
+        return this.refreshTokenRepository.save(refreshToken);
     }
 }

@@ -1,22 +1,22 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class UpdateUserUseCase implements IUpdateUserUseCase {
     private final ISecurityContextService securityContextService;
-    private final IUserGateway userGateway;
+    private final IUserRepository userRepository;
 
     public UpdateUserUseCase(
             ISecurityContextService securityContextService,
-            IUserGateway userGateway
+            IUserRepository userRepository
     ) {
         this.securityContextService = securityContextService;
-        this.userGateway = userGateway;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,11 +37,11 @@ public class UpdateUserUseCase implements IUpdateUserUseCase {
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId)
+        return this.userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {
-        this.userGateway.save(user);
+        this.userRepository.save(user);
     }
 }

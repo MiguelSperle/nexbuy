@@ -2,16 +2,16 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.GetAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.AddressNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IGetAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.AddressNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class GetAddressUseCase implements IGetAddressUseCase {
-    private final IAddressGateway addressGateway;
+    private final IAddressRepository addressRepository;
 
-    public GetAddressUseCase(IAddressGateway addressGateway) {
-        this.addressGateway = addressGateway;
+    public GetAddressUseCase(IAddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class GetAddressUseCase implements IGetAddressUseCase {
     }
 
     private Address getAddressById(String addressId) {
-        return this.addressGateway.findById(addressId)
+        return this.addressRepository.findById(addressId)
                 .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
     }
 }

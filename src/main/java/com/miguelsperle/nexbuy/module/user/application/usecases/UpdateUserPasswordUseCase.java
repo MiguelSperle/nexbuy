@@ -1,27 +1,27 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.providers.IPasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.IPasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.InvalidCurrentPasswordException;
-import com.miguelsperle.nexbuy.module.user.application.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.IUpdateUserPasswordUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IUserGateway;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.InvalidCurrentPasswordException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateUserPasswordUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
     private final ISecurityContextService securityContextService;
     private final IPasswordEncryptorProvider passwordEncryptorProvider;
-    private final IUserGateway userGateway;
+    private final IUserRepository userRepository;
 
     public UpdateUserPasswordUseCase(
             ISecurityContextService securityContextService,
             IPasswordEncryptorProvider passwordEncryptorProvider,
-            IUserGateway userGateway
+            IUserRepository userRepository
     ) {
         this.securityContextService = securityContextService;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
-        this.userGateway = userGateway;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -50,11 +50,11 @@ public class UpdateUserPasswordUseCase implements IUpdateUserPasswordUseCase {
     }
 
     private User getUserById(String userId) {
-        return this.userGateway.findById(userId)
+        return this.userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {
-        this.userGateway.save(user);
+        this.userRepository.save(user);
     }
 }

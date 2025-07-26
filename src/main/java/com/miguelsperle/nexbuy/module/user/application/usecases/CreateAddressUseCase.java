@@ -1,20 +1,20 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.abstractions.security.ISecurityContextService;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.abstractions.ICreateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.domain.abstractions.gateways.IAddressGateway;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class CreateAddressUseCase implements ICreateAddressUseCase {
-    private final IAddressGateway addressGateway;
+    private final IAddressRepository addressRepository;
     private final ISecurityContextService securityContextService;
 
     public CreateAddressUseCase(
-            final IAddressGateway addressGateway,
+            final IAddressRepository addressRepository,
             final ISecurityContextService securityContextService
     ) {
-        this.addressGateway = addressGateway;
+        this.addressRepository = addressRepository;
         this.securityContextService = securityContextService;
     }
 
@@ -41,6 +41,6 @@ public class CreateAddressUseCase implements ICreateAddressUseCase {
     }
 
     private void saveAddress(Address address) {
-        this.addressGateway.save(address);
+        this.addressRepository.save(address);
     }
 }
