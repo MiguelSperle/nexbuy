@@ -1,20 +1,20 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAssociatedWithProductsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAssociatedWithProductsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 
 public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
-    private final ICategoryGateway categoryGateway;
-    private final IProductGateway productGateway;
+    private final ICategoryRepository categoryRepository;
+    private final IProductRepository productRepository;
 
-    public DeleteCategoryUseCase(ICategoryGateway categoryGateway, IProductGateway productGateway) {
-        this.categoryGateway = categoryGateway;
-        this.productGateway = productGateway;
+    public DeleteCategoryUseCase(ICategoryRepository categoryRepository, IProductRepository productRepository) {
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -29,15 +29,15 @@ public class DeleteCategoryUseCase implements IDeleteCategoryUseCase {
     }
 
     private Category getCategoryById(String categoryId) {
-        return this.categoryGateway.findById(categoryId)
+        return this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private boolean verifyProductAlreadyExistsByCategoryId(String categoryId) {
-        return this.productGateway.existsByCategoryId(categoryId);
+        return this.productRepository.existsByCategoryId(categoryId);
     }
 
     private void deleteCategoryById(String categoryId) {
-        this.categoryGateway.deleteById(categoryId);
+        this.categoryRepository.deleteById(categoryId);
     }
 }

@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ProductNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteProductUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ProductNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 
 public class DeleteProductUseCase implements IDeleteProductUseCase {
-    private final IProductGateway productGateway;
+    private final IProductRepository productRepository;
 
-    public DeleteProductUseCase(IProductGateway productGateway) {
-        this.productGateway = productGateway;
+    public DeleteProductUseCase(IProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -24,11 +24,11 @@ public class DeleteProductUseCase implements IDeleteProductUseCase {
     }
 
     private Product getProductById(String productId) {
-        return this.productGateway.findById(productId)
+        return this.productRepository.findById(productId)
                 .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 
     private void saveProduct(Product product) {
-        this.productGateway.save(product);
+        this.productRepository.save(product);
     }
 }

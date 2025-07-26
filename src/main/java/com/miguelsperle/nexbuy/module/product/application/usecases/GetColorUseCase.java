@@ -2,16 +2,16 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 
 public class GetColorUseCase implements IGetColorUseCase {
-    private final IColorGateway colorGateway;
+    private final IColorRepository colorRepository;
 
-    public GetColorUseCase(IColorGateway colorGateway) {
-        this.colorGateway = colorGateway;
+    public GetColorUseCase(IColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class GetColorUseCase implements IGetColorUseCase {
     }
 
     private Color getColorById(String colorId) {
-        return this.colorGateway.findById(colorId)
+        return this.colorRepository.findById(colorId)
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 }

@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 
 public class RegisterBrandUseCase implements IRegisterBrandUseCase {
-    private final IBrandGateway brandGateway;
+    private final IBrandRepository brandRepository;
 
-    public RegisterBrandUseCase(IBrandGateway brandGateway) {
-        this.brandGateway = brandGateway;
+    public RegisterBrandUseCase(IBrandRepository brandRepository) {
+        this.brandRepository = brandRepository;
     }
 
     @Override
@@ -25,10 +25,10 @@ public class RegisterBrandUseCase implements IRegisterBrandUseCase {
     }
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
-        return this.brandGateway.existsByName(name);
+        return this.brandRepository.existsByName(name);
     }
 
     private void saveBrand(Brand brand) {
-        this.brandGateway.save(brand);
+        this.brandRepository.save(brand);
     }
 }

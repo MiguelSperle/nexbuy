@@ -2,16 +2,16 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 
 public class GetBrandUseCase implements IGetBrandUseCase {
-    private final IBrandGateway brandGateway;
+    private final IBrandRepository brandRepository;
 
-    public GetBrandUseCase(IBrandGateway brandGateway) {
-        this.brandGateway = brandGateway;
+    public GetBrandUseCase(IBrandRepository brandRepository) {
+        this.brandRepository = brandRepository;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class GetBrandUseCase implements IGetBrandUseCase {
     }
 
     private Brand getBrandById(String brandId) {
-        return this.brandGateway.findById(brandId)
+        return this.brandRepository.findById(brandId)
                 .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 }

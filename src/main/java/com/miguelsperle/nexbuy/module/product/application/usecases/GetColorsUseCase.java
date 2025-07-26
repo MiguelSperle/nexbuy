@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetColorsUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetColorsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 
 import java.util.List;
 
 public class GetColorsUseCase implements IGetColorsUseCase {
-    private final IColorGateway colorGateway;
+    private final IColorRepository colorRepository;
 
-    public GetColorsUseCase(IColorGateway colorGateway) {
-        this.colorGateway = colorGateway;
+    public GetColorsUseCase(IColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class GetColorsUseCase implements IGetColorsUseCase {
     }
 
     private List<Color> getAllColors() {
-        return this.colorGateway.findAll();
+        return this.colorRepository.findAll();
     }
 }

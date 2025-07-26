@@ -1,20 +1,20 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorAssociatedWithProductsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteColorUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAssociatedWithProductsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 
 public class DeleteColorUseCase implements IDeleteColorUseCase {
-    private final IColorGateway colorGateway;
-    private final IProductGateway productGateway;
+    private final IColorRepository colorRepository;
+    private final IProductRepository productRepository;
 
-    public DeleteColorUseCase(IColorGateway colorGateway, IProductGateway productGateway) {
-        this.colorGateway = colorGateway;
-        this.productGateway = productGateway;
+    public DeleteColorUseCase(IColorRepository colorRepository, IProductRepository productRepository) {
+        this.colorRepository = colorRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -29,15 +29,15 @@ public class DeleteColorUseCase implements IDeleteColorUseCase {
     }
 
     private Color getColorById(String colorId) {
-        return this.colorGateway.findById(colorId)
+        return this.colorRepository.findById(colorId)
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private boolean verifyProductAlreadyExistsByColorId(String colorId) {
-        return this.productGateway.existsByColorId(colorId);
+        return this.productRepository.existsByColorId(colorId);
     }
 
     private void deleteColorById(String colorId) {
-        this.colorGateway.deleteById(colorId);
+        this.colorRepository.deleteById(colorId);
     }
 }

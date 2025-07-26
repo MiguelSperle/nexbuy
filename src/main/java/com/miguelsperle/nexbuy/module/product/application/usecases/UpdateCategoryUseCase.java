@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 
 public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
-    private final ICategoryGateway categoryGateway;
+    private final ICategoryRepository categoryRepository;
 
-    public UpdateCategoryUseCase(ICategoryGateway categoryGateway) {
-        this.categoryGateway = categoryGateway;
+    public UpdateCategoryUseCase(ICategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -30,15 +30,15 @@ public class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
     }
 
     private Category getCategoryById(String id) {
-        return this.categoryGateway.findById(id)
+        return this.categoryRepository.findById(id)
                 .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {
-        return this.categoryGateway.existsByName(name);
+        return this.categoryRepository.existsByName(name);
     }
 
     private void saveCategory(Category category) {
-        this.categoryGateway.save(category);
+        this.categoryRepository.save(category);
     }
 }

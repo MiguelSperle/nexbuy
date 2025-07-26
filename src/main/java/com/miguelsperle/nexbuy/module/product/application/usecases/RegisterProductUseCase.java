@@ -1,38 +1,38 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterProductUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.providers.ISkuProvider;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.providers.ISkuProvider;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 
 public class RegisterProductUseCase implements IRegisterProductUseCase {
-    private final IProductGateway productGateway;
-    private final ICategoryGateway categoryGateway;
-    private final IBrandGateway brandGateway;
-    private final IColorGateway colorGateway;
+    private final IProductRepository productRepository;
+    private final ICategoryRepository categoryRepository;
+    private final IBrandRepository brandRepository;
+    private final IColorRepository colorRepository;
     private final ISkuProvider skuProvider;
 
     public RegisterProductUseCase(
-            IProductGateway productGateway,
-            ICategoryGateway categoryGateway,
-            IBrandGateway brandGateway,
-            IColorGateway colorGateway,
+            IProductRepository productRepository,
+            ICategoryRepository categoryRepository,
+            IBrandRepository brandRepository,
+            IColorRepository colorRepository,
             ISkuProvider skuProvider
     ) {
-        this.productGateway = productGateway;
-        this.categoryGateway = categoryGateway;
-        this.brandGateway = brandGateway;
-        this.colorGateway = colorGateway;
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+        this.brandRepository = brandRepository;
+        this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
     }
 
@@ -69,21 +69,21 @@ public class RegisterProductUseCase implements IRegisterProductUseCase {
     }
 
     private Category getCategoryById(String categoryId) {
-        return this.categoryGateway.findById(categoryId)
+        return this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 
     private Brand getBrandById(String brandId) {
-        return this.brandGateway.findById(brandId)
+        return this.brandRepository.findById(brandId)
                 .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private Color getColorById(String colorId) {
-        return this.colorGateway.findById(colorId)
+        return this.colorRepository.findById(colorId)
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private void saveProduct(Product product) {
-        this.productGateway.save(product);
+        this.productRepository.save(product);
     }
 }

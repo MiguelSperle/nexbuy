@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterColorUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 
 public class RegisterColorUseCase implements IRegisterColorUseCase {
-    private final IColorGateway colorGateway;
+    private final IColorRepository colorRepository;
 
-    public RegisterColorUseCase(IColorGateway colorGateway) {
-        this.colorGateway = colorGateway;
+    public RegisterColorUseCase(IColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
     }
 
     @Override
@@ -25,10 +25,10 @@ public class RegisterColorUseCase implements IRegisterColorUseCase {
     }
 
     private boolean verifyColorAlreadyExistsByName(String name) {
-        return this.colorGateway.existsByName(name);
+        return this.colorRepository.existsByName(name);
     }
 
     private void saveColor(Color color) {
-        this.colorGateway.save(color);
+        this.colorRepository.save(color);
     }
 }

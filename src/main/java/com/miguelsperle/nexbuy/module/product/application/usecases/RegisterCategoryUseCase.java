@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IRegisterCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 
 public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
-    private final ICategoryGateway categoryGateway;
+    private final ICategoryRepository categoryRepository;
 
-    public RegisterCategoryUseCase(ICategoryGateway categoryGateway) {
-        this.categoryGateway = categoryGateway;
+    public RegisterCategoryUseCase(ICategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -25,10 +25,10 @@ public class RegisterCategoryUseCase implements IRegisterCategoryUseCase {
     }
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {
-        return this.categoryGateway.existsByName(name);
+        return this.categoryRepository.existsByName(name);
     }
 
     private void saveCategory(Category category) {
-        this.categoryGateway.save(category);
+        this.categoryRepository.save(category);
     }
 }

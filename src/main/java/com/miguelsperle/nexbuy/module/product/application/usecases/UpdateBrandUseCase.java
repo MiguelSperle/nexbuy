@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 
 public class UpdateBrandUseCase implements IUpdateBrandUseCase {
-    private final IBrandGateway brandGateway;
+    private final IBrandRepository brandRepository;
 
-    public UpdateBrandUseCase(IBrandGateway brandGateway) {
-        this.brandGateway = brandGateway;
+    public UpdateBrandUseCase(IBrandRepository brandRepository) {
+        this.brandRepository = brandRepository;
     }
 
     @Override
@@ -30,15 +30,15 @@ public class UpdateBrandUseCase implements IUpdateBrandUseCase {
     }
 
     private Brand getBrandById(String brandId) {
-        return this.brandGateway.findById(brandId)
+        return this.brandRepository.findById(brandId)
                 .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
-        return this.brandGateway.existsByName(name);
+        return this.brandRepository.existsByName(name);
     }
 
     private void saveBrand(Brand brand) {
-        this.brandGateway.save(brand);
+        this.brandRepository.save(brand);
     }
 }

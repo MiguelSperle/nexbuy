@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.ColorNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IUpdateColorUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IColorGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 
 public class UpdateColorUseCase implements IUpdateColorUseCase {
-    private final IColorGateway colorGateway;
+    private final IColorRepository colorRepository;
 
-    public UpdateColorUseCase(IColorGateway colorGateway) {
-        this.colorGateway = colorGateway;
+    public UpdateColorUseCase(IColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
     }
 
     @Override
@@ -30,15 +30,15 @@ public class UpdateColorUseCase implements IUpdateColorUseCase {
     }
 
     private Color getColorById(String colorId) {
-        return this.colorGateway.findById(colorId)
+        return this.colorRepository.findById(colorId)
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
     private boolean verifyColorAlreadyExistsByName(String name) {
-        return this.colorGateway.existsByName(name);
+        return this.colorRepository.existsByName(name);
     }
 
     private void saveColor(Color color) {
-        this.colorGateway.save(color);
+        this.colorRepository.save(color);
     }
 }

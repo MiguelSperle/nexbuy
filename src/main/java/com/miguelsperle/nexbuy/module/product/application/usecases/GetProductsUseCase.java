@@ -4,15 +4,15 @@ import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductsUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetProductsUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetProductsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 
 public class GetProductsUseCase implements IGetProductsUseCase {
-    private final IProductGateway productGateway;
+    private final IProductRepository productRepository;
 
-    public GetProductsUseCase(IProductGateway productGateway) {
-        this.productGateway = productGateway;
+    public GetProductsUseCase(IProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class GetProductsUseCase implements IGetProductsUseCase {
     }
 
     private Pagination<Product> getAllPaginatedProducts(SearchQuery searchQuery) {
-        return this.productGateway.findAllPaginated(searchQuery);
+        return this.productRepository.findAllPaginated(searchQuery);
     }
 }

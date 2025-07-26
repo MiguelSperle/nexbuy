@@ -2,16 +2,16 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 
 public class GetCategoryUseCase implements IGetCategoryUseCase {
-    private final ICategoryGateway categoryGateway;
+    private final ICategoryRepository brandRepository;
 
-    public GetCategoryUseCase(ICategoryGateway categoryGateway) {
-        this.categoryGateway = categoryGateway;
+    public GetCategoryUseCase(ICategoryRepository brandRepository) {
+        this.brandRepository = brandRepository;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class GetCategoryUseCase implements IGetCategoryUseCase {
     }
 
     private Category getCategoryById(String categoryId) {
-        return this.categoryGateway.findById(categoryId)
+        return this.brandRepository.findById(categoryId)
                 .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
     }
 }

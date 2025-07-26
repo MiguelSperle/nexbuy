@@ -1,20 +1,20 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandAssociatedWithProductsException;
-import com.miguelsperle.nexbuy.module.product.application.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IDeleteBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IBrandGateway;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.IProductGateway;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandAssociatedWithProductsException;
+import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 
 public class DeleteBrandUseCase implements IDeleteBrandUseCase {
-    private final IBrandGateway brandGateway;
-    private final IProductGateway productGateway;
+    private final IBrandRepository brandRepository;
+    private final IProductRepository productRepository;
 
-    public DeleteBrandUseCase(IBrandGateway brandGateway, IProductGateway productGateway) {
-        this.brandGateway = brandGateway;
-        this.productGateway = productGateway;
+    public DeleteBrandUseCase(IBrandRepository brandRepository, IProductRepository productRepository) {
+        this.brandRepository = brandRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -29,15 +29,15 @@ public class DeleteBrandUseCase implements IDeleteBrandUseCase {
     }
 
     private Brand getBrandById(String brandId) {
-        return this.brandGateway.findById(brandId)
+        return this.brandRepository.findById(brandId)
                 .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
     }
 
     private boolean verifyProductAlreadyExistsByBrandId(String brandId) {
-        return this.productGateway.existsByBrandId(brandId);
+        return this.productRepository.existsByBrandId(brandId);
     }
 
     private void deleteBrandById(String brandId) {
-        this.brandGateway.deleteById(brandId);
+        this.productRepository.deleteById(brandId);
     }
 }

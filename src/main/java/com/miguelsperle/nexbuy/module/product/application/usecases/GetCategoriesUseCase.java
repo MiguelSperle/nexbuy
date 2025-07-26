@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.usecases.abstractions.IGetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.domain.abstractions.gateways.ICategoryGateway;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetCategoriesUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 
 import java.util.List;
 
 public class GetCategoriesUseCase implements IGetCategoriesUseCase {
-    private final ICategoryGateway categoryGateway;
+    private final ICategoryRepository brandRepository;
 
-    public GetCategoriesUseCase(ICategoryGateway categoryGateway) {
-        this.categoryGateway = categoryGateway;
+    public GetCategoriesUseCase(ICategoryRepository brandRepository) {
+        this.brandRepository = brandRepository;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class GetCategoriesUseCase implements IGetCategoriesUseCase {
     }
 
     private List<Category> getAllCategories() {
-        return this.categoryGateway.findAll();
+        return this.brandRepository.findAll();
     }
 }
