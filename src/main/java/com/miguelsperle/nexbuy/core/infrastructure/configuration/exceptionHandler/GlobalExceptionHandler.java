@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.core.infrastructure.configuration.exceptionHandl
 
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.ErrorMessageResponse;
-import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenCreationFailedException;
-import com.miguelsperle.nexbuy.core.infrastructure.exceptions.JwtTokenValidationFailedException;
+import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.JwtTokenCreationFailedException;
+import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.JwtTokenValidationFailedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

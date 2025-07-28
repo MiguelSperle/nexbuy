@@ -1,6 +1,6 @@
-package com.miguelsperle.nexbuy.core.infrastructure.annotations;
+package com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.annotations;
 
-import com.miguelsperle.nexbuy.core.infrastructure.annotations.validators.EnumValidator;
+import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.annotations.validators.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

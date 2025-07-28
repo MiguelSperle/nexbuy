@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.core.infrastructure.exceptions;
+package com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions;
 
 public class EventProcessingFailureException extends RuntimeException {
     public EventProcessingFailureException(String message, Throwable cause) {

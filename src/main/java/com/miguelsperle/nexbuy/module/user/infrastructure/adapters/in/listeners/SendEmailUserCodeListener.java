@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.services.IEmailService;
-import com.miguelsperle.nexbuy.core.infrastructure.exceptions.EventProcessingFailureException;
+import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
