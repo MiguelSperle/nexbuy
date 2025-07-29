@@ -32,6 +32,7 @@ public class Routes {
     };
 
     public static final String[] INVENTORY_MODULE_RESTRICTED_ENDPOINTS = {
-            "/api/v1/admin/inventories/{sku}/increase"
+            "/api/v1/admin/inventories/{sku}/increase",
+            "/api/v1/admin/inventories/{sku}/decrease"
     };
 }
