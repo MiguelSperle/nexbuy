@@ -8,6 +8,7 @@ import java.util.UUID;
 public class InventoryMovement {
     private final String id;
     private final String inventoryId;
+    private final String sku;
     private final Integer quantity;
     private final InventoryMovementType inventoryMovementType;
     private final LocalDateTime createdAt;
@@ -15,12 +16,14 @@ public class InventoryMovement {
     private InventoryMovement(
             String id,
             String inventoryId,
+            String sku,
             Integer quantity,
             InventoryMovementType inventoryMovementType,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.inventoryId = inventoryId;
+        this.sku = sku;
         this.quantity = quantity;
         this.inventoryMovementType = inventoryMovementType;
         this.createdAt = createdAt;
@@ -28,12 +31,14 @@ public class InventoryMovement {
 
     public static InventoryMovement newInventoryMovement(
             String inventoryId,
+            String sku,
             Integer quantity,
             InventoryMovementType inventoryMovementType
     ) {
         return new InventoryMovement(
                 UUID.randomUUID().toString(),
                 inventoryId,
+                sku,
                 quantity,
                 inventoryMovementType,
                 LocalDateTime.now()
@@ -43,6 +48,7 @@ public class InventoryMovement {
     public static InventoryMovement with(
             String id,
             String inventoryId,
+            String sku,
             Integer quantity,
             InventoryMovementType inventoryMovementType,
             LocalDateTime createdAt
@@ -50,6 +56,7 @@ public class InventoryMovement {
         return new InventoryMovement(
                 id,
                 inventoryId,
+                sku,
                 quantity,
                 inventoryMovementType,
                 createdAt
@@ -62,6 +69,10 @@ public class InventoryMovement {
 
     public String getInventoryId() {
         return this.inventoryId;
+    }
+
+    public String getSku() {
+        return this.sku;
     }
 
     public Integer getQuantity() {
@@ -79,11 +90,12 @@ public class InventoryMovement {
     @Override
     public String toString() {
         return "InventoryMovement{" +
-                "id='" + this.id + '\'' +
-                ", inventoryId='" + this.inventoryId + '\'' +
-                ", quantity=" + this.quantity +
-                ", inventoryMovementType=" + this.inventoryMovementType +
-                ", createdAt=" + this.createdAt +
+                "id='" + id + '\'' +
+                ", inventoryId='" + inventoryId + '\'' +
+                ", sku='" + sku + '\'' +
+                ", quantity=" + quantity +
+                ", inventoryMovementType=" + inventoryMovementType +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

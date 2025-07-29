@@ -20,6 +20,9 @@ public class JpaInventoryMovementEntity {
     @Column(name = "inventory_id", nullable = false, length = 36)
     private String inventoryId;
 
+    @Column(nullable = false, length = 80)
+    private String sku;
+
     @Column(nullable = false)
     private Integer quantity;
 
@@ -34,6 +37,7 @@ public class JpaInventoryMovementEntity {
         return new JpaInventoryMovementEntity(
                 inventoryMovement.getId(),
                 inventoryMovement.getInventoryId(),
+                inventoryMovement.getSku(),
                 inventoryMovement.getQuantity(),
                 inventoryMovement.getInventoryMovementType(),
                 inventoryMovement.getCreatedAt()
@@ -44,6 +48,7 @@ public class JpaInventoryMovementEntity {
         return InventoryMovement.with(
                 this.id,
                 this.inventoryId,
+                this.sku,
                 this.quantity,
                 this.inventoryMovementType,
                 this.createdAt

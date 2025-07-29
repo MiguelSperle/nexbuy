@@ -33,6 +33,7 @@ public class IncreaseInventoryUseCase implements IIncreaseInventoryUseCase {
 
         final InventoryMovement newInventoryMovement = InventoryMovement.newInventoryMovement(
                 inventory.getId(),
+                inventory.getSku(),
                 increaseInventoryUseCaseInput.quantity(),
                 InventoryMovementType.IN
         );

@@ -38,6 +38,7 @@ public class DecreaseInventoryUseCase implements IDecreaseInventoryUseCase {
 
         final InventoryMovement newInventoryMovement = InventoryMovement.newInventoryMovement(
                 inventory.getId(),
+                inventory.getSku(),
                 decreaseInventoryUseCaseInput.quantity(),
                 InventoryMovementType.OUT
         );
