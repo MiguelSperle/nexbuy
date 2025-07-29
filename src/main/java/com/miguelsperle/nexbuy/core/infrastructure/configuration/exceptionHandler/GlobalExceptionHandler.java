@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.core.infrastructure.configuration.exceptionHandler;
 
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.ErrorMessageResponse;
+import com.miguelsperle.nexbuy.core.infrastructure.configuration.dtos.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.JwtTokenCreationFailedException;
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.JwtTokenValidationFailedException;
 import org.slf4j.Logger;

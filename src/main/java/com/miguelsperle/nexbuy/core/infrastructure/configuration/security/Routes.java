@@ -30,4 +30,8 @@ public class Routes {
             "/api/v1/products",
             "/api/v1/products/{productId}"
     };
+
+    public static final String[] INVENTORY_MODULE_RESTRICTED_ENDPOINTS = {
+            "/api/v1/admin/inventories/{sku}/increase"
+    };
 }

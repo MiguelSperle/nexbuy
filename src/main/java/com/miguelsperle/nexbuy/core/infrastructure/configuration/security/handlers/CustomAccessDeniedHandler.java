@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.configuration.security.handlers;
 
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.ErrorMessageResponse;
+import com.miguelsperle.nexbuy.core.infrastructure.configuration.dtos.ErrorMessageResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -8,7 +8,7 @@ import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.providers.ISkuProvider;
-import com.miguelsperle.nexbuy.module.stock.application.ports.in.ICreateStockUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.ICreateInventoryUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +21,7 @@ public class ProductUseCasesConfiguration {
             IBrandRepository brandRepository,
             IColorRepository colorRepository,
             ISkuProvider skuProvider,
-            ICreateStockUseCase createStockUseCase,
+            ICreateInventoryUseCase createStockUseCase,
             ITransactionExecutor transactionExecutor
     ) {
         return new RegisterProductUseCase(
