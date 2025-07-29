@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
@@ -14,6 +15,8 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+import com.miguelsperle.nexbuy.module.stock.application.ports.in.ICreateStockUseCase;
+import com.miguelsperle.nexbuy.module.stock.application.usecases.io.inputs.CreateStockUseCaseInput;
 
 public class RegisterProductUseCase implements IRegisterProductUseCase {
     private final IProductRepository productRepository;
@@ -21,19 +24,25 @@ public class RegisterProductUseCase implements IRegisterProductUseCase {
     private final IBrandRepository brandRepository;
     private final IColorRepository colorRepository;
     private final ISkuProvider skuProvider;
+    private final ICreateStockUseCase createStockUseCase;
+    private final ITransactionExecutor transactionExecutor;
 
     public RegisterProductUseCase(
             IProductRepository productRepository,
             ICategoryRepository categoryRepository,
             IBrandRepository brandRepository,
             IColorRepository colorRepository,
-            ISkuProvider skuProvider
+            ISkuProvider skuProvider,
+            ICreateStockUseCase createStockUseCase,
+            ITransactionExecutor transactionExecutor
     ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
+        this.createStockUseCase = createStockUseCase;
+        this.transactionExecutor = transactionExecutor;
     }
 
     @Override
@@ -65,7 +74,15 @@ public class RegisterProductUseCase implements IRegisterProductUseCase {
                 registerProductUseCaseInput.dimensionComplementInput().length()
         );
 
-        this.saveProduct(newProduct);
+        this.transactionExecutor.runTransaction(() -> {
+            final Product savedProduct = this.saveProduct(newProduct);
+
+            this.createStockUseCase.execute(CreateStockUseCaseInput.with(
+                    savedProduct.getId(),
+                    savedProduct.getSku(),
+                    0
+            ));
+        });
     }
 
     private Category getCategoryById(String categoryId) {
@@ -83,7 +100,7 @@ public class RegisterProductUseCase implements IRegisterProductUseCase {
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
-    private void saveProduct(Product product) {
-        this.productRepository.save(product);
+    private Product saveProduct(Product product) {
+        return this.productRepository.save(product);
     }
 }
