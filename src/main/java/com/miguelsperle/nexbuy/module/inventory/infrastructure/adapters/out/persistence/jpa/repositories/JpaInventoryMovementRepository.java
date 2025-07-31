@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.out.per
 
 import com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.out.persistence.jpa.entities.JpaInventoryMovementEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface JpaInventoryMovementRepository extends JpaRepository<JpaInventoryMovementEntity, String> {
+public interface JpaInventoryMovementRepository extends JpaRepository<JpaInventoryMovementEntity, String>, JpaSpecificationExecutor<JpaInventoryMovementEntity> {
 }

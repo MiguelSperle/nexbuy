@@ -28,7 +28,7 @@ public class JpaInventoryMovementEntity {
 
     @Column(name = "movement_type", nullable = false, length = 3)
     @Enumerated(EnumType.STRING)
-    private InventoryMovementType inventoryMovementType;
+    private InventoryMovementType movementType;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -39,7 +39,7 @@ public class JpaInventoryMovementEntity {
                 inventoryMovement.getInventoryId(),
                 inventoryMovement.getSku(),
                 inventoryMovement.getQuantity(),
-                inventoryMovement.getInventoryMovementType(),
+                inventoryMovement.getMovementType(),
                 inventoryMovement.getCreatedAt()
         );
     }
@@ -50,7 +50,7 @@ public class JpaInventoryMovementEntity {
                 this.inventoryId,
                 this.sku,
                 this.quantity,
-                this.inventoryMovementType,
+                this.movementType,
                 this.createdAt
         );
     }

@@ -55,6 +55,23 @@ public record SearchQuery(
         );
     }
 
+    public static SearchQuery newSearchQuery(
+            int page,
+            int perPage,
+            String sort,
+            String direction,
+            Map<String, String> filters
+    ) {
+        return new SearchQuery(
+                page,
+                perPage,
+                null,
+                sort,
+                direction,
+                cleanFilters(filters)
+        );
+    }
+
     private static Map<String, String> cleanFilters(Map<String, String> filters) {
         return filters.entrySet().stream()
                 .map(entry -> Map.entry(

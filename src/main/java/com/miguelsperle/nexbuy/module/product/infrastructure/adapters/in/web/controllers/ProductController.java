@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.co
 
 import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.core.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetProductsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetProductsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductsUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
@@ -20,8 +20,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
-    private final IGetProductsUseCase getProductsUseCase;
-    private final IGetProductUseCase getProductUseCase;
+    private final GetProductsUseCase getProductsUseCase;
+    private final GetProductUseCase getProductUseCase;
 
     @GetMapping
     public ResponseEntity<Pagination<GetProductsResponse>> getProducts(

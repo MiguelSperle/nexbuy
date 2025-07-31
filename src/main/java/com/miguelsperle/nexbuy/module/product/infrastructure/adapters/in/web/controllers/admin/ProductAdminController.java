@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateProductStatusUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductStatusUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.complements.DimensionComplementInput;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterProductRequest;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin/products")
 @RequiredArgsConstructor
 public class ProductAdminController {
-    private final IRegisterProductUseCase registerProductUseCase;
-    private final IUpdateProductUseCase updateProductUseCase;
-    private final IUpdateProductStatusUseCase updateProductStatusUseCase;
-    private final IDeleteProductUseCase deleteProductUseCase;
+    private final RegisterProductUseCase registerProductUseCase;
+    private final UpdateProductUseCase updateProductUseCase;
+    private final UpdateProductStatusUseCase updateProductStatusUseCase;
+    private final DeleteProductUseCase deleteProductUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerProduct(@RequestBody @Valid RegisterProductRequest registerProductRequest) {

@@ -1,31 +1,31 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.IJwtService;
-import com.miguelsperle.nexbuy.module.user.application.usecases.CreateRefreshTokenUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.RefreshTokenUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateRefreshTokenUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IRefreshTokenUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IRefreshTokenRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.module.user.application.usecases.CreateRefreshTokenUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.usecases.RefreshTokenUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.RefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RefreshTokenUseCasesConfiguration {
     @Bean
-    public ICreateRefreshTokenUseCase createRefreshTokenUseCase(
-            IRefreshTokenRepository refreshTokenRepository
+    public CreateRefreshTokenUseCase createRefreshTokenUseCase(
+            RefreshTokenRepository refreshTokenRepository
     ) {
-        return new CreateRefreshTokenUseCase(refreshTokenRepository);
+        return new CreateRefreshTokenUseCaseImpl(refreshTokenRepository);
     }
 
     @Bean
-    public IRefreshTokenUseCase refreshTokenUseCase(
-            IRefreshTokenRepository refreshTokenRepository,
-            IJwtService jwtService,
-            IUserRepository userRepository
+    public RefreshTokenUseCase refreshTokenUseCase(
+            RefreshTokenRepository refreshTokenRepository,
+            JwtService jwtService,
+            UserRepository userRepository
     ) {
-        return new RefreshTokenUseCase(
+        return new RefreshTokenUseCaseImpl(
                 refreshTokenRepository,
                 jwtService,
                 userRepository

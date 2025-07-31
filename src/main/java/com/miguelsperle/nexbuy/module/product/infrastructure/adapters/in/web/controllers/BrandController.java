@@ -3,8 +3,8 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.co
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetBrandsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetBrandResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetBrandsResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ import java.util.List;
 @RequestMapping("/api/v1/brands")
 @RequiredArgsConstructor
 public class BrandController {
-    private final IGetBrandsUseCase getBrandsUseCase;
-    private final IGetBrandUseCase getBrandUseCase;
+    private final GetBrandsUseCase getBrandsUseCase;
+    private final GetBrandUseCase getBrandUseCase;
 
     @GetMapping
     public ResponseEntity<List<GetBrandsResponse>> getBrands() {

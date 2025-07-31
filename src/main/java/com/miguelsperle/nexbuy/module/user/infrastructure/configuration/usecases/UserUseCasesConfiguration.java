@@ -1,31 +1,31 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.IPasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.IJwtService;
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.ITransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.*;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IAuthenticateUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.ILegalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.INaturalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class UserUseCasesConfiguration {
     @Bean
-    public ICreateUserUseCase createUserUseCase(
-            IUserRepository userRepository,
-            IPasswordEncryptorProvider passwordEncryptorProvider,
-            ICreateLegalPersonUseCase createLegalPersonUseCase,
-            ICreateNaturalPersonUseCase createNaturalPersonUseCase,
-            ICreateVerificationCodeUseCase createUserVerificationCodeUseCase,
-            ITransactionExecutor transactionExecutor
+    public CreateUserUseCase createUserUseCase(
+            UserRepository userRepository,
+            PasswordEncryptorProvider passwordEncryptorProvider,
+            CreateLegalPersonUseCase createLegalPersonUseCase,
+            CreateNaturalPersonUseCase createNaturalPersonUseCase,
+            CreateVerificationCodeUseCase createUserVerificationCodeUseCase,
+            TransactionExecutor transactionExecutor
     ) {
-        return new CreateUserUseCase(
+        return new CreateUserUseCaseImpl(
                 userRepository,
                 passwordEncryptorProvider,
                 createLegalPersonUseCase,
@@ -36,13 +36,13 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IAuthenticateUseCase authenticateUseCase(
-            IUserRepository userRepository,
-            IPasswordEncryptorProvider passwordEncryptorProvider,
-            IJwtService jwtService,
-            ICreateRefreshTokenUseCase createRefreshTokenUseCase
+    public AuthenticateUseCase authenticateUseCase(
+            UserRepository userRepository,
+            PasswordEncryptorProvider passwordEncryptorProvider,
+            JwtService jwtService,
+            CreateRefreshTokenUseCase createRefreshTokenUseCase
     ) {
-        return new com.miguelsperle.nexbuy.module.user.application.usecases.AuthenticateUseCase(
+        return new AuthenticateUseCaseImpl(
                 userRepository,
                 passwordEncryptorProvider,
                 jwtService,
@@ -51,12 +51,12 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase(
-            IUserRepository userRepository,
-            IUserCodeRepository userCodeRepository,
-            ITransactionExecutor transactionExecutor
+    public UpdateUserToVerifiedUseCase updateUserToVerifiedUseCase(
+            UserRepository userRepository,
+            UserCodeRepository userCodeRepository,
+            TransactionExecutor transactionExecutor
     ) {
-        return new UpdateUserToVerifiedUseCase(
+        return new UpdateUserToVerifiedUseCaseImpl(
                 userRepository,
                 userCodeRepository,
                 transactionExecutor
@@ -64,13 +64,13 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IResetUserPasswordUseCase resetUserPasswordUseCase(
-            IUserCodeRepository userCodeRepository,
-            IUserRepository userRepository,
-            IPasswordEncryptorProvider passwordEncryptorProvider,
-            ITransactionExecutor transactionExecutor
+    public ResetUserPasswordUseCase resetUserPasswordUseCase(
+            UserCodeRepository userCodeRepository,
+            UserRepository userRepository,
+            PasswordEncryptorProvider passwordEncryptorProvider,
+            TransactionExecutor transactionExecutor
     ) {
-        return new ResetUserPasswordUseCase(
+        return new ResetUserPasswordUseCaseImpl(
                 userCodeRepository,
                 userRepository,
                 passwordEncryptorProvider,
@@ -79,21 +79,21 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateUserUseCase updateUserUseCase(
-            ISecurityContextService securityContextService,
-            IUserRepository userRepository
+    public UpdateUserUseCase updateUserUseCase(
+            SecurityContextService securityContextService,
+            UserRepository userRepository
     ) {
-        return new UpdateUserUseCase(securityContextService, userRepository);
+        return new UpdateUserUseCaseImpl(securityContextService, userRepository);
     }
 
     @Bean
-    public IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
-            ISecurityContextService securityContextService,
-            INaturalPersonRepository naturalPersonGateway,
-            ILegalPersonRepository legalPersonGateway,
-            IUserRepository userRepository
+    public GetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
+            SecurityContextService securityContextService,
+            NaturalPersonRepository naturalPersonGateway,
+            LegalPersonRepository legalPersonGateway,
+            UserRepository userRepository
     ) {
-        return new GetAuthenticatedUserUseCase(
+        return new GetAuthenticatedUserUseCaseImpl(
                 securityContextService,
                 naturalPersonGateway,
                 legalPersonGateway,
@@ -102,12 +102,12 @@ public class UserUseCasesConfiguration {
     }
 
     @Bean
-    public IUpdateUserPasswordUseCase updateUserPasswordUseCase(
-            ISecurityContextService securityContextService,
-            IPasswordEncryptorProvider passwordEncryptorProvider,
-            IUserRepository userRepository
+    public UpdateUserPasswordUseCase updateUserPasswordUseCase(
+            SecurityContextService securityContextService,
+            PasswordEncryptorProvider passwordEncryptorProvider,
+            UserRepository userRepository
     ) {
-        return new UpdateUserPasswordUseCase(
+        return new UpdateUserPasswordUseCaseImpl(
                 securityContextService,
                 passwordEncryptorProvider,
                 userRepository

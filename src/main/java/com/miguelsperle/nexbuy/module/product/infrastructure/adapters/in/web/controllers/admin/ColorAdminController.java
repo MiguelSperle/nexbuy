@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetColorsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetColorsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
@@ -24,10 +24,10 @@ import java.util.List;
 @RequestMapping("/api/v1/admin/colors")
 @RequiredArgsConstructor
 public class ColorAdminController {
-    private final IRegisterColorUseCase registerColorUseCase;
-    private final IUpdateColorUseCase updateColorUseCase;
-    private final IDeleteColorUseCase deleteColorUseCase;
-    private final IGetColorsUseCase getColorsUseCase;
+    private final RegisterColorUseCase registerColorUseCase;
+    private final UpdateColorUseCase updateColorUseCase;
+    private final DeleteColorUseCase deleteColorUseCase;
+    private final GetColorsUseCase getColorsUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerColor(@RequestBody @Valid RegisterColorRequest registerColorRequest) {

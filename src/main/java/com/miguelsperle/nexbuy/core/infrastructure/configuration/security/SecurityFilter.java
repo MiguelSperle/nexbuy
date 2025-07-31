@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.core.infrastructure.configuration.security;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.IJwtService;
+import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
 import com.miguelsperle.nexbuy.core.domain.jwt.DecodedJwtToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
-    private final IJwtService jwtService;
+    private final JwtService jwtService;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Override

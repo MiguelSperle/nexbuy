@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.configuration.exceptionHandler;
 
 import com.miguelsperle.nexbuy.core.infrastructure.configuration.dtos.ErrorMessageResponse;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryInsufficientQuantityException;
+import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InsufficientInventoryException;
 import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -22,10 +22,10 @@ public class InventoryExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(InventoryInsufficientQuantityException.class)
-    public ResponseEntity<ErrorMessageResponse> handleInventoryInsufficientQuantityException(InventoryInsufficientQuantityException inventoryInsufficientQuantityException) {
+    @ExceptionHandler(InsufficientInventoryException.class)
+    public ResponseEntity<ErrorMessageResponse> handleInsufficientInventoryException(InsufficientInventoryException insufficientInventoryException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
-                Collections.singletonList(inventoryInsufficientQuantityException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+                Collections.singletonList(insufficientInventoryException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

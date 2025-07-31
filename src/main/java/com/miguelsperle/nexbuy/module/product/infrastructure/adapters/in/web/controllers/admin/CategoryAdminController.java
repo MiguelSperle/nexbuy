@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageR
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterCategoryRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.UpdateCategoryRequest;
 import jakarta.validation.Valid;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin/categories")
 @RequiredArgsConstructor
 public class CategoryAdminController {
-    private final IRegisterCategoryUseCase registerCategoryUseCase;
-    private final IUpdateCategoryUseCase updateCategoryUseCase;
-    private final IDeleteCategoryUseCase deleteCategoryUseCase;
+    private final RegisterCategoryUseCase registerCategoryUseCase;
+    private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerCategory(@RequestBody @Valid RegisterCategoryRequest registerCategoryRequest) {

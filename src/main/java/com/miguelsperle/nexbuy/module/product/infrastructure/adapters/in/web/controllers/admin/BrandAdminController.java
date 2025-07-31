@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageR
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IDeleteBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IRegisterBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IUpdateBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterBrandRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.UpdateBrandRequest;
 import jakarta.validation.Valid;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin/brands")
 @RequiredArgsConstructor
 public class BrandAdminController {
-    private final IRegisterBrandUseCase registerBrandUseCase;
-    private final IUpdateBrandUseCase updateBrandUseCase;
-    private final IDeleteBrandUseCase deleteBrandUseCase;
+    private final RegisterBrandUseCase registerBrandUseCase;
+    private final UpdateBrandUseCase updateBrandUseCase;
+    private final DeleteBrandUseCase deleteBrandUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> registerBrand(@RequestBody @Valid RegisterBrandRequest registerBrandRequest) {

@@ -2,35 +2,35 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usec
 
 import com.miguelsperle.nexbuy.module.product.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ICategoryRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CategoryUseCasesConfiguration {
     @Bean
-    public IRegisterCategoryUseCase registerCategoryUseCase(ICategoryRepository categoryRepository) {
-        return new RegisterCategoryUseCase(categoryRepository);
+    public RegisterCategoryUseCase registerCategoryUseCase(CategoryRepository categoryRepository) {
+        return new RegisterCategoryUseCaseImpl(categoryRepository);
     }
 
     @Bean
-    public IUpdateCategoryUseCase updateCategoryUseCase(ICategoryRepository categoryRepository) {
-        return new UpdateCategoryUseCase(categoryRepository);
+    public UpdateCategoryUseCase updateCategoryUseCase(CategoryRepository categoryRepository) {
+        return new UpdateCategoryUseCaseImpl(categoryRepository);
     }
 
     @Bean
-    public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository, IProductRepository productRepository) {
-        return new DeleteCategoryUseCase(categoryRepository, productRepository);
+    public DeleteCategoryUseCase deleteCategoryUseCase(CategoryRepository categoryRepository, ProductRepository productRepository) {
+        return new DeleteCategoryUseCaseImpl(categoryRepository, productRepository);
     }
 
     @Bean
-    public IGetCategoriesUseCase getCategoriesUseCase(ICategoryRepository categoryRepository) {
-        return new GetCategoriesUseCase(categoryRepository);
+    public GetCategoriesUseCase getCategoriesUseCase(CategoryRepository categoryRepository) {
+        return new GetCategoriesUseCaseImpl(categoryRepository);
     }
 
     @Bean
-    public IGetCategoryUseCase getCategoryUseCase(ICategoryRepository categoryRepository) {
-        return new GetCategoryUseCase(categoryRepository);
+    public GetCategoryUseCase getCategoryUseCase(CategoryRepository categoryRepository) {
+        return new GetCategoryUseCaseImpl(categoryRepository);
     }
 }

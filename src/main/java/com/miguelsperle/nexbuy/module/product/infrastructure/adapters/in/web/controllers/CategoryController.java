@@ -3,8 +3,8 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.co
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoriesUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoriesResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoryResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ import java.util.List;
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
 public class CategoryController {
-    private final IGetCategoriesUseCase getCategoriesUseCase;
-    private final IGetCategoryUseCase getCategoryUseCase;
+    private final GetCategoriesUseCase getCategoriesUseCase;
+    private final GetCategoryUseCase getCategoryUseCase;
 
     @GetMapping
     public ResponseEntity<List<GetCategoriesResponse>> getCategories() {

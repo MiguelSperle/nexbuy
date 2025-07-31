@@ -1,16 +1,12 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.IDecreaseInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.IGetInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.IIncreaseInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.DecreaseInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.IncreaseInventoryUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.DecreaseInventoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.GetInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.IncreaseInventoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.GetInventoryUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.dtos.requests.DecreaseInventoryRequest;
 import com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.dtos.requests.IncreaseInventoryRequest;
-import com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.dtos.responses.GetInventoryResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin/inventories")
 @RequiredArgsConstructor
 public class InventoryAdminController {
-    private final IGetInventoryUseCase getInventoryUseCase;
-    private final IIncreaseInventoryUseCase increaseInventoryUseCase;
-    private final IDecreaseInventoryUseCase decreaseInventoryUseCase;
-
-    @GetMapping("/{sku}")
-    public ResponseEntity<GetInventoryResponse> getInventory(@PathVariable String sku) {
-        final GetInventoryUseCaseOutput getInventoryUseCaseOutput = this.getInventoryUseCase.execute(GetInventoryUseCaseInput.with(
-                sku
-        ));
-
-        return ResponseEntity.ok().body(GetInventoryResponse.from(getInventoryUseCaseOutput));
-    }
+    private final IncreaseInventoryUseCase increaseInventoryUseCase;
+    private final DecreaseInventoryUseCase decreaseInventoryUseCase;
 
     @PatchMapping("/{sku}/increase")
     public ResponseEntity<MessageResponse> increaseInventory(

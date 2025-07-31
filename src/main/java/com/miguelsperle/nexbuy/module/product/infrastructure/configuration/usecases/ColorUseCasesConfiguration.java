@@ -2,35 +2,35 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usec
 
 import com.miguelsperle.nexbuy.module.product.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IColorRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ColorUseCasesConfiguration {
     @Bean
-    public IRegisterColorUseCase registerColorUseCase(IColorRepository colorRepository) {
-        return new RegisterColorUseCase(colorRepository);
+    public RegisterColorUseCase registerColorUseCase(ColorRepository colorRepository) {
+        return new RegisterColorUseCaseImpl(colorRepository);
     }
 
     @Bean
-    public IUpdateColorUseCase updateColorUseCase(IColorRepository colorRepository) {
-        return new UpdateColorUseCase(colorRepository);
+    public UpdateColorUseCase updateColorUseCase(ColorRepository colorRepository) {
+        return new UpdateColorUseCaseImpl(colorRepository);
     }
 
     @Bean
-    public IDeleteColorUseCase deleteColorUseCase(IColorRepository colorRepository, IProductRepository productRepository) {
-        return new DeleteColorUseCase(colorRepository, productRepository);
+    public DeleteColorUseCase deleteColorUseCase(ColorRepository colorRepository, ProductRepository productRepository) {
+        return new DeleteColorUseCaseImpl(colorRepository, productRepository);
     }
 
     @Bean
-    public IGetColorUseCase getColorUseCase(IColorRepository colorRepository) {
-        return new GetColorUseCase(colorRepository);
+    public GetColorUseCase getColorUseCase(ColorRepository colorRepository) {
+        return new GetColorUseCaseImpl(colorRepository);
     }
 
     @Bean
-    public IGetColorsUseCase getColorsUseCase(IColorRepository colorRepository) {
-        return new GetColorsUseCase(colorRepository);
+    public GetColorsUseCase getColorsUseCase(ColorRepository colorRepository) {
+        return new GetColorsUseCaseImpl(colorRepository);
     }
 }

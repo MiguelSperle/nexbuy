@@ -2,35 +2,35 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usec
 
 import com.miguelsperle.nexbuy.module.product.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IBrandRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.IProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
+import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BrandUseCasesConfiguration {
     @Bean
-    public IRegisterBrandUseCase registerBrandUseCase(IBrandRepository brandRepository) {
-        return new RegisterBrandUseCase(brandRepository);
+    public RegisterBrandUseCase registerBrandUseCase(BrandRepository brandRepository) {
+        return new RegisterBrandUseCaseImpl(brandRepository);
     }
 
     @Bean
-    public IUpdateBrandUseCase updateBrandUseCase(IBrandRepository brandRepository) {
-        return new UpdateBrandUseCase(brandRepository);
+    public UpdateBrandUseCase updateBrandUseCase(BrandRepository brandRepository) {
+        return new UpdateBrandUseCaseImpl(brandRepository);
     }
 
     @Bean
-    public IDeleteBrandUseCase deleteBrandUseCase(IBrandRepository brandRepository, IProductRepository productRepository) {
-        return new DeleteBrandUseCase(brandRepository, productRepository);
+    public DeleteBrandUseCase deleteBrandUseCase(BrandRepository brandRepository, ProductRepository productRepository) {
+        return new DeleteBrandUseCaseImpl(brandRepository, productRepository);
     }
 
     @Bean
-    public IGetBrandsUseCase getBrandsUseCase(IBrandRepository brandRepository) {
-        return new GetBrandsUseCase(brandRepository);
+    public GetBrandsUseCase getBrandsUseCase(BrandRepository brandRepository) {
+        return new GetBrandsUseCaseImpl(brandRepository);
     }
 
     @Bean
-    public IGetBrandUseCase getBrandUseCase(IBrandRepository brandRepository) {
-        return new GetBrandUseCase(brandRepository);
+    public GetBrandUseCase getBrandUseCase(BrandRepository brandRepository) {
+        return new GetBrandUseCaseImpl(brandRepository);
     }
 }

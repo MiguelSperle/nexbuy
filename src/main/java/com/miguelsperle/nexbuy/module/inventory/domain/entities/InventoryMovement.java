@@ -10,7 +10,7 @@ public class InventoryMovement {
     private final String inventoryId;
     private final String sku;
     private final Integer quantity;
-    private final InventoryMovementType inventoryMovementType;
+    private final InventoryMovementType movementType;
     private final LocalDateTime createdAt;
 
     private InventoryMovement(
@@ -18,14 +18,14 @@ public class InventoryMovement {
             String inventoryId,
             String sku,
             Integer quantity,
-            InventoryMovementType inventoryMovementType,
+            InventoryMovementType movementType,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.inventoryId = inventoryId;
         this.sku = sku;
         this.quantity = quantity;
-        this.inventoryMovementType = inventoryMovementType;
+        this.movementType = movementType;
         this.createdAt = createdAt;
     }
 
@@ -33,14 +33,14 @@ public class InventoryMovement {
             String inventoryId,
             String sku,
             Integer quantity,
-            InventoryMovementType inventoryMovementType
+            InventoryMovementType movementType
     ) {
         return new InventoryMovement(
                 UUID.randomUUID().toString(),
                 inventoryId,
                 sku,
                 quantity,
-                inventoryMovementType,
+                movementType,
                 LocalDateTime.now()
         );
     }
@@ -50,7 +50,7 @@ public class InventoryMovement {
             String inventoryId,
             String sku,
             Integer quantity,
-            InventoryMovementType inventoryMovementType,
+            InventoryMovementType movementType,
             LocalDateTime createdAt
     ) {
         return new InventoryMovement(
@@ -58,7 +58,7 @@ public class InventoryMovement {
                 inventoryId,
                 sku,
                 quantity,
-                inventoryMovementType,
+                movementType,
                 createdAt
         );
     }
@@ -79,8 +79,8 @@ public class InventoryMovement {
         return this.quantity;
     }
 
-    public InventoryMovementType getInventoryMovementType() {
-        return this.inventoryMovementType;
+    public InventoryMovementType getMovementType() {
+        return this.movementType;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -90,12 +90,12 @@ public class InventoryMovement {
     @Override
     public String toString() {
         return "InventoryMovement{" +
-                "id='" + id + '\'' +
-                ", inventoryId='" + inventoryId + '\'' +
-                ", sku='" + sku + '\'' +
-                ", quantity=" + quantity +
-                ", inventoryMovementType=" + inventoryMovementType +
-                ", createdAt=" + createdAt +
+                "id='" + this.id + '\'' +
+                ", inventoryId='" + this.inventoryId + '\'' +
+                ", sku='" + this.sku + '\'' +
+                ", quantity=" + this.quantity +
+                ", movementType=" + this.movementType +
+                ", createdAt=" + this.createdAt +
                 '}';
     }
 }

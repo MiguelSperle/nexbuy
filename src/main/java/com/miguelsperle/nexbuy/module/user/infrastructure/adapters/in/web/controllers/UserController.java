@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final IUpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
-    private final IResetUserPasswordUseCase resetUserPasswordUseCase;
-    private final IUpdateUserUseCase updateUserUseCase;
-    private final IUpdateUserPasswordUseCase updateUserPasswordUseCase;
-    private final IGetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
+    private final UpdateUserToVerifiedUseCase updateUserToVerifiedUseCase;
+    private final ResetUserPasswordUseCase resetUserPasswordUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
+    private final UpdateUserPasswordUseCase updateUserPasswordUseCase;
+    private final GetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
 
     @PatchMapping("/verification")
     public ResponseEntity<MessageResponse> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {

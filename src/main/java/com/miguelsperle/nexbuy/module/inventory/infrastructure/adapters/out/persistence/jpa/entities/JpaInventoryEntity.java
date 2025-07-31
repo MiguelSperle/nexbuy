@@ -19,9 +19,6 @@ public class JpaInventoryEntity {
     @Column(nullable = false, length = 36)
     private String id;
 
-    @Column(name = "product_id", nullable = false, unique = true, length = 36)
-    private String productId;
-
     @Column(nullable = false, unique = true, length = 80)
     private String sku;
 
@@ -34,7 +31,6 @@ public class JpaInventoryEntity {
     public static JpaInventoryEntity from(Inventory inventory) {
         return new JpaInventoryEntity(
                 inventory.getId(),
-                inventory.getProductId(),
                 inventory.getSku(),
                 inventory.getQuantity(),
                 inventory.getCreatedAt()
@@ -44,7 +40,6 @@ public class JpaInventoryEntity {
     public Inventory toEntity() {
         return Inventory.with(
                 this.id,
-                this.productId,
                 this.sku,
                 this.quantity,
                 this.createdAt

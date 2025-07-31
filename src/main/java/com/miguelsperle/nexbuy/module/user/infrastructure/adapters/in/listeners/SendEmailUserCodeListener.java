@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.services.IEmailService;
+import com.miguelsperle.nexbuy.core.application.ports.out.services.EmailService;
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserCodeRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
@@ -23,9 +23,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class SendEmailUserCodeListener {
-    private final IEmailService emailService;
-    private final IUserCodeRepository userCodeGateway;
-    private final IUserRepository userGateway;
+    private final EmailService emailService;
+    private final UserCodeRepository userCodeGateway;
+    private final UserRepository userGateway;
 
     private static final Logger log = LoggerFactory.getLogger(SendEmailUserCodeListener.class);
 

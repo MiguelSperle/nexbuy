@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.Create
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.ValidatePasswordResetCodeUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreatePasswordResetCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IResendVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IValidatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreatePasswordResetCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ResendVerificationCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ValidatePasswordResetCodeRequest;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/user-codes")
 @RequiredArgsConstructor
 public class UserCodeController {
-    private final IResendVerificationCodeUseCase resendVerificationCodeUseCase;
-    private final ICreatePasswordResetCodeUseCase createPasswordResetCodeUseCase;
-    private final IValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase;
+    private final ResendVerificationCodeUseCase resendVerificationCodeUseCase;
+    private final CreatePasswordResetCodeUseCase createPasswordResetCodeUseCase;
+    private final ValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase;
 
     @PostMapping("/verification/resend")
     public ResponseEntity<MessageResponse> resendVerificationCode(@RequestBody @Valid ResendVerificationCodeRequest resendVerificationCodeRequest) {

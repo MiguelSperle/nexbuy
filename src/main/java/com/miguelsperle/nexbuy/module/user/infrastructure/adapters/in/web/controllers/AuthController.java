@@ -7,9 +7,9 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.Refres
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IAuthenticateUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.RefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.AuthenticateRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreateUserRequest;
@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final ICreateUserUseCase createUserUseCase;
-    private final IAuthenticateUseCase authenticateUseCase;
-    private final IRefreshTokenUseCase refreshTokenUseCase;
+    private final CreateUserUseCase createUserUseCase;
+    private final AuthenticateUseCase authenticateUseCase;
+    private final RefreshTokenUseCase refreshTokenUseCase;
 
     @PostMapping("/register")
     public ResponseEntity<MessageResponse> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {

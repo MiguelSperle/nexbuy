@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.co
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.IGetColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.GetColorUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetColorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/colors")
 @RequiredArgsConstructor
 public class ColorController {
-    private final IGetColorUseCase getColorUseCase;
+    private final GetColorUseCase getColorUseCase;
 
     @GetMapping("/{colorId}")
     public ResponseEntity<GetColorResponse> getColor(@PathVariable String colorId) {

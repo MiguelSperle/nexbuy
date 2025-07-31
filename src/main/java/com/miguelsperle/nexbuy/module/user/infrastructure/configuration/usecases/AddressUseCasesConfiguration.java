@@ -1,45 +1,45 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.security.ISecurityContextService;
-import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IDeleteAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressesUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressesUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.UpdateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IAddressRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.IUserRepository;
+import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.DeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressesUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.usecases.UpdateAddressUseCaseImpl;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AddressUseCasesConfiguration {
     @Bean
-    public ICreateAddressUseCase createAddressUseCase(
-            IAddressRepository addressRepository,
-            ISecurityContextService securityContextService
+    public CreateAddressUseCase createAddressUseCase(
+            AddressRepository addressRepository,
+            SecurityContextService securityContextService
     ) {
-        return new CreateAddressUseCase(addressRepository, securityContextService);
+        return new CreateAddressUseCaseImpl(addressRepository, securityContextService);
     }
 
     @Bean
-    public IUpdateAddressUseCase updateAddressUseCase(
-            IAddressRepository addressRepository
+    public UpdateAddressUseCase updateAddressUseCase(
+            AddressRepository addressRepository
     ) {
-        return new UpdateAddressUseCase(addressRepository);
+        return new UpdateAddressUseCaseImpl(addressRepository);
     }
 
     @Bean
-    public IGetAddressesUseCase getAddressesUseCase(
-            IAddressRepository addressRepository,
-            ISecurityContextService securityContextService,
-            IUserRepository userRepository
+    public GetAddressesUseCase getAddressesUseCase(
+            AddressRepository addressRepository,
+            SecurityContextService securityContextService,
+            UserRepository userRepository
     ) {
-        return new GetAddressesUseCase(
+        return new GetAddressesUseCaseImpl(
                 addressRepository,
                 securityContextService,
                 userRepository
@@ -47,12 +47,12 @@ public class AddressUseCasesConfiguration {
     }
 
     @Bean
-    public IGetAddressUseCase getAddressUseCase(IAddressRepository addressRepository) {
-        return new GetAddressUseCase(addressRepository);
+    public GetAddressUseCase getAddressUseCase(AddressRepository addressRepository) {
+        return new GetAddressUseCaseImpl(addressRepository);
     }
 
     @Bean
-    public IDeleteAddressUseCase deleteAddressUseCase(IAddressRepository addressRepository) {
-        return new DeleteAddressUseCase(addressRepository);
+    public DeleteAddressUseCase deleteAddressUseCase(AddressRepository addressRepository) {
+        return new DeleteAddressUseCaseImpl(addressRepository);
     }
 }

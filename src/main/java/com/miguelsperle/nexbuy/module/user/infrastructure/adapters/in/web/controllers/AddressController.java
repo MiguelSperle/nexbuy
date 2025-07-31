@@ -3,15 +3,15 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.contr
 import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.DeleteAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IDeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.DeleteAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.GetAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IUpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ICreateAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.IGetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressesUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreateAddressRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.UpdateAddressRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.responses.GetAddressResponse;
@@ -28,11 +28,11 @@ import java.util.List;
 @RequestMapping("/api/v1/addresses")
 @RequiredArgsConstructor
 public class AddressController {
-    private final ICreateAddressUseCase createAddressUseCase;
-    private final IUpdateAddressUseCase updateAddressUseCase;
-    private final IGetAddressesUseCase getAddressesUseCase;
-    private final IGetAddressUseCase getAddressUseCase;
-    private final IDeleteAddressUseCase deleteAddressUseCase;
+    private final CreateAddressUseCase createAddressUseCase;
+    private final UpdateAddressUseCase updateAddressUseCase;
+    private final GetAddressesUseCase getAddressesUseCase;
+    private final GetAddressUseCase getAddressUseCase;
+    private final DeleteAddressUseCase deleteAddressUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createAddress(@RequestBody @Valid CreateAddressRequest createAddressRequest) {
