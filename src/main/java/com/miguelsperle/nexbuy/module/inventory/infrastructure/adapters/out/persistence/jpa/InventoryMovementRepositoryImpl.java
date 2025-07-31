@@ -44,17 +44,19 @@ public class InventoryMovementRepositoryImpl implements InventoryMovementReposit
     }
 
     @Override
-    public Pagination<InventoryMovement> findAllPaginatedBySku(String sku, SearchQuery searchQuery) {
+    public Pagination<InventoryMovement> findAllPaginated(SearchQuery searchQuery) {
         final Sort sort = searchQuery.direction().equalsIgnoreCase("asc")
                 ? Sort.by(searchQuery.sort()).ascending() : Sort.by(searchQuery.sort()).descending();
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaInventoryMovementEntity> specification = Specification.where(JpaInventoryMovementSpecification.filterBySku(sku));
+        Specification<JpaInventoryMovementEntity> specification = Specification.where(null);
 
         final String movementType = searchQuery.filters().get("movementType");
+        final String sku = searchQuery.filters().get("sku");
 
         specification = specification.and(JpaInventoryMovementSpecification.filterByMovementType(movementType));
+        specification = specification.and(JpaInventoryMovementSpecification.filterBySku(sku));
 
         final Page<JpaInventoryMovementEntity> pageResult = this.jpaInventoryMovementRepository.findAll(specification, pageable);
 

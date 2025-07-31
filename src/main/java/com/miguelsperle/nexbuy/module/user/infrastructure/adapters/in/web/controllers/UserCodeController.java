@@ -15,10 +15,7 @@ import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.r
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user-codes")
@@ -46,11 +43,10 @@ public class UserCodeController {
         return ResponseEntity.ok().body(MessageResponse.from("Password reset code sent successfully"));
     }
 
-    @PostMapping("/password-recovery/validation")
-    public ResponseEntity<ValidatePasswordResetCodeResponse> validatePasswordResetCode(@RequestBody @Valid ValidatePasswordResetCodeRequest validatePasswordResetCodeRequest) {
-        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput = this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(
-                validatePasswordResetCodeRequest.code()
-        ));
+    @GetMapping("/password-recovery/{code}/validation")
+    public ResponseEntity<ValidatePasswordResetCodeResponse> validatePasswordResetCode(@PathVariable String code) {
+        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput =
+                this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(code));
 
         return ResponseEntity.ok().body(ValidatePasswordResetCodeResponse.from(validatePasswordResetCodeUseCaseOutput));
     }

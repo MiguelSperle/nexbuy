@@ -12,5 +12,5 @@ public interface InventoryMovementRepository {
     Optional<InventoryMovement> findById(String id);
     InventoryMovement save(InventoryMovement inventoryMovement);
     void deleteById(String id);
-    Pagination<InventoryMovement> findAllPaginatedBySku(String sku, SearchQuery searchQuery);
+    Pagination<InventoryMovement> findAllPaginated(SearchQuery searchQuery);
 }

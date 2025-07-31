@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs;
 
 public record ValidatePasswordResetCodeUseCaseOutput(
-        Boolean codeIsValid
+        Boolean isValid
 ) {
-    public static ValidatePasswordResetCodeUseCaseOutput from(Boolean codeIsValid) {
-        return new ValidatePasswordResetCodeUseCaseOutput(codeIsValid);
+    public static ValidatePasswordResetCodeUseCaseOutput from(Boolean isValid) {
+        return new ValidatePasswordResetCodeUseCaseOutput(isValid);
     }
 }
 

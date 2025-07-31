@@ -16,14 +16,14 @@ public class GetInventoryMovementsUseCaseImpl implements com.miguelsperle.nexbuy
 
     @Override
     public GetInventoryMovementsUseCaseOutput execute(GetInventoryMovementsUseCaseInput getInventoryMovementsUseCaseInput) {
-        final Pagination<InventoryMovement> paginatedInventoryMovements = this.getAllPaginatedInventoryMovementsBySku(
-                getInventoryMovementsUseCaseInput.sku(), getInventoryMovementsUseCaseInput.searchQuery()
+        final Pagination<InventoryMovement> paginatedInventoryMovements = this.getAllPaginatedInventoryMovements(
+                getInventoryMovementsUseCaseInput.searchQuery()
         );
 
         return GetInventoryMovementsUseCaseOutput.from(paginatedInventoryMovements);
     }
 
-    private Pagination<InventoryMovement> getAllPaginatedInventoryMovementsBySku(String sku, SearchQuery searchQuery) {
-        return this.inventoryMovementRepository.findAllPaginatedBySku(sku, searchQuery);
+    private Pagination<InventoryMovement> getAllPaginatedInventoryMovements(SearchQuery searchQuery) {
+        return this.inventoryMovementRepository.findAllPaginated(searchQuery);
     }
 }

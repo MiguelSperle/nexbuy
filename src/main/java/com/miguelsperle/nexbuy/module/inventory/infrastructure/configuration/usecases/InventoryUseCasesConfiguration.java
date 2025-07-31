@@ -1,11 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CreateInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.DecreaseInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.GetInventoryMovementsUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.GetInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.IncreaseInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.*;
@@ -46,8 +42,18 @@ public class InventoryUseCasesConfiguration {
     }
 
     @Bean
+    public GetInventoriesUseCase getInventoriesUseCase(InventoryRepository inventoryRepository) {
+        return new GetInventoriesUseCaseImpl(inventoryRepository);
+    }
+
+    @Bean
     public GetInventoryUseCase getInventoryUseCase(InventoryRepository inventoryRepository) {
         return new GetInventoryUseCaseImpl(inventoryRepository);
+    }
+
+    @Bean
+    public CheckInventoryAvailabilityUseCase checkInventoryAvailabilityUseCase(InventoryRepository inventoryRepository) {
+        return new CheckInventoryAvailabilityUseCaseImpl(inventoryRepository);
     }
 
     @Bean
