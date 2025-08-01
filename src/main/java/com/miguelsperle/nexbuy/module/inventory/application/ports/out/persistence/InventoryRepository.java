@@ -14,4 +14,5 @@ public interface InventoryRepository {
     void deleteById(String id);
     Optional<Inventory> findBySku(String sku);
     Pagination<Inventory> findAllPaginated(SearchQuery searchQuery);
+    Optional<Inventory> findByProductId(String productId);
 }

@@ -40,14 +40,16 @@ public class ProductUseCasesConfiguration {
             CategoryRepository categoryRepository,
             BrandRepository brandRepository,
             ColorRepository colorRepository,
-            SkuProvider skuProvider
+            SkuProvider skuProvider,
+            DomainEventPublisherProvider domainEventPublisherProvider
     ) {
         return new UpdateProductUseCaseImpl(
                 productRepository,
                 categoryRepository,
                 brandRepository,
                 colorRepository,
-                skuProvider
+                skuProvider,
+                domainEventPublisherProvider
         );
     }
 

@@ -73,6 +73,7 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
         final Product savedProduct = this.saveProduct(newProduct);
 
         this.domainEventPublisherProvider.publishEvent(ProductRegisteredEvent.from(
+                savedProduct.getId(),
                 savedProduct.getSku()
         ));
     }

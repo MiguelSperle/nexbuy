@@ -77,4 +77,9 @@ public class InventoryRepositoryImpl implements InventoryRepository {
                 inventories
         );
     }
+
+    @Override
+    public Optional<Inventory> findByProductId(String productId) {
+        return this.jpaInventoryRepository.findByProductId(productId).map(JpaInventoryEntity::toEntity);
+    }
 }

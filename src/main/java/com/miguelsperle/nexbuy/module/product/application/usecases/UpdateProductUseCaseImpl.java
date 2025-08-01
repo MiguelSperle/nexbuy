@@ -1,5 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.core.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
@@ -22,19 +24,22 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
     private final BrandRepository brandRepository;
     private final ColorRepository colorRepository;
     private final SkuProvider skuProvider;
+    private final DomainEventPublisherProvider domainEventPublisherProvider;
 
     public UpdateProductUseCaseImpl(
             ProductRepository productRepository,
             CategoryRepository categoryRepository,
             BrandRepository brandRepository,
             ColorRepository colorRepository,
-            SkuProvider skuProvider
+            SkuProvider skuProvider,
+            DomainEventPublisherProvider domainEventPublisherProvider
     ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
+        this.domainEventPublisherProvider = domainEventPublisherProvider;
     }
 
     @Override
@@ -51,13 +56,10 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 
         final Color color = this.getColorById(updateProductUseCaseInput.colorId());
 
-        final String sku = this.verifySkuUpdateRequired(
-                updateProductUseCaseInput.name(),
-                category,
-                brand,
-                color,
-                product
-        ) ? this.skuProvider.generateSku(updateProductUseCaseInput.name(), category.getName(), brand.getName(), color.getName())
+        final boolean skuUpdateRequired = this.verifySkuUpdateRequired(updateProductUseCaseInput.name(), category, brand, color, product);
+
+        final String sku = skuUpdateRequired
+                ? this.skuProvider.generateSku(updateProductUseCaseInput.name(), category.getName(), brand.getName(), color.getName())
                 : product.getSku();
 
         final Product updatedProduct = product.withName(updateProductUseCaseInput.name())
@@ -72,7 +74,14 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
                 .withWidth(updateProductUseCaseInput.dimensionComplementInput().width())
                 .withLength(updateProductUseCaseInput.dimensionComplementInput().length());
 
-        this.saveProduct(updatedProduct);
+        final Product savedProduct = this.saveProduct(updatedProduct);
+
+        if (!Objects.equals(product.getSku(), savedProduct.getSku())) {
+            this.domainEventPublisherProvider.publishEvent(ProductSkuUpdatedEvent.from(
+                    savedProduct.getId(),
+                    savedProduct.getSku()
+            ));
+        }
     }
 
     private Product getProductById(String productId) {
@@ -95,8 +104,8 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
                 .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
     }
 
-    private void saveProduct(Product product) {
-        this.productRepository.save(product);
+    private Product saveProduct(Product product) {
+        return this.productRepository.save(product);
     }
 
     private boolean verifySkuUpdateRequired(

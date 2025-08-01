@@ -35,6 +35,7 @@ public class ProductRegisteredEventListener {
     public void handleProductRegisteredEvent(ProductRegisteredEvent productRegisteredEvent) {
         try {
             this.createInventoryUseCase.execute(CreateInventoryUseCaseInput.with(
+                    productRegisteredEvent.id(),
                     productRegisteredEvent.sku()
             ));
         } catch (Exception exception) {

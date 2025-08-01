@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface JpaInventoryRepository extends JpaRepository<JpaInventoryEntity, String>, JpaSpecificationExecutor<JpaInventoryEntity> {
     @Query(nativeQuery = true, value = "SELECT * FROM inventories i WHERE i.sku = :sku")
     Optional<JpaInventoryEntity> findBySku(@Param("sku") String sku);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM inventories i WHERE i.product_id = :productId")
+    Optional<JpaInventoryEntity> findByProductId(@Param("productId") String productId);
 }

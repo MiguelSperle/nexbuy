@@ -55,9 +55,4 @@ public class InventoryUseCasesConfiguration {
     public CheckInventoryAvailabilityUseCase checkInventoryAvailabilityUseCase(InventoryRepository inventoryRepository) {
         return new CheckInventoryAvailabilityUseCaseImpl(inventoryRepository);
     }
-
-    @Bean
-    public GetInventoryMovementsUseCase getInventoryMovementsUseCase(InventoryMovementRepository inventoryRepository) {
-        return new GetInventoryMovementsUseCaseImpl(inventoryRepository);
-    }
 }

@@ -5,27 +5,32 @@ import java.util.UUID;
 
 public class Inventory {
     private final String id;
+    private final String productId;
     private final String sku;
     private final Integer quantity;
     private final LocalDateTime createdAt;
 
     private Inventory(
             String id,
+            String productId,
             String sku,
             Integer quantity,
             LocalDateTime createdAt
     ) {
         this.id = id;
+        this.productId = productId;
         this.sku = sku;
         this.quantity = quantity;
         this.createdAt = createdAt;
     }
 
     public static Inventory newInventory(
+            String productId,
             String sku
     ) {
         return new Inventory(
                 UUID.randomUUID().toString(),
+                productId,
                 sku,
                 0,
                 LocalDateTime.now()
@@ -34,12 +39,14 @@ public class Inventory {
 
     public static Inventory with(
             String id,
+            String productId,
             String sku,
             Integer quantity,
             LocalDateTime createdAt
     ) {
         return new Inventory(
                 id,
+                productId,
                 sku,
                 quantity,
                 createdAt
@@ -49,14 +56,29 @@ public class Inventory {
     public Inventory withQuantity(Integer quantity) {
         return new Inventory(
                 this.id,
+                this.productId,
                 this.sku,
                 quantity,
                 this.createdAt
         );
     }
 
+    public Inventory withSku(String sku) {
+        return new Inventory(
+                this.id,
+                this.productId,
+                sku,
+                this.quantity,
+                this.createdAt
+        );
+    }
+
     public String getId() {
         return this.id;
+    }
+
+    public String getProductId() {
+        return this.productId;
     }
 
     public String getSku() {
@@ -74,10 +96,11 @@ public class Inventory {
     @Override
     public String toString() {
         return "Inventory{" +
-                "id='" + this.id + '\'' +
-                ", sku='" + this.sku + '\'' +
-                ", quantity=" + this.quantity +
-                ", createdAt=" + this.createdAt +
+                "id='" + id + '\'' +
+                ", productId='" + productId + '\'' +
+                ", sku='" + sku + '\'' +
+                ", quantity=" + quantity +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }
