@@ -51,7 +51,11 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(savedUserCode.getId()));
+        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
+                savedUserCode.getCode(),
+                savedUserCode.getCodeType(),
+                savedUserCode.getUserId()
+        ));
     }
 
     private User getUserByEmail(String email) {

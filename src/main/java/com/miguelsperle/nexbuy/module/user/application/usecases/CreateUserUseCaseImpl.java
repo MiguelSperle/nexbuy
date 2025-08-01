@@ -1,18 +1,18 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
+import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
@@ -22,23 +22,23 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final PasswordEncryptorProvider passwordEncryptorProvider;
     private final CreateLegalPersonUseCase createLegalPersonUseCase;
     private final CreateNaturalPersonUseCase createNaturalPersonUseCase;
-    private final CreateVerificationCodeUseCase createVerificationCodeUseCase;
     private final TransactionExecutor transactionExecutor;
+    private final DomainEventPublisherProvider domainEventPublisherProvider;
 
     public CreateUserUseCaseImpl(
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
             CreateLegalPersonUseCase createLegalPersonUseCase,
             CreateNaturalPersonUseCase createNaturalPersonUseCase,
-            CreateVerificationCodeUseCase createVerificationCodeUseCase,
-            TransactionExecutor transactionExecutor
+            TransactionExecutor transactionExecutor,
+            DomainEventPublisherProvider domainEventPublisherProvider
     ) {
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.createLegalPersonUseCase = createLegalPersonUseCase;
         this.createNaturalPersonUseCase = createNaturalPersonUseCase;
-        this.createVerificationCodeUseCase = createVerificationCodeUseCase;
         this.transactionExecutor = transactionExecutor;
+        this.domainEventPublisherProvider = domainEventPublisherProvider;
     }
 
     @Override
@@ -72,9 +72,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 ));
             }
 
-            this.createVerificationCodeUseCase.execute(CreateVerificationCodeUseCaseInput.with(
+            this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(UserCreatedEvent.from(
                     savedUser.getId()
-            ));
+            )));
         });
     }
 

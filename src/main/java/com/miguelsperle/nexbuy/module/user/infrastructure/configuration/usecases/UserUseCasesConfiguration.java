@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
@@ -22,16 +23,16 @@ public class UserUseCasesConfiguration {
             PasswordEncryptorProvider passwordEncryptorProvider,
             CreateLegalPersonUseCase createLegalPersonUseCase,
             CreateNaturalPersonUseCase createNaturalPersonUseCase,
-            CreateVerificationCodeUseCase createUserVerificationCodeUseCase,
-            TransactionExecutor transactionExecutor
+            TransactionExecutor transactionExecutor,
+            DomainEventPublisherProvider domainEventPublisherProvider
     ) {
         return new CreateUserUseCaseImpl(
                 userRepository,
                 passwordEncryptorProvider,
                 createLegalPersonUseCase,
                 createNaturalPersonUseCase,
-                createUserVerificationCodeUseCase,
-                transactionExecutor
+                transactionExecutor,
+                domainEventPublisherProvider
         );
     }
 

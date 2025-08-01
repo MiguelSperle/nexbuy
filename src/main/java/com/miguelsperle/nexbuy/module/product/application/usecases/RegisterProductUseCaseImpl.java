@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.core.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
@@ -15,8 +16,6 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CreateInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CreateInventoryUseCaseInput;
 
 public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
     private final ProductRepository productRepository;
@@ -24,8 +23,7 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
     private final BrandRepository brandRepository;
     private final ColorRepository colorRepository;
     private final SkuProvider skuProvider;
-    private final CreateInventoryUseCase createInventoryUseCase;
-    private final TransactionExecutor transactionExecutor;
+    private final DomainEventPublisherProvider domainEventPublisherProvider;
 
     public RegisterProductUseCaseImpl(
             ProductRepository productRepository,
@@ -33,16 +31,14 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
             BrandRepository brandRepository,
             ColorRepository colorRepository,
             SkuProvider skuProvider,
-            CreateInventoryUseCase createInventoryUseCase,
-            TransactionExecutor transactionExecutor
+            DomainEventPublisherProvider domainEventPublisherProvider
     ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
-        this.createInventoryUseCase = createInventoryUseCase;
-        this.transactionExecutor = transactionExecutor;
+        this.domainEventPublisherProvider = domainEventPublisherProvider;
     }
 
     @Override
@@ -74,11 +70,11 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
                 registerProductUseCaseInput.dimensionComplementInput().length()
         );
 
-        this.transactionExecutor.runTransaction(() -> {
-            final Product savedProduct = this.saveProduct(newProduct);
+        final Product savedProduct = this.saveProduct(newProduct);
 
-            this.createInventoryUseCase.execute(CreateInventoryUseCaseInput.with(savedProduct.getSku()));
-        });
+        this.domainEventPublisherProvider.publishEvent(ProductRegisteredEvent.from(
+                savedProduct.getSku()
+        ));
     }
 
     private Category getCategoryById(String categoryId) {

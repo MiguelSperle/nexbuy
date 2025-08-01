@@ -21,15 +21,11 @@ public class UserCodeUseCasesConfiguration {
     @Bean
     public CreateVerificationCodeUseCase createVerificationCodeUseCase(
             UserCodeRepository userCodeRepository,
-            CodeProvider codeProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider,
-            TransactionExecutor transactionExecutor
+            CodeProvider codeProvider
     ) {
         return new CreateVerificationCodeUseCaseImpl(
                 userCodeRepository,
-                codeProvider,
-                domainEventPublisherProvider,
-                transactionExecutor
+                codeProvider
         );
     }
 

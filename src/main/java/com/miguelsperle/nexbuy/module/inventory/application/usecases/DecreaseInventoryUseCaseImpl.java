@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.DecreaseInventoryUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.DecreaseInventoryUseCaseInput;
@@ -10,7 +11,7 @@ import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementTy
 import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
 import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InsufficientInventoryException;
 
-public class DecreaseInventoryUseCaseImpl implements com.miguelsperle.nexbuy.module.inventory.application.ports.in.DecreaseInventoryUseCase {
+public class DecreaseInventoryUseCaseImpl implements DecreaseInventoryUseCase {
     private final InventoryRepository inventoryRepository;
     private final InventoryMovementRepository inventoryMovementRepository;
     private final TransactionExecutor transactionExecutor;
