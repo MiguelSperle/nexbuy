@@ -32,6 +32,6 @@ public class JpaProductSpecification {
         return (root, query, criterialBuilder) ->
                 (status == null || status.isBlank())
                         ? criterialBuilder.conjunction()
-                        : criterialBuilder.equal(root.get("productStatus"), status);
+                        : criterialBuilder.equal(criterialBuilder.lower(root.get("productStatus")), status.toLowerCase());
     }
 }

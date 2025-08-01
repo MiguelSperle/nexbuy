@@ -8,6 +8,6 @@ public class JpaInventorySpecification {
         return (root, query, criterialBuilder) ->
                 (sku == null || sku.isBlank())
                         ? criterialBuilder.conjunction()
-                        : criterialBuilder.equal(root.get("sku"), sku);
+                        : criterialBuilder.like(criterialBuilder.lower(root.get("sku")), "%" + sku.toLowerCase() + "%");
     }
 }

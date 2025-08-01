@@ -8,13 +8,13 @@ public class JpaInventoryMovementSpecification {
         return (root, query, criterialBuilder) ->
                 (sku == null || sku.isBlank())
                         ? criterialBuilder.conjunction()
-                        : criterialBuilder.equal(root.get("sku"), sku);
+                        : criterialBuilder.like(criterialBuilder.lower(root.get("sku")), "%" + sku.toLowerCase() + "%");
     }
 
     public static Specification<JpaInventoryMovementEntity> filterByMovementType(String movementType) {
         return (root, query, criterialBuilder) ->
                 (movementType == null || movementType.isBlank())
                         ? criterialBuilder.conjunction()
-                        : criterialBuilder.equal(root.get("movementType"), movementType);
+                        : criterialBuilder.equal(criterialBuilder.lower(root.get("movementType")), movementType.toLowerCase());
     }
 }
