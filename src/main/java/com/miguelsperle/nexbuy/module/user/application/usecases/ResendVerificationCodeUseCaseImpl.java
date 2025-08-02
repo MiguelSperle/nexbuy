@@ -3,7 +3,9 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyVerifiedException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserDeletedException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -37,8 +39,12 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
     public void execute(ResendVerificationCodeUseCaseInput resendVerificationCodeUseCaseInput) {
         final User user = this.getUserByEmail(resendVerificationCodeUseCaseInput.email());
 
-        if (user.getIsVerified()) {
+        if (user.getUserStatus() == UserStatus.VERIFIED) {
             throw UserAlreadyVerifiedException.with("User already verified");
+        }
+
+        if (user.getUserStatus() == UserStatus.DELETED) {
+            throw UserDeletedException.with("User has already been deleted");
         }
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->

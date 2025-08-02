@@ -15,9 +15,11 @@ public class CodeProviderImpl implements CodeProvider {
     @Override
     public String generateCode() {
         final StringBuilder code = new StringBuilder(CODE_LENGTH);
+        final int charSetLength = ALPHANUMERIC_CHARACTERS.length();
 
         for (int i = 0; i < CODE_LENGTH; i++) {
-            code.append(ALPHANUMERIC_CHARACTERS.charAt(this.secureRandom.nextInt(ALPHANUMERIC_CHARACTERS.length())));
+            final int randomIndex = this.secureRandom.nextInt(charSetLength);
+            code.append(ALPHANUMERIC_CHARACTERS.charAt(randomIndex));
         }
 
         return code.toString();

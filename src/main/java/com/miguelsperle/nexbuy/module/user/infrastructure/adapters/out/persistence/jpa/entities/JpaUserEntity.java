@@ -3,6 +3,7 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.out.persiste
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,9 @@ public class JpaUserEntity {
     @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
-    @Column(name = "is_verified", nullable = false)
-    private Boolean isVerified;
+    @Column(name = "status", nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
 
     @Column(name = "authorization_role", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
@@ -55,7 +57,7 @@ public class JpaUserEntity {
                 user.getEmail(),
                 user.getPassword(),
                 user.getPhoneNumber(),
-                user.getIsVerified(),
+                user.getUserStatus(),
                 user.getAuthorizationRole(),
                 user.getPersonType(),
                 user.getCreatedAt()
@@ -70,7 +72,7 @@ public class JpaUserEntity {
                 this.email,
                 this.password,
                 this.phoneNumber,
-                this.isVerified,
+                this.userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt

@@ -7,7 +7,9 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.Authen
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.InvalidCredentialsException;
+import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserDeletedException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -39,8 +41,12 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
             throw InvalidCredentialsException.with("Invalid credentials");
         }
 
-        if (!user.getIsVerified()) {
+        if (user.getUserStatus() == UserStatus.UNVERIFIED) {
             throw UserNotVerifiedException.with("User not verified");
+        }
+
+        if (user.getUserStatus() == UserStatus.DELETED) {
+            throw UserDeletedException.with("User has been deleted");
         }
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());

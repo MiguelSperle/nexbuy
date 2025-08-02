@@ -36,9 +36,9 @@ public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase 
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.password());
 
-        final User updatedAuthenticatedUser = user.withPassword(encodedPassword);
+        final User updatedUser = user.withPassword(encodedPassword);
 
-        this.saveUser(updatedAuthenticatedUser);
+        this.saveUser(updatedUser);
     }
 
     private boolean validatePassword(String password, String encodedPassword) {

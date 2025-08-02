@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.module.user.domain.entities;
 
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +14,7 @@ public class User {
     private final String email;
     private final String password;
     private final String phoneNumber;
-    private final Boolean isVerified;
+    private final UserStatus userStatus;
     private final AuthorizationRole authorizationRole;
     private final PersonType personType;
     private final LocalDateTime createdAt;
@@ -25,7 +26,7 @@ public class User {
             String email,
             String password,
             String phoneNumber,
-            Boolean isVerified,
+            UserStatus userStatus,
             AuthorizationRole authorizationRole,
             PersonType personType,
             LocalDateTime createdAt
@@ -36,7 +37,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.isVerified = isVerified;
+        this.userStatus = userStatus;
         this.authorizationRole = authorizationRole;
         this.personType = personType;
         this.createdAt = createdAt;
@@ -57,7 +58,7 @@ public class User {
                 email,
                 password,
                 phoneNumber,
-                false,
+                UserStatus.UNVERIFIED,
                 AuthorizationRole.CUSTOMER,
                 personType,
                 LocalDateTime.now()
@@ -71,7 +72,7 @@ public class User {
             String email,
             String password,
             String phoneNumber,
-            Boolean isVerified,
+            UserStatus userStatus,
             AuthorizationRole authorizationRole,
             PersonType personType,
             LocalDateTime createdAt
@@ -83,7 +84,7 @@ public class User {
                 email,
                 password,
                 phoneNumber,
-                isVerified,
+                userStatus,
                 authorizationRole,
                 personType,
                 createdAt
@@ -98,7 +99,7 @@ public class User {
                 this.email,
                 this.password,
                 this.phoneNumber,
-                this.isVerified,
+                this.userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt
@@ -113,7 +114,7 @@ public class User {
                 this.email,
                 this.password,
                 this.phoneNumber,
-                this.isVerified,
+                this.userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt
@@ -128,7 +129,7 @@ public class User {
                 this.email,
                 password,
                 this.phoneNumber,
-                this.isVerified,
+                this.userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt
@@ -143,14 +144,14 @@ public class User {
                 this.email,
                 this.password,
                 phoneNumber,
-                this.isVerified,
+                this.userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt
         );
     }
 
-    public User withIsVerified(Boolean isVerified) {
+    public User withUserStatus(UserStatus userStatus) {
         return new User(
                 this.id,
                 this.firstName,
@@ -158,7 +159,7 @@ public class User {
                 this.email,
                 this.password,
                 this.phoneNumber,
-                isVerified,
+                userStatus,
                 this.authorizationRole,
                 this.personType,
                 this.createdAt
@@ -189,8 +190,8 @@ public class User {
         return this.phoneNumber;
     }
 
-    public Boolean getIsVerified() {
-        return this.isVerified;
+    public UserStatus getUserStatus() {
+        return this.userStatus;
     }
 
     public AuthorizationRole getAuthorizationRole() {
@@ -208,16 +209,16 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + this.id + '\'' +
-                ", firstName='" + this.firstName + '\'' +
-                ", lastName='" + this.lastName + '\'' +
-                ", email='" + this.email + '\'' +
-                ", password='" + this.password + '\'' +
-                ", phoneNumber='" + this.phoneNumber + '\'' +
-                ", isVerified=" + this.isVerified +
-                ", authorizationRole=" + this.authorizationRole +
-                ", personType=" + this.personType +
-                ", createdAt=" + this.createdAt +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userStatus=" + userStatus +
+                ", authorizationRole=" + authorizationRole +
+                ", personType=" + personType +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

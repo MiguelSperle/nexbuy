@@ -25,11 +25,11 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
         final User user = this.getUserById(authenticatedUserId);
 
-        final User updatedAuthenticatedUser = user.withFirstName(updateUserUseCaseInput.firstName())
+        final User updatedUser = user.withFirstName(updateUserUseCaseInput.firstName())
                 .withLastName(updateUserUseCaseInput.lastName())
                 .withPhoneNumber(updateUserUseCaseInput.phoneNumber());
 
-        this.saveUser(updatedAuthenticatedUser);
+        this.saveUser(updatedUser);
     }
 
     private String getAuthenticatedUserId() {

@@ -5,6 +5,7 @@ public class Routes {
             "/api/v1/users/information",
             "/api/v1/users/password",
             "/api/v1/users/me",
+            "/api/v1/users/deletion",
             "/api/v1/addresses",
             "/api/v1/addresses/{addressId}"
     };

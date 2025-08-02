@@ -49,6 +49,13 @@ public class UserExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(UserDeletedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleUserDeletedException(UserDeletedException userDeletedException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ErrorMessageResponse.from(
+                Collections.singletonList(userDeletedException.getMessage()), HttpStatus.FORBIDDEN.getReasonPhrase()
+        ));
+    }
+
     @ExceptionHandler(UserNotVerifiedException.class)
     public ResponseEntity<ErrorMessageResponse> handleUserNotVerifiedException(UserNotVerifiedException userNotVerifiedException) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ErrorMessageResponse.from(

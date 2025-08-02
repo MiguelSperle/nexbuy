@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
@@ -41,7 +42,7 @@ public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseC
 
         final User user = this.getUserById(userCode.getUserId());
 
-        final User updatedUser = user.withIsVerified(true);
+        final User updatedUser = user.withUserStatus(UserStatus.VERIFIED);
 
         this.transactionExecutor.runTransaction(() -> {
             this.saveUser(updatedUser);

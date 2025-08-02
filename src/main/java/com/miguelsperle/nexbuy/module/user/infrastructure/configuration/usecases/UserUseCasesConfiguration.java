@@ -114,4 +114,12 @@ public class UserUseCasesConfiguration {
                 userRepository
         );
     }
+
+    @Bean
+    public DeleteUserUseCase deleteUserUseCase(
+            UserRepository userRepository,
+            SecurityContextService securityContextService
+    ) {
+        return new DeleteUserUseCaseImpl(userRepository, securityContextService);
+    }
 }

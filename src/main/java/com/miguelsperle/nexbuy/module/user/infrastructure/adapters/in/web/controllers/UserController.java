@@ -28,6 +28,7 @@ public class UserController {
     private final UpdateUserUseCase updateUserUseCase;
     private final UpdateUserPasswordUseCase updateUserPasswordUseCase;
     private final GetAuthenticatedUserUseCase getAuthenticatedUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
 
     @PatchMapping("/verification")
     public ResponseEntity<MessageResponse> updateUserToVerified(@RequestBody @Valid UpdateUserToVerifiedRequest updateUserToVerifiedRequest) {
@@ -76,5 +77,12 @@ public class UserController {
         } else {
             return ResponseEntity.ok().body(GetAuthenticatedUserLegalPersonResponse.from(getAuthenticatedUserUseCaseOutput));
         }
+    }
+
+    @DeleteMapping("/deletion")
+    public ResponseEntity<MessageResponse> deleteUser() {
+        this.deleteUserUseCase.execute();
+
+        return ResponseEntity.ok().body(MessageResponse.from("User deleted successfully"));
     }
 }
