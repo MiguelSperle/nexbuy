@@ -44,7 +44,7 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
         }
 
         if (user.getUserStatus() == UserStatus.DELETED) {
-            throw UserDeletedException.with("User has already been deleted");
+            throw UserDeletedException.with("User has been deleted and cannot ask for resending");
         }
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->

@@ -46,7 +46,7 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
         }
 
         if (user.getUserStatus() == UserStatus.DELETED) {
-            throw UserDeletedException.with("User has been deleted");
+            throw UserDeletedException.with("User has been deleted and cannot authenticate");
         }
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());

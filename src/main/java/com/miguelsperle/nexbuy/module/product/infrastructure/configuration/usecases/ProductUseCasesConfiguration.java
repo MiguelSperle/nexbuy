@@ -59,8 +59,14 @@ public class ProductUseCasesConfiguration {
     }
 
     @Bean
-    public DeleteProductUseCase deleteProductUseCase(ProductRepository productRepository) {
-        return new DeleteProductUseCaseImpl(productRepository);
+    public DeleteProductUseCase deleteProductUseCase(
+            ProductRepository productRepository,
+            DomainEventPublisherProvider domainEventPublisherProvider
+    ) {
+        return new DeleteProductUseCaseImpl(
+                productRepository,
+                domainEventPublisherProvider
+        );
     }
 
     @Bean
