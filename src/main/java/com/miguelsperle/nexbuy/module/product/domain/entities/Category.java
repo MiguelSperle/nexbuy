@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Category {
     private final String id;
@@ -15,7 +17,7 @@ public class Category {
     }
 
     public static Category newCategory(String name) {
-        return new Category(UUID.randomUUID().toString(), name, LocalDateTime.now());
+        return new Category(IdentifierUtils.generateUUID(), name, TimeUtils.now());
     }
 
     public static Category with(String id, String name, LocalDateTime createdAt) {

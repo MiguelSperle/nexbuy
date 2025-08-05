@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Brand {
     private final String id;
@@ -15,7 +17,7 @@ public class Brand {
     }
 
     public static Brand newBrand(String name) {
-        return new Brand(UUID.randomUUID().toString(), name, LocalDateTime.now());
+        return new Brand(IdentifierUtils.generateUUID(), name, TimeUtils.now());
     }
 
     public static Brand with(String id, String name, LocalDateTime createdAt) {

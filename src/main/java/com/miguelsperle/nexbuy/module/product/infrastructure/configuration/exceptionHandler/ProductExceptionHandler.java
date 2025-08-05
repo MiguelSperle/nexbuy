@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.exceptionHandler;
 
-import com.miguelsperle.nexbuy.core.infrastructure.configuration.dtos.ErrorMessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.configuration.dtos.responses.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

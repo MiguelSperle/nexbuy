@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecase
 
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreatePasswordResetCodeUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateVerificationCodeUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.usecases.ResendVerificationCodeUseCaseImpl;

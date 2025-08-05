@@ -1,7 +1,5 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.domain.events.ProductDeletedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.ProductNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteProductUseCase;
@@ -11,14 +9,9 @@ import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 
 public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
     private final ProductRepository productRepository;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
 
-    public DeleteProductUseCaseImpl(
-            ProductRepository productRepository,
-            DomainEventPublisherProvider domainEventPublisherProvider
-    ) {
+    public DeleteProductUseCaseImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
     }
 
     @Override
@@ -27,11 +20,7 @@ public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
 
         final Product updatedProduct = product.withProductStatus(ProductStatus.DELETED);
 
-        final Product savedProduct = this.saveProduct(updatedProduct);
-
-        this.domainEventPublisherProvider.publishEvent(ProductDeletedEvent.from(
-                savedProduct.getId()
-        ));
+        this.saveProduct(updatedProduct);
     }
 
     private Product getProductById(String productId) {
@@ -39,7 +28,7 @@ public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
                 .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
     }
 
-    private Product saveProduct(Product product) {
-        return this.productRepository.save(product);
+    private void saveProduct(Product product) {
+        this.productRepository.save(product);
     }
 }

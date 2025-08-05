@@ -1,10 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Product {
     private final String id;
@@ -68,7 +69,7 @@ public class Product {
             Integer length
     ) {
         return new Product(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 name,
                 description,
                 categoryId,
@@ -81,7 +82,7 @@ public class Product {
                 height,
                 width,
                 length,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

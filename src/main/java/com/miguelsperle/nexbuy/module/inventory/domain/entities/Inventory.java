@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.inventory.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Inventory {
     private final String id;
@@ -29,11 +31,11 @@ public class Inventory {
             String sku
     ) {
         return new Inventory(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 productId,
                 sku,
                 0,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

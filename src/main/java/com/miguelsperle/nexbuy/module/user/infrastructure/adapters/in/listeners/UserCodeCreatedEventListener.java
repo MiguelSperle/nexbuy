@@ -1,8 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.services.EmailService;
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.EventProcessingFailureException;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
 public class UserCodeCreatedEventListener {
     private final EmailService emailService;
     private final UserRepository userRepository;
-    private final UserCodeRepository userCodeRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UserCodeCreatedEventListener.class);
 
@@ -33,9 +31,9 @@ public class UserCodeCreatedEventListener {
             retryFor = {EventProcessingFailureException.class},
             maxAttempts = 4,
             backoff = @Backoff( // Exponential Backoff Configuration
-                    delay = 2500,
+                    delay = 3000,
                     multiplier = 2,
-                    maxDelay = 10000
+                    maxDelay = 24000
             )
     )
     public void handleUserCodeCreatedEvent(UserCodeCreatedEvent userCodeCreatedEvent) {

@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class RefreshToken {
     private final String id;
@@ -28,11 +30,11 @@ public class RefreshToken {
             String userId
     ) {
         return new RefreshToken(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 userId,
-                UUID.randomUUID().toString(),
-                LocalDateTime.now().plusDays(15),
-                LocalDateTime.now()
+                IdentifierUtils.generateUUID(),
+                TimeUtils.now().plusDays(15),
+                TimeUtils.now()
         );
     }
 

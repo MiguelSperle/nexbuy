@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;

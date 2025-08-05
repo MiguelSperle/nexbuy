@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.domain.events.ProductRegisteredEvent;
+import com.miguelsperle.nexbuy.module.product.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;

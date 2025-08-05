@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.services.EmailService;
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.exceptions.EventProcessingFailureException;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
@@ -35,9 +35,9 @@ public class UserCreatedEventListener {
             retryFor = {EventProcessingFailureException.class},
             maxAttempts = 4,
             backoff = @Backoff( // Exponential Backoff Configuration
-                    delay = 2500,
+                    delay = 3000,
                     multiplier = 2,
-                    maxDelay = 10000
+                    maxDelay = 24000
             )
     )
     public void handleUserCreatedEvent(UserCreatedEvent userCreatedEvent) {

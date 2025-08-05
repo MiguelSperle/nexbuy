@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
@@ -10,7 +10,6 @@ import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificati
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreatePasswordResetCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ResendVerificationCodeRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ValidatePasswordResetCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.responses.ValidatePasswordResetCodeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

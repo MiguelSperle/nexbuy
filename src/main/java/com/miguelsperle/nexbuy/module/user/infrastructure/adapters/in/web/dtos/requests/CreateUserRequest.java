@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests;
 
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.annotations.ValidEnum;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.annotations.ValidEnum;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.complements.LegalPersonComplementRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.complements.NaturalPersonComplementRequest;

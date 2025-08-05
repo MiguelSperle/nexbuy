@@ -1,11 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class User {
     private final String id;
@@ -52,7 +53,7 @@ public class User {
             PersonType personType
     ) {
         return new User(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 firstName,
                 lastName,
                 email,
@@ -61,7 +62,7 @@ public class User {
                 UserStatus.UNVERIFIED,
                 AuthorizationRole.CUSTOMER,
                 personType,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

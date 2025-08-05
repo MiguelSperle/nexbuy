@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class LegalPerson {
     private final String id;
@@ -38,13 +40,13 @@ public class LegalPerson {
             String stateRegistration
     ) {
         return new LegalPerson(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 userId,
                 cnpj,
                 fantasyName,
                 legalName,
                 stateRegistration,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

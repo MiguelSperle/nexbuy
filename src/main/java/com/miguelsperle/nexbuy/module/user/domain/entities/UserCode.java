@@ -1,9 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class UserCode {
     private final String id;
@@ -35,12 +36,12 @@ public class UserCode {
             CodeType codeType
     ) {
         return new UserCode(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 userId,
                 code,
                 codeType,
-                LocalDateTime.now().plusMinutes(15),
-                LocalDateTime.now()
+                TimeUtils.now().plusMinutes(15),
+                TimeUtils.now()
         );
     }
 

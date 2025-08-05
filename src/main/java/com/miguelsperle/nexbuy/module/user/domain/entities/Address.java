@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Address {
     private final String id;
@@ -50,7 +52,7 @@ public class Address {
             String complement
     ) {
         return new Address(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 userId,
                 addressLine,
                 addressNumber,
@@ -59,7 +61,7 @@ public class Address {
                 city,
                 uf,
                 complement,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

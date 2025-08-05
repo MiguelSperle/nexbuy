@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Color {
     private final String id;
@@ -15,7 +17,7 @@ public class Color {
     }
 
     public static Color newColor(String name) {
-        return new Color(UUID.randomUUID().toString(), name, LocalDateTime.now());
+        return new Color(IdentifierUtils.generateUUID(), name, TimeUtils.now());
     }
 
     public static Color with(String id, String name, LocalDateTime createdAt) {

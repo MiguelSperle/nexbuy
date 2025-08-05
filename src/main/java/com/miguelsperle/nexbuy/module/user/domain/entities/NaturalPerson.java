@@ -1,7 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class NaturalPerson {
     private final String id;
@@ -30,11 +32,11 @@ public class NaturalPerson {
             String generalRegister
     ) {
         return new NaturalPerson(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 userId,
                 cpf,
                 generalRegister,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 

@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
-import com.miguelsperle.nexbuy.core.infrastructure.adapters.in.web.dtos.MessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductStatusUseCase;

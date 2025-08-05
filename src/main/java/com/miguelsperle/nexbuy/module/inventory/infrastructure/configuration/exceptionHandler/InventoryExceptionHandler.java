@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.configuration.exceptionHandler;
 
-import com.miguelsperle.nexbuy.core.infrastructure.configuration.dtos.ErrorMessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.configuration.dtos.responses.ErrorMessageResponse;
 import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InsufficientInventoryException;
 import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
 import org.springframework.core.Ordered;

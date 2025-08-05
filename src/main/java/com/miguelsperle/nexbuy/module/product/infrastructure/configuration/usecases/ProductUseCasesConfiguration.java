@@ -1,7 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
@@ -9,7 +8,6 @@ import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.providers.SkuProvider;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CreateInventoryUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -60,13 +58,9 @@ public class ProductUseCasesConfiguration {
 
     @Bean
     public DeleteProductUseCase deleteProductUseCase(
-            ProductRepository productRepository,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            ProductRepository productRepository
     ) {
-        return new DeleteProductUseCaseImpl(
-                productRepository,
-                domainEventPublisherProvider
-        );
+        return new DeleteProductUseCaseImpl(productRepository);
     }
 
     @Bean

@@ -1,9 +1,10 @@
 package com.miguelsperle.nexbuy.module.inventory.domain.entities;
 
+import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class InventoryMovement {
     private final String id;
@@ -36,12 +37,12 @@ public class InventoryMovement {
             InventoryMovementType movementType
     ) {
         return new InventoryMovement(
-                UUID.randomUUID().toString(),
+                IdentifierUtils.generateUUID(),
                 inventoryId,
                 sku,
                 quantity,
                 movementType,
-                LocalDateTime.now()
+                TimeUtils.now()
         );
     }
 
