@@ -29,6 +29,7 @@ public record RegisterProductRequest(
         String colorId,
 
         @NotNull(message = "Weight should not be null")
+        @Positive(message = "Weight should be a positive number")
         Integer weight,
 
         @Valid

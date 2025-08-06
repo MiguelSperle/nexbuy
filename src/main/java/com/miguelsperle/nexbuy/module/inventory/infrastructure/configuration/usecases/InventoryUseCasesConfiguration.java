@@ -18,12 +18,12 @@ public class InventoryUseCasesConfiguration {
     @Bean
     public IncreaseInventoryUseCase increaseInventoryUseCase(
             InventoryRepository inventoryRepository,
-            InventoryMovementRepository inventoryMovementRepository,
+            CreateInventoryMovementUseCase createInventoryMovementUseCase,
             TransactionExecutor transactionExecutor
     ) {
         return new IncreaseInventoryUseCaseImpl(
                 inventoryRepository,
-                inventoryMovementRepository,
+                createInventoryMovementUseCase,
                 transactionExecutor
         );
     }
@@ -31,12 +31,12 @@ public class InventoryUseCasesConfiguration {
     @Bean
     public DecreaseInventoryUseCase decreaseInventoryUseCase(
             InventoryRepository inventoryRepository,
-            InventoryMovementRepository inventoryMovementRepository,
+            CreateInventoryMovementUseCase createInventoryMovementUseCase,
             TransactionExecutor transactionExecutor
     ) {
         return new DecreaseInventoryUseCaseImpl(
                 inventoryRepository,
-                inventoryMovementRepository,
+                createInventoryMovementUseCase,
                 transactionExecutor
         );
     }

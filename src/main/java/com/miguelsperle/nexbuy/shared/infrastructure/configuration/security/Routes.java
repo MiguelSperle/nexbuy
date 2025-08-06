@@ -43,4 +43,8 @@ public class Routes {
     public static final String[] INVENTORY_MODULE_AUTHENTICATED_ENDPOINTS = {
             "/api/v1/inventories/{sku}/availability"
     };
+
+    public static final String[] COUPON_MODULE_RESTRICTED_ENDPOINTS = {
+            "/api/v1/admin/coupons"
+    };
 }
