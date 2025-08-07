@@ -92,6 +92,66 @@ public class Coupon {
         );
     }
 
+    public Coupon withCode(String code) {
+        return new Coupon(
+                this.id,
+                code,
+                this.percentage,
+                this.minimumPurchaseAmount,
+                this.couponType,
+                this.timesUsed,
+                this.usageLimit,
+                this.isActive,
+                this.expiresIn,
+                this.createdAt
+        );
+    }
+
+    public Coupon withPercentage(Integer percentage) {
+        return new Coupon(
+                this.id,
+                this.code,
+                percentage,
+                this.minimumPurchaseAmount,
+                this.couponType,
+                this.timesUsed,
+                this.usageLimit,
+                this.isActive,
+                this.expiresIn,
+                this.createdAt
+        );
+    }
+
+    public Coupon withMinimumPurchaseAmount(BigDecimal minimumPurchaseAmount) {
+        return new Coupon(
+                this.id,
+                this.code,
+                this.percentage,
+                minimumPurchaseAmount,
+                this.couponType,
+                this.timesUsed,
+                this.usageLimit,
+                this.isActive,
+                this.expiresIn,
+                this.createdAt
+        );
+    }
+
+    public Coupon withExpiresIn(LocalDateTime expiresIn) {
+        return new Coupon(
+                this.id,
+                this.code,
+                this.percentage,
+                this.minimumPurchaseAmount,
+                this.couponType,
+                this.timesUsed,
+                this.usageLimit,
+                this.isActive,
+                expiresIn,
+                this.createdAt
+        );
+    }
+
     public String getId() {
         return this.id;
     }

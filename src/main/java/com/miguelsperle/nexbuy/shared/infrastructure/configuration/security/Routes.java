@@ -45,6 +45,7 @@ public class Routes {
     };
 
     public static final String[] COUPON_MODULE_RESTRICTED_ENDPOINTS = {
-            "/api/v1/admin/coupons"
+            "/api/v1/admin/coupons",
+            "/api/v1/admin/coupons/{couponId}"
     };
 }

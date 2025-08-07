@@ -2,12 +2,12 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ResetUserPasswordUseCase;
-import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -37,7 +37,7 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
     public void execute(ResetUserPasswordUseCaseInput resetUserPasswordUseCaseInput) {
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(resetUserPasswordUseCaseInput.code());
 
-        if (ExpirationUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
+        if (TimeUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
             throw UserCodeExpiredException.with("User code has expired");
         }

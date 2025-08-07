@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.configuration.exceptionHandler;
 
 import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponAlreadyExistsException;
+import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponNotFoundException;
 import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.InvalidCouponConfigurationException;
 import com.miguelsperle.nexbuy.shared.infrastructure.configuration.dtos.responses.ErrorMessageResponse;
 import org.springframework.core.Ordered;
@@ -26,6 +27,13 @@ public class CouponExceptionHandler {
     public ResponseEntity<ErrorMessageResponse> handleInvalidCouponConfigurationException(InvalidCouponConfigurationException invalidCouponConfigurationException) {
         return ResponseEntity.badRequest().body(ErrorMessageResponse.from(
                 Collections.singletonList(invalidCouponConfigurationException.getMessage()), HttpStatus.BAD_REQUEST.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(CouponNotFoundException.class)
+    public ResponseEntity<ErrorMessageResponse> handleCouponNotFoundException(CouponNotFoundException couponNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
+                Collections.singletonList(couponNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
         ));
     }
 }

@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.RefreshTokenExpiredException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.RefreshTokenNotFoundException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.RefreshTokenUseCase;
-import com.miguelsperle.nexbuy.core.domain.utils.ExpirationUtils;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
@@ -34,7 +34,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     public RefreshTokenUseCaseOutput execute(RefreshTokenUseCaseInput refreshTokenUseCaseInput) {
         final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.refreshToken());
 
-        if (ExpirationUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
+        if (TimeUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
             this.deleteRefreshTokenById(refreshToken.getId());
             throw RefreshTokenExpiredException.with("Refresh token has expired");
         }
