@@ -1,8 +1,12 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.controllers.admin;
 
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.ActivateCouponUseCase;
 import com.miguelsperle.nexbuy.module.coupon.application.ports.in.CreateCouponUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeactivateCouponUseCase;
 import com.miguelsperle.nexbuy.module.coupon.application.ports.in.UpdateCouponUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ActivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.CreateCouponUseCaseInput;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.DeactivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.UpdateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.CreateCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.UpdateCouponRequest;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class CouponAdminController {
     private final CreateCouponUseCase createCouponUseCase;
     private final UpdateCouponUseCase updateCouponUseCase;
+    private final ActivateCouponUseCase activateCouponUseCase;
+    private final DeactivateCouponUseCase deactivateCouponUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createCoupon(@RequestBody @Valid CreateCouponRequest createCouponRequest) {
@@ -49,5 +55,19 @@ public class CouponAdminController {
         ));
 
         return ResponseEntity.ok().body(MessageResponse.from("Coupon updated successfully"));
+    }
+
+    @PatchMapping("/{couponId}/activate")
+    public ResponseEntity<MessageResponse> activateCoupon(@PathVariable String couponId) {
+        this.activateCouponUseCase.execute(ActivateCouponUseCaseInput.with(couponId));
+
+        return ResponseEntity.ok().body(MessageResponse.from("Coupon successfully activated"));
+    }
+
+    @PatchMapping("/{couponId}/deactivate")
+    public ResponseEntity<MessageResponse> deactivateCoupon(@PathVariable String couponId) {
+        this.deactivateCouponUseCase.execute(DeactivateCouponUseCaseInput.with(couponId));
+
+        return ResponseEntity.ok().body(MessageResponse.from("Coupon successfully deactivated"));
     }
 }

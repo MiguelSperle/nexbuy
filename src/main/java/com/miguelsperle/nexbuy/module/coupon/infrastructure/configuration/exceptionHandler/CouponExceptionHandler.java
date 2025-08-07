@@ -1,8 +1,6 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.configuration.exceptionHandler;
 
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponNotFoundException;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.InvalidCouponConfigurationException;
+import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.*;
 import com.miguelsperle.nexbuy.shared.infrastructure.configuration.dtos.responses.ErrorMessageResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -34,6 +32,20 @@ public class CouponExceptionHandler {
     public ResponseEntity<ErrorMessageResponse> handleCouponNotFoundException(CouponNotFoundException couponNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorMessageResponse.from(
                 Collections.singletonList(couponNotFoundException.getMessage()), HttpStatus.NOT_FOUND.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(CouponAlreadyActivatedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleCouponAlreadyActivatedException(CouponAlreadyActivatedException couponAlreadyActivatedException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
+                Collections.singletonList(couponAlreadyActivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+        ));
+    }
+
+    @ExceptionHandler(CouponAlreadyDeactivatedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleCouponAlreadyDeactivatedException(CouponAlreadyDeactivatedException couponAlreadyDeactivatedException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
+                Collections.singletonList(couponAlreadyDeactivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }
