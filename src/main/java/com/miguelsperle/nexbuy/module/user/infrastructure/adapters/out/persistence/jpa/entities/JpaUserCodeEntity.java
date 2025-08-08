@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.out.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class JpaUserCodeEntity {
 
     @Column(name = "code_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
-    private CodeType codeType;
+    private UserCodeType userCodeType;
 
     @Column(name = "expires_in", nullable = false)
     private LocalDateTime expiresIn;
@@ -38,7 +38,7 @@ public class JpaUserCodeEntity {
                 userCode.getId(),
                 userCode.getUserId(),
                 userCode.getCode(),
-                userCode.getCodeType(),
+                userCode.getUserCodeType(),
                 userCode.getExpiresIn(),
                 userCode.getCreatedAt()
         );
@@ -49,7 +49,7 @@ public class JpaUserCodeEntity {
                 this.id,
                 this.userId,
                 this.code,
-                this.codeType,
+                this.userCodeType,
                 this.expiresIn,
                 this.createdAt
         );

@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs;
 
-import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;
 
 public record GetInventoryMovementsUseCaseOutput(

@@ -1,13 +1,7 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.controllers.admin;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.ActivateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.CreateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeactivateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.UpdateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ActivateCouponUseCaseInput;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.CreateCouponUseCaseInput;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.DeactivateCouponUseCaseInput;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.UpdateCouponUseCaseInput;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.*;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.CreateCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.UpdateCouponRequest;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
@@ -25,6 +19,7 @@ public class CouponAdminController {
     private final UpdateCouponUseCase updateCouponUseCase;
     private final ActivateCouponUseCase activateCouponUseCase;
     private final DeactivateCouponUseCase deactivateCouponUseCase;
+    private final DeleteCouponUseCase deleteCouponUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createCoupon(@RequestBody @Valid CreateCouponRequest createCouponRequest) {
@@ -69,5 +64,12 @@ public class CouponAdminController {
         this.deactivateCouponUseCase.execute(DeactivateCouponUseCaseInput.with(couponId));
 
         return ResponseEntity.ok().body(MessageResponse.from("Coupon successfully deactivated"));
+    }
+
+    @DeleteMapping("/{couponId}")
+    public ResponseEntity<MessageResponse> deleteCoupon(@PathVariable String couponId) {
+        this.deleteCouponUseCase.execute(DeleteCouponUseCaseInput.with(couponId));
+
+        return ResponseEntity.ok().body(MessageResponse.from("Coupon deleted successfully"));
     }
 }

@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyVerifiedException;
@@ -12,7 +12,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
 
 import java.util.Optional;
@@ -53,13 +53,13 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
 
         final String codeGenerated = this.codeProvider.generateCode();
 
-        final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, CodeType.USER_VERIFICATION);
+        final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, UserCodeType.USER_VERIFICATION);
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
                 savedUserCode.getCode(),
-                savedUserCode.getCodeType(),
+                savedUserCode.getUserCodeType(),
                 savedUserCode.getUserId()
         ));
     }
@@ -69,7 +69,7 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
-        return this.userCodeRepository.findByUserIdAndCodeType(userId, CodeType.USER_VERIFICATION.name());
+        return this.userCodeRepository.findByUserIdAndCodeType(userId, UserCodeType.USER_VERIFICATION.name());
     }
 
     private UserCode saveUserCode(UserCode userCode) {

@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
@@ -12,7 +12,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 import java.time.LocalDateTime;
 
@@ -55,7 +55,7 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
-        return this.userCodeRepository.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
+        return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 

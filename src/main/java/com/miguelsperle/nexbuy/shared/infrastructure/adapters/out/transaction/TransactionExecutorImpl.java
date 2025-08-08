@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.transaction;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;

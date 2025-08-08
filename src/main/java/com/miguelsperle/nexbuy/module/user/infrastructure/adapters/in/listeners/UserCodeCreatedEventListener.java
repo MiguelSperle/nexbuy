@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.services.EmailService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.EmailService;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -38,11 +38,11 @@ public class UserCodeCreatedEventListener {
     )
     public void handleUserCodeCreatedEvent(UserCodeCreatedEvent userCodeCreatedEvent) {
         try {
-            final String message = userCodeCreatedEvent.codeType() == CodeType.USER_VERIFICATION
+            final String message = userCodeCreatedEvent.userCodeType() == UserCodeType.USER_VERIFICATION
                     ? "Hello, your verification code is " + userCodeCreatedEvent.code() + " and it will expire in 15 minutes."
                     : "Hello, your password reset code is " + userCodeCreatedEvent.code() + " and it will expire in 15 minutes.";
 
-            final String subject = userCodeCreatedEvent.codeType() == CodeType.USER_VERIFICATION ? "User Verification Code" : "Password Reset Code";
+            final String subject = userCodeCreatedEvent.userCodeType() == UserCodeType.USER_VERIFICATION ? "User Verification Code" : "Password Reset Code";
 
             final User user = this.getUserById(userCodeCreatedEvent.userId());
 

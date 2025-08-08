@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.core.application.exceptions.MissingComplementException;
+import com.miguelsperle.nexbuy.shared.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyExistsException;

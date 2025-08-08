@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateVerificationCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 public class CreateVerificationCodeUseCaseImpl implements CreateVerificationCodeUseCase {
     private final UserCodeRepository userCodeRepository;
@@ -24,7 +24,7 @@ public class CreateVerificationCodeUseCaseImpl implements CreateVerificationCode
     public CreateVerificationCodeUseCaseOutput execute(CreateVerificationCodeUseCaseInput createVerificationCodeUseCaseInput) {
         final String codeGenerated = this.codeProvider.generateCode();
 
-        final UserCode newUserCode = UserCode.newUserCode(createVerificationCodeUseCaseInput.userId(), codeGenerated, CodeType.USER_VERIFICATION);
+        final UserCode newUserCode = UserCode.newUserCode(createVerificationCodeUseCaseInput.userId(), codeGenerated, UserCodeType.USER_VERIFICATION);
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 

@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.providers;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

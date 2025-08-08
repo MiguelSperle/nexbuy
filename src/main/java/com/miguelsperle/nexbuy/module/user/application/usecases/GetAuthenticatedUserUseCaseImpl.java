@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.LegalPersonNotFoundException;

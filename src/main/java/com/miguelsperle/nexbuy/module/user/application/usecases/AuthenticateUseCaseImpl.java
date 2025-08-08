@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;

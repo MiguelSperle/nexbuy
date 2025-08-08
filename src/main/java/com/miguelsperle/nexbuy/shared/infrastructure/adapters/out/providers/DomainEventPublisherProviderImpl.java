@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.providers;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

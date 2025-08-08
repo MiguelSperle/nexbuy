@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.services;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.services.EmailService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.EmailService;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EmailSendFailedException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;

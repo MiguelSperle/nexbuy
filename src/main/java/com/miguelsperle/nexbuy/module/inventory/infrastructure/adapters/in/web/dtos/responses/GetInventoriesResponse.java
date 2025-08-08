@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.dtos.responses;
 
-import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.GetInventoriesUseCaseOutput;
 
 public record GetInventoriesResponse(

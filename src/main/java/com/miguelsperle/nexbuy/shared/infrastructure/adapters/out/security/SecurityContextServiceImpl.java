@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.security;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

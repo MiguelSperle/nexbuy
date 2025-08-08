@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.providers;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;

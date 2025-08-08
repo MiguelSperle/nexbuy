@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;

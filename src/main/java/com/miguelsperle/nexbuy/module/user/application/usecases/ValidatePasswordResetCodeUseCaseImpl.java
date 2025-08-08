@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.ValidatePasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
@@ -8,7 +8,7 @@ import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundExc
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +32,7 @@ public class ValidatePasswordResetCodeUseCaseImpl implements ValidatePasswordRes
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
-        return this.userCodeRepository.findByCodeAndCodeType(code, CodeType.PASSWORD_RESET.name())
+        return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.PASSWORD_RESET.name())
                 .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 

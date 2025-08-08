@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.InvalidCurrentPasswordException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;

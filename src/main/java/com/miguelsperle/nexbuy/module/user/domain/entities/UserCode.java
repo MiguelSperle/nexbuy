@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
-import com.miguelsperle.nexbuy.core.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ public class UserCode {
     private final String id;
     private final String userId;
     private final String code;
-    private final CodeType codeType;
+    private final UserCodeType userCodeType;
     private final LocalDateTime expiresIn;
     private final LocalDateTime createdAt;
 
@@ -18,14 +18,14 @@ public class UserCode {
             String id,
             String userId,
             String code,
-            CodeType codeType,
+            UserCodeType userCodeType,
             LocalDateTime expiresIn,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.userId = userId;
         this.code = code;
-        this.codeType = codeType;
+        this.userCodeType = userCodeType;
         this.expiresIn = expiresIn;
         this.createdAt = createdAt;
     }
@@ -33,13 +33,13 @@ public class UserCode {
     public static UserCode newUserCode(
             String userId,
             String code,
-            CodeType codeType
+            UserCodeType userCodeType
     ) {
         return new UserCode(
                 IdentifierUtils.generateUUID(),
                 userId,
                 code,
-                codeType,
+                userCodeType,
                 TimeUtils.now().plusMinutes(15),
                 TimeUtils.now()
         );
@@ -49,7 +49,7 @@ public class UserCode {
             String id,
             String userId,
             String code,
-            CodeType codeType,
+            UserCodeType userCodeType,
             LocalDateTime expiresIn,
             LocalDateTime createdAt
     ) {
@@ -57,7 +57,7 @@ public class UserCode {
                 id,
                 userId,
                 code,
-                codeType,
+                userCodeType,
                 expiresIn,
                 createdAt
         );
@@ -75,8 +75,8 @@ public class UserCode {
         return this.code;
     }
 
-    public CodeType getCodeType() {
-        return this.codeType;
+    public UserCodeType getUserCodeType() {
+        return this.userCodeType;
     }
 
     public LocalDateTime getExpiresIn() {
@@ -93,7 +93,7 @@ public class UserCode {
                 "id='" + this.id + '\'' +
                 ", userId=" + this.userId +
                 ", code='" + this.code + '\'' +
-                ", codeType=" + this.codeType +
+                ", userCodeType=" + this.userCodeType +
                 ", expiresIn=" + this.expiresIn +
                 ", createdAt=" + this.createdAt +
                 '}';

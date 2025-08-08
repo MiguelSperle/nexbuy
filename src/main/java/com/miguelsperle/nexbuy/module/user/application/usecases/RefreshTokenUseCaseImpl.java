@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
-import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.RefreshTokenExpiredException;

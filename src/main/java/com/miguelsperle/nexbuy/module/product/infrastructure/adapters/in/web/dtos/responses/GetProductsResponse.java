@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses;
 
-import com.miguelsperle.nexbuy.core.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductsUseCaseOutput;
 
 import java.math.BigDecimal;

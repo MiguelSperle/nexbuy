@@ -1,14 +1,8 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.ActivateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.CreateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeactivateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.UpdateCouponUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.*;
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.ActivateCouponUseCaseImpl;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.CreateCouponUseCaseImpl;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.DeactivateCouponUseCaseImpl;
-import com.miguelsperle.nexbuy.module.coupon.application.usecases.UpdateCouponUseCaseImpl;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,5 +26,10 @@ public class CouponUseCasesConfiguration {
     @Bean
     public DeactivateCouponUseCase deactivateCouponUseCase(CouponRepository couponRepository) {
         return new DeactivateCouponUseCaseImpl(couponRepository);
+    }
+
+    @Bean
+    public DeleteCouponUseCase deleteCouponUseCase(CouponRepository couponRepository) {
+        return new DeleteCouponUseCaseImpl(couponRepository);
     }
 }

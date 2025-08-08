@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateRefreshTokenUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.usecases.RefreshTokenUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateRefreshTokenUseCase;

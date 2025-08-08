@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.core.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
@@ -12,7 +12,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 import java.time.LocalDateTime;
 
@@ -51,7 +51,7 @@ public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseC
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
-        return this.userCodeRepository.findByCodeAndCodeType(code, CodeType.USER_VERIFICATION.name())
+        return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.USER_VERIFICATION.name())
                 .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
     }
 

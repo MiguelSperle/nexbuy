@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.core.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
-import com.miguelsperle.nexbuy.module.user.domain.enums.CodeType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
 
 import java.util.Optional;
@@ -42,13 +42,13 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
 
         final String codeGenerated = this.codeProvider.generateCode();
 
-        final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, CodeType.PASSWORD_RESET);
+        final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, UserCodeType.PASSWORD_RESET);
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
         this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
                 savedUserCode.getCode(),
-                savedUserCode.getCodeType(),
+                savedUserCode.getUserCodeType(),
                 savedUserCode.getUserId()
         ));
     }
@@ -58,7 +58,7 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
-        return this.userCodeRepository.findByUserIdAndCodeType(userId, CodeType.PASSWORD_RESET.name());
+        return this.userCodeRepository.findByUserIdAndCodeType(userId, UserCodeType.PASSWORD_RESET.name());
     }
 
     private void deleteUserCodeById(String userCodeId) {
