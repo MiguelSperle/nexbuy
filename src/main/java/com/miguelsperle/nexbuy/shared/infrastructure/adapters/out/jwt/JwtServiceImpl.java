@@ -33,8 +33,8 @@ public class JwtServiceImpl implements JwtService {
                     .withClaim("role", role)
                     .withExpiresAt(this.genExpirationDate(Instant.now()))
                     .sign(algorithm);
-        } catch (Exception exception) {
-            log.error("Failed to create JWT token for userId: [{}] with role: [{}]", userId, role, exception);
+        } catch (Exception ex) {
+            log.error("Failed to create JWT token for userId: [{}] with role: [{}]", userId, role, ex);
             throw JwtTokenCreationFailedException.with("An authentication error occurred");
         }
     }
@@ -47,8 +47,8 @@ public class JwtServiceImpl implements JwtService {
             final DecodedJWT decodedJWT = JWT.require(algorithm).withIssuer("nexbuy").build().verify(jwtToken);
 
             return new DecodedJwtToken(decodedJWT.getSubject(), decodedJWT.getClaim("role").asString());
-        } catch (Exception exception) {
-            log.error("Failed to validate JWT token", exception);
+        } catch (Exception ex) {
+            log.error("Failed to validate JWT token", ex);
             throw JwtTokenValidationFailedException.with("Invalid JWT token");
         }
     }

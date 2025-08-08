@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.DeleteAddressUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.AddressNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.DeleteAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeleteAddressUseCaseImpl implements DeleteAddressUseCase {
     private final AddressRepository addressRepository;
@@ -22,7 +22,7 @@ public class DeleteAddressUseCaseImpl implements DeleteAddressUseCase {
 
     private Address getAddressById(String addressId) {
         return this.addressRepository.findById(addressId)
-                .orElseThrow(() -> AddressNotFoundException.with("Address not found"));
+                .orElseThrow(() -> NotFoundException.with("Address not found"));
     }
 
     private void deleteAddressById(String addressId) {

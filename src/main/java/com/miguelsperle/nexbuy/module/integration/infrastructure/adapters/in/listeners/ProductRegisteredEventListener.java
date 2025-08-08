@@ -38,22 +38,22 @@ public class ProductRegisteredEventListener {
                     productRegisteredEvent.id(),
                     productRegisteredEvent.sku()
             ));
-        } catch (Exception exception) {
+        } catch (Exception ex) {
             log.error("Failed to process event - Type: [{}] - Details: [{}]",
                     productRegisteredEvent.getClass().getSimpleName(),
                     productRegisteredEvent,
-                    exception
+                    ex
             );
-            throw EventProcessingFailureException.with("Failed to process event", exception);
+            throw EventProcessingFailureException.with("Failed to process event", ex);
         }
     }
 
     @Recover
-    public void recover(EventProcessingFailureException eventProcessingFailureException, ProductRegisteredEvent productRegisteredEvent) {
+    public void recover(EventProcessingFailureException ex, ProductRegisteredEvent productRegisteredEvent) {
         log.error("All retry attempts to process the event failed - Type: [{}] - Details: [{}}",
                 productRegisteredEvent.getClass().getSimpleName(),
                 productRegisteredEvent,
-                eventProcessingFailureException
+                ex
         );
     }
 }

@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.in.DeleteUserUseCas
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
     private final UserRepository userRepository;
@@ -32,7 +32,7 @@ public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
     }
 
     private User getUserById(String userId) {
-        return this.userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findById(userId).orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

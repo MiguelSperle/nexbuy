@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAssociatedWithProductsException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeleteColorUseCaseImpl implements DeleteColorUseCase {
     private final ColorRepository colorRepository;
@@ -22,7 +22,7 @@ public class DeleteColorUseCaseImpl implements DeleteColorUseCase {
         final Color color = this.getColorById(deleteColorUseCaseInput.colorId());
 
         if (this.verifyProductAlreadyExistsByColorId(color.getId())) {
-            throw ColorAssociatedWithProductsException.with("Color cannot be deleted because it is already associated with products");
+            throw DomainException.with("Color cannot be deleted because it is already associated with products", 409);
         }
 
         this.deleteColorById(color.getId());
@@ -30,7 +30,7 @@ public class DeleteColorUseCaseImpl implements DeleteColorUseCase {
 
     private Color getColorById(String colorId) {
         return this.colorRepository.findById(colorId)
-                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
+                .orElseThrow(() -> NotFoundException.with("Color not found"));
     }
 
     private boolean verifyProductAlreadyExistsByColorId(String colorId) {

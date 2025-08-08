@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.NaturalPersonAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class CreateNaturalPersonUseCaseImpl implements CreateNaturalPersonUseCase {
     private final NaturalPersonRepository naturalPersonRepository;
@@ -16,11 +16,11 @@ public class CreateNaturalPersonUseCaseImpl implements CreateNaturalPersonUseCas
     @Override
     public void execute(CreateNaturalPersonUseCaseInput createNaturalPersonUseCaseInput) {
         if (this.verifyNaturalPersonAlreadyExistsByCpf(createNaturalPersonUseCaseInput.cpf())) {
-            throw NaturalPersonAlreadyExistsException.with("This cpf is already being used");
+            throw DomainException.with("This cpf is already being used", 409);
         }
 
         if (this.verifyNaturalPersonAlreadyExistsByGeneralRegister(createNaturalPersonUseCaseInput.generalRegister())) {
-            throw NaturalPersonAlreadyExistsException.with("This general register is already being used");
+            throw DomainException.with("This general register is already being used", 409);
         }
 
         final NaturalPerson newNaturalPerson = NaturalPerson.newNaturalPerson(

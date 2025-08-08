@@ -8,7 +8,7 @@ import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.C
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.IncreaseInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class IncreaseInventoryUseCaseImpl implements IncreaseInventoryUseCase {
     private final InventoryRepository inventoryRepository;
@@ -47,7 +47,7 @@ public class IncreaseInventoryUseCaseImpl implements IncreaseInventoryUseCase {
 
     private Inventory getInventoryBySku(String sku) {
         return this.inventoryRepository.findBySku(sku)
-                .orElseThrow(() -> InventoryNotFoundException.with("Inventory not found"));
+                .orElseThrow(() -> NotFoundException.with("Inventory not found"));
     }
 
     private Inventory saveInventory(Inventory inventory) {

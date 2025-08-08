@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.listeners;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.EmailService;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -9,7 +10,6 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.Creat
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,27 +53,27 @@ public class UserCreatedEventListener {
             final User user = this.getUserById(userCode.getUserId());
 
             this.emailService.sendEmail(user.getEmail(), message, subject);
-        } catch (Exception exception) {
+        } catch (Exception ex) {
             log.error("Failed to process event - Type: [{}] - Details: [{}]",
                     userCreatedEvent.getClass().getSimpleName(),
                     userCreatedEvent,
-                    exception
+                    ex
             );
-            throw EventProcessingFailureException.with("Failed to process event", exception);
+            throw EventProcessingFailureException.with("Failed to process event", ex);
         }
     }
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     @Recover
-    public void recover(EventProcessingFailureException eventProcessingFailureException, UserCreatedEvent userCreatedEvent) {
+    public void recover(EventProcessingFailureException ex, UserCreatedEvent userCreatedEvent) {
         log.error("All retry attempts to process the event failed - Type: [{}] - Details: [{}]",
                 userCreatedEvent.getClass().getSimpleName(),
                 userCreatedEvent,
-                eventProcessingFailureException
+                ex
         );
     }
 }

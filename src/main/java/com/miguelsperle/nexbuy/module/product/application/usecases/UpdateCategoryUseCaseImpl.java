@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase {
     private final CategoryRepository categoryRepository;
@@ -20,7 +20,7 @@ public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase {
 
         if (!updateCategoryUseCaseInput.name().equalsIgnoreCase(category.getName())) {
             if (this.verifyCategoryAlreadyExistsByName(updateCategoryUseCaseInput.name())) {
-                throw CategoryAlreadyExistsException.with("Category with this name already exists");
+                throw DomainException.with("Category with this name already exists", 409);
             }
         }
 
@@ -31,7 +31,7 @@ public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase {
 
     private Category getCategoryById(String id) {
         return this.categoryRepository.findById(id)
-                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
+                .orElseThrow(() -> NotFoundException.with("Category not found"));
     }
 
     private boolean verifyCategoryAlreadyExistsByName(String name) {

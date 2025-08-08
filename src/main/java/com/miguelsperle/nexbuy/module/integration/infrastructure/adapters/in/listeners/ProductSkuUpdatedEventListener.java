@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.integration.infrastructure.adapters.in.li
 
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.domain.events.ProductSkuUpdatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -40,19 +40,19 @@ public class ProductSkuUpdatedEventListener {
             final Inventory updatedInventory = inventory.withSku(productSkuUpdatedEvent.sku());
 
             this.saveInventory(updatedInventory);
-        } catch (Exception exception) {
+        } catch (Exception ex) {
             log.error("Failed to process event - Type: [{}] - Details: [{}]",
                     productSkuUpdatedEvent.getClass().getSimpleName(),
                     productSkuUpdatedEvent,
-                    exception
+                    ex
             );
-            throw EventProcessingFailureException.with("Failed to process event", exception);
+            throw EventProcessingFailureException.with("Failed to process event", ex);
         }
     }
 
     private Inventory getInventoryByProductId(String productId) {
         return this.inventoryRepository.findByProductId(productId)
-                .orElseThrow(() -> InventoryNotFoundException.with("Inventory not found"));
+                .orElseThrow(() -> NotFoundException.with("Inventory not found"));
     }
 
     private void saveInventory(Inventory inventory) {
@@ -60,11 +60,11 @@ public class ProductSkuUpdatedEventListener {
     }
 
     @Recover
-    public void recover(EventProcessingFailureException eventProcessingFailureException, ProductSkuUpdatedEvent productSkuUpdatedEvent) {
+    public void recover(EventProcessingFailureException ex, ProductSkuUpdatedEvent productSkuUpdatedEvent) {
         log.error("All retry attempts to process the event failed - Type: [{}] - Details: [{}}",
                 productSkuUpdatedEvent.getClass().getSimpleName(),
                 productSkuUpdatedEvent,
-                eventProcessingFailureException
+                ex
         );
     }
 }

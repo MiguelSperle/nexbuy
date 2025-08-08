@@ -8,12 +8,10 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.Authe
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.InvalidCredentialsException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserDeletedException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotVerifiedException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
     private final UserRepository userRepository;
@@ -38,15 +36,15 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
         final User user = this.getUserByEmail(authenticateUseCaseInput.email());
 
         if (!this.validatePassword(authenticateUseCaseInput.password(), user.getPassword())) {
-            throw InvalidCredentialsException.with("Invalid credentials");
+            throw DomainException.with("Wrong credentials", 401);
         }
 
         if (user.getUserStatus() == UserStatus.UNVERIFIED) {
-            throw UserNotVerifiedException.with("User not verified");
+            throw DomainException.with("User not verified", 403);
         }
 
         if (user.getUserStatus() == UserStatus.DELETED) {
-            throw UserDeletedException.with("User has been deleted and cannot authenticate");
+            throw DomainException.with("User has been deleted and cannot authenticate", 403);
         }
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
@@ -59,7 +57,7 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
     }
 
     private User getUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> InvalidCredentialsException.with("Invalid credentials"));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> DomainException.with("Wrong credentials", 401));
     }
 
     private boolean validatePassword(String password, String encodedPassword) {

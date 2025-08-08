@@ -2,10 +2,10 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     private final SecurityContextService securityContextService;
@@ -38,7 +38,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

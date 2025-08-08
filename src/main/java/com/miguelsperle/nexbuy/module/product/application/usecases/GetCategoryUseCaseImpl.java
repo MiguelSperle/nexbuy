@@ -2,10 +2,10 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetCategoryUseCaseImpl implements GetCategoryUseCase {
     private final CategoryRepository brandRepository;
@@ -23,6 +23,6 @@ public class GetCategoryUseCaseImpl implements GetCategoryUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.brandRepository.findById(categoryId)
-                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
+                .orElseThrow(() -> NotFoundException.with("Category not found"));
     }
 }

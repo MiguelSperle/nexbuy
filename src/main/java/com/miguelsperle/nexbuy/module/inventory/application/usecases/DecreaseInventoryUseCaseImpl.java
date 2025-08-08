@@ -8,8 +8,8 @@ import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.C
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.DecreaseInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InsufficientInventoryException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DecreaseInventoryUseCaseImpl implements DecreaseInventoryUseCase {
     private final InventoryRepository inventoryRepository;
@@ -31,7 +31,7 @@ public class DecreaseInventoryUseCaseImpl implements DecreaseInventoryUseCase {
         final Inventory inventory = this.getInventoryBySku(decreaseInventoryUseCaseInput.sku());
 
         if (inventory.getQuantity() < decreaseInventoryUseCaseInput.quantity()) {
-            throw InsufficientInventoryException.with("The quantity in inventory is insufficient");
+            throw DomainException.with("The quantity in inventory is insufficient", 409);
         }
 
         final int decreasedInventoryQuantity = inventory.getQuantity() - decreaseInventoryUseCaseInput.quantity();
@@ -52,7 +52,7 @@ public class DecreaseInventoryUseCaseImpl implements DecreaseInventoryUseCase {
 
     private Inventory getInventoryBySku(String sku) {
         return this.inventoryRepository.findBySku(sku)
-                .orElseThrow(() -> InventoryNotFoundException.with("Inventory not found"));
+                .orElseThrow(() -> NotFoundException.with("Inventory not found"));
     }
 
     private Inventory saveInventory(Inventory inventory) {

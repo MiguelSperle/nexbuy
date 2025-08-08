@@ -3,9 +3,6 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.LegalPersonNotFoundException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.NaturalPersonNotFoundException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAuthenticatedUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
@@ -14,6 +11,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseCase {
     private final SecurityContextService securityContextService;
@@ -63,12 +61,12 @@ public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseC
 
     private NaturalPerson getNaturalPersonByUserId(String userId) {
         return this.naturalPersonRepository.findByUserId(userId)
-                .orElseThrow(() -> NaturalPersonNotFoundException.with("Natural person not found"));
+                .orElseThrow(() -> NotFoundException.with("Natural person not found"));
     }
 
     private LegalPerson getLegalPersonByUserId(String userId) {
         return this.legalPersonRepository.findByUserId(userId)
-                .orElseThrow(() -> LegalPersonNotFoundException.with("Legal person not found"));
+                .orElseThrow(() -> NotFoundException.with("Legal person not found"));
     }
 
     private String getAuthenticatedUserId() {
@@ -77,6 +75,6 @@ public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseC
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 }

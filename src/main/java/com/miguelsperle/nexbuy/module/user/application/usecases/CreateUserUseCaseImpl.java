@@ -6,16 +6,15 @@ import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.Transact
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
-import com.miguelsperle.nexbuy.shared.application.exceptions.MissingComplementException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;
@@ -46,7 +45,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         this.ensureComplementBasedPersonType(createUserUseCaseInput.personType(), createUserUseCaseInput.personComplementInput());
 
         if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.email())) {
-            throw UserAlreadyExistsException.with("This email is already being used");
+            throw DomainException.with("This email is already being used", 409);
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(createUserUseCaseInput.password());
@@ -84,9 +83,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private void ensureComplementBasedPersonType(PersonType personType, PersonComplementInput personComplementInput) {
         if (personType == PersonType.NATURAL_PERSON && personComplementInput == null) {
-            throw MissingComplementException.with("You should provide naturalPerson when the person type is a NATURAL_PERSON");
+            throw DomainException.with("You should provide naturalPerson when the person type is a NATURAL_PERSON", 400);
         } else if (personType == PersonType.LEGAL_PERSON && personComplementInput == null) {
-            throw MissingComplementException.with("You should provide legalPerson when the person type is a LEGAL_PERSON");
+            throw DomainException.with("You should provide legalPerson when the person type is a LEGAL_PERSON", 400);
         }
     }
 

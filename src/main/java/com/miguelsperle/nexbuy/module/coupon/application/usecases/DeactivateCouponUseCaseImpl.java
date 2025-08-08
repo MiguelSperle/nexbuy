@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeactivateCoup
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.DeactivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponDeactivatedException;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponNotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeactivateCouponUseCaseImpl implements DeactivateCouponUseCase {
     private final CouponRepository couponRepository;
@@ -19,7 +19,7 @@ public class DeactivateCouponUseCaseImpl implements DeactivateCouponUseCase {
         final Coupon coupon = this.getCouponById(deactivateCouponUseCaseInput.couponId());
 
         if (!coupon.getIsActive()) {
-            throw CouponDeactivatedException.with("Coupon is already activated");
+            throw DomainException.with("Coupon is already deactivated", 409);
         }
 
         final Coupon updatedCoupon = coupon.withIsActive(false);
@@ -29,7 +29,7 @@ public class DeactivateCouponUseCaseImpl implements DeactivateCouponUseCase {
 
     private Coupon getCouponById(String couponId) {
         return this.couponRepository.findById(couponId)
-                .orElseThrow(() -> CouponNotFoundException.with("Coupon not found"));
+                .orElseThrow(() -> NotFoundException.with("Coupon not found"));
     }
 
     private void saveCoupon(Coupon coupon) {

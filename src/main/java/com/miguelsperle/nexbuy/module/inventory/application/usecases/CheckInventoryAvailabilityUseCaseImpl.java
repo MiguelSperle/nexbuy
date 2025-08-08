@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistenc
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CheckInventoryAvailabilityUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.CheckInventoryAvailabilityUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.module.inventory.domain.exceptions.InventoryNotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class CheckInventoryAvailabilityUseCaseImpl implements CheckInventoryAvailabilityUseCase {
     private final InventoryRepository inventoryRepository;
@@ -25,6 +25,6 @@ public class CheckInventoryAvailabilityUseCaseImpl implements CheckInventoryAvai
 
     private Inventory getInventoryBySku(String sku) {
         return this.inventoryRepository.findBySku(sku)
-                .orElseThrow(() -> InventoryNotFoundException.with("Inventory not found"));
+                .orElseThrow(() -> NotFoundException.with("Inventory not found"));
     }
 }

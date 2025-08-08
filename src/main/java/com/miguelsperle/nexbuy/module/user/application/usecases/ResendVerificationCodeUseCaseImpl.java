@@ -4,9 +4,6 @@ import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvid
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserAlreadyVerifiedException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserDeletedException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
@@ -14,6 +11,8 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.util.Optional;
 
@@ -40,11 +39,11 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
         final User user = this.getUserByEmail(resendVerificationCodeUseCaseInput.email());
 
         if (user.getUserStatus() == UserStatus.VERIFIED) {
-            throw UserAlreadyVerifiedException.with("User already verified");
+            throw DomainException.with("User already verified", 409);
         }
 
         if (user.getUserStatus() == UserStatus.DELETED) {
-            throw UserDeletedException.with("User has been deleted and cannot ask for resending");
+            throw DomainException.with("User has been deleted and cannot ask for resending", 403);
         }
 
         this.getPreviousUserCodeByUserIdAndCodeType(user.getId()).ifPresent(userCode ->
@@ -65,7 +64,7 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
     }
 
     private User getUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

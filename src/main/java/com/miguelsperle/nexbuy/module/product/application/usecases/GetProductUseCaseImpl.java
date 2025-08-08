@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ProductNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetProductUseCaseImpl implements GetProductUseCase {
     private final ProductRepository productRepository;
@@ -23,6 +23,6 @@ public class GetProductUseCaseImpl implements GetProductUseCase {
 
     private Product getProductById(String productId) {
         return this.productRepository.findById(productId)
-                .orElseThrow(() -> ProductNotFoundException.with("Product not found"));
+                .orElseThrow(() -> NotFoundException.with("Product not found"));
     }
 }

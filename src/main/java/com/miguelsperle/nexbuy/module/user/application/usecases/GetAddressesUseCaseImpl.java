@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressesUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class GetAddressesUseCaseImpl implements GetAddressesUseCase {
     }
 
     private User getUserById(String userId) {
-        return this.userRepository.findById(userId).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findById(userId).orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private List<Address> getAddressesByUserId(String userId) {

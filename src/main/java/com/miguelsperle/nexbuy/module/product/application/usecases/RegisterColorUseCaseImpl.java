@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class RegisterColorUseCaseImpl implements RegisterColorUseCase {
     private final ColorRepository colorRepository;
@@ -16,7 +16,7 @@ public class RegisterColorUseCaseImpl implements RegisterColorUseCase {
     @Override
     public void execute(RegisterColorUseCaseInput registerColorUseCaseInput) {
         if (this.verifyColorAlreadyExistsByName(registerColorUseCaseInput.name())) {
-            throw ColorAlreadyExistsException.with("Color with this name already exists");
+            throw DomainException.with("Color with this name already exists", 409);
         }
 
         final Color newColor = Color.newColor(registerColorUseCaseInput.name());

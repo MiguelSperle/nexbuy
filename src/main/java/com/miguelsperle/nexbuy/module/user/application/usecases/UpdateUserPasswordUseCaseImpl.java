@@ -3,11 +3,11 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.InvalidCurrentPasswordException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase {
     private final SecurityContextService securityContextService;
@@ -31,7 +31,7 @@ public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase 
         final User user = this.getUserById(authenticatedUserId);
 
         if (!this.validatePassword(updateUserPasswordUseCaseInput.currentPassword(), user.getPassword())) {
-            throw InvalidCurrentPasswordException.with("Invalid current password");
+            throw DomainException.with("Invalid current password", 422);
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(updateUserPasswordUseCaseInput.password());
@@ -51,7 +51,7 @@ public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase 
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

@@ -1,12 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateUserToVerifiedUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
@@ -37,7 +36,7 @@ public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseC
 
         if (TimeUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
-            throw UserCodeExpiredException.with("User code has expired");
+            throw DomainException.with("User code has expired", 410);
         }
 
         final User user = this.getUserById(userCode.getUserId());
@@ -52,12 +51,12 @@ public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseC
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.USER_VERIFICATION.name())
-                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
+                .orElseThrow(() -> NotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

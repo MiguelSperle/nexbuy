@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class RegisterCategoryUseCaseImpl implements RegisterCategoryUseCase {
     private final CategoryRepository categoryRepository;
@@ -16,7 +16,7 @@ public class RegisterCategoryUseCaseImpl implements RegisterCategoryUseCase {
     @Override
     public void execute(RegisterCategoryUseCaseInput registerCategoryUseCaseInput) {
         if (this.verifyCategoryAlreadyExistsByName(registerCategoryUseCaseInput.name())) {
-            throw CategoryAlreadyExistsException.with("Category with this name already exists");
+            throw DomainException.with("Category with this name already exists", 409);
         }
 
         final Category newCategory = Category.newCategory(registerCategoryUseCaseInput.name());

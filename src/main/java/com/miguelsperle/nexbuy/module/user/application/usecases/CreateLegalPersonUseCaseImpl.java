@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.LegalPersonAlreadyExistsException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateLegalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class CreateLegalPersonUseCaseImpl implements CreateLegalPersonUseCase {
     private final LegalPersonRepository legalPersonRepository;
@@ -16,19 +16,19 @@ public class CreateLegalPersonUseCaseImpl implements CreateLegalPersonUseCase {
     @Override
     public void execute(CreateLegalPersonUseCaseInput createLegalPersonUseCaseInput) {
         if (this.verifyLegalPersonAlreadyExistsByCnpj(createLegalPersonUseCaseInput.cnpj())) {
-            throw LegalPersonAlreadyExistsException.with("This cnpj is already being used");
+            throw DomainException.with("This cnpj is already being used", 409);
         }
 
         if (this.verifyLegalPersonAlreadyExistsByFantasyName(createLegalPersonUseCaseInput.fantasyName())) {
-            throw LegalPersonAlreadyExistsException.with("This fantasy name is already being used");
+            throw DomainException.with("This fantasy name is already being used", 409);
         }
 
         if (this.verifyLegalPersonAlreadyExistsByLegalName(createLegalPersonUseCaseInput.legalName())) {
-            throw LegalPersonAlreadyExistsException.with("This legal name is already being used");
+            throw DomainException.with("This legal name is already being used", 409);
         }
 
         if (this.verifyLegalPersonAlreadyExistsByStateRegistration(createLegalPersonUseCaseInput.stateRegistration())) {
-            throw LegalPersonAlreadyExistsException.with("This state registration is already being used");
+            throw DomainException.with("This state registration is already being used", 409);
         }
 
         final LegalPerson newLegalPerson = LegalPerson.newLegalPerson(

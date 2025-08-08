@@ -3,7 +3,6 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -11,6 +10,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.util.Optional;
 
@@ -54,7 +54,7 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
     }
 
     private User getUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> UserNotFoundException.with("User not found"));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {

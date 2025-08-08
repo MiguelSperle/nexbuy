@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeleteCouponUs
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.DeleteCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponNotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeleteCouponUseCaseImpl implements DeleteCouponUseCase {
     private final CouponRepository couponRepository;
@@ -22,7 +22,7 @@ public class DeleteCouponUseCaseImpl implements DeleteCouponUseCase {
 
     private Coupon getCouponById(String couponId) {
         return this.couponRepository.findById(couponId)
-                .orElseThrow(() -> CouponNotFoundException.with("Coupon not found"));
+                .orElseThrow(() -> NotFoundException.with("Coupon not found"));
     }
 
     private void deleteCouponById(String couponId) {

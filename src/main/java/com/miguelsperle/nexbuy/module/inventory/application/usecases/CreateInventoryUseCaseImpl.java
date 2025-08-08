@@ -15,8 +15,7 @@ public class CreateInventoryUseCaseImpl implements CreateInventoryUseCase {
     @Override
     public void execute(CreateInventoryUseCaseInput createInventoryUseCaseInput) {
         final Inventory newInventory = Inventory.newInventory(
-                createInventoryUseCaseInput.productId(),
-                createInventoryUseCaseInput.sku()
+                createInventoryUseCaseInput.productId(), createInventoryUseCaseInput.sku()
         );
 
         this.saveInventory(newInventory);

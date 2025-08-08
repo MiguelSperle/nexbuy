@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
@@ -24,13 +24,13 @@ public class ValidatePasswordResetCodeUseCaseImpl implements ValidatePasswordRes
 
         if (TimeUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
-            throw UserCodeExpiredException.with("User code has expired");
+            throw DomainException.with("User code has expired", 410);
         }
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.PASSWORD_RESET.name())
-                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
+                .orElseThrow(() -> NotFoundException.with("User code not found"));
     }
 
     private void deleteUserCodeById(String userCodeId) {

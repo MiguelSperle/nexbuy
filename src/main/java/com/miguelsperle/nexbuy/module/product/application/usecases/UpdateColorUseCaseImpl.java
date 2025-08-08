@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateColorUseCaseImpl implements UpdateColorUseCase {
     private final ColorRepository colorRepository;
@@ -20,7 +20,7 @@ public class UpdateColorUseCaseImpl implements UpdateColorUseCase {
 
         if (!updateColorUseCaseInput.name().equalsIgnoreCase(color.getName())) {
             if (this.verifyColorAlreadyExistsByName(updateColorUseCaseInput.name())) {
-                throw ColorAlreadyExistsException.with("Color with this name already exists");
+                throw DomainException.with("Color with this name already exists", 409);
             }
         }
 
@@ -31,7 +31,7 @@ public class UpdateColorUseCaseImpl implements UpdateColorUseCase {
 
     private Color getColorById(String colorId) {
         return this.colorRepository.findById(colorId)
-                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
+                .orElseThrow(() -> NotFoundException.with("Color not found"));
     }
 
     private boolean verifyColorAlreadyExistsByName(String name) {

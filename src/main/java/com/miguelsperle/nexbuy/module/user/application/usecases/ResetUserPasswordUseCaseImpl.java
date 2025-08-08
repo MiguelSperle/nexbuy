@@ -2,11 +2,10 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ResetUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -39,7 +38,7 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
 
         if (TimeUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
-            throw UserCodeExpiredException.with("User code has expired");
+            throw DomainException.with("User code has expired", 410);
         }
 
         final String encodedPassword = this.passwordEncryptorProvider.encode(resetUserPasswordUseCaseInput.password());
@@ -56,12 +55,12 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {
         return this.userCodeRepository.findByCodeAndCodeType(code, UserCodeType.PASSWORD_RESET.name())
-                .orElseThrow(() -> UserCodeNotFoundException.with("User code not found"));
+                .orElseThrow(() -> NotFoundException.with("User code not found"));
     }
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
     private void saveUser(User user) {

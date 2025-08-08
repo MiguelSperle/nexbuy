@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryAssociatedWithProductsException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class DeleteCategoryUseCaseImpl implements DeleteCategoryUseCase {
     private final CategoryRepository categoryRepository;
@@ -22,7 +22,7 @@ public class DeleteCategoryUseCaseImpl implements DeleteCategoryUseCase {
         final Category category = this.getCategoryById(deleteCategoryUseCaseInput.categoryId());
 
         if (this.verifyProductAlreadyExistsByCategoryId(category.getId())) {
-            throw CategoryAssociatedWithProductsException.with("Category cannot be deleted because it is already associated with products");
+            throw DomainException.with("Category cannot be deleted because it is already associated with products", 409);
         }
 
         this.deleteCategoryById(category.getId());
@@ -30,7 +30,7 @@ public class DeleteCategoryUseCaseImpl implements DeleteCategoryUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.categoryRepository.findById(categoryId)
-                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
+                .orElseThrow(() -> NotFoundException.with("Category not found"));
     }
 
     private boolean verifyProductAlreadyExistsByCategoryId(String categoryId) {

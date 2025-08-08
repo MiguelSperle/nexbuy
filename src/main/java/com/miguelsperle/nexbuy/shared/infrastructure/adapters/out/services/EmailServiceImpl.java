@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SmtpEmailServiceImpl implements EmailService {
+public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String from;
 
-    private static final Logger log = LoggerFactory.getLogger(SmtpEmailServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
 
     @Override
     public void sendEmail(String to, String text, String subject) {
@@ -33,9 +33,9 @@ public class SmtpEmailServiceImpl implements EmailService {
             mimeMessageHelper.setSubject(subject);
 
             this.javaMailSender.send(mimeMessage);
-        } catch (Exception exception) {
-            log.error("Failed to send email to: [{}]", to, exception);
-            throw EmailSendFailedException.with("Failed to send email", exception);
+        } catch (Exception ex) {
+            log.error("Failed to send email to: [{}]", to, ex);
+            throw EmailSendFailedException.with("Failed to send email", ex);
         }
     }
 }

@@ -1,12 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.RefreshTokenExpiredException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.RefreshTokenNotFoundException;
-import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.RefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
@@ -36,7 +35,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
         if (TimeUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
             this.deleteRefreshTokenById(refreshToken.getId());
-            throw RefreshTokenExpiredException.with("Refresh token has expired");
+            throw DomainException.with("Refresh token has expired", 410);
         }
 
         final User user = this.getUserById(refreshToken.getUserId());
@@ -48,7 +47,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
     private RefreshToken getRefreshTokenByToken(String token) {
         return this.refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> RefreshTokenNotFoundException.with("Refresh token not found"));
+                .orElseThrow(() -> NotFoundException.with("Refresh token not found"));
     }
 
     private void deleteRefreshTokenById(String refreshTokenId) {
@@ -57,6 +56,6 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
     private User getUserById(String userId) {
         return this.userRepository.findById(userId)
-                .orElseThrow(() -> UserNotFoundException.with("User not found"));
+                .orElseThrow(() -> NotFoundException.with("User not found"));
     }
 }

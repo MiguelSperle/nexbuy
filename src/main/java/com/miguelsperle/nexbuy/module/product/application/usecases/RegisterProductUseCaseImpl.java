@@ -3,9 +3,6 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.product.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.CategoryNotFoundException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.ColorNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
@@ -16,6 +13,7 @@ import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
     private final ProductRepository productRepository;
@@ -80,17 +78,17 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
 
     private Category getCategoryById(String categoryId) {
         return this.categoryRepository.findById(categoryId)
-                .orElseThrow(() -> CategoryNotFoundException.with("Category not found"));
+                .orElseThrow(() -> NotFoundException.with("Category not found"));
     }
 
     private Brand getBrandById(String brandId) {
         return this.brandRepository.findById(brandId)
-                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
+                .orElseThrow(() -> NotFoundException.with("Brand not found"));
     }
 
     private Color getColorById(String colorId) {
         return this.colorRepository.findById(colorId)
-                .orElseThrow(() -> ColorNotFoundException.with("Color not found"));
+                .orElseThrow(() -> NotFoundException.with("Color not found"));
     }
 
     private Product saveProduct(Product product) {

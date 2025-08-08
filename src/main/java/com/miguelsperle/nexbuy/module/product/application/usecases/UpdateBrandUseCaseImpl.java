@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandAlreadyExistsException;
-import com.miguelsperle.nexbuy.module.product.domain.exceptions.BrandNotFoundException;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateBrandUseCaseImpl implements UpdateBrandUseCase {
     private final BrandRepository brandRepository;
@@ -20,7 +20,7 @@ public class UpdateBrandUseCaseImpl implements UpdateBrandUseCase {
 
         if (!updateBrandUseCaseInput.name().equalsIgnoreCase(brand.getName())) {
             if (this.verifyBrandAlreadyExistsByName(updateBrandUseCaseInput.name())) {
-                throw BrandAlreadyExistsException.with("Brand with this name already exists");
+                throw DomainException.with("Brand with this name already exists", 409);
             }
         }
 
@@ -31,7 +31,7 @@ public class UpdateBrandUseCaseImpl implements UpdateBrandUseCase {
 
     private Brand getBrandById(String brandId) {
         return this.brandRepository.findById(brandId)
-                .orElseThrow(() -> BrandNotFoundException.with("Brand not found"));
+                .orElseThrow(() -> NotFoundException.with("Brand not found"));
     }
 
     private boolean verifyBrandAlreadyExistsByName(String name) {
