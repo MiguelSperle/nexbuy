@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.DeactivateCoup
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.DeactivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponAlreadyDeactivatedException;
+import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponDeactivatedException;
 import com.miguelsperle.nexbuy.module.coupon.domain.exceptions.CouponNotFoundException;
 
 public class DeactivateCouponUseCaseImpl implements DeactivateCouponUseCase {
@@ -19,7 +19,7 @@ public class DeactivateCouponUseCaseImpl implements DeactivateCouponUseCase {
         final Coupon coupon = this.getCouponById(deactivateCouponUseCaseInput.couponId());
 
         if (!coupon.getIsActive()) {
-            throw CouponAlreadyDeactivatedException.with("Coupon is already deactivated");
+            throw CouponDeactivatedException.with("Coupon is already activated");
         }
 
         final Coupon updatedCoupon = coupon.withIsActive(false);

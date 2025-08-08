@@ -4,13 +4,11 @@ import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.respon
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.ValidatePasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreatePasswordResetCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ResendVerificationCodeRequest;
-import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.responses.ValidatePasswordResetCodeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,10 +41,9 @@ public class UserCodeController {
     }
 
     @GetMapping("/password-recovery/{code}/validation")
-    public ResponseEntity<ValidatePasswordResetCodeResponse> validatePasswordResetCode(@PathVariable String code) {
-        final ValidatePasswordResetCodeUseCaseOutput validatePasswordResetCodeUseCaseOutput =
-                this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(code));
+    public ResponseEntity<Void> validatePasswordResetCode(@PathVariable String code) {
+        this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(code));
 
-        return ResponseEntity.ok().body(ValidatePasswordResetCodeResponse.from(validatePasswordResetCodeUseCaseOutput));
+        return ResponseEntity.noContent().build();
     }
 }

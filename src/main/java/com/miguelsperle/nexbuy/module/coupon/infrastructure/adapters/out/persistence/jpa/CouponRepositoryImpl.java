@@ -39,4 +39,9 @@ public class CouponRepositoryImpl implements CouponRepository {
     public boolean existsByCode(String code) {
         return this.jpaCouponRepository.existsByCode(code);
     }
+
+    @Override
+    public Optional<Coupon> findByCode(String code) {
+        return this.jpaCouponRepository.findByCode(code).map(JpaCouponEntity::toEntity);
+    }
 }

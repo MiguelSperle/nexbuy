@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.ValidatePasswordResetCodeUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeExpiredException;
 import com.miguelsperle.nexbuy.module.user.domain.exceptions.UserCodeNotFoundException;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
@@ -20,15 +19,13 @@ public class ValidatePasswordResetCodeUseCaseImpl implements ValidatePasswordRes
     }
 
     @Override
-    public ValidatePasswordResetCodeUseCaseOutput execute(ValidatePasswordResetCodeUseCaseInput validatePasswordResetCodeUseCaseInput) {
+    public void execute(ValidatePasswordResetCodeUseCaseInput validatePasswordResetCodeUseCaseInput) {
         final UserCode userCode = this.getUserCodeByCodeAndCodeType(validatePasswordResetCodeUseCaseInput.code());
 
         if (TimeUtils.isExpired(userCode.getExpiresIn(), LocalDateTime.now())) {
             this.deleteUserCodeById(userCode.getId());
             throw UserCodeExpiredException.with("User code has expired");
         }
-
-        return ValidatePasswordResetCodeUseCaseOutput.from(true);
     }
 
     private UserCode getUserCodeByCodeAndCodeType(String code) {

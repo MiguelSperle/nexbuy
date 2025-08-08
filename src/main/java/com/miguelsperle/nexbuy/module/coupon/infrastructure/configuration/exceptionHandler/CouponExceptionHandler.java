@@ -35,17 +35,17 @@ public class CouponExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(CouponAlreadyActivatedException.class)
-    public ResponseEntity<ErrorMessageResponse> handleCouponAlreadyActivatedException(CouponAlreadyActivatedException couponAlreadyActivatedException) {
+    @ExceptionHandler(CouponActivatedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleCouponActivatedException(CouponActivatedException couponActivatedException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
-                Collections.singletonList(couponAlreadyActivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+                Collections.singletonList(couponActivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 
-    @ExceptionHandler(CouponAlreadyDeactivatedException.class)
-    public ResponseEntity<ErrorMessageResponse> handleCouponAlreadyDeactivatedException(CouponAlreadyDeactivatedException couponAlreadyDeactivatedException) {
+    @ExceptionHandler(CouponDeactivatedException.class)
+    public ResponseEntity<ErrorMessageResponse> handleCouponDeactivatedException(CouponDeactivatedException couponDeactivatedException) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ErrorMessageResponse.from(
-                Collections.singletonList(couponAlreadyDeactivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
+                Collections.singletonList(couponDeactivatedException.getMessage()), HttpStatus.CONFLICT.getReasonPhrase()
         ));
     }
 }

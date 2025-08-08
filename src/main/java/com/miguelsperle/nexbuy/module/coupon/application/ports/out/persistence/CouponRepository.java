@@ -11,4 +11,5 @@ public interface CouponRepository {
     Coupon save(Coupon coupon);
     void deleteById(String id);
     boolean existsByCode(String code);
+    Optional<Coupon> findByCode(String code);
 }

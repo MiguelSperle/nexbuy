@@ -18,7 +18,7 @@ public class CheckInventoryAvailabilityUseCaseImpl implements CheckInventoryAvai
     public CheckInventoryAvailabilityUseCaseOutput execute(CheckInventoryAvailabilityUseCaseInput checkInventoryAvailabilityUseCaseInput) {
         final Inventory inventory = this.getInventoryBySku(checkInventoryAvailabilityUseCaseInput.sku());
 
-        final boolean isAvailable = inventory.getQuantity() != 0;
+        final boolean isAvailable = inventory.getQuantity() > 0;
 
         return CheckInventoryAvailabilityUseCaseOutput.from(isAvailable);
     }
