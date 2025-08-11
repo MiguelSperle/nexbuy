@@ -6,8 +6,6 @@ import org.springframework.data.jpa.domain.Specification;
 public class JpaColorSpecification {
     public static Specification<JpaColorEntity> filterByTerms(String terms) {
         return (root, query, criterialBuilder) ->
-                (terms == null || terms.isBlank())
-                        ? criterialBuilder.conjunction()
-                        : criterialBuilder.like(criterialBuilder.lower(root.get("name")), "%" + terms.toLowerCase() + "%");
+                criterialBuilder.like(criterialBuilder.lower(root.get("name")), "%" + terms.toLowerCase() + "%");
     }
 }

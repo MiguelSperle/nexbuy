@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.out.persistence.jpa;
 
+import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
@@ -68,21 +69,33 @@ public class ProductRepositoryImpl implements ProductRepository {
         Specification<JpaProductEntity> specification = Specification.where(null);
 
         final String terms = searchQuery.terms();
+
+        if (!terms.isBlank()) {
+            specification = specification.and(JpaProductSpecification.filterByTerms(terms));
+        }
+
         final String brandId = searchQuery.filters().get("brandId");
+
+        if (brandId != null && !brandId.isBlank()) {
+            specification = specification.and(JpaProductSpecification.filterByBrandId(brandId));
+        }
+
         final String categoryId = searchQuery.filters().get("categoryId");
-        final String isAdminStr = searchQuery.filters().get("isAdmin");
 
-        final boolean isAdmin = Boolean.parseBoolean(isAdminStr);
+        if (categoryId != null && !categoryId.isBlank()) {
+            specification = specification.and(JpaProductSpecification.filterByCategoryId(categoryId));
+        }
 
-        specification = specification.and(JpaProductSpecification.filterByTerms(terms));
-        specification = specification.and(JpaProductSpecification.filterByBrandId(brandId));
-        specification = specification.and(JpaProductSpecification.filterByCategoryId(categoryId));
+        final boolean isAdmin = Boolean.parseBoolean(searchQuery.filters().getOrDefault("isAdmin", "false"));
 
         if (isAdmin) {
-            final String status = searchQuery.filters().get("status");
-            specification = specification.and(JpaProductSpecification.filterByStatus(status));
+            final String statusStr = searchQuery.filters().get("status");
+            if (statusStr != null && !statusStr.isBlank()) {
+                final ProductStatus productStatus = ProductStatus.valueOf(statusStr);
+                specification = specification.and(JpaProductSpecification.filterByProductStatus(productStatus));
+            }
         } else {
-            specification = specification.and(JpaProductSpecification.filterByStatus("ACTIVE"));
+            specification = specification.and(JpaProductSpecification.filterByProductStatus(ProductStatus.ACTIVE));
         }
 
         final Page<JpaProductEntity> pageResult = this.jpaProductRepository.findAll(specification, pageable);

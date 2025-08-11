@@ -57,9 +57,11 @@ public class InventoryRepositoryImpl implements InventoryRepository {
 
         Specification<JpaInventoryEntity> specification = Specification.where(null);
 
-        final String sku = searchQuery.filters().get("sku");
+        final String skuStr = searchQuery.filters().get("sku");
 
-        specification = specification.and(JpaInventorySpecification.filterBySku(sku));
+        if (skuStr != null && !skuStr.isBlank()) {
+            specification = specification.and(JpaInventorySpecification.filterBySku(skuStr));
+        }
 
         final Page<JpaInventoryEntity> pageResult = this.jpaInventoryRepository.findAll(specification, pageable);
 

@@ -59,7 +59,9 @@ public class BrandRepositoryImpl implements BrandRepository {
 
         final String terms = searchQuery.terms();
 
-        specification = specification.and(JpaBrandSpecification.filterByTerms(terms));
+        if (!terms.isBlank()) {
+            specification = specification.and(JpaBrandSpecification.filterByTerms(terms));
+        }
 
         final Page<JpaBrandEntity> pageResult = this.jpaBrandRepository.findAll(specification, pageable);
 

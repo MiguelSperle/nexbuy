@@ -6,8 +6,6 @@ import org.springframework.data.jpa.domain.Specification;
 public class JpaInventorySpecification {
     public static Specification<JpaInventoryEntity> filterBySku(String sku) {
         return (root, query, criterialBuilder) ->
-                (sku == null || sku.isBlank())
-                        ? criterialBuilder.conjunction()
-                        : criterialBuilder.like(criterialBuilder.lower(root.get("sku")), "%" + sku.toLowerCase() + "%");
+                criterialBuilder.like(criterialBuilder.lower(root.get("sku")), "%" + sku.toLowerCase() + "%");
     }
 }

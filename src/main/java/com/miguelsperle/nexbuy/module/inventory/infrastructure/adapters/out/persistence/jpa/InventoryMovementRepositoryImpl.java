@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.out.persistence.jpa;
 
+import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
@@ -52,11 +53,18 @@ public class InventoryMovementRepositoryImpl implements InventoryMovementReposit
 
         Specification<JpaInventoryMovementEntity> specification = Specification.where(null);
 
-        final String movementType = searchQuery.filters().get("movementType");
-        final String sku = searchQuery.filters().get("sku");
+        final String movementTypeStr = searchQuery.filters().get("movementType");
 
-        specification = specification.and(JpaInventoryMovementSpecification.filterByMovementType(movementType));
-        specification = specification.and(JpaInventoryMovementSpecification.filterBySku(sku));
+        if (movementTypeStr != null && !movementTypeStr.isBlank()) {
+            final InventoryMovementType movementType = InventoryMovementType.valueOf(movementTypeStr);
+            specification = specification.and(JpaInventoryMovementSpecification.filterByMovementType(movementType));
+        }
+
+        final String skuStr = searchQuery.filters().get("sku");
+
+        if (skuStr != null && !skuStr.isBlank()) {
+            specification = specification.and(JpaInventoryMovementSpecification.filterBySku(skuStr));
+        }
 
         final Page<JpaInventoryMovementEntity> pageResult = this.jpaInventoryMovementRepository.findAll(specification, pageable);
 

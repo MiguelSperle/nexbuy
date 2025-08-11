@@ -59,7 +59,9 @@ public class ColorRepositoryImpl implements ColorRepository {
 
         final String terms = searchQuery.terms();
 
-        specification = specification.and(JpaColorSpecification.filterByTerms(terms));
+        if (!terms.isBlank()) {
+            specification = specification.and(JpaColorSpecification.filterByTerms(terms));
+        }
 
         final Page<JpaColorEntity> pageResult = this.jpaColorRepository.findAll(specification, pageable);
 

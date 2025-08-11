@@ -59,7 +59,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
         final String terms = searchQuery.terms();
 
-        specification = specification.and(JpaCategorySpecification.filterByTerms(terms));
+        if (!terms.isBlank()) {
+            specification = specification.and(JpaCategorySpecification.filterByTerms(terms));
+        }
 
         final Page<JpaCategoryEntity> pageResult = this.jpaCategoryRepository.findAll(specification, pageable);
 
