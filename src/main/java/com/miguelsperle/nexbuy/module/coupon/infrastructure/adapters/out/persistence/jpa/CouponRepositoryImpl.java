@@ -4,6 +4,8 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.C
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.entities.JpaCouponEntity;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.repositories.JpaCouponRepository;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -43,5 +45,10 @@ public class CouponRepositoryImpl implements CouponRepository {
     @Override
     public Optional<Coupon> findByCode(String code) {
         return this.jpaCouponRepository.findByCode(code).map(JpaCouponEntity::toEntity);
+    }
+
+    @Override
+    public Pagination<Coupon> findAllPaginated(SearchQuery searchQuery) {
+        return null;
     }
 }

@@ -1,13 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-
-import java.util.List;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 
 public record GetColorsUseCaseOutput(
-        List<Color> colors
+        Pagination<Color> paginatedColors
 ) {
-    public static GetColorsUseCaseOutput from(List<Color> colors) {
-        return new GetColorsUseCaseOutput(colors);
+    public static GetColorsUseCaseOutput from(Pagination<Color> paginatedColors) {
+        return new GetColorsUseCaseOutput(paginatedColors);
     }
 }

@@ -32,4 +32,9 @@ public class CouponUseCasesConfiguration {
     public DeleteCouponUseCase deleteCouponUseCase(CouponRepository couponRepository) {
         return new DeleteCouponUseCaseImpl(couponRepository);
     }
+
+    @Bean
+    public GetCouponsUseCase getCouponsUseCase(CouponRepository couponRepository) {
+        return new GetCouponsUseCaseImpl(couponRepository);
+    }
 }

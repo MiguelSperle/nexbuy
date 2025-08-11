@@ -1,5 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorsUseCaseInput;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetColorsUseCase;
@@ -17,8 +20,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/colors")
@@ -59,8 +60,16 @@ public class ColorAdminController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GetColorsResponse>> getColors() {
-        final GetColorsUseCaseOutput getColorsUseCaseOutput = this.getColorsUseCase.execute();
+    public ResponseEntity<Pagination<GetColorsResponse>> getColors(
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") int perPage,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+            @RequestParam(name = "sort", required = false, defaultValue = "name") String sort,
+            @RequestParam(name = "direction", required = false, defaultValue = "asc") String direction
+    ) {
+        final GetColorsUseCaseOutput getColorsUseCaseOutput = this.getColorsUseCase.execute(GetColorsUseCaseInput.with(
+                SearchQuery.newSearchQuery(page, perPage, search, sort, direction)
+        ));
 
         return ResponseEntity.ok().body(GetColorsResponse.from(getColorsUseCaseOutput));
     }

@@ -1,17 +1,16 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
-
-import java.util.List;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 
 public record GetCategoriesResponse(
         String id,
         String name
 ) {
-    public static List<GetCategoriesResponse> from(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
-        return getCategoriesUseCaseOutput.categories().stream().map(category -> new GetCategoriesResponse(
-                category.getId(),
-                category.getName()
-        )).toList();
+    public static Pagination<GetCategoriesResponse> from(GetCategoriesUseCaseOutput getCategoriesUseCaseOutput) {
+        return getCategoriesUseCaseOutput.paginatedCategories().map(paginatedCategory -> new GetCategoriesResponse(
+                paginatedCategory.getId(),
+                paginatedCategory.getName()
+        ));
     }
 }

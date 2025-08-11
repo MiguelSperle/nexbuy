@@ -2,10 +2,11 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.out.persi
 
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.out.persistence.jpa.entities.JpaBrandEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface JpaBrandRepository extends JpaRepository<JpaBrandEntity, String> {
+public interface JpaBrandRepository extends JpaRepository<JpaBrandEntity, String>, JpaSpecificationExecutor<JpaBrandEntity> {
     @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM brands b WHERE LOWER(b.name) = LOWER(:name))")
     boolean existsByName(@Param("name") String name);
 }

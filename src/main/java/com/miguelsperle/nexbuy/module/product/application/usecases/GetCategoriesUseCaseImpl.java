@@ -1,11 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoriesUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoriesUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-
-import java.util.List;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetCategoriesUseCaseImpl implements GetCategoriesUseCase {
     private final CategoryRepository brandRepository;
@@ -15,13 +16,13 @@ public class GetCategoriesUseCaseImpl implements GetCategoriesUseCase {
     }
 
     @Override
-    public GetCategoriesUseCaseOutput execute() {
-        final List<Category> categories = this.getAllCategories();
+    public GetCategoriesUseCaseOutput execute(GetCategoriesUseCaseInput getCategoriesUseCaseInput) {
+        final Pagination<Category> paginatedCategories = this.getAllPaginatedCategories(getCategoriesUseCaseInput.searchQuery());
 
-        return GetCategoriesUseCaseOutput.from(categories);
+        return GetCategoriesUseCaseOutput.from(paginatedCategories);
     }
 
-    private List<Category> getAllCategories() {
-        return this.brandRepository.findAll();
+    private Pagination<Category> getAllPaginatedCategories(SearchQuery searchQuery) {
+        return this.brandRepository.findAllPaginated(searchQuery);
     }
 }

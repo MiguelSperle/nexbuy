@@ -1,20 +1,18 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandsUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetBrandResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetBrandsResponse;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/brands")
@@ -24,8 +22,16 @@ public class BrandController {
     private final GetBrandUseCase getBrandUseCase;
 
     @GetMapping
-    public ResponseEntity<List<GetBrandsResponse>> getBrands() {
-        final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute();
+    public ResponseEntity<Pagination<GetBrandsResponse>> getBrands(
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") int perPage,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+            @RequestParam(name = "sort", required = false, defaultValue = "name") String sort,
+            @RequestParam(name = "direction", required = false, defaultValue = "asc") String direction
+    ) {
+        final GetBrandsUseCaseOutput getBrandsUseCaseOutput = this.getBrandsUseCase.execute(GetBrandsUseCaseInput.with(
+                SearchQuery.newSearchQuery(page, perPage, search, sort, direction)
+        ));
 
         return ResponseEntity.ok().body(GetBrandsResponse.from(getBrandsUseCaseOutput));
     }

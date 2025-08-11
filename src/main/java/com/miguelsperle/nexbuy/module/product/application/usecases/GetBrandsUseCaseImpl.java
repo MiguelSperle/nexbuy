@@ -1,11 +1,12 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
+import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandsUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-
-import java.util.List;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetBrandsUseCaseImpl implements GetBrandsUseCase {
     private final BrandRepository brandRepository;
@@ -15,13 +16,13 @@ public class GetBrandsUseCaseImpl implements GetBrandsUseCase {
     }
 
     @Override
-    public GetBrandsUseCaseOutput execute() {
-        final List<Brand> brands = this.getAllBrands();
+    public GetBrandsUseCaseOutput execute(GetBrandsUseCaseInput getBrandsUseCaseInput) {
+        final Pagination<Brand> paginatedBrands = this.getAllPaginatedBrands(getBrandsUseCaseInput.searchQuery());
 
-        return GetBrandsUseCaseOutput.from(brands);
+        return GetBrandsUseCaseOutput.from(paginatedBrands);
     }
 
-    private List<Brand> getAllBrands() {
-        return this.brandRepository.findAll();
+    private Pagination<Brand> getAllPaginatedBrands(SearchQuery searchQuery) {
+        return this.brandRepository.findAllPaginated(searchQuery);
     }
 }

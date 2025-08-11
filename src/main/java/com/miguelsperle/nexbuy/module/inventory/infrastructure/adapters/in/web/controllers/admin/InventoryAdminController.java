@@ -40,7 +40,7 @@ public class InventoryAdminController {
             @RequestParam(name = "sort", required = false, defaultValue = "quantity") String sort,
             @RequestParam(name = "direction", required = false, defaultValue = "asc") String direction,
             @RequestParam Map<String, String> filters
-            ) {
+    ) {
         final GetInventoriesUseCaseOutput getInventoriesUseCaseOutput = this.getInventoriesUseCase.execute(GetInventoriesUseCaseInput.with(
                 SearchQuery.newSearchQuery(page, perPage, sort, direction, filters)
         ));
