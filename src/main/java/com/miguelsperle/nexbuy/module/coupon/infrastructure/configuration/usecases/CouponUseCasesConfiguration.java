@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.*;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.*;
 import org.springframework.context.annotation.Bean;
@@ -36,5 +36,10 @@ public class CouponUseCasesConfiguration {
     @Bean
     public GetCouponsUseCase getCouponsUseCase(CouponRepository couponRepository) {
         return new GetCouponsUseCaseImpl(couponRepository);
+    }
+
+    @Bean
+    public ApplyCouponUseCase applyCouponUseCase(CouponRepository couponRepository) {
+        return new ApplyCouponUseCaseImpl(couponRepository);
     }
 }

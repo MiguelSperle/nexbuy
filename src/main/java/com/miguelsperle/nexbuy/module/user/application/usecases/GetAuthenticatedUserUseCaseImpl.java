@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAuthenticatedUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAuthenticatedUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;

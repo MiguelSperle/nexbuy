@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;

@@ -7,9 +7,9 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.Refres
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.RefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.AuthenticateUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.RefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.AuthenticateRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreateUserRequest;

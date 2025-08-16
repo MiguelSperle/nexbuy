@@ -1,12 +1,11 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.*;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
@@ -24,7 +23,7 @@ public class UserUseCasesConfiguration {
             CreateLegalPersonUseCase createLegalPersonUseCase,
             CreateNaturalPersonUseCase createNaturalPersonUseCase,
             TransactionExecutor transactionExecutor,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         return new CreateUserUseCaseImpl(
                 userRepository,
@@ -32,7 +31,7 @@ public class UserUseCasesConfiguration {
                 createLegalPersonUseCase,
                 createNaturalPersonUseCase,
                 transactionExecutor,
-                domainEventPublisherProvider
+                messageProducer
         );
     }
 

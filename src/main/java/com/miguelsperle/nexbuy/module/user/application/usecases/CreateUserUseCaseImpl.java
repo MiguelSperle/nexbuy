@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateLegalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateNaturalPersonUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateLegalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateLegalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
@@ -22,7 +22,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final CreateLegalPersonUseCase createLegalPersonUseCase;
     private final CreateNaturalPersonUseCase createNaturalPersonUseCase;
     private final TransactionExecutor transactionExecutor;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
+    private final MessageProducer messageProducer;
+
+    private static final String USER_CREATED_EXCHANGE = "user.created.exchange";
+    private static final String USER_CREATED_ROUTING_KEY = "user.created.routing.key";
 
     public CreateUserUseCaseImpl(
             UserRepository userRepository,
@@ -30,14 +33,14 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             CreateLegalPersonUseCase createLegalPersonUseCase,
             CreateNaturalPersonUseCase createNaturalPersonUseCase,
             TransactionExecutor transactionExecutor,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.createLegalPersonUseCase = createLegalPersonUseCase;
         this.createNaturalPersonUseCase = createNaturalPersonUseCase;
         this.transactionExecutor = transactionExecutor;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
+        this.messageProducer = messageProducer;
     }
 
     @Override
@@ -71,9 +74,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 ));
             }
 
-            this.transactionExecutor.registerAfterCommit(() -> this.domainEventPublisherProvider.publishEvent(UserCreatedEvent.from(
-                    savedUser.getId()
-            )));
+            this.transactionExecutor.registerAfterCommit(() -> this.messageProducer.publish(
+                    USER_CREATED_EXCHANGE, USER_CREATED_ROUTING_KEY, UserCreatedEvent.from(savedUser.getId())
+            ));
         });
     }
 

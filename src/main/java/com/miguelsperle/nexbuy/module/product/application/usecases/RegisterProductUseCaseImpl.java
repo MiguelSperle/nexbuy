@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.product.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;

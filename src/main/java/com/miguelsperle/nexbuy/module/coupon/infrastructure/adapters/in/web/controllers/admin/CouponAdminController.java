@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.controllers.admin;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.*;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.CreateCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.UpdateCouponRequest;

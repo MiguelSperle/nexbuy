@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;

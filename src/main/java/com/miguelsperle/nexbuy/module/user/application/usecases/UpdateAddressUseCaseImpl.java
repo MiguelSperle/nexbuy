@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.UpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;

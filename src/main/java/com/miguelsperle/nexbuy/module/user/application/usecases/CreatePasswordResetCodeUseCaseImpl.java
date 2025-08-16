@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -18,18 +18,21 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
     private final UserCodeRepository userCodeRepository;
     private final UserRepository userRepository;
     private final CodeProvider codeProvider;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
+    private final MessageProducer messageProducer;
+
+    private static final String USER_CODE_CREATED_EXCHANGE = "user.code.created.exchange";
+    private static final String USER_CODE_CREATED_ROUTING_KEY = "user.code.created.routing.key";
 
     public CreatePasswordResetCodeUseCaseImpl(
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
             CodeProvider codeProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         this.userCodeRepository = userCodeRepository;
         this.userRepository = userRepository;
         this.codeProvider = codeProvider;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
+        this.messageProducer = messageProducer;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
+        this.messageProducer.publish(USER_CODE_CREATED_EXCHANGE, USER_CODE_CREATED_ROUTING_KEY, UserCodeCreatedEvent.from(
                 savedUserCode.getCode(),
                 savedUserCode.getUserCodeType(),
                 savedUserCode.getUserId()

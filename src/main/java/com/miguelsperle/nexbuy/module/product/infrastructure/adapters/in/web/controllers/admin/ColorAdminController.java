@@ -4,10 +4,10 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Get
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetColorsUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterColorUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetColorsUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;

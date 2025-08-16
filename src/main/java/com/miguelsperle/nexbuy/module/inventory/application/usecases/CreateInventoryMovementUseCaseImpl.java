@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CreateInventoryMovementUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.CreateInventoryMovementUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CreateInventoryMovementUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;

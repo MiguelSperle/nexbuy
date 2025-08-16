@@ -52,6 +52,7 @@ public class Routes {
     };
 
     public static final String[] COUPON_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/coupons"
+            "/api/v1/coupons",
+            "/api/v1/coupons/{code}/apply"
     };
 }

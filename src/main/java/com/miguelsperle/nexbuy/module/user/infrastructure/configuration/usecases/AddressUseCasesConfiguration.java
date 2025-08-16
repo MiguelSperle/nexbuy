@@ -1,15 +1,15 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.security.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCaseImpl;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCaseImpl;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.DeleteAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.DeleteAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressUseCaseImpl;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.GetAddressesUseCaseImpl;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.GetAddressesUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.UpdateAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAddressesUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.UpdateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.UpdateAddressUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;

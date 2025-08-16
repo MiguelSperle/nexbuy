@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.respon
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateBrandUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterBrandUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterBrandRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.UpdateBrandRequest;
 import jakarta.validation.Valid;

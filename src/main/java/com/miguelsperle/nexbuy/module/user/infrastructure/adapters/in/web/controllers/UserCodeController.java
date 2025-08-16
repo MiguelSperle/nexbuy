@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.respon
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreatePasswordResetCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ValidatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ValidatePasswordResetCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.CreatePasswordResetCodeRequest;
 import com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.dtos.requests.ResendVerificationCodeRequest;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateNaturalPersonUseCaseImpl;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateNaturalPersonUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateNaturalPersonUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

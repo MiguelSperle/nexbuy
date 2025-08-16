@@ -1,14 +1,14 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.AuthenticateUseCase;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.CreateRefreshTokenUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;

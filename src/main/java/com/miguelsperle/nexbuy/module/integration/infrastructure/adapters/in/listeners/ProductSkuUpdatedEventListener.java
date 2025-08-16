@@ -26,7 +26,7 @@ public class ProductSkuUpdatedEventListener {
     @EventListener
     @Retryable(
             retryFor = {EventProcessingFailureException.class},
-            maxAttempts = 4,
+            maxAttempts = 5,
             backoff = @Backoff( // Exponential Backoff Configuration
                     delay = 3000,
                     multiplier = 2,

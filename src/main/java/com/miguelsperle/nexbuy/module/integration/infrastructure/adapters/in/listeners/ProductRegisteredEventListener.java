@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.integration.infrastructure.adapters.in.listeners;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CreateInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.CreateInventoryUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CreateInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.EventProcessingFailureException;
@@ -25,7 +25,7 @@ public class ProductRegisteredEventListener {
     @EventListener
     @Retryable(
             retryFor = {EventProcessingFailureException.class},
-            maxAttempts = 4,
+            maxAttempts = 5,
             backoff = @Backoff( // Exponential Backoff Configuration
                     delay = 3000,
                     multiplier = 2,

@@ -1,17 +1,19 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.GetCouponsUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.ApplyCouponUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.GetCouponsUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ApplyCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.GetCouponsUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.GetCouponsUseCaseOutput;
+import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.ApplyCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses.GetCouponsResponse;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CouponController {
     private final GetCouponsUseCase getCouponsUseCase;
+    private final ApplyCouponUseCase applyCouponUseCase;
 
     @GetMapping
     public ResponseEntity<Pagination<GetCouponsResponse>> getCoupons(
@@ -34,5 +37,18 @@ public class CouponController {
         ));
 
         return ResponseEntity.ok().body(GetCouponsResponse.from(getCouponsUseCaseOutput));
+    }
+
+    @PostMapping("/{code}/apply")
+    public ResponseEntity<MessageResponse> applyCoupon(
+            @PathVariable String code,
+            @RequestBody @Valid ApplyCouponRequest applyCouponRequest
+    ) {
+        this.applyCouponUseCase.execute(ApplyCouponUseCaseInput.with(
+                code,
+                applyCouponRequest.totalAmount()
+        ));
+
+        return null;
     }
 }

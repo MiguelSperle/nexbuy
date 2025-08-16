@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterColorUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;

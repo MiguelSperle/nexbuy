@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.configuration.security;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.jwt.JwtService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
 import com.miguelsperle.nexbuy.shared.domain.jwt.DecodedJwtToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;

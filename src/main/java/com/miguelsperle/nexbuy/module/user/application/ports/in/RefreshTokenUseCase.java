@@ -1,8 +1,0 @@
-package com.miguelsperle.nexbuy.module.user.application.ports.in;
-
-import com.miguelsperle.nexbuy.shared.application.ports.in.UseCase;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
-
-public interface RefreshTokenUseCase extends UseCase<RefreshTokenUseCaseInput, RefreshTokenUseCaseOutput> {
-}

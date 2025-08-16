@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductStatusUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductStatusUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.complements.DimensionComplementInput;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterProductRequest;

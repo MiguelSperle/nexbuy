@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.CheckInventoryAvailabilityUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.CheckInventoryAvailabilityUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CheckInventoryAvailabilityUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.CheckInventoryAvailabilityUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.dtos.responses.CheckInventoryAvailabilityResponse;

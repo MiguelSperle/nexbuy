@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface JpaAddressRepository extends JpaRepository<JpaAddressEntity, String> {
-    @Query(nativeQuery = true, value = "SELECT * FROM addresses ad WHERE ad.user_id = :userId")
+    @Query(nativeQuery = true, value = "SELECT * FROM addresses a WHERE a.user_id = :userId")
     List<JpaAddressEntity> findAllByUserId(@Param("userId") String userId);
 }

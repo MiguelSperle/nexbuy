@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.configuration.security.handlers;
 
-import com.miguelsperle.nexbuy.shared.infrastructure.configuration.dtos.responses.ErrorMessageResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miguelsperle.nexbuy.shared.infrastructure.utils.ApiError;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,9 @@ import java.util.Collections;
 public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
-        final ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
-                Collections.singletonList("Authentication is required to access this resource"), HttpStatus.UNAUTHORIZED.getReasonPhrase()
+        final ApiError apiError = new ApiError(
+                Collections.singletonList("Authentication is required to access this resource"),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase()
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -28,7 +29,7 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
         final OutputStream responseStream = response.getOutputStream();
         final ObjectMapper mapper = new ObjectMapper();
 
-        mapper.writeValue(responseStream, errorMessageResponse);
+        mapper.writeValue(responseStream, apiError);
         responseStream.flush();
     }
 }

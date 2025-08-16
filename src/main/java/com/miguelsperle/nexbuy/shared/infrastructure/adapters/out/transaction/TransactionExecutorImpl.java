@@ -22,19 +22,11 @@ public class TransactionExecutorImpl implements TransactionExecutor {
         transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_DEFAULT);
         transactionTemplate.setTimeout(5);
 
-        transactionTemplate.executeWithoutResult(transactionStatus -> {
-            runnable.run();
-        });
+        transactionTemplate.executeWithoutResult(_ -> runnable.run());
     }
 
     @Override
     public void registerAfterCommit(Runnable runnable) {
-        if (!TransactionSynchronizationManager.isSynchronizationActive()) {
-            throw new IllegalStateException(
-                    "Transaction synchronization is not active. Ensure this method is being called within an active transaction"
-            );
-        }
-
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {

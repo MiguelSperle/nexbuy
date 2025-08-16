@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.ResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ResendVerificationCodeUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -19,18 +19,21 @@ import java.util.Optional;
 public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCodeUseCase {
     private final UserCodeRepository userCodeRepository;
     private final UserRepository userRepository;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
+    private final MessageProducer messageProducer;
     private final CodeProvider codeProvider;
+
+    private static final String USER_CODE_CREATED_EXCHANGE = "user.code.created.exchange";
+    private static final String USER_CODE_CREATED_ROUTING_KEY = "user.code.created.routing.key";
 
     public ResendVerificationCodeUseCaseImpl(
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
-            DomainEventPublisherProvider domainEventPublisherProvider,
+            MessageProducer messageProducer,
             CodeProvider codeProvider
     ) {
         this.userCodeRepository = userCodeRepository;
         this.userRepository = userRepository;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
+        this.messageProducer = messageProducer;
         this.codeProvider = codeProvider;
     }
 
@@ -56,7 +59,7 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.domainEventPublisherProvider.publishEvent(UserCodeCreatedEvent.from(
+        this.messageProducer.publish(USER_CODE_CREATED_EXCHANGE, USER_CODE_CREATED_ROUTING_KEY, UserCodeCreatedEvent.from(
                 savedUserCode.getCode(),
                 savedUserCode.getUserCodeType(),
                 savedUserCode.getUserId()

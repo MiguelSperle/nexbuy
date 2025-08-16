@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Get
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoryUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoriesUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoriesResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoryResponse;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;

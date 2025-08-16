@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetBrandUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetBrandUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;

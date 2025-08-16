@@ -1,6 +1,6 @@
 services:
   postgres-compose:
-    container_name: nexbuy-container
+    container_name: postgres-container
     image: postgres
     ports:
       - "5432:5432"
@@ -10,6 +10,19 @@ services:
       - POSTGRES_DB=nexbuy-db
     networks:
       - nexbuy-network
+
+  rabbitmq-compose:
+    image: rabbitmq:4.1.3-management
+    container_name: rabbitmq-container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      - nexbuy-network
+
 networks:
   nexbuy-network:
     driver: bridge

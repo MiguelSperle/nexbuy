@@ -4,9 +4,9 @@ import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.respon
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.DeleteCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.RegisterCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.UpdateCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.RegisterCategoryRequest;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.requests.UpdateCategoryRequest;
 import jakarta.validation.Valid;

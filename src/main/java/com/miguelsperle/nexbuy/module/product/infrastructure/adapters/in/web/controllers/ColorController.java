@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.co
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetColorUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.GetColorUseCase;
+import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetColorUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetColorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
