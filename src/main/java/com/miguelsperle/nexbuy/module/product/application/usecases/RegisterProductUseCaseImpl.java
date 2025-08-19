@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.module.product.domain.events.ProductRegisteredEvent;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.domain.events.ProductRegisteredEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
@@ -21,7 +21,10 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
     private final BrandRepository brandRepository;
     private final ColorRepository colorRepository;
     private final SkuProvider skuProvider;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
+    private final MessageProducer messageProducer;
+
+    private static final String PRODUCT_REGISTERED_EXCHANGE = "product.registered.exchange";
+    private static final String PRODUCT_REGISTERED_ROUTING_KEY = "product.registered.routing.key";
 
     public RegisterProductUseCaseImpl(
             ProductRepository productRepository,
@@ -29,14 +32,14 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
             BrandRepository brandRepository,
             ColorRepository colorRepository,
             SkuProvider skuProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
+        this.messageProducer = messageProducer;
     }
 
     @Override
@@ -70,10 +73,12 @@ public class RegisterProductUseCaseImpl implements RegisterProductUseCase {
 
         final Product savedProduct = this.saveProduct(newProduct);
 
-        this.domainEventPublisherProvider.publishEvent(ProductRegisteredEvent.from(
+        final ProductRegisteredEvent productRegisteredEvent = ProductRegisteredEvent.from(
                 savedProduct.getId(),
                 savedProduct.getSku()
-        ));
+        );
+
+        this.messageProducer.publish(PRODUCT_REGISTERED_EXCHANGE, PRODUCT_REGISTERED_ROUTING_KEY, productRegisteredEvent);
     }
 
     private Category getCategoryById(String categoryId) {

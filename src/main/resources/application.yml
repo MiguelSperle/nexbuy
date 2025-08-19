@@ -53,3 +53,19 @@ spring:
           queue: user.code.created.dlq.queue
           exchange: user.code.created.dlq.exchange
           routing-key: user.code.created.dlq.routing.key
+      product-registered:
+        queue: product.registered.queue
+        exchange: product.registered.exchange
+        routing-key: product.registered.routing.key
+        dlq:
+          queue: product.registered.dlq.queue
+          exchange: product.registered.dlq.exchange
+          routing-key: product.registered.dlq.routing.key
+      product-sku-updated:
+        queue: product.sku.updated.queue
+        exchange: product.sku.updated.exchange
+        routing-key: product.sku.updated.routing.key
+        dlq:
+          queue: product.sku.updated.dlq.queue
+          exchange: product.sku.updated.dlq.exchange
+          routing-key: product.sku.updated.dlq.routing.key

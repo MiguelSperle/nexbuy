@@ -20,4 +20,16 @@ public class RabbitQueuePropertiesConfiguration {
     public RabbitQueueProperties userCodeCreatedQueueProperties() {
         return new RabbitQueueProperties();
     }
+
+    @Bean
+    @ConfigurationProperties(PREFIX + ".product-registered")
+    public RabbitQueueProperties productRegisteredQueueProperties() {
+        return new RabbitQueueProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties(PREFIX + ".product-sku-updated")
+    public RabbitQueueProperties productSkuUpdatedQueueProperties() {
+        return new RabbitQueueProperties();
+    }
 }

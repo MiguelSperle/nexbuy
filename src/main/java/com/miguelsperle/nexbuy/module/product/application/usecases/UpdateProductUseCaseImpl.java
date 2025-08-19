@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
-import com.miguelsperle.nexbuy.module.product.domain.events.ProductSkuUpdatedEvent;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
@@ -25,7 +25,10 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
     private final BrandRepository brandRepository;
     private final ColorRepository colorRepository;
     private final SkuProvider skuProvider;
-    private final DomainEventPublisherProvider domainEventPublisherProvider;
+    private final MessageProducer messageProducer;
+
+    private static final String PRODUCT_SKU_UPDATED_EXCHANGE = "product.sku.updated.exchange";
+    private static final String PRODUCT_SKU_UPDATED_ROUTING_KEY = "product.sku.updated.routing.key";
 
     public UpdateProductUseCaseImpl(
             ProductRepository productRepository,
@@ -33,14 +36,14 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
             BrandRepository brandRepository,
             ColorRepository colorRepository,
             SkuProvider skuProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.colorRepository = colorRepository;
         this.skuProvider = skuProvider;
-        this.domainEventPublisherProvider = domainEventPublisherProvider;
+        this.messageProducer = messageProducer;
     }
 
     @Override
@@ -77,11 +80,13 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 
         final Product savedProduct = this.saveProduct(updatedProduct);
 
+        final ProductSkuUpdatedEvent productSkuUpdatedEvent = ProductSkuUpdatedEvent.from(
+                savedProduct.getId(),
+                savedProduct.getSku()
+        );
+
         if (!Objects.equals(product.getSku(), savedProduct.getSku())) {
-            this.domainEventPublisherProvider.publishEvent(ProductSkuUpdatedEvent.from(
-                    savedProduct.getId(),
-                    savedProduct.getSku()
-            ));
+            this.messageProducer.publish(PRODUCT_SKU_UPDATED_EXCHANGE, PRODUCT_SKU_UPDATED_ROUTING_KEY, productSkuUpdatedEvent);
         }
     }
 

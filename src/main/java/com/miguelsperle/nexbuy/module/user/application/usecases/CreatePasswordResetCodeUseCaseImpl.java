@@ -49,11 +49,13 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
 
         final UserCode savedUserCode = this.saveUserCode(newUserCode);
 
-        this.messageProducer.publish(USER_CODE_CREATED_EXCHANGE, USER_CODE_CREATED_ROUTING_KEY, UserCodeCreatedEvent.from(
+        final UserCodeCreatedEvent userCodeCreatedEvent = UserCodeCreatedEvent.from(
                 savedUserCode.getCode(),
                 savedUserCode.getUserCodeType(),
                 savedUserCode.getUserId()
-        ));
+        );
+
+        this.messageProducer.publish(USER_CODE_CREATED_EXCHANGE, USER_CODE_CREATED_ROUTING_KEY, userCodeCreatedEvent);
     }
 
     private User getUserByEmail(String email) {

@@ -74,8 +74,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 ));
             }
 
+            final UserCreatedEvent userCreatedEvent = UserCreatedEvent.from(savedUser.getId());
+
             this.transactionExecutor.registerAfterCommit(() -> this.messageProducer.publish(
-                    USER_CREATED_EXCHANGE, USER_CREATED_ROUTING_KEY, UserCreatedEvent.from(savedUser.getId())
+                    USER_CREATED_EXCHANGE, USER_CREATED_ROUTING_KEY, userCreatedEvent
             ));
         });
     }

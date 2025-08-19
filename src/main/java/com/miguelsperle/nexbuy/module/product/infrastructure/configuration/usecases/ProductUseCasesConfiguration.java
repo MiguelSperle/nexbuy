@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.*;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.DomainEventPublisherProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
@@ -20,7 +20,7 @@ public class ProductUseCasesConfiguration {
             BrandRepository brandRepository,
             ColorRepository colorRepository,
             SkuProvider skuProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         return new RegisterProductUseCaseImpl(
                 productRepository,
@@ -28,7 +28,7 @@ public class ProductUseCasesConfiguration {
                 brandRepository,
                 colorRepository,
                 skuProvider,
-                domainEventPublisherProvider
+                messageProducer
         );
     }
 
@@ -39,7 +39,7 @@ public class ProductUseCasesConfiguration {
             BrandRepository brandRepository,
             ColorRepository colorRepository,
             SkuProvider skuProvider,
-            DomainEventPublisherProvider domainEventPublisherProvider
+            MessageProducer messageProducer
     ) {
         return new UpdateProductUseCaseImpl(
                 productRepository,
@@ -47,7 +47,7 @@ public class ProductUseCasesConfiguration {
                 brandRepository,
                 colorRepository,
                 skuProvider,
-                domainEventPublisherProvider
+                messageProducer
         );
     }
 

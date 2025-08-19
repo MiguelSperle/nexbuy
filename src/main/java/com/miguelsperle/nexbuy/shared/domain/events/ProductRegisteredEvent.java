@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.product.domain.events;
+package com.miguelsperle.nexbuy.shared.domain.events;
 
 public record ProductRegisteredEvent(
         String id,
