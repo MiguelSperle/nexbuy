@@ -4,12 +4,13 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.Apply
 import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.GetCouponsUseCase;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ApplyCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.GetCouponsUseCaseInput;
+import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.ApplyCouponUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.GetCouponsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.ApplyCouponRequest;
+import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses.ApplyCouponResponse;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses.GetCouponsResponse;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,15 +41,15 @@ public class CouponController {
     }
 
     @PostMapping("/{code}/apply")
-    public ResponseEntity<MessageResponse> applyCoupon(
+    public ResponseEntity<ApplyCouponResponse> applyCoupon(
             @PathVariable String code,
             @RequestBody @Valid ApplyCouponRequest applyCouponRequest
     ) {
-        this.applyCouponUseCase.execute(ApplyCouponUseCaseInput.with(
+        final ApplyCouponUseCaseOutput applyCouponUseCaseOutput = this.applyCouponUseCase.execute(ApplyCouponUseCaseInput.with(
                 code,
                 applyCouponRequest.totalAmount()
         ));
 
-        return null;
+        return ResponseEntity.ok().body(ApplyCouponResponse.from(applyCouponUseCaseOutput));
     }
 }

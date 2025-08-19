@@ -7,8 +7,6 @@ public record CreateCouponUseCaseInput(
         String code,
         Integer percentage,
         BigDecimal minimumPurchaseAmount,
-        String couponType,
-        Integer usageLimit,
         Boolean isActive,
         LocalDateTime expiresIn
 ) {
@@ -16,8 +14,6 @@ public record CreateCouponUseCaseInput(
             String code,
             Integer percentage,
             BigDecimal minimumPurchaseAmount,
-            String couponType,
-            Integer usageLimit,
             Boolean isActive,
             LocalDateTime expiresIn
     ) {
@@ -25,8 +21,6 @@ public record CreateCouponUseCaseInput(
                 code,
                 percentage,
                 minimumPurchaseAmount,
-                couponType,
-                usageLimit,
                 isActive,
                 expiresIn
         );

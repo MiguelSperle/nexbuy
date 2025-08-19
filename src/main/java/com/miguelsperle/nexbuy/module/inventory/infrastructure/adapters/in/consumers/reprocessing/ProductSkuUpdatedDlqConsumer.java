@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.consumers;
+package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.consumers.reprocessing;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;

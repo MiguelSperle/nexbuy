@@ -27,8 +27,6 @@ public class CouponAdminController {
                 createCouponRequest.code(),
                 createCouponRequest.percentage(),
                 createCouponRequest.minimumPurchaseAmount(),
-                createCouponRequest.couponType(),
-                createCouponRequest.usageLimit(),
                 createCouponRequest.isActive(),
                 createCouponRequest.expiresIn()
         ));

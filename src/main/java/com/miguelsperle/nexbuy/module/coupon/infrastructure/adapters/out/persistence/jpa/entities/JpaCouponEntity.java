@@ -1,7 +1,6 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.entities;
 
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.module.coupon.domain.enums.CouponType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,16 +26,6 @@ public class JpaCouponEntity {
     @Column(name = "minimum_purchase_amount", precision = 19, scale = 2)
     private BigDecimal minimumPurchaseAmount;
 
-    @Column(name = "type", nullable = false, length = 10)
-    @Enumerated(EnumType.STRING)
-    private CouponType couponType;
-
-    @Column(name = "times_used", nullable = false)
-    private Integer timesUsed;
-
-    @Column(name = "usage_limit")
-    private Integer usageLimit;
-
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
@@ -52,9 +41,6 @@ public class JpaCouponEntity {
                 coupon.getCode(),
                 coupon.getPercentage(),
                 coupon.getMinimumPurchaseAmount(),
-                coupon.getCouponType(),
-                coupon.getTimesUsed(),
-                coupon.getUsageLimit(),
                 coupon.getIsActive(),
                 coupon.getExpiresIn(),
                 coupon.getCreatedAt()
@@ -67,9 +53,6 @@ public class JpaCouponEntity {
                 this.code,
                 this.percentage,
                 this.minimumPurchaseAmount,
-                this.couponType,
-                this.timesUsed,
-                this.usageLimit,
                 this.isActive,
                 this.expiresIn,
                 this.createdAt

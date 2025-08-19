@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persis
 
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.module.coupon.domain.enums.CouponType;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.entities.JpaCouponEntity;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.repositories.JpaCouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.out.persistence.jpa.specifications.JpaCouponSpecification;
@@ -76,13 +75,6 @@ public class CouponRepositoryImpl implements CouponRepository {
         if (minimumPurchaseAmountStr != null && minimumPurchaseAmountStr.isBlank()) {
             final BigDecimal minimumPurchaseAmount = new BigDecimal(minimumPurchaseAmountStr);
             specification = specification.and(JpaCouponSpecification.filterByMinimumPurchaseAmount(minimumPurchaseAmount));
-        }
-
-        final String typeStr = searchQuery.filters().get("type");
-
-        if (typeStr != null && !typeStr.isBlank()) {
-            final CouponType couponType = CouponType.valueOf(typeStr);
-            specification = specification.and(JpaCouponSpecification.filterByType(couponType));
         }
 
         final boolean isAdmin = Boolean.parseBoolean(searchQuery.filters().getOrDefault("isAdmin", "false"));
