@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.domain.events.ProductPriceUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductUseCase;
@@ -27,8 +28,9 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
     private final SkuProvider skuProvider;
     private final MessageProducer messageProducer;
 
-    private static final String PRODUCT_SKU_UPDATED_EXCHANGE = "product.sku.updated.exchange";
+    private static final String PRODUCT_UPDATED_EXCHANGE = "product.updated.exchange";
     private static final String PRODUCT_SKU_UPDATED_ROUTING_KEY = "product.sku.updated.routing.key";
+    private static final String PRODUCT_PRICE_UPDATED_ROUTING_KEY = "product.price.updated.routing.key";
 
     public UpdateProductUseCaseImpl(
             ProductRepository productRepository,
@@ -80,13 +82,20 @@ public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 
         final Product savedProduct = this.saveProduct(updatedProduct);
 
-        final ProductSkuUpdatedEvent productSkuUpdatedEvent = ProductSkuUpdatedEvent.from(
-                savedProduct.getId(),
-                savedProduct.getSku()
-        );
-
         if (!Objects.equals(product.getSku(), savedProduct.getSku())) {
-            this.messageProducer.publish(PRODUCT_SKU_UPDATED_EXCHANGE, PRODUCT_SKU_UPDATED_ROUTING_KEY, productSkuUpdatedEvent);
+            final ProductSkuUpdatedEvent productSkuUpdatedEvent = ProductSkuUpdatedEvent.from(
+                    savedProduct.getId(), savedProduct.getSku()
+            );
+
+            this.messageProducer.publish(PRODUCT_UPDATED_EXCHANGE, PRODUCT_SKU_UPDATED_ROUTING_KEY, productSkuUpdatedEvent);
+        }
+
+        if (product.getPrice().compareTo(savedProduct.getPrice()) != 0) {
+            final ProductPriceUpdatedEvent productPriceUpdatedEvent = ProductPriceUpdatedEvent.from(
+                    savedProduct.getId(), savedProduct.getPrice()
+            );
+
+            this.messageProducer.publish(PRODUCT_UPDATED_EXCHANGE, PRODUCT_PRICE_UPDATED_ROUTING_KEY, productPriceUpdatedEvent);
         }
     }
 

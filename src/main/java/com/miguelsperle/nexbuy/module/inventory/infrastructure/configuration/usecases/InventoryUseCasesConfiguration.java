@@ -1,6 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.*;
+import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.*;
@@ -10,19 +11,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InventoryUseCasesConfiguration {
     @Bean
-    public CreateInventoryUseCase createInventoryUseCase(InventoryRepository inventoryRepository) {
-        return new CreateInventoryUseCaseImpl(inventoryRepository);
-    }
-
-    @Bean
     public IncreaseInventoryUseCase increaseInventoryUseCase(
             InventoryRepository inventoryRepository,
-            CreateInventoryMovementUseCase createInventoryMovementUseCase,
+            InventoryMovementRepository inventoryMovementRepository,
             TransactionExecutor transactionExecutor
     ) {
         return new IncreaseInventoryUseCaseImpl(
                 inventoryRepository,
-                createInventoryMovementUseCase,
+                inventoryMovementRepository,
                 transactionExecutor
         );
     }
@@ -30,12 +26,12 @@ public class InventoryUseCasesConfiguration {
     @Bean
     public DecreaseInventoryUseCase decreaseInventoryUseCase(
             InventoryRepository inventoryRepository,
-            CreateInventoryMovementUseCase createInventoryMovementUseCase,
+            InventoryMovementRepository inventoryMovementRepository,
             TransactionExecutor transactionExecutor
     ) {
         return new DecreaseInventoryUseCaseImpl(
                 inventoryRepository,
-                createInventoryMovementUseCase,
+                inventoryMovementRepository,
                 transactionExecutor
         );
     }

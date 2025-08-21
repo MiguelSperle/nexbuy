@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.shared.infrastructure.configuration.exceptionHan
 
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.JwtTokenCreationFailedException;
-import com.miguelsperle.nexbuy.shared.infrastructure.adapters.exceptions.JwtTokenValidationFailedException;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.services.exceptions.JwtTokenCreationFailedException;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.out.services.exceptions.JwtTokenValidationFailedException;
 import com.miguelsperle.nexbuy.shared.infrastructure.utils.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

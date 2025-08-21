@@ -23,7 +23,7 @@ public class JpaCouponEntity {
     @Column(nullable = false)
     private Integer percentage;
 
-    @Column(name = "minimum_purchase_amount", precision = 19, scale = 2)
+    @Column(name = "minimum_purchase_amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal minimumPurchaseAmount;
 
     @Column(name = "is_active", nullable = false)

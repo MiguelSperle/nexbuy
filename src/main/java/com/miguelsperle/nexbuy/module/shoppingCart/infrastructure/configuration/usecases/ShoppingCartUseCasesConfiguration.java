@@ -1,0 +1,28 @@
+package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.configuration.usecases;
+
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.AddToShoppingCartUseCaseImpl;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ShoppingCartUseCasesConfiguration {
+    @Bean
+    public AddToShoppingCartUseCase addToShoppingCartUseCase(
+            ShoppingCartRepository shoppingCartRepository,
+            ShoppingCartItemRepository shoppingCartItemRepository,
+            SecurityContextService securityContextService,
+            TransactionExecutor transactionExecutor
+    ) {
+        return new AddToShoppingCartUseCaseImpl(
+                shoppingCartRepository,
+                shoppingCartItemRepository,
+                securityContextService,
+                transactionExecutor
+        );
+    }
+}

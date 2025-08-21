@@ -37,12 +37,13 @@ public class ApplyCouponUseCaseImpl implements ApplyCouponUseCase {
         }
 
         final BigDecimal totalAmount = applyCouponUseCaseInput.totalAmount();
-        final Integer percentage = coupon.getPercentage();
+        final Integer discountPercentage = coupon.getPercentage();
 
-        final BigDecimal discountAmount = totalAmount.multiply(BigDecimal.valueOf(percentage)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+        final BigDecimal discountAmount = totalAmount.multiply(BigDecimal.valueOf(discountPercentage)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+
         final BigDecimal finalAmount = totalAmount.subtract(discountAmount);
 
-        return ApplyCouponUseCaseOutput.from(totalAmount, percentage, finalAmount);
+        return ApplyCouponUseCaseOutput.from(totalAmount, discountPercentage, finalAmount);
     }
 
     private Coupon getCouponByCode(String code) {

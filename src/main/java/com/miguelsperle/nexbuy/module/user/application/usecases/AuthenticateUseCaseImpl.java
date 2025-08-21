@@ -1,34 +1,35 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
+import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
+import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateRefreshTokenUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.CreateRefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateRefreshTokenUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+
+import java.util.Optional;
 
 public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
     private final UserRepository userRepository;
     private final PasswordEncryptorProvider passwordEncryptorProvider;
     private final JwtService jwtService;
-    private final CreateRefreshTokenUseCase createRefreshTokenUseCase;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public AuthenticateUseCaseImpl(
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
             JwtService jwtService,
-            CreateRefreshTokenUseCase createRefreshTokenUseCase
+            RefreshTokenRepository refreshTokenRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.jwtService = jwtService;
-        this.createRefreshTokenUseCase = createRefreshTokenUseCase;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     @Override
@@ -49,11 +50,15 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
 
         final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
 
-        final CreateRefreshTokenUseCaseOutput createRefreshTokenUseCaseOutput = this.createRefreshTokenUseCase.execute(CreateRefreshTokenUseCaseInput.with(
-                user.getId()
-        ));
+        this.getPreviousRefreshTokenByUserId(user.getId()).ifPresent(refreshToken ->
+                this.deleteRefreshTokenById(refreshToken.getId())
+        );
 
-        return AuthenticateUseCaseOutput.from(jwtTokenGenerated, createRefreshTokenUseCaseOutput.refreshToken().getToken());
+        final RefreshToken newRefreshToken = RefreshToken.newRefreshToken(user.getId());
+
+        final RefreshToken savedRefreshToken = this.saveRefreshToken(newRefreshToken);
+
+        return AuthenticateUseCaseOutput.from(jwtTokenGenerated, savedRefreshToken.getToken());
     }
 
     private User getUserByEmail(String email) {
@@ -62,5 +67,17 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
 
     private boolean validatePassword(String password, String encodedPassword) {
         return this.passwordEncryptorProvider.matches(password, encodedPassword);
+    }
+
+    private Optional<RefreshToken> getPreviousRefreshTokenByUserId(String userId) {
+        return this.refreshTokenRepository.findByUserId(userId);
+    }
+
+    private void deleteRefreshTokenById(String refreshTokenId) {
+        this.refreshTokenRepository.deleteById(refreshTokenId);
+    }
+
+    private RefreshToken saveRefreshToken(RefreshToken refreshToken) {
+        return this.refreshTokenRepository.save(refreshToken);
     }
 }
