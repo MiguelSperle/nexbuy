@@ -1,49 +1,54 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.configuration.broker;
 
 import org.springframework.amqp.core.DirectExchange;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ExchangeConfiguration {
     @Bean
-    public DirectExchange userCreatedExchange(@Value("${spring.rabbitmq.exchanges.user-created}") String exchange) {
-        return new DirectExchange(exchange);
+    public FanoutExchange userCreatedExchange() {
+        return new FanoutExchange("user.created.exchange");
     }
 
     @Bean
-    public DirectExchange userCreatedDlqExchange(@Value("${spring.rabbitmq.exchanges.user-created-dlq}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange userCreatedDlqExchange() {
+        return new DirectExchange("user.created.dlq.exchange");
     }
 
     @Bean
-    public DirectExchange userCodeCreatedExchange(@Value("${spring.rabbitmq.exchanges.user-code-created}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange userCreatedCartDlqExchange() {
+        return new DirectExchange("user.created.cart.dlq.exchange");
     }
 
     @Bean
-    public DirectExchange userCodeCreatedDlqExchange(@Value("${spring.rabbitmq.exchanges.user-code-created-dlq}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange userCodeCreatedExchange() {
+        return new DirectExchange("user.code.created.exchange");
     }
 
     @Bean
-    public DirectExchange productRegisteredExchange(@Value("${spring.rabbitmq.exchanges.product-registered}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange userCodeCreatedDlqExchange() {
+        return new DirectExchange("user.code.created.dlq.exchange");
     }
 
     @Bean
-    public DirectExchange productRegisteredDlqExchange(@Value("${spring.rabbitmq.exchanges.product-registered-dlq}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange productRegisteredExchange() {
+        return new DirectExchange("product.registered.exchange");
     }
 
     @Bean
-    public DirectExchange productUpdatedExchange(@Value("${spring.rabbitmq.exchanges.product-updated}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange productRegisteredDlqExchange() {
+        return new DirectExchange("product.registered.dlq.exchange");
     }
 
     @Bean
-    public DirectExchange productUpdatedDlqExchange(@Value("${spring.rabbitmq.exchanges.product-updated-dlq}") String exchange) {
-        return new DirectExchange(exchange);
+    public DirectExchange productUpdatedExchange() {
+        return new DirectExchange("product.updated.exchange");
+    }
+
+    @Bean
+    public DirectExchange productUpdatedDlqExchange() {
+        return new DirectExchange("product.updated.dlq.exchange");
     }
 }

@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProd
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
@@ -25,7 +25,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final MessageProducer messageProducer;
 
     private static final String USER_CREATED_EXCHANGE = "user.created.exchange";
-    private static final String USER_CREATED_ROUTING_KEY = "user.created.routing.key";
 
     public CreateUserUseCaseImpl(
             UserRepository userRepository,
@@ -87,7 +86,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             final UserCreatedEvent userCreatedEvent = UserCreatedEvent.from(savedUser.getId());
 
             this.transactionExecutor.registerAfterCommit(() -> this.messageProducer.publish(
-                    USER_CREATED_EXCHANGE, USER_CREATED_ROUTING_KEY, userCreatedEvent
+                    USER_CREATED_EXCHANGE, "", userCreatedEvent
             ));
         });
     }

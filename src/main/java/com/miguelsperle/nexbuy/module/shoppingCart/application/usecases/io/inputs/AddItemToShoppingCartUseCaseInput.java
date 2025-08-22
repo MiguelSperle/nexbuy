@@ -2,17 +2,17 @@ package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inpu
 
 import java.math.BigDecimal;
 
-public record AddToShoppingCartUseCaseInput(
+public record AddItemToShoppingCartUseCaseInput(
         String productId,
         BigDecimal unitPrice,
         Integer quantity
 ) {
-    public static AddToShoppingCartUseCaseInput with(
+    public static AddItemToShoppingCartUseCaseInput with(
             String productId,
             BigDecimal unitPrice,
             Integer quantity
     ) {
-        return new AddToShoppingCartUseCaseInput(
+        return new AddItemToShoppingCartUseCaseInput(
                 productId,
                 unitPrice,
                 quantity

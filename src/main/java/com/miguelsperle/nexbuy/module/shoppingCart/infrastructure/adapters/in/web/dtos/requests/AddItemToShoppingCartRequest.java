@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-public record AddToShoppingCartRequest(
+public record AddItemToShoppingCartRequest(
         @NotBlank(message = "Product id should not be neither null nor blank")
         String productId,
 

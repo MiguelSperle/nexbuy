@@ -55,4 +55,8 @@ public class Routes {
             "/api/v1/coupons",
             "/api/v1/coupons/{code}/apply"
     };
+
+    public static final String[] SHOPPING_CART_AUTHENTICATED_ENDPOINTS = {
+            "/api/v1/shopping-carts/items"
+    };
 }

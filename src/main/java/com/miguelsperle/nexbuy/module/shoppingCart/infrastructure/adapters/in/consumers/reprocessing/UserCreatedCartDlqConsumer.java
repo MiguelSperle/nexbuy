@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.consumers.reprocessing;
+package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.consumers.reprocessing;
 
 import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserCreatedDlqConsumer {
+public class UserCreatedCartDlqConsumer {
     private final MessageProducer messageProducer;
 
-    private static final String USER_CREATED_DLQ_QUEUE = "user.created.dlq.queue";
-    private static final String USER_CREATED_QUEUE = "user.created.queue";
+    private static final String USER_CREATED_CART_DLQ_QUEUE = "user.created.cart.dlq.queue";
+    private static final String USER_CREATED_CART_QUEUE = "user.created.cart.queue";
 
     // DEFAULT EXCHANGE because I'm leading with Fanout
 
-    @RabbitListener(queues = USER_CREATED_DLQ_QUEUE)
+    @RabbitListener(queues = USER_CREATED_CART_DLQ_QUEUE)
     public void onMessage(UserCreatedEvent userCreatedEvent) {
-        this.messageProducer.publish("", USER_CREATED_QUEUE, userCreatedEvent);
+        this.messageProducer.publish("", USER_CREATED_CART_QUEUE, userCreatedEvent);
     }
 }

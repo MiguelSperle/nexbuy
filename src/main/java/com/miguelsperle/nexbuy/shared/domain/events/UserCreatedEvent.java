@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.user.domain.events;
+package com.miguelsperle.nexbuy.shared.domain.events;
 
 public record UserCreatedEvent(
         String id

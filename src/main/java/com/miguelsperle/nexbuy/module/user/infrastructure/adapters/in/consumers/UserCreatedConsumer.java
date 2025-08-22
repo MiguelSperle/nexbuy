@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
-import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.EmailService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;

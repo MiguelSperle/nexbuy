@@ -36,34 +36,3 @@ spring:
           initial-interval: 3000
           multiplier: 2
           max-interval: 12000
-    exchanges:
-      user-created: user.created.exchange
-      user-created-dlq: user.created.dlq.exchange
-      user-code-created: user.code.created.exchange
-      user-code-created-dlq: user.code.created.dlq.exchange
-      product-registered: product.registered.exchange
-      product-registered-dlq: product.registered.dlq.exchange
-      product-updated: product.updated.exchange
-      product-updated-dlq: product.updated.dlq.exchange
-    queues:
-      user-created: user.created.queue
-      user-created-dlq: user.created.dlq.queue
-      user-code-created: user.code.created.queue
-      user-code-created-dlq: user.code.created.dlq.queue
-      product-registered: product.registered.queue
-      product-registered-dlq: product.registered.dlq.queue
-      product-sku-updated: product.sku.updated.queue
-      product-sku-updated-dlq: product.sku.updated.dlq.queue
-      product-price-updated: product.price.updated.queue
-      product-price-updated-dlq: product.price.updated.dlq.queue
-    routing-keys:
-      user-created: user.created.routing.key
-      user-created-dlq: user.created.dlq.routing.key
-      user-code-created: user.code.created.routing.key
-      user-code-created-dlq: user.code.created.dlq.routing.key
-      product-registered: product.registered.routing.key
-      product-registered-dlq: product.registered.dlq.routing.key
-      product-sku-updated: product.sku.updated.routing.key
-      product-sku-updated-dlq: product.sku.updated.dlq.routing.key
-      product-price-updated: product.price.updated.routing.key
-      product-price-updated-dlq: product.price.updated.dlq.routing.key
