@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddItemToShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddItemToShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
@@ -14,13 +14,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public class AddItemToShoppingCartUseCaseImpl implements AddItemToShoppingCartUseCase {
+public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
     private final SecurityContextService securityContextService;
     private final TransactionExecutor transactionExecutor;
 
-    public AddItemToShoppingCartUseCaseImpl(
+    public AddToShoppingCartUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
             SecurityContextService securityContextService,
@@ -33,30 +33,29 @@ public class AddItemToShoppingCartUseCaseImpl implements AddItemToShoppingCartUs
     }
 
     @Override
-    public void execute(AddItemToShoppingCartUseCaseInput addItemToShoppingCartUseCaseInput) {
+    public void execute(AddToShoppingCartUseCaseInput addToShoppingCartUseCaseInput) {
         final String authenticatedUserId = this.getAuthenticatedUserId();
 
         final ShoppingCart shoppingCart = this.getShoppingCartByUserId(authenticatedUserId);
 
-        final Optional<ShoppingCartItem> existingShoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addItemToShoppingCartUseCaseInput.productId());
+        final Optional<ShoppingCartItem> shoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addToShoppingCartUseCaseInput.productId());
 
         this.transactionExecutor.runTransaction(() -> {
-            if (existingShoppingCartItem.isPresent()) {
-                final int newQuantity = existingShoppingCartItem.get().getQuantity() + addItemToShoppingCartUseCaseInput.quantity();
-                final ShoppingCartItem updatedShoppingCartItem = existingShoppingCartItem.get().withQuantity(newQuantity);
+            if (shoppingCartItem.isPresent()) {
+                final int newQuantity = shoppingCartItem.get().getQuantity() + 1;
+                final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.get().withQuantity(newQuantity);
                 this.saveShoppingCartItem(updatedShoppingCartItem);
             } else {
                 final ShoppingCartItem newShoppingCartItem = ShoppingCartItem.newShoppingCartItem(
                         shoppingCart.getId(),
-                        addItemToShoppingCartUseCaseInput.productId(),
-                        addItemToShoppingCartUseCaseInput.quantity(),
-                        addItemToShoppingCartUseCaseInput.unitPrice()
+                        addToShoppingCartUseCaseInput.productId(),
+                        addToShoppingCartUseCaseInput.unitPrice()
                 );
                 this.saveShoppingCartItem(newShoppingCartItem);
             }
 
             final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());
-            final BigDecimal calculatedTotalAmount = shoppingCartItems.stream().map(shoppingCartItem -> shoppingCartItem.getUnitPrice().multiply(BigDecimal.valueOf(shoppingCartItem.getQuantity())))
+            final BigDecimal calculatedTotalAmount = shoppingCartItems.stream().map(shoppingCartItemInList -> shoppingCartItemInList.getUnitPrice().multiply(BigDecimal.valueOf(shoppingCartItemInList.getQuantity())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
             final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(calculatedTotalAmount);

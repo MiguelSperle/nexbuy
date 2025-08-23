@@ -41,7 +41,7 @@ public class ProductPriceUpdatedConsumer {
                 final ShoppingCart shoppingCart = this.getShoppingCartById(shoppingCartId);
 
                 final List<ShoppingCartItem> cartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());
-                final BigDecimal recalculatedTotalAmount = cartItems.stream().map(shoppingCartItem -> shoppingCartItem.getUnitPrice().multiply(BigDecimal.valueOf(shoppingCartItem.getQuantity())))
+                final BigDecimal recalculatedTotalAmount = cartItems.stream().map(shoppingCartItemList -> shoppingCartItemList.getUnitPrice().multiply(BigDecimal.valueOf(shoppingCartItemList.getQuantity())))
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                 final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(recalculatedTotalAmount);

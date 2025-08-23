@@ -33,14 +33,13 @@ public class ShoppingCartItem {
     public static ShoppingCartItem newShoppingCartItem(
             String shoppingCartId,
             String productId,
-            Integer quantity,
             BigDecimal unitPrice
     ) {
         return new ShoppingCartItem(
                 IdentifierUtils.generateUUID(),
                 shoppingCartId,
                 productId,
-                quantity,
+                1,
                 unitPrice,
                 TimeUtils.now()
         );
