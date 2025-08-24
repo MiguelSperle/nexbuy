@@ -1,8 +1,11 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.controllers;
 
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.UpdateShoppingCartItemUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.AddToShoppingCartRequest;
+import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.UpdateShoppingCartRequest;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ShoppingCartController {
     private final AddToShoppingCartUseCase addToShoppingCartUseCase;
+    private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
 
-    @PostMapping
+    @PostMapping("/items")
     public ResponseEntity<MessageResponse> addToShoppingCart(@RequestBody @Valid AddToShoppingCartRequest addToShoppingCartRequest) {
         this.addToShoppingCartUseCase.execute(AddToShoppingCartUseCaseInput.with(
                 addToShoppingCartRequest.productId(),
@@ -23,5 +27,19 @@ public class ShoppingCartController {
         ));
 
         return ResponseEntity.ok().body(MessageResponse.from("Added to shopping cart successfully"));
+    }
+
+    @PatchMapping("/items/{itemId}")
+    public ResponseEntity<Void> updateShoppingCartItem(
+            @PathVariable String itemId,
+            @RequestBody @Valid UpdateShoppingCartRequest updateShoppingCartRequest
+    ) {
+        this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartUseCaseInput.with(
+                itemId,
+                updateShoppingCartRequest.quantity(),
+                updateShoppingCartRequest.action()
+        ));
+
+        return ResponseEntity.noContent().build();
     }
 }
