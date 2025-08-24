@@ -6,7 +6,6 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persist
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
@@ -17,26 +16,21 @@ import java.util.Optional;
 public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
-    private final SecurityContextService securityContextService;
     private final TransactionExecutor transactionExecutor;
 
     public AddToShoppingCartUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            SecurityContextService securityContextService,
             TransactionExecutor transactionExecutor
     ) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.shoppingCartItemRepository = shoppingCartItemRepository;
-        this.securityContextService = securityContextService;
         this.transactionExecutor = transactionExecutor;
     }
 
     @Override
     public void execute(AddToShoppingCartUseCaseInput addToShoppingCartUseCaseInput) {
-        final String authenticatedUserId = this.getAuthenticatedUserId();
-
-        final ShoppingCart shoppingCart = this.getShoppingCartByUserId(authenticatedUserId);
+        final ShoppingCart shoppingCart = this.getShoppingCartById(addToShoppingCartUseCaseInput.cartId());
 
         final Optional<ShoppingCartItem> shoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addToShoppingCartUseCaseInput.productId());
 
@@ -63,12 +57,8 @@ public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
         });
     }
 
-    private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
-    }
-
-    private ShoppingCart getShoppingCartByUserId(String userId) {
-        return this.shoppingCartRepository.findByUserId(userId).orElseThrow(() -> NotFoundException.with("Shopping cart not found"));
+    private ShoppingCart getShoppingCartById(String id) {
+        return this.shoppingCartRepository.findById(id).orElseThrow(() -> NotFoundException.with("Shopping cart not found"));
     }
 
     private void saveShoppingCart(ShoppingCart shoppingCart) {

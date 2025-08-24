@@ -19,9 +19,13 @@ public class ShoppingCartController {
     private final AddToShoppingCartUseCase addToShoppingCartUseCase;
     private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
 
-    @PostMapping("/items")
-    public ResponseEntity<MessageResponse> addToShoppingCart(@RequestBody @Valid AddToShoppingCartRequest addToShoppingCartRequest) {
+    @PostMapping("/{cartId}/items")
+    public ResponseEntity<MessageResponse> addToShoppingCart(
+            @PathVariable String cartId,
+            @RequestBody @Valid AddToShoppingCartRequest addToShoppingCartRequest
+    ) {
         this.addToShoppingCartUseCase.execute(AddToShoppingCartUseCaseInput.with(
+                cartId,
                 addToShoppingCartRequest.productId(),
                 addToShoppingCartRequest.unitPrice()
         ));
@@ -29,12 +33,14 @@ public class ShoppingCartController {
         return ResponseEntity.ok().body(MessageResponse.from("Added to shopping cart successfully"));
     }
 
-    @PatchMapping("/items/{itemId}")
+    @PatchMapping("/{cartId}/items/{itemId}")
     public ResponseEntity<Void> updateShoppingCartItem(
+            @PathVariable String cartId,
             @PathVariable String itemId,
             @RequestBody @Valid UpdateShoppingCartRequest updateShoppingCartRequest
     ) {
         this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartUseCaseInput.with(
+                cartId,
                 itemId,
                 updateShoppingCartRequest.quantity(),
                 updateShoppingCartRequest.action()

@@ -7,7 +7,6 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.input
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.enums.ShoppingCartItemAction;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
@@ -18,30 +17,25 @@ import java.util.List;
 public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItemUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
-    private final SecurityContextService securityContextService;
     private final TransactionExecutor transactionExecutor;
 
     public UpdateShoppingCartItemUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            SecurityContextService securityContextService,
             TransactionExecutor transactionExecutor
     ) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.shoppingCartItemRepository = shoppingCartItemRepository;
-        this.securityContextService = securityContextService;
         this.transactionExecutor = transactionExecutor;
     }
 
     @Override
     public void execute(UpdateShoppingCartUseCaseInput updateShoppingCartUseCaseInput) {
-        final ShoppingCartItemAction convertedToShoppingCartItemAction = ShoppingCartItemAction.valueOf(updateShoppingCartUseCaseInput.action());
-
-        final String authenticatedUserId = this.getAuthenticatedUserId();
-
-        final ShoppingCart shoppingCart = this.getShoppingCartByUserId(authenticatedUserId);
+        final ShoppingCart shoppingCart = this.getShoppingCartById(updateShoppingCartUseCaseInput.cartId());
 
         final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartUseCaseInput.itemId());
+
+        final ShoppingCartItemAction convertedToShoppingCartItemAction = ShoppingCartItemAction.valueOf(updateShoppingCartUseCaseInput.action());
 
         this.transactionExecutor.runTransaction(() -> {
             if (convertedToShoppingCartItemAction == ShoppingCartItemAction.ADD) {
@@ -70,12 +64,8 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
         });
     }
 
-    private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
-    }
-
-    private ShoppingCart getShoppingCartByUserId(String userId) {
-        return this.shoppingCartRepository.findByUserId(userId).orElseThrow(() -> NotFoundException.with("Shopping cart not found"));
+    private ShoppingCart getShoppingCartById(String id) {
+        return this.shoppingCartRepository.findById(id).orElseThrow(() -> NotFoundException.with("Shopping cart not found"));
     }
 
     private ShoppingCartItem getShoppingCartItemById(String id) {

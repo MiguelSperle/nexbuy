@@ -34,9 +34,4 @@ public class ShoppingCartRepositoryImpl implements ShoppingCartRepository {
     public void deleteById(String id) {
         this.jpaShoppingCartRepository.deleteById(id);
     }
-
-    @Override
-    public Optional<ShoppingCart> findByUserId(String userId) {
-        return this.jpaShoppingCartRepository.findByUserId(userId).map(JpaShoppingCartEntity::toEntity);
-    }
 }

@@ -10,5 +10,4 @@ public interface ShoppingCartRepository {
     Optional<ShoppingCart> findById(String id);
     ShoppingCart save(ShoppingCart shoppingCart);
     void deleteById(String id);
-    Optional<ShoppingCart> findByUserId(String userId);
 }

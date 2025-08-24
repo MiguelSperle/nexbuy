@@ -6,7 +6,6 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persist
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.AddToShoppingCartUseCaseImpl;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.UpdateShoppingCartItemUseCaseImpl;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +16,11 @@ public class ShoppingCartUseCasesConfiguration {
     public AddToShoppingCartUseCase addToShoppingCartUseCase(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            SecurityContextService securityContextService,
             TransactionExecutor transactionExecutor
     ) {
         return new AddToShoppingCartUseCaseImpl(
                 shoppingCartRepository,
                 shoppingCartItemRepository,
-                securityContextService,
                 transactionExecutor
         );
     }
@@ -32,13 +29,11 @@ public class ShoppingCartUseCasesConfiguration {
     public UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            SecurityContextService securityContextService,
             TransactionExecutor transactionExecutor
     ) {
         return new UpdateShoppingCartItemUseCaseImpl(
                 shoppingCartRepository,
                 shoppingCartItemRepository,
-                securityContextService,
                 transactionExecutor
         );
     }
