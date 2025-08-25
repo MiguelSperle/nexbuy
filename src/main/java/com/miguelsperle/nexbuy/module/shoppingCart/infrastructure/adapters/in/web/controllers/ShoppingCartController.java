@@ -37,7 +37,7 @@ public class ShoppingCartController {
     }
 
     @PatchMapping("/{shoppingCartId}/items/{shoppingCartItemId}")
-    public ResponseEntity<Void> updateShoppingCartItem(
+    public ResponseEntity<MessageResponse> updateShoppingCartItem(
             @PathVariable String shoppingCartId, @PathVariable String shoppingCartItemId,
             @RequestBody @Valid UpdateShoppingCartRequest updateShoppingCartRequest
     ) {
@@ -48,7 +48,7 @@ public class ShoppingCartController {
                 updateShoppingCartRequest.action()
         ));
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(MessageResponse.from("Shopping cart item updated successfully"));
     }
 
     @GetMapping("/{shoppingCartId}")
@@ -60,20 +60,20 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/{shoppingCartId}/items/{shoppingCartItemId}")
-    public ResponseEntity<Void> deleteShoppingCartItem(
+    public ResponseEntity<MessageResponse> deleteShoppingCartItem(
             @PathVariable String shoppingCartId, @PathVariable String shoppingCartItemId
     ) {
         this.deleteShoppingCartItemUseCase.execute(DeleteShoppingCartItemUseCaseInput.with(
                 shoppingCartId, shoppingCartItemId
         ));
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(MessageResponse.from("Shopping cart item deleted successfully"));
     }
 
     @DeleteMapping("/{shoppingCartId}/items")
-    public ResponseEntity<Void> deleteAllShoppingCartItems(@PathVariable String shoppingCartId) {
+    public ResponseEntity<MessageResponse> deleteAllShoppingCartItems(@PathVariable String shoppingCartId) {
         this.deleteAllShoppingCartItemsUseCase.execute(DeleteAllShoppingCartItemsUseCaseInput.with(shoppingCartId));
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(MessageResponse.from("All shopping cart items deleted successfully"));
     }
 }
