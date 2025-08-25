@@ -1,13 +1,7 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.DeleteShoppingCartItemUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.GetShoppingCartUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.UpdateShoppingCartItemUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.DeleteShoppingCartItemUseCaseInput;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.GetShoppingCartUseCaseInput;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.*;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.outputs.GetShoppingCartUseCaseOutput;
 import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.AddToShoppingCartRequest;
 import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.UpdateShoppingCartRequest;
@@ -26,14 +20,15 @@ public class ShoppingCartController {
     private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
     private final GetShoppingCartUseCase getShoppingCartUseCase;
     private final DeleteShoppingCartItemUseCase deleteShoppingCartItemUseCase;
+    private final ClearShoppingCartUseCase clearShoppingCartUseCase;
 
-    @PostMapping("/{cartId}/items")
+    @PostMapping("/{shoppingCartId}/items")
     public ResponseEntity<MessageResponse> addToShoppingCart(
-            @PathVariable String cartId,
+            @PathVariable String shoppingCartId,
             @RequestBody @Valid AddToShoppingCartRequest addToShoppingCartRequest
     ) {
         this.addToShoppingCartUseCase.execute(AddToShoppingCartUseCaseInput.with(
-                cartId,
+                shoppingCartId,
                 addToShoppingCartRequest.productId(),
                 addToShoppingCartRequest.unitPrice()
         ));
@@ -41,14 +36,14 @@ public class ShoppingCartController {
         return ResponseEntity.ok().body(MessageResponse.from("Added to shopping cart successfully"));
     }
 
-    @PatchMapping("/{cartId}/items/{itemId}")
+    @PatchMapping("/{shoppingCartId}/items/{shoppingCartItemId}")
     public ResponseEntity<Void> updateShoppingCartItem(
-            @PathVariable String cartId, @PathVariable String itemId,
+            @PathVariable String shoppingCartId, @PathVariable String shoppingCartItemId,
             @RequestBody @Valid UpdateShoppingCartRequest updateShoppingCartRequest
     ) {
         this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartUseCaseInput.with(
-                cartId,
-                itemId,
+                shoppingCartId,
+                shoppingCartItemId,
                 updateShoppingCartRequest.quantity(),
                 updateShoppingCartRequest.action()
         ));
@@ -56,21 +51,28 @@ public class ShoppingCartController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{cartId}")
-    public ResponseEntity<GetShoppingCartResponse> getShoppingCart(@PathVariable String cartId) {
+    @GetMapping("/{shoppingCartId}")
+    public ResponseEntity<GetShoppingCartResponse> getShoppingCart(@PathVariable String shoppingCartId) {
         final GetShoppingCartUseCaseOutput getShoppingCartUseCaseOutput =
-                this.getShoppingCartUseCase.execute(GetShoppingCartUseCaseInput.with(cartId));
+                this.getShoppingCartUseCase.execute(GetShoppingCartUseCaseInput.with(shoppingCartId));
 
         return ResponseEntity.ok().body(GetShoppingCartResponse.from(getShoppingCartUseCaseOutput));
     }
 
-    @DeleteMapping("/{cartId}/items/{itemId}")
+    @DeleteMapping("/{shoppingCartId}/items/{shoppingCartItemId}")
     public ResponseEntity<Void> deleteShoppingCartItem(
-            @PathVariable String cartId, @PathVariable String itemId
+            @PathVariable String shoppingCartId, @PathVariable String shoppingCartItemId
     ) {
         this.deleteShoppingCartItemUseCase.execute(DeleteShoppingCartItemUseCaseInput.with(
-                cartId, itemId
+                shoppingCartId, shoppingCartItemId
         ));
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{shoppingCartId}/items")
+    public ResponseEntity<Void> clearShoppingCart(@PathVariable String shoppingCartId) {
+        this.clearShoppingCartUseCase.execute(ClearShoppingCartUseCaseInput.with(shoppingCartId));
 
         return ResponseEntity.noContent().build();
     }

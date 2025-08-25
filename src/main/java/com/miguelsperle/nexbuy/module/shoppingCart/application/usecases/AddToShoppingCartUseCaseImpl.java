@@ -30,7 +30,7 @@ public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
 
     @Override
     public void execute(AddToShoppingCartUseCaseInput addToShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(addToShoppingCartUseCaseInput.cartId());
+        final ShoppingCart shoppingCart = this.getShoppingCartById(addToShoppingCartUseCaseInput.shoppingCartId());
 
         final Optional<ShoppingCartItem> shoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addToShoppingCartUseCaseInput.productId());
 

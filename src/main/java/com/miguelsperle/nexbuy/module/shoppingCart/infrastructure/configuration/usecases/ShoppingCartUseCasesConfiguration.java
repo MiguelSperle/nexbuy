@@ -1,15 +1,9 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.DeleteShoppingCartItemUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.GetShoppingCartUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.UpdateShoppingCartItemUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.AddToShoppingCartUseCaseImpl;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.DeleteShoppingCartItemUseCaseImpl;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.GetShoppingCartUseCaseImpl;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.UpdateShoppingCartItemUseCaseImpl;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.*;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +54,19 @@ public class ShoppingCartUseCasesConfiguration {
             TransactionExecutor transactionExecutor
     ) {
         return new DeleteShoppingCartItemUseCaseImpl(
+                shoppingCartRepository,
+                shoppingCartItemRepository,
+                transactionExecutor
+        );
+    }
+
+    @Bean
+    public ClearShoppingCartUseCase clearShoppingCartUseCase(
+            ShoppingCartRepository shoppingCartRepository,
+            ShoppingCartItemRepository shoppingCartItemRepository,
+            TransactionExecutor transactionExecutor
+    ) {
+        return new ClearShoppingCartUseCaseImpl(
                 shoppingCartRepository,
                 shoppingCartItemRepository,
                 transactionExecutor

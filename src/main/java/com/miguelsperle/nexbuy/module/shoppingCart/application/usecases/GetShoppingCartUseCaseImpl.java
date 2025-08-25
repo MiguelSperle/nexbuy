@@ -25,9 +25,9 @@ public class GetShoppingCartUseCaseImpl implements GetShoppingCartUseCase {
 
     @Override
     public GetShoppingCartUseCaseOutput execute(GetShoppingCartUseCaseInput getShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(getShoppingCartUseCaseInput.cartId());
+        final ShoppingCart shoppingCart = this.getShoppingCartById(getShoppingCartUseCaseInput.shoppingCartId());
 
-        final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByCartId(shoppingCart.getId());
+        final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());
 
         return GetShoppingCartUseCaseOutput.from(shoppingCart, shoppingCartItems);
     }
@@ -36,7 +36,7 @@ public class GetShoppingCartUseCaseImpl implements GetShoppingCartUseCase {
         return this.shoppingCartRepository.findById(id).orElseThrow(() -> NotFoundException.with("Shopping cart not found"));
     }
 
-    private List<ShoppingCartItem> getAllShoppingCartItemsByCartId(String cartId) {
-        return this.shoppingCartItemRepository.findAllByShoppingCartId(cartId);
+    private List<ShoppingCartItem> getAllShoppingCartItemsByShoppingCartId(String shoppingCartId) {
+        return this.shoppingCartItemRepository.findAllByShoppingCartId(shoppingCartId);
     }
 }

@@ -31,9 +31,9 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
 
     @Override
     public void execute(UpdateShoppingCartUseCaseInput updateShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(updateShoppingCartUseCaseInput.cartId());
+        final ShoppingCart shoppingCart = this.getShoppingCartById(updateShoppingCartUseCaseInput.shoppingCartId());
 
-        final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartUseCaseInput.itemId());
+        final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartUseCaseInput.shoppingCartItemId());
 
         final ShoppingCartItemAction convertedToShoppingCartItemAction = ShoppingCartItemAction.valueOf(updateShoppingCartUseCaseInput.action());
 
@@ -49,7 +49,7 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
                 final int newQuantity = shoppingCartItem.getQuantity() - updateShoppingCartUseCaseInput.quantity();
 
                 if (newQuantity == 0) {
-                    this.deleteShoppingCartItem(shoppingCartItem.getId());
+                    this.deleteShoppingCartItemById(shoppingCartItem.getId());
                 } else {
                     this.updateShoppingCartItem(shoppingCartItem, newQuantity);
                 }
@@ -72,7 +72,7 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
         return this.shoppingCartItemRepository.findById(id).orElseThrow(() -> NotFoundException.with("Shopping cart item not found"));
     }
 
-    private void deleteShoppingCartItem(String id) {
+    private void deleteShoppingCartItemById(String id) {
         this.shoppingCartItemRepository.deleteById(id);
     }
 

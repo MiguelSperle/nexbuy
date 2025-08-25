@@ -57,8 +57,8 @@ public class Routes {
     };
 
     public static final String[] SHOPPING_CART_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/shopping-carts/{cartId}/items",
-            "/api/v1/shopping-carts/{cartId}/items/{itemId}",
-            "/api/v1/shopping-carts/{cartId}"
+            "/api/v1/shopping-carts/{shoppingCartId}/items",
+            "/api/v1/shopping-carts/{shoppingCartId}/items/{shoppingCartItemId}",
+            "/api/v1/shopping-carts/{shoppingCartId}"
     };
 }

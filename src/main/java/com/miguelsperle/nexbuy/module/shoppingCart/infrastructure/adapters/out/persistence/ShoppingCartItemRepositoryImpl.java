@@ -42,6 +42,11 @@ public class ShoppingCartItemRepositoryImpl implements ShoppingCartItemRepositor
     }
 
     @Override
+    public void deleteAll(List<ShoppingCartItem> shoppingCartItems) {
+        this.jpaShoppingCartItemRepository.deleteAll(shoppingCartItems.stream().map(JpaShoppingCartItemEntity::from).toList());
+    }
+
+    @Override
     public Optional<ShoppingCartItem> findByShoppingCartIdAndProductId(String shoppingCartId, String productId) {
         return this.jpaShoppingCartItemRepository.findByShoppingCartIdAndProductId(shoppingCartId, productId).map(JpaShoppingCartItemEntity::toEntity);
     }

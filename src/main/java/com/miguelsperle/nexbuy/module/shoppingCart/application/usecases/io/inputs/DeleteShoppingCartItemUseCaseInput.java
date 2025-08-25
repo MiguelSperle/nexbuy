@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs;
 
 public record DeleteShoppingCartItemUseCaseInput(
-        String cartId,
-        String itemId
+        String shoppingCartId,
+        String shoppingCartItemId
 ) {
     public static DeleteShoppingCartItemUseCaseInput with(
-            String cartId,
-            String itemId
+            String shoppingCartId,
+            String shoppingCartItemId
     ) {
         return new DeleteShoppingCartItemUseCaseInput(
-                cartId,
-                itemId
+                shoppingCartId,
+                shoppingCartItemId
         );
     }
 }
