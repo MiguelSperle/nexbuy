@@ -61,12 +61,12 @@ public class ShoppingCartUseCasesConfiguration {
     }
 
     @Bean
-    public ClearShoppingCartUseCase clearShoppingCartUseCase(
+    public DeleteAllShoppingCartItemsUseCase deleteAllShoppingCartItemsUseCase(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
             TransactionExecutor transactionExecutor
     ) {
-        return new ClearShoppingCartUseCaseImpl(
+        return new DeleteAllShoppingCartItemsUseCaseImpl(
                 shoppingCartRepository,
                 shoppingCartItemRepository,
                 transactionExecutor

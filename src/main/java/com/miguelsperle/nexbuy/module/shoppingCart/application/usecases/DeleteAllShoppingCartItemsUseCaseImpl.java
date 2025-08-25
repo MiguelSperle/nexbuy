@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.ClearShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.DeleteAllShoppingCartItemsUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.ClearShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.DeleteAllShoppingCartItemsUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
@@ -12,12 +12,12 @@ import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ClearShoppingCartUseCaseImpl implements ClearShoppingCartUseCase {
+public class DeleteAllShoppingCartItemsUseCaseImpl implements DeleteAllShoppingCartItemsUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
     private final TransactionExecutor transactionExecutor;
 
-    public ClearShoppingCartUseCaseImpl(
+    public DeleteAllShoppingCartItemsUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
             TransactionExecutor transactionExecutor
@@ -28,8 +28,8 @@ public class ClearShoppingCartUseCaseImpl implements ClearShoppingCartUseCase {
     }
 
     @Override
-    public void execute(ClearShoppingCartUseCaseInput clearShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(clearShoppingCartUseCaseInput.shoppingCartId());
+    public void execute(DeleteAllShoppingCartItemsUseCaseInput deleteAllShoppingCartItemsUseCaseInput) {
+        final ShoppingCart shoppingCart = this.getShoppingCartById(deleteAllShoppingCartItemsUseCaseInput.shoppingCartId());
 
         final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());
 

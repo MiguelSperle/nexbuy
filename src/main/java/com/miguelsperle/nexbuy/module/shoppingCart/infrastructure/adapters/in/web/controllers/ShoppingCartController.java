@@ -20,7 +20,7 @@ public class ShoppingCartController {
     private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
     private final GetShoppingCartUseCase getShoppingCartUseCase;
     private final DeleteShoppingCartItemUseCase deleteShoppingCartItemUseCase;
-    private final ClearShoppingCartUseCase clearShoppingCartUseCase;
+    private final DeleteAllShoppingCartItemsUseCase deleteAllShoppingCartItemsUseCase;
 
     @PostMapping("/{shoppingCartId}/items")
     public ResponseEntity<MessageResponse> addToShoppingCart(
@@ -71,8 +71,8 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/{shoppingCartId}/items")
-    public ResponseEntity<Void> clearShoppingCart(@PathVariable String shoppingCartId) {
-        this.clearShoppingCartUseCase.execute(ClearShoppingCartUseCaseInput.with(shoppingCartId));
+    public ResponseEntity<Void> deleteAllShoppingCartItems(@PathVariable String shoppingCartId) {
+        this.deleteAllShoppingCartItemsUseCase.execute(DeleteAllShoppingCartItemsUseCaseInput.with(shoppingCartId));
 
         return ResponseEntity.noContent().build();
     }
