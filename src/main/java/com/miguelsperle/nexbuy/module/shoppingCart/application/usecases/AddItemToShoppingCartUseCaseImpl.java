@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddItemToShoppingCartUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddItemToShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
@@ -13,12 +13,12 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
+public class AddItemToShoppingCartUseCaseImpl implements AddItemToShoppingCartUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
     private final TransactionExecutor transactionExecutor;
 
-    public AddToShoppingCartUseCaseImpl(
+    public AddItemToShoppingCartUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
             TransactionExecutor transactionExecutor
@@ -29,10 +29,10 @@ public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
     }
 
     @Override
-    public void execute(AddToShoppingCartUseCaseInput addToShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(addToShoppingCartUseCaseInput.shoppingCartId());
+    public void execute(AddItemToShoppingCartUseCaseInput addItemToShoppingCartUseCaseInput) {
+        final ShoppingCart shoppingCart = this.getShoppingCartById(addItemToShoppingCartUseCaseInput.shoppingCartId());
 
-        final Optional<ShoppingCartItem> shoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addToShoppingCartUseCaseInput.productId());
+        final Optional<ShoppingCartItem> shoppingCartItem = this.getShoppingCartItemByShoppingCartIdAndProductId(shoppingCart.getId(), addItemToShoppingCartUseCaseInput.productId());
 
         this.transactionExecutor.runTransaction(() -> {
             if (shoppingCartItem.isPresent()) {
@@ -42,8 +42,8 @@ public class AddToShoppingCartUseCaseImpl implements AddToShoppingCartUseCase {
             } else {
                 final ShoppingCartItem newShoppingCartItem = ShoppingCartItem.newShoppingCartItem(
                         shoppingCart.getId(),
-                        addToShoppingCartUseCaseInput.productId(),
-                        addToShoppingCartUseCaseInput.unitPrice()
+                        addItemToShoppingCartUseCaseInput.productId(),
+                        addItemToShoppingCartUseCaseInput.unitPrice()
                 );
                 this.saveShoppingCartItem(newShoppingCartItem);
             }

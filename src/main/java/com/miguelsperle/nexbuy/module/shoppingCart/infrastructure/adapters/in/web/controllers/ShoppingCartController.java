@@ -16,24 +16,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/shopping-carts")
 @RequiredArgsConstructor
 public class ShoppingCartController {
-    private final AddToShoppingCartUseCase addToShoppingCartUseCase;
+    private final AddItemToShoppingCartUseCase addItemToShoppingCartUseCase;
     private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
     private final GetShoppingCartUseCase getShoppingCartUseCase;
     private final DeleteShoppingCartItemUseCase deleteShoppingCartItemUseCase;
     private final DeleteAllShoppingCartItemsUseCase deleteAllShoppingCartItemsUseCase;
 
     @PostMapping("/{shoppingCartId}/items")
-    public ResponseEntity<MessageResponse> addToShoppingCart(
+    public ResponseEntity<MessageResponse> addItemToShoppingCart(
             @PathVariable String shoppingCartId,
             @RequestBody @Valid AddToShoppingCartRequest addToShoppingCartRequest
     ) {
-        this.addToShoppingCartUseCase.execute(AddToShoppingCartUseCaseInput.with(
+        this.addItemToShoppingCartUseCase.execute(AddItemToShoppingCartUseCaseInput.with(
                 shoppingCartId,
                 addToShoppingCartRequest.productId(),
                 addToShoppingCartRequest.unitPrice()
         ));
 
-        return ResponseEntity.ok().body(MessageResponse.from("Added to shopping cart successfully"));
+        return ResponseEntity.ok().body(MessageResponse.from("Item successfully added to shopping cart"));
     }
 
     @PatchMapping("/{shoppingCartId}/items/{shoppingCartItemId}")

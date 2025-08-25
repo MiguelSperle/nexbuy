@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShoppingCartUseCasesConfiguration {
     @Bean
-    public AddToShoppingCartUseCase addToShoppingCartUseCase(
+    public AddItemToShoppingCartUseCase addItemToShoppingCartUseCase(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
             TransactionExecutor transactionExecutor
     ) {
-        return new AddToShoppingCartUseCaseImpl(
+        return new AddItemToShoppingCartUseCaseImpl(
                 shoppingCartRepository,
                 shoppingCartItemRepository,
                 transactionExecutor
