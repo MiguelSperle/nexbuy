@@ -1,11 +1,15 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.controllers;
 
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.AddToShoppingCartUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.GetShoppingCartUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.UpdateShoppingCartItemUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddToShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.GetShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.outputs.GetShoppingCartUseCaseOutput;
 import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.AddToShoppingCartRequest;
 import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.requests.UpdateShoppingCartRequest;
+import com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.web.dtos.responses.GetShoppingCartResponse;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class ShoppingCartController {
     private final AddToShoppingCartUseCase addToShoppingCartUseCase;
     private final UpdateShoppingCartItemUseCase updateShoppingCartItemUseCase;
+    private final GetShoppingCartUseCase getShoppingCartUseCase;
 
     @PostMapping("/{cartId}/items")
     public ResponseEntity<MessageResponse> addToShoppingCart(
@@ -47,5 +52,13 @@ public class ShoppingCartController {
         ));
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{cartId}")
+    public ResponseEntity<GetShoppingCartResponse> getShoppingCart(@PathVariable String cartId) {
+        final GetShoppingCartUseCaseOutput getShoppingCartUseCaseOutput =
+                this.getShoppingCartUseCase.execute(GetShoppingCartUseCaseInput.with(cartId));
+
+        return ResponseEntity.ok().body(GetShoppingCartResponse.from(getShoppingCartUseCaseOutput));
     }
 }
