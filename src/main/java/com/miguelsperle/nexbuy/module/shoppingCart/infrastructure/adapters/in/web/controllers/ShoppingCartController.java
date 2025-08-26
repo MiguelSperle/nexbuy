@@ -50,10 +50,9 @@ public class ShoppingCartController {
         return ResponseEntity.ok().body(MessageResponse.from("Shopping cart item updated successfully"));
     }
 
-    @GetMapping("/{shoppingCartId}")
-    public ResponseEntity<GetShoppingCartResponse> getShoppingCart(@PathVariable String shoppingCartId) {
-        final GetShoppingCartUseCaseOutput getShoppingCartUseCaseOutput =
-                this.getShoppingCartUseCase.execute(GetShoppingCartUseCaseInput.with(shoppingCartId));
+    @GetMapping("/me")
+    public ResponseEntity<GetShoppingCartResponse> getShoppingCart() {
+        final GetShoppingCartUseCaseOutput getShoppingCartUseCaseOutput = this.getShoppingCartUseCase.execute();
 
         return ResponseEntity.ok().body(GetShoppingCartResponse.from(getShoppingCartUseCaseOutput));
     }

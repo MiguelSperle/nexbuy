@@ -4,6 +4,7 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.*;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,11 +40,13 @@ public class ShoppingCartUseCasesConfiguration {
     @Bean
     public GetShoppingCartUseCase getShoppingCartUseCase(
             ShoppingCartRepository shoppingCartRepository,
-            ShoppingCartItemRepository shoppingCartItemRepository
+            ShoppingCartItemRepository shoppingCartItemRepository,
+            SecurityContextService securityContextService
     ) {
         return new GetShoppingCartUseCaseImpl(
                 shoppingCartRepository,
-                shoppingCartItemRepository
+                shoppingCartItemRepository,
+                securityContextService
         );
     }
 
