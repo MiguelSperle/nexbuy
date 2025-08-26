@@ -3,20 +3,17 @@ package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inpu
 public record UpdateShoppingCartUseCaseInput(
         String shoppingCartId,
         String shoppingCartItemId,
-        Integer quantity,
-        String action
+        Integer quantity
 ) {
     public static UpdateShoppingCartUseCaseInput with(
             String shoppingCartId,
             String shoppingCartItemId,
-            Integer quantity,
-            String action
+            Integer quantity
     ) {
         return new UpdateShoppingCartUseCaseInput(
                 shoppingCartId,
                 shoppingCartItemId,
-                quantity,
-                action
+                quantity
         );
     }
 }

@@ -44,8 +44,7 @@ public class ShoppingCartController {
         this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartUseCaseInput.with(
                 shoppingCartId,
                 shoppingCartItemId,
-                updateShoppingCartRequest.quantity(),
-                updateShoppingCartRequest.action()
+                updateShoppingCartRequest.quantity()
         ));
 
         return ResponseEntity.ok().body(MessageResponse.from("Shopping cart item updated successfully"));

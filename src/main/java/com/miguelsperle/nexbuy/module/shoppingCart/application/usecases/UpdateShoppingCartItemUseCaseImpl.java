@@ -6,9 +6,7 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persist
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
-import com.miguelsperle.nexbuy.module.shoppingCart.domain.enums.ShoppingCartItemAction;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.math.BigDecimal;
@@ -35,25 +33,9 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
 
         final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartUseCaseInput.shoppingCartItemId());
 
-        final ShoppingCartItemAction convertedToShoppingCartItemAction = ShoppingCartItemAction.valueOf(updateShoppingCartUseCaseInput.action());
-
         this.transactionExecutor.runTransaction(() -> {
-            if (convertedToShoppingCartItemAction == ShoppingCartItemAction.ADD) {
-                final int newQuantity = shoppingCartItem.getQuantity() + updateShoppingCartUseCaseInput.quantity();
-                this.updateShoppingCartItem(shoppingCartItem, newQuantity);
-            } else {
-                if (updateShoppingCartUseCaseInput.quantity() > shoppingCartItem.getQuantity()) {
-                    throw DomainException.with("The quantity to be removed cannot be greater than the quantity of the item in the cart", 400);
-                }
-
-                final int newQuantity = shoppingCartItem.getQuantity() - updateShoppingCartUseCaseInput.quantity();
-
-                if (newQuantity == 0) {
-                    this.deleteShoppingCartItemById(shoppingCartItem.getId());
-                } else {
-                    this.updateShoppingCartItem(shoppingCartItem, newQuantity);
-                }
-            }
+            final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(updateShoppingCartUseCaseInput.quantity());
+            this.saveShoppingCartItem(updatedShoppingCartItem);
 
             final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());
             final BigDecimal calculatedTotalAmount = shoppingCartItems.stream().map(shoppingCartItemInList -> shoppingCartItemInList.getUnitPrice().multiply(BigDecimal.valueOf(shoppingCartItemInList.getQuantity())))
@@ -72,10 +54,6 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
         return this.shoppingCartItemRepository.findById(id).orElseThrow(() -> NotFoundException.with("Shopping cart item not found"));
     }
 
-    private void deleteShoppingCartItemById(String id) {
-        this.shoppingCartItemRepository.deleteById(id);
-    }
-
     private List<ShoppingCartItem> getAllShoppingCartItemsByShoppingCartId(String shoppingCartId) {
         return this.shoppingCartItemRepository.findAllByShoppingCartId(shoppingCartId);
     }
@@ -86,10 +64,5 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
 
     private void saveShoppingCartItem(ShoppingCartItem shoppingCartItem) {
         this.shoppingCartItemRepository.save(shoppingCartItem);
-    }
-
-    private void updateShoppingCartItem(ShoppingCartItem shoppingCartItem, int newQuantity) {
-        final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(newQuantity);
-        this.saveShoppingCartItem(updatedShoppingCartItem);
     }
 }
