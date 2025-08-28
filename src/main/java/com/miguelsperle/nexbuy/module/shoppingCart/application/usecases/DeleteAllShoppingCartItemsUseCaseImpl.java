@@ -8,8 +8,8 @@ import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class DeleteAllShoppingCartItemsUseCaseImpl implements DeleteAllShoppingCartItemsUseCase {
@@ -36,7 +36,7 @@ public class DeleteAllShoppingCartItemsUseCaseImpl implements DeleteAllShoppingC
         this.transactionExecutor.runTransaction(() -> {
             this.deleteAllShoppingCartItems(shoppingCartItems);
 
-            final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(BigDecimal.valueOf(0));
+            final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(DecimalUtils.valueOf(0));
             this.saveShoppingCart(updatedShoppingCart);
         });
     }

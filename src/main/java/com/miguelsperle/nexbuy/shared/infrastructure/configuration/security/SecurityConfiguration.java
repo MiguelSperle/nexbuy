@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(Routes.COUPON_MODULE_RESTRICTED_ENDPOINTS).hasRole("ADMIN")
                                 .requestMatchers(Routes.COUPON_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(Routes.SHOPPING_CART_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
+                                .requestMatchers(Routes.SHIPPING_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .anyRequest().permitAll())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)

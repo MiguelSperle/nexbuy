@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.domain.entities;
 
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
@@ -28,7 +29,7 @@ public class ShoppingCart {
         return new ShoppingCart(
                 IdentifierUtils.generateUUID(),
                 userId,
-                BigDecimal.valueOf(0),
+                DecimalUtils.valueOf(0),
                 TimeUtils.now()
         );
     }

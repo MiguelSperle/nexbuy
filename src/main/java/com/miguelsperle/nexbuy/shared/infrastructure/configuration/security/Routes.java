@@ -61,4 +61,8 @@ public class Routes {
             "/api/v1/shopping-carts/{shoppingCartId}/items/{shoppingCartItemId}",
             "/api/v1/shopping-carts/me"
     };
+
+    public static final String[] SHIPPING_MODULE_AUTHENTICATED_ENDPOINTS = {
+            "/api/v1/shippings/consult"
+    };
 }
