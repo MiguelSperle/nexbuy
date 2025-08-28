@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.responses.complement;
+package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.complement;
 
 public record CompanyComplementResponse(
         String name

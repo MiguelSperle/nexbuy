@@ -1,6 +1,6 @@
-package com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs;
+package com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs;
 
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.complement.ProductsComplementInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ProductsComplementInput;
 
 import java.util.List;
 

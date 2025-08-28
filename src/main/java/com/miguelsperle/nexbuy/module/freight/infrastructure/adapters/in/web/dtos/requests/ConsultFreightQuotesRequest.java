@@ -1,6 +1,6 @@
-package com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.requests;
+package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests;
 
-import com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.requests.complement.ProductsComplementRequest;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests.complement.ProductsComplementRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

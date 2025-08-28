@@ -62,7 +62,7 @@ public class Routes {
             "/api/v1/shopping-carts/me"
     };
 
-    public static final String[] SHIPPING_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/shippings/consult"
+    public static final String[] FREIGHT_MODULE_AUTHENTICATED_ENDPOINTS = {
+            "/api/v1/freights/quotes"
     };
 }

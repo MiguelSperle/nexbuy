@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.shipping.application.ports.out.services;
+package com.miguelsperle.nexbuy.module.freight.application.ports.out.services;
 
 import java.util.List;
 import java.util.Map;

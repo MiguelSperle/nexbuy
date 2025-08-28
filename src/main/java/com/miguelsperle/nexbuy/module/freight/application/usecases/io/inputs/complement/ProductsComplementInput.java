@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.complement;
+package com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement;
 
 public record ProductsComplementInput(
         String id,

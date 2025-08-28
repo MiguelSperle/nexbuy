@@ -1,6 +1,6 @@
-package com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.out.services;
+package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.out.services;
 
-import com.miguelsperle.nexbuy.module.shipping.application.ports.out.services.FreightService;
+import com.miguelsperle.nexbuy.module.freight.application.ports.out.services.FreightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;

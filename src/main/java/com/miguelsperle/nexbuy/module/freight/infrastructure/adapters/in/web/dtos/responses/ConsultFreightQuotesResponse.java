@@ -1,9 +1,9 @@
-package com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.responses;
+package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.responses.complement.CompanyComplementResponse;
-import com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.responses.complement.DeliveryComplementResponse;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.complement.CompanyComplementResponse;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.complement.DeliveryComplementResponse;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import com.miguelsperle.nexbuy.shared.infrastructure.utils.JsonUtils;
 

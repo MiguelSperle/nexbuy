@@ -1,11 +1,11 @@
-package com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.controllers;
+package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.module.shipping.application.ports.in.usecases.ConsultFreightQuotesUseCase;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.complement.ProductsComplementInput;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.requests.ConsultFreightQuotesRequest;
-import com.miguelsperle.nexbuy.module.shipping.infrastructure.adapters.in.web.dtos.responses.ConsultFreightQuotesResponse;
+import com.miguelsperle.nexbuy.module.freight.application.ports.in.usecases.ConsultFreightQuotesUseCase;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ProductsComplementInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests.ConsultFreightQuotesRequest;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.ConsultFreightQuotesResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

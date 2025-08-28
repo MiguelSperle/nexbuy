@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.shipping.application.usecases.io.outputs;
+package com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs;
 
 public record ConsultFreightQuotesUseCaseOutput(
         String response

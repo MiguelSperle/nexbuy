@@ -1,10 +1,10 @@
-package com.miguelsperle.nexbuy.module.shipping.application.usecases;
+package com.miguelsperle.nexbuy.module.freight.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shipping.application.ports.in.usecases.ConsultFreightQuotesUseCase;
-import com.miguelsperle.nexbuy.module.shipping.application.ports.out.services.FreightService;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.inputs.complement.ProductsComplementInput;
-import com.miguelsperle.nexbuy.module.shipping.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
+import com.miguelsperle.nexbuy.module.freight.application.ports.in.usecases.ConsultFreightQuotesUseCase;
+import com.miguelsperle.nexbuy.module.freight.application.ports.out.services.FreightService;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ProductsComplementInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
 
 import java.util.ArrayList;
 import java.util.HashMap;

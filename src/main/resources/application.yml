@@ -37,7 +37,7 @@ spring:
           multiplier: 2
           max-interval: 12000
 
-  api-freight-quote:
+  freight-api:
     fromCep: ${FREIGHT_QUOTE_FROM}
     url: ${FREIGHT_QUOTE_URL}
     token: ${FREIGHT_QUOTE_TOKEN}
