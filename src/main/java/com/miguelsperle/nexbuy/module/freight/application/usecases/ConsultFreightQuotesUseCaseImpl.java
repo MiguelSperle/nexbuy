@@ -20,27 +20,32 @@ public class ConsultFreightQuotesUseCaseImpl implements ConsultFreightQuotesUseC
 
     @Override
     public ConsultFreightQuotesUseCaseOutput execute(ConsultFreightQuotesUseCaseInput consultFreightQuotesUseCaseInput) {
-        final Map<String, Object> toMap = new HashMap<>();
-        toMap.put("postal_code", consultFreightQuotesUseCaseInput.toCep());
+        final Map<String, Object> toMap = this.createToMap(consultFreightQuotesUseCaseInput.toCep());
 
-        final List<Map<String, Object>> productMapList = this.getProductMapList(consultFreightQuotesUseCaseInput.productsComplementInput());
+        final List<Map<String, Object>> productMapList = this.createProductMapList(consultFreightQuotesUseCaseInput.productsComplementInput());
 
         final String response = this.freightService.consult(toMap, productMapList);
 
         return ConsultFreightQuotesUseCaseOutput.from(response);
     }
 
-    private List<Map<String, Object>> getProductMapList(List<ProductsComplementInput> products) {
+    private Map<String, Object> createToMap(String toCep) {
+        final Map<String, Object> toMap = new HashMap<>();
+        toMap.put("postal_code", toCep);
+        return toMap;
+    }
+
+    private List<Map<String, Object>> createProductMapList(List<ProductsComplementInput> products) {
         final List<Map<String, Object>> productMapList = new ArrayList<>();
 
-        for (ProductsComplementInput p : products) {
+        for (ProductsComplementInput product : products) {
             final Map<String, Object> productMap = new HashMap<>();
-            productMap.put("id", p.id());
-            productMap.put("height", p.height() / 10.0);
-            productMap.put("width", p.width() / 10.0);
-            productMap.put("length", p.length() / 10.0);
-            productMap.put("weight", p.weight() / 1000.0);
-            productMap.put("quantity", p.quantity());
+            productMap.put("id", product.id());
+            productMap.put("height", product.height() / 10.0);
+            productMap.put("width", product.width() / 10.0);
+            productMap.put("length", product.length() / 10.0);
+            productMap.put("weight", product.weight() / 1000.0);
+            productMap.put("quantity", product.quantity());
             productMapList.add(productMap);
         }
 
