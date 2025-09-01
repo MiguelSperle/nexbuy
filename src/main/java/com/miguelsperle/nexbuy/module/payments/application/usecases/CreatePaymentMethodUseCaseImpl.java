@@ -16,7 +16,7 @@ public class CreatePaymentMethodUseCaseImpl implements CreatePaymentMethodUseCas
     @Override
     public void execute(CreatePaymentMethodUseCaseInput createPaymentMethodUseCaseInput) {
         if (this.verifyPaymentMethodAlreadyExistsByName(createPaymentMethodUseCaseInput.name())) {
-            throw DomainException.with("There is already a payment method with this name", 409);
+            throw DomainException.with("Payment method with this name already exists", 409);
         }
 
         final PaymentMethod newPaymentMethod = PaymentMethod.newPaymentMethod(createPaymentMethodUseCaseInput.name());

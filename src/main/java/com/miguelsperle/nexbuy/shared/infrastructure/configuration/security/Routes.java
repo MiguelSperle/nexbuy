@@ -71,6 +71,7 @@ public class Routes {
     };
 
     public static final String[] PAYMENT_MODULE_RESTRICTED_ENDPOINTS = {
-            "/api/v1/payment-methods"
+            "/api/v1/admin/payment-methods",
+            "/api/v1/admin/payment-methods/{paymentMethodId}"
     };
 }

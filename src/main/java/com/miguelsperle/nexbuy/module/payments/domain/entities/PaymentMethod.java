@@ -40,6 +40,14 @@ public class PaymentMethod {
         );
     }
 
+    public PaymentMethod withName(String name) {
+        return new PaymentMethod(
+                this.id,
+                name,
+                this.createdAt
+        );
+    }
+
     public String getId() {
         return this.id;
     }
