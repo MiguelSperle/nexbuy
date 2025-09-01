@@ -22,10 +22,10 @@ public record ConsultFreightQuotesResponse(
         final List<ConsultFreightQuotesResponse> result = new ArrayList<>();
 
         final JsonNode root = JsonUtils.readTree(consultFreightQuotesUseCaseOutput.response(), JsonNode.class);
-        int counterId = 1;
 
         for (JsonNode node : root) {
             if (!node.has("error")) {
+                final String id = node.path("id").asText();
                 final String name = node.path("name").asText();
                 final String companyName = node.path("company").path("name").asText();
                 final BigDecimal price = DecimalUtils.valueOf(node.path("price").asText());
@@ -38,7 +38,7 @@ public record ConsultFreightQuotesResponse(
                         estimatedTime, minTime, maxTime
                 );
                 final ConsultFreightQuotesResponse consultFreightQuotesResponse = ConsultFreightQuotesResponse.from(
-                        String.valueOf(counterId++),
+                        id,
                         name,
                         companyComplementResponse,
                         price,

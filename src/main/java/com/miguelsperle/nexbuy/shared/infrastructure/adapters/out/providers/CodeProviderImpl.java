@@ -9,17 +9,14 @@ import java.security.SecureRandom;
 public class CodeProviderImpl implements CodeProvider {
     private final SecureRandom secureRandom = new SecureRandom();
 
-    private final static int CODE_LENGTH = 6;
-    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
     @Override
-    public String generateCode() {
-        final StringBuilder code = new StringBuilder(CODE_LENGTH);
-        final int charSetLength = ALPHANUMERIC_CHARACTERS.length();
+    public String generateCode(int codeLength, String characters) {
+        final StringBuilder code = new StringBuilder(codeLength);
+        final int charSetLength = characters.length();
 
-        for (int i = 0; i < CODE_LENGTH; i++) {
+        for (int i = 0; i < codeLength; i++) {
             final int randomIndex = this.secureRandom.nextInt(charSetLength);
-            code.append(ALPHANUMERIC_CHARACTERS.charAt(randomIndex));
+            code.append(characters.charAt(randomIndex));
         }
 
         return code.toString();

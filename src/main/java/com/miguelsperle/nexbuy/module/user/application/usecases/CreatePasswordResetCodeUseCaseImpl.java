@@ -23,6 +23,9 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
     private static final String USER_CODE_CREATED_EXCHANGE = "user.code.created.exchange";
     private static final String USER_CODE_CREATED_ROUTING_KEY = "user.code.created.routing.key";
 
+    private final static int CODE_LENGTH = 6;
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
     public CreatePasswordResetCodeUseCaseImpl(
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
@@ -43,7 +46,7 @@ public class CreatePasswordResetCodeUseCaseImpl implements CreatePasswordResetCo
                 this.deleteUserCodeById(userCode.getId())
         );
 
-        final String codeGenerated = this.codeProvider.generateCode();
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
 
         final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, UserCodeType.PASSWORD_RESET);
 

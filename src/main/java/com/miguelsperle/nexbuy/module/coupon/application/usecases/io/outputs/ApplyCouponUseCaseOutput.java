@@ -3,11 +3,10 @@ package com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs;
 import java.math.BigDecimal;
 
 public record ApplyCouponUseCaseOutput(
-        BigDecimal totalAmount,
         Integer discountPercentage,
-        BigDecimal finalAmount
+        BigDecimal amountWithDiscount
 ) {
-    public static ApplyCouponUseCaseOutput from(BigDecimal totalAmount, Integer discountPercentage, BigDecimal finalAmount) {
-        return new ApplyCouponUseCaseOutput(totalAmount, discountPercentage, finalAmount);
+    public static ApplyCouponUseCaseOutput from(Integer discountPercentage, BigDecimal finalAmount) {
+        return new ApplyCouponUseCaseOutput(discountPercentage, finalAmount);
     }
 }

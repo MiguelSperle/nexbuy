@@ -83,4 +83,17 @@ public class QueueConfiguration {
     public Queue productPriceUpdatedDlqQueue() {
         return new Queue("product.price.updated.dlq.queue");
     }
+
+    @Bean
+    public Queue createFreightQueue() {
+        return QueueBuilder.durable("create.freight.queue")
+                .deadLetterExchange("create.freight.dlq.exchange")
+                .deadLetterRoutingKey("create.freight.dlq.routing.key")
+                .build();
+    }
+
+    @Bean
+    public Queue createFreightDlqQueue() {
+        return new Queue("create.freight.dlq.queue");
+    }
 }

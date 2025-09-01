@@ -41,9 +41,9 @@ public class ApplyCouponUseCaseImpl implements ApplyCouponUseCase {
 
         final BigDecimal discountAmount = totalAmount.multiply(BigDecimal.valueOf(discountPercentage)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
 
-        final BigDecimal finalAmount = totalAmount.subtract(discountAmount);
+        final BigDecimal amountWithDiscount = totalAmount.subtract(discountAmount);
 
-        return ApplyCouponUseCaseOutput.from(totalAmount, discountPercentage, finalAmount);
+        return ApplyCouponUseCaseOutput.from(discountPercentage, amountWithDiscount);
     }
 
     private Coupon getCouponByCode(String code) {

@@ -51,4 +51,14 @@ public class ExchangeConfiguration {
     public DirectExchange productUpdatedDlqExchange() {
         return new DirectExchange("product.updated.dlq.exchange");
     }
+
+    @Bean
+    public DirectExchange createFreightExchange() {
+        return new DirectExchange("create.freight.exchange");
+    }
+
+    @Bean
+    public DirectExchange createFreightDlqExchange() {
+        return new DirectExchange("create.freight.dlq.exchange");
+    }
 }

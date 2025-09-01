@@ -5,16 +5,13 @@ import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.App
 import java.math.BigDecimal;
 
 public record ApplyCouponResponse(
-        BigDecimal totalAmount,
         Integer discountPercentage,
-        BigDecimal finalAmount
-
+        BigDecimal amountWithDiscount
 ) {
     public static ApplyCouponResponse from(ApplyCouponUseCaseOutput applyCouponUseCaseOutput) {
         return new ApplyCouponResponse(
-                applyCouponUseCaseOutput.totalAmount(),
                 applyCouponUseCaseOutput.discountPercentage(),
-                applyCouponUseCaseOutput.finalAmount()
+                applyCouponUseCaseOutput.amountWithDiscount()
         );
     }
 }

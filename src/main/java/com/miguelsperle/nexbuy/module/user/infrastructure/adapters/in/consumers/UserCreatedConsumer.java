@@ -27,9 +27,12 @@ public class UserCreatedConsumer {
 
     private static final String USER_CREATED_QUEUE = "user.created.queue";
 
+    private final static int CODE_LENGTH = 6;
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
     @RabbitListener(queues = USER_CREATED_QUEUE)
     public void onMessage(UserCreatedEvent userCreatedEvent) {
-        final String codeGenerated = this.codeProvider.generateCode();
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
 
         final UserCode newUserCode = UserCode.newUserCode(userCreatedEvent.id(), codeGenerated, UserCodeType.USER_VERIFICATION);
 

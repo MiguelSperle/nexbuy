@@ -25,6 +25,9 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
     private static final String USER_CODE_CREATED_EXCHANGE = "user.code.created.exchange";
     private static final String USER_CODE_CREATED_ROUTING_KEY = "user.code.created.routing.key";
 
+    private final static int CODE_LENGTH = 6;
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
     public ResendVerificationCodeUseCaseImpl(
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
@@ -53,7 +56,7 @@ public class ResendVerificationCodeUseCaseImpl implements ResendVerificationCode
                 this.deleteUserCodeById(userCode.getId())
         );
 
-        final String codeGenerated = this.codeProvider.generateCode();
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
 
         final UserCode newUserCode = UserCode.newUserCode(user.getId(), codeGenerated, UserCodeType.USER_VERIFICATION);
 
