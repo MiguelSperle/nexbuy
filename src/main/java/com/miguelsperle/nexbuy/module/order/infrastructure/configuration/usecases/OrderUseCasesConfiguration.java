@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.order.infrastructure.configuration;
+package com.miguelsperle.nexbuy.module.order.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderDeliveryRepository;
