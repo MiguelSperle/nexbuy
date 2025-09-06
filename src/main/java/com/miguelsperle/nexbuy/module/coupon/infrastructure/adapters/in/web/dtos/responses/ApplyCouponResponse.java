@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 
 public record ApplyCouponResponse(
         Integer discountPercentage,
-        BigDecimal amountWithDiscount
+        BigDecimal totalAmountWithDiscount
 ) {
     public static ApplyCouponResponse from(ApplyCouponUseCaseOutput applyCouponUseCaseOutput) {
         return new ApplyCouponResponse(
                 applyCouponUseCaseOutput.discountPercentage(),
-                applyCouponUseCaseOutput.amountWithDiscount()
+                applyCouponUseCaseOutput.totalAmountWithDiscount()
         );
     }
 }

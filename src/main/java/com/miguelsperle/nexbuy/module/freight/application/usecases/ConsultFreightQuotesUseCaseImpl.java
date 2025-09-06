@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.freight.application.usecases;
 import com.miguelsperle.nexbuy.module.freight.application.ports.in.usecases.ConsultFreightQuotesUseCase;
 import com.miguelsperle.nexbuy.module.freight.application.ports.out.services.FreightService;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
-import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ProductsComplementInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ItemsComplementInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class ConsultFreightQuotesUseCaseImpl implements ConsultFreightQuotesUseC
     public ConsultFreightQuotesUseCaseOutput execute(ConsultFreightQuotesUseCaseInput consultFreightQuotesUseCaseInput) {
         final Map<String, Object> toMap = this.createToMap(consultFreightQuotesUseCaseInput.toCep());
 
-        final List<Map<String, Object>> productMapList = this.createProductMapList(consultFreightQuotesUseCaseInput.productsComplementInput());
+        final List<Map<String, Object>> itemMapList = this.createItemMapList(consultFreightQuotesUseCaseInput.itemsComplementInput());
 
-        final String response = this.freightService.consult(toMap, productMapList);
+        final String response = this.freightService.consult(toMap, itemMapList);
 
         return ConsultFreightQuotesUseCaseOutput.from(response);
     }
@@ -35,20 +35,20 @@ public class ConsultFreightQuotesUseCaseImpl implements ConsultFreightQuotesUseC
         return toMap;
     }
 
-    private List<Map<String, Object>> createProductMapList(List<ProductsComplementInput> products) {
-        final List<Map<String, Object>> productMapList = new ArrayList<>();
+    private List<Map<String, Object>> createItemMapList(List<ItemsComplementInput> items) {
+        final List<Map<String, Object>> itemMapList = new ArrayList<>();
 
-        for (ProductsComplementInput product : products) {
-            final Map<String, Object> productMap = new HashMap<>();
-            productMap.put("id", product.id());
-            productMap.put("height", product.height() / 10.0);
-            productMap.put("width", product.width() / 10.0);
-            productMap.put("length", product.length() / 10.0);
-            productMap.put("weight", product.weight() / 1000.0);
-            productMap.put("quantity", product.quantity());
-            productMapList.add(productMap);
+        for (ItemsComplementInput item : items) {
+            final Map<String, Object> itemMap = new HashMap<>();
+            itemMap.put("id", item.id());
+            itemMap.put("height", item.height() / 10.0);
+            itemMap.put("width", item.width() / 10.0);
+            itemMap.put("length", item.length() / 10.0);
+            itemMap.put("weight", item.weight() / 1000.0);
+            itemMap.put("quantity", item.quantity());
+            itemMapList.add(itemMap);
         }
 
-        return productMapList;
+        return itemMapList;
     }
 }

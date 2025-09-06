@@ -1,5 +1,7 @@
 package com.miguelsperle.nexbuy.module.payment.domain.entities;
 
+import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentStatus;
+import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentMethod;
 import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
@@ -9,38 +11,47 @@ import java.time.LocalDateTime;
 public class Payment {
     private final String id;
     private final String userId;
-    private final String paymentMethodId;
+    private final String sessionId;
+    private final PaymentMethod paymentMethod;
     private final BigDecimal totalAmount;
-    private final LocalDateTime paidAt;
+    private final String orderId;
+    private final PaymentStatus paymentStatus;
     private final LocalDateTime createdAt;
 
     private Payment(
             String id,
             String userId,
-            String paymentMethodId,
+            String sessionId,
+            PaymentMethod paymentMethod,
             BigDecimal totalAmount,
-            LocalDateTime paidAt,
+            String orderId,
+            PaymentStatus paymentStatus,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.userId = userId;
-        this.paymentMethodId = paymentMethodId;
+        this.sessionId = sessionId;
+        this.paymentMethod = paymentMethod;
         this.totalAmount = totalAmount;
-        this.paidAt = paidAt;
+        this.orderId = orderId;
+        this.paymentStatus = paymentStatus;
         this.createdAt = createdAt;
     }
 
     public static Payment newPayment(
             String userId,
-            String paymentMethodId,
-            BigDecimal totalAmount
+            PaymentMethod paymentMethod,
+            BigDecimal totalAmount,
+            String orderId
     ) {
         return new Payment(
                 IdentifierUtils.generateUUID(),
                 userId,
-                paymentMethodId,
-                totalAmount,
                 null,
+                paymentMethod,
+                totalAmount,
+                orderId,
+                PaymentStatus.PENDING,
                 TimeUtils.now()
         );
     }
@@ -48,18 +59,48 @@ public class Payment {
     public static Payment with(
             String id,
             String userId,
-            String paymentMethodId,
+            String sessionId,
+            PaymentMethod paymentMethod,
             BigDecimal totalAmount,
-            LocalDateTime paidAt,
+            String orderId,
+            PaymentStatus paymentStatus,
             LocalDateTime createdAt
     ) {
         return new Payment(
                 id,
                 userId,
-                paymentMethodId,
+                sessionId,
+                paymentMethod,
                 totalAmount,
-                paidAt,
+                orderId,
+                paymentStatus,
                 createdAt
+        );
+    }
+
+    public Payment withPaymentStatus(PaymentStatus paymentStatus) {
+        return new Payment(
+                this.id,
+                this.userId,
+                this.sessionId,
+                this.paymentMethod,
+                this.totalAmount,
+                this.orderId,
+                paymentStatus,
+                this.createdAt
+        );
+    }
+
+    public Payment withSessionId(String sessionId) {
+        return new Payment(
+                this.id,
+                this.userId,
+                sessionId,
+                this.paymentMethod,
+                this.totalAmount,
+                this.orderId,
+                this.paymentStatus,
+                this.createdAt
         );
     }
 
@@ -71,16 +112,24 @@ public class Payment {
         return this.userId;
     }
 
-    public String getPaymentMethodId() {
-        return this.paymentMethodId;
+    public String getSessionId() {
+        return this.sessionId;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return this.paymentMethod;
     }
 
     public BigDecimal getTotalAmount() {
         return this.totalAmount;
     }
 
-    public LocalDateTime getPaidAt() {
-        return this.paidAt;
+    public String getOrderId() {
+        return this.orderId;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return this.paymentStatus;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -92,9 +141,11 @@ public class Payment {
         return "Payment{" +
                 "id='" + this.id + '\'' +
                 ", userId='" + this.userId + '\'' +
-                ", paymentMethodId='" + this.paymentMethodId + '\'' +
+                ", sessionId='" + this.sessionId + '\'' +
+                ", paymentMethod=" + this.paymentMethod +
                 ", totalAmount=" + this.totalAmount +
-                ", paidAt=" + this.paidAt +
+                ", orderId='" + this.orderId + '\'' +
+                ", paymentStatus=" + this.paymentStatus +
                 ", createdAt=" + this.createdAt +
                 '}';
     }

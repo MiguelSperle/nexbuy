@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class EmailServiceImpl implements EmailService {
+public class SmtpEmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String from;
 
-    private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SmtpEmailServiceImpl.class);
 
     @Override
     public void sendEmail(String to, String text, String subject) {

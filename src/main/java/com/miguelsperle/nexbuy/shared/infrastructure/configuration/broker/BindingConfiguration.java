@@ -119,4 +119,20 @@ public class BindingConfiguration {
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("create.freight.dlq.routing.key");
     }
+
+    @Bean
+    public Binding createPaymentBinding(
+            @CreatePaymentQueue Queue queue,
+            @CreatePaymentExchange DirectExchange directExchange
+    ) {
+        return BindingBuilder.bind(queue).to(directExchange).with("create.payment.routing.key");
+    }
+
+    @Bean
+    public Binding createPaymentDlqBinding(
+            @CreatePaymentDlqQueue Queue queue,
+            @CreatePaymentDlqExchange DirectExchange directExchange
+    ) {
+        return BindingBuilder.bind(queue).to(directExchange).with("create.payment.dlq.routing.key");
+    }
 }

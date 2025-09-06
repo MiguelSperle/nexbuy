@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.co
 
 import com.miguelsperle.nexbuy.module.freight.application.ports.in.usecases.ConsultFreightQuotesUseCase;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
-import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ProductsComplementInput;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ItemsComplementInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests.ConsultFreightQuotesRequest;
 import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.ConsultFreightQuotesResponse;
@@ -21,18 +21,18 @@ public class FreightController {
 
     @PostMapping("/quotes")
     public ResponseEntity<List<ConsultFreightQuotesResponse>> consultFreightQuotes(@RequestBody @Valid ConsultFreightQuotesRequest consultFreightQuotesRequest) {
-        final List<ProductsComplementInput> productsComplementInput = consultFreightQuotesRequest.products().stream()
-                .map(product -> ProductsComplementInput.with(
-                        product.id(),
-                        product.height(),
-                        product.width(),
-                        product.length(),
-                        product.weight(),
-                        product.quantity()
+        final List<ItemsComplementInput> itemsComplementInput = consultFreightQuotesRequest.items().stream()
+                .map(item -> ItemsComplementInput.with(
+                        item.productId(),
+                        item.height(),
+                        item.width(),
+                        item.length(),
+                        item.weight(),
+                        item.quantity()
                 )).toList();
 
         final ConsultFreightQuotesUseCaseOutput consultFreightQuotesUseCaseOutput = this.consultFreightQuotesUseCase.execute(ConsultFreightQuotesUseCaseInput.with(
-                consultFreightQuotesRequest.toCep(), productsComplementInput
+                consultFreightQuotesRequest.toCep(), itemsComplementInput
         ));
 
         return ResponseEntity.ok().body(ConsultFreightQuotesResponse.from(consultFreightQuotesUseCaseOutput));

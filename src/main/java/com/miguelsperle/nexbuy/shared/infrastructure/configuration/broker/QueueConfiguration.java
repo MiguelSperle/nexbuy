@@ -96,4 +96,17 @@ public class QueueConfiguration {
     public Queue createFreightDlqQueue() {
         return new Queue("create.freight.dlq.queue");
     }
+
+    @Bean
+    public Queue createPaymentQueue() {
+        return QueueBuilder.durable("create.payment.queue")
+                .deadLetterExchange("create.payment.dlq.exchange")
+                .deadLetterRoutingKey("create.payment.dlq.routing.key")
+                .build();
+    }
+
+    @Bean
+    public Queue createPaymentDlqQueue() {
+        return new Queue("create.payment.dlq.queue");
+    }
 }

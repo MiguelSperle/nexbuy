@@ -61,4 +61,14 @@ public class ExchangeConfiguration {
     public DirectExchange createFreightDlqExchange() {
         return new DirectExchange("create.freight.dlq.exchange");
     }
+
+    @Bean
+    public DirectExchange createPaymentExchange() {
+        return new DirectExchange("create.payment.exchange");
+    }
+
+    @Bean
+    public DirectExchange createPaymentDlqExchange() {
+        return new DirectExchange("create.payment.dlq.exchange");
+    }
 }

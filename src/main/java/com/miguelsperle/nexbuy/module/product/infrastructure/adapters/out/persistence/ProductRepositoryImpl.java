@@ -66,7 +66,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaProductEntity> specification = Specification.where(null);
+        Specification<JpaProductEntity> specification = Specification.unrestricted();
 
         final String terms = searchQuery.terms();
 

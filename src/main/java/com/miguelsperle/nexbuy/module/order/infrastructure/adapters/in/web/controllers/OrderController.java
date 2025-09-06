@@ -2,10 +2,7 @@ package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.cont
 
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.CreateOrderUseCaseInput;
-import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.AddressComplementInput;
-import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.DeliveryComplementInput;
-import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.FreightComplementInput;
-import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.OrderItemsComplementInput;
+import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.*;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.CreateOrderRequest;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
@@ -58,7 +55,6 @@ public class OrderController {
         );
 
         this.createOrderUseCase.execute(CreateOrderUseCaseInput.with(
-                createOrderRequest.paymentMethodId(),
                 createOrderRequest.totalAmount(),
                 orderItemsComplementInput,
                 deliveryComplementInput

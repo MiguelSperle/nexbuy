@@ -3,13 +3,11 @@ package com.miguelsperle.nexbuy;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableAsync
-@EnableRetry
 @EnableRabbit
+@EnableScheduling
 public class NexbuyApplication {
 
 	public static void main(String[] args) {

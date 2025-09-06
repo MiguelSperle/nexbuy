@@ -31,9 +31,6 @@ public class JpaOrderEntity {
     @Column(name = "total_amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(name = "payment_method_id", nullable = false, length = 36)
-    private String paymentMethodId;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -44,7 +41,6 @@ public class JpaOrderEntity {
                 order.getOrderStatus(),
                 order.getCode(),
                 order.getTotalAmount(),
-                order.getPaymentMethodId(),
                 order.getCreatedAt()
         );
     }
@@ -56,7 +52,6 @@ public class JpaOrderEntity {
                 this.orderStatus,
                 this.code,
                 this.totalAmount,
-                this.paymentMethodId,
                 this.createdAt
         );
     }

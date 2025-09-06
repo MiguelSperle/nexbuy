@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests;
 
-import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests.complement.ProductsComplementRequest;
+import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.requests.complement.ItemsComplementRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,8 +11,8 @@ public record ConsultFreightQuotesRequest(
         @NotBlank(message = "To cep should not be neither null nor blank")
         String toCep,
 
-        @NotNull(message = "Products should not be null")
+        @NotNull(message = "Items should not be null")
         @Valid
-        List<ProductsComplementRequest> products
+        List<ItemsComplementRequest> items
 ) {
 }

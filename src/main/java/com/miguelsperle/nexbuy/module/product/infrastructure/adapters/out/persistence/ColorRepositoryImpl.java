@@ -55,7 +55,7 @@ public class ColorRepositoryImpl implements ColorRepository {
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaColorEntity> specification = Specification.where(null);
+        Specification<JpaColorEntity> specification = Specification.unrestricted();
 
         final String terms = searchQuery.terms();
 

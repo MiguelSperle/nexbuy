@@ -55,7 +55,7 @@ public class BrandRepositoryImpl implements BrandRepository {
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaBrandEntity> specification = Specification.where(null);
+        Specification<JpaBrandEntity> specification = Specification.unrestricted();
 
         final String terms = searchQuery.terms();
 

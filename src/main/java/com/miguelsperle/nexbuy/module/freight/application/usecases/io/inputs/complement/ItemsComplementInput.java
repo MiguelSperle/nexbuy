@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement;
 
-public record ProductsComplementInput(
+public record ItemsComplementInput(
         String id,
         Integer height,
         Integer width,
@@ -8,7 +8,7 @@ public record ProductsComplementInput(
         Integer weight,
         Integer quantity
 ) {
-    public static ProductsComplementInput with(
+    public static ItemsComplementInput with(
             String id,
             Integer height,
             Integer width,
@@ -16,7 +16,7 @@ public record ProductsComplementInput(
             Integer weight,
             Integer quantity
     ) {
-        return new ProductsComplementInput(
+        return new ItemsComplementInput(
                 id,
                 height,
                 width,

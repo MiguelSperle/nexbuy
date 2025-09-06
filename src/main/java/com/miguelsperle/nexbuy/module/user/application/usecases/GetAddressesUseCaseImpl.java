@@ -32,7 +32,7 @@ public class GetAddressesUseCaseImpl implements GetAddressesUseCase {
 
         final User user = this.getUserById(authenticatedUserId);
 
-        final List<Address> addresses = this.getAddressesByUserId(user.getId());
+        final List<Address> addresses = this.getAllAddressesByUserId(user.getId());
 
         return GetAddressesUseCaseOutput.from(addresses);
     }
@@ -45,7 +45,7 @@ public class GetAddressesUseCaseImpl implements GetAddressesUseCase {
         return this.userRepository.findById(userId).orElseThrow(() -> NotFoundException.with("User not found"));
     }
 
-    private List<Address> getAddressesByUserId(String userId) {
+    private List<Address> getAllAddressesByUserId(String userId) {
         return this.addressRepository.findAllByUserId(userId);
     }
 }

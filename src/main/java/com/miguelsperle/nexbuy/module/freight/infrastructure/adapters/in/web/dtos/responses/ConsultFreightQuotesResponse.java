@@ -2,7 +2,6 @@ package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dt
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.complement.CompanyComplementResponse;
 import com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.web.dtos.responses.complement.DeliveryComplementResponse;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import com.miguelsperle.nexbuy.shared.infrastructure.utils.JsonUtils;
@@ -14,7 +13,7 @@ import java.util.List;
 public record ConsultFreightQuotesResponse(
         String id,
         String name,
-        CompanyComplementResponse company,
+        String companyName,
         BigDecimal price,
         DeliveryComplementResponse delivery
 ) {
@@ -33,14 +32,13 @@ public record ConsultFreightQuotesResponse(
                 final int minTime = node.path("delivery_range").path("min").asInt();
                 final int maxTime = node.path("delivery_range").path("max").asInt();
 
-                final CompanyComplementResponse companyComplementResponse = CompanyComplementResponse.from(companyName);
                 final DeliveryComplementResponse deliveryComplementResponse = DeliveryComplementResponse.from(
                         estimatedTime, minTime, maxTime
                 );
                 final ConsultFreightQuotesResponse consultFreightQuotesResponse = ConsultFreightQuotesResponse.from(
                         id,
                         name,
-                        companyComplementResponse,
+                        companyName,
                         price,
                         deliveryComplementResponse
                 );
@@ -55,14 +53,14 @@ public record ConsultFreightQuotesResponse(
     private static ConsultFreightQuotesResponse from(
             String id,
             String name,
-            CompanyComplementResponse company,
+            String companyName,
             BigDecimal price,
             DeliveryComplementResponse delivery
     ) {
         return new ConsultFreightQuotesResponse(
                 id,
                 name,
-                company,
+                companyName,
                 price,
                 delivery
         );

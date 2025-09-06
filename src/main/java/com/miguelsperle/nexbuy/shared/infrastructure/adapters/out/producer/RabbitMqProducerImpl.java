@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class MessageProducerImpl implements MessageProducer {
+public class RabbitMqProducerImpl implements MessageProducer {
     private final RabbitTemplate rabbitTemplate;
 
     @Override

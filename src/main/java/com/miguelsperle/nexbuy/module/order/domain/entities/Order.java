@@ -13,7 +13,6 @@ public class Order {
     private final OrderStatus orderStatus;
     private final String code;
     private final BigDecimal totalAmount;
-    private final String paymentMethodId;
     private final LocalDateTime createdAt;
 
     private Order(
@@ -22,7 +21,6 @@ public class Order {
             OrderStatus orderStatus,
             String code,
             BigDecimal totalAmount,
-            String paymentMethodId,
             LocalDateTime createdAt
     ) {
         this.id = id;
@@ -30,15 +28,13 @@ public class Order {
         this.orderStatus = orderStatus;
         this.code = code;
         this.totalAmount = totalAmount;
-        this.paymentMethodId = paymentMethodId;
         this.createdAt = createdAt;
     }
 
     public static Order newOrder(
             String userId,
             String code,
-            BigDecimal totalAmount,
-            String paymentMethodId
+            BigDecimal totalAmount
     ) {
         return new Order(
                 IdentifierUtils.generateUUID(),
@@ -46,7 +42,6 @@ public class Order {
                 OrderStatus.WAITING_PAYMENT,
                 code,
                 totalAmount,
-                paymentMethodId,
                 TimeUtils.now()
         );
     }
@@ -57,7 +52,6 @@ public class Order {
             OrderStatus orderStatus,
             String code,
             BigDecimal totalAmount,
-            String paymentMethodId,
             LocalDateTime createdAt
     ) {
         return new Order(
@@ -66,7 +60,6 @@ public class Order {
                 orderStatus,
                 code,
                 totalAmount,
-                paymentMethodId,
                 createdAt
         );
     }
@@ -91,10 +84,6 @@ public class Order {
         return this.totalAmount;
     }
 
-    public String getPaymentMethodId() {
-        return this.paymentMethodId;
-    }
-
     public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
@@ -107,7 +96,6 @@ public class Order {
                 ", orderStatus=" + this.orderStatus +
                 ", code='" + this.code + '\'' +
                 ", totalAmount=" + this.totalAmount +
-                ", paymentMethodId='" + this.paymentMethodId + '\'' +
                 ", createdAt=" + this.createdAt +
                 '}';
     }

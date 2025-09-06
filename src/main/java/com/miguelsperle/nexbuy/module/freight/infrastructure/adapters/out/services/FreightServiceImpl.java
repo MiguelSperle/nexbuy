@@ -18,23 +18,23 @@ import java.util.Map;
 public class FreightServiceImpl implements FreightService {
     private final WebClient webClient;
 
-    @Value("${spring.freight-api.fromCep}")
-    private String fromCep;
+    @Value("${spring.freight.api.cep.from}")
+    private String cepFrom;
 
-    @Value("${spring.freight-api.url}")
+    @Value("${spring.freight.api.url}")
     private String url;
 
-    @Value("${spring.freight-api.token}")
+    @Value("${spring.freight.api.token}")
     private String token;
 
-    @Value("${spring.freight-api.email}")
+    @Value("${spring.freight.api.email}")
     private String email;
 
     @Override
-    public String consult(Map<String, Object> toMap, List<Map<String, Object>> productMapList) {
+    public String consult(Map<String, Object> toMap, List<Map<String, Object>> itemMapList) {
         final Map<String, Object> fromMap = this.createFromMap();
 
-        final Map<String, Object> requestBodyMap = this.createRequestBodyMap(fromMap, toMap, productMapList);
+        final Map<String, Object> requestBodyMap = this.createRequestBodyMap(fromMap, toMap, itemMapList);
 
         return this.webClient.post()
                 .uri(this.url)
@@ -48,15 +48,15 @@ public class FreightServiceImpl implements FreightService {
 
     private Map<String, Object> createFromMap() {
         final Map<String, Object> fromMap = new HashMap<>();
-        fromMap.put("postal_code", this.fromCep);
+        fromMap.put("postal_code", this.cepFrom);
         return fromMap;
     }
 
-    private Map<String, Object> createRequestBodyMap(Map<String, Object> fromMap, Map<String, Object> toMap, List<Map<String, Object>> productMapList) {
+    private Map<String, Object> createRequestBodyMap(Map<String, Object> fromMap, Map<String, Object> toMap, List<Map<String, Object>> itemMapList) {
         final Map<String, Object> requestBodyMap = new HashMap<>();
         requestBodyMap.put("from", fromMap);
         requestBodyMap.put("to", toMap);
-        requestBodyMap.put("products", productMapList);
+        requestBodyMap.put("products", itemMapList);
         return requestBodyMap;
     }
 

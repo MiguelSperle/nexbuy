@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.out.persi
 
 import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.PaymentRepository;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
+import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentStatus;
 import com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.out.persistence.jpa.entities.JpaPaymentEntity;
 import com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.out.persistence.jpa.repositories.JpaPaymentRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,10 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     @Override
     public void deleteById(String id) {
         this.jpaPaymentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Payment> findAllByStatus(PaymentStatus paymentStatus) {
+        return this.jpaPaymentRepository.findAllByStatus(paymentStatus.name()).stream().map(JpaPaymentEntity::toEntity).toList();
     }
 }

@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public record ApplyCouponUseCaseOutput(
         Integer discountPercentage,
-        BigDecimal amountWithDiscount
+        BigDecimal totalAmountWithDiscount
 ) {
-    public static ApplyCouponUseCaseOutput from(Integer discountPercentage, BigDecimal finalAmount) {
-        return new ApplyCouponUseCaseOutput(discountPercentage, finalAmount);
+    public static ApplyCouponUseCaseOutput from(Integer discountPercentage, BigDecimal totalAmountWithDiscount) {
+        return new ApplyCouponUseCaseOutput(discountPercentage, totalAmountWithDiscount);
     }
 }

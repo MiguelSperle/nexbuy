@@ -55,12 +55,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
         final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
 
-        final Order newOrder = Order.newOrder(
-                authenticatedUserId,
-                codeGenerated,
-                createOrderUseCaseInput.totalAmount(),
-                createOrderUseCaseInput.paymentMethodId()
-        );
+        final Order newOrder = Order.newOrder(authenticatedUserId, codeGenerated, createOrderUseCaseInput.totalAmount());
 
         this.transactionExecutor.runTransaction(() -> {
             final Order orderSaved = this.saveOrder(newOrder);
@@ -98,8 +93,8 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
                     createOrderUseCaseInput.deliveryComplementInput().freight().maxTime()
             );
 
-            this.transactionExecutor.registerAfterCommit(() -> this.messageProducer.publish(
-                    CREATE_FREIGHT_EXCHANGE, CREATE_FREIGHT_ROUTING_KEY, createFreightCommand)
+            this.transactionExecutor.registerAfterCommit(() ->
+                    this.messageProducer.publish(CREATE_FREIGHT_EXCHANGE, CREATE_FREIGHT_ROUTING_KEY, createFreightCommand)
             );
         });
     }

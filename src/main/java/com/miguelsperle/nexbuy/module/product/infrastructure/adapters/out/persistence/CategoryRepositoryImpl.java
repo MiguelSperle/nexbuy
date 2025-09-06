@@ -55,7 +55,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaCategoryEntity> specification = Specification.where(null);
+        Specification<JpaCategoryEntity> specification = Specification.unrestricted();
 
         final String terms = searchQuery.terms();
 

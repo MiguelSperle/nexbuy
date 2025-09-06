@@ -4,9 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record ProductsComplementRequest(
-        @NotBlank(message = "Id should not be neither null nor blank")
-        String id,
+public record ItemsComplementRequest(
+        @NotBlank(message = "Product id should not be neither null nor blank")
+        String productId,
 
         @NotNull(message = "Height should not be null")
         @Positive(message = "Height should be positive")

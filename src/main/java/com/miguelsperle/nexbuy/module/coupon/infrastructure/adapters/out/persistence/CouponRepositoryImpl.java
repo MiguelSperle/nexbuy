@@ -61,7 +61,7 @@ public class CouponRepositoryImpl implements CouponRepository {
 
         final PageRequest pageable = PageRequest.of(searchQuery.page(), searchQuery.perPage(), sort);
 
-        Specification<JpaCouponEntity> specification = Specification.where(null);
+        Specification<JpaCouponEntity> specification = Specification.unrestricted();
 
         final String percentageStr = searchQuery.filters().get("percentage");
 

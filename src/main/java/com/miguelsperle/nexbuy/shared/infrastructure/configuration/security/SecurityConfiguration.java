@@ -41,7 +41,6 @@ public class SecurityConfiguration {
                                 .requestMatchers(Routes.FREIGHT_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(Routes.ORDER_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(Routes.PAYMENT_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
-                                .requestMatchers(Routes.PAYMENT_MODULE_RESTRICTED_ENDPOINTS).hasRole("ADMIN")
                                 .anyRequest().permitAll())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
