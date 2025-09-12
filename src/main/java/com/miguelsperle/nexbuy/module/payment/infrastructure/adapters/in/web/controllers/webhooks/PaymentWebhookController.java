@@ -1,8 +1,8 @@
-package com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.in.web.controllers.webHooks;
+package com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.in.web.controllers.webhooks;
 
-import com.miguelsperle.nexbuy.module.payment.application.ports.in.usecases.UpdatePaymentStatusUseCase;
-import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.UpdatePaymentStatusUseCaseInput;
+import com.miguelsperle.nexbuy.module.payment.application.commands.UpdatePaymentStatusCommand;
 import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentStatus;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.checkout.Session;
@@ -26,10 +26,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/payments/webhook")
 @RequiredArgsConstructor
 public class PaymentWebhookController {
+    private final MessageProducer messageProducer;
+
     @Value("${spring.stripe.api.webhook.secret.key}")
     private String stripeApiWebhookSecretKey;
 
-    private final UpdatePaymentStatusUseCase updatePaymentStatusUseCase;
+    private static final String UPDATE_PAYMENT_STATUS_EXCHANGE = "update.payment.status.exchange";
+    private static final String UPDATE_PAYMENT_STATUS_ROUTING_KEY = "update.payment.status.routing.key";
 
     @PostMapping
     public ResponseEntity<Void> handleWebhook(HttpServletRequest request) throws IOException, SignatureVerificationException {
@@ -46,22 +49,22 @@ public class PaymentWebhookController {
             case "checkout.session.completed":
                 this.extractSessionFromEvent(event).ifPresent(session -> {
                     final String paymentId = session.getMetadata().get("paymentId");
-                    this.updatePaymentStatus(paymentId, PaymentStatus.PAID);
+
+                    this.messageProducer.publish(UPDATE_PAYMENT_STATUS_EXCHANGE, UPDATE_PAYMENT_STATUS_ROUTING_KEY,
+                            UpdatePaymentStatusCommand.with(paymentId, PaymentStatus.APPROVED)
+                    );
                 });
                 break;
             case "checkout.session.expired":
                 this.extractSessionFromEvent(event).ifPresent(session -> {
                     final String paymentId = session.getMetadata().get("paymentId");
-                    this.updatePaymentStatus(paymentId, PaymentStatus.CANCELED);
+
+                    this.messageProducer.publish(UPDATE_PAYMENT_STATUS_EXCHANGE, UPDATE_PAYMENT_STATUS_ROUTING_KEY,
+                            UpdatePaymentStatusCommand.with(paymentId, PaymentStatus.CANCELED)
+                    );
                 });
                 break;
         }
-    }
-
-    private void updatePaymentStatus(String paymentId, PaymentStatus paymentStatus) {
-        this.updatePaymentStatusUseCase.execute(UpdatePaymentStatusUseCaseInput.with(
-                paymentId, paymentStatus
-        ));
     }
 
     private Optional<Session> extractSessionFromEvent(Event event) {

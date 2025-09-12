@@ -4,18 +4,15 @@ import java.math.BigDecimal;
 
 public record CreatePaymentUseCaseInput(
         String orderId,
-        BigDecimal totalAmount,
-        String paymentMethod
+        BigDecimal totalAmount
 ) {
     public static CreatePaymentUseCaseInput with(
             String orderId,
-            BigDecimal totalAmount,
-            String paymentMethod
+            BigDecimal totalAmount
     ) {
         return new CreatePaymentUseCaseInput(
                 orderId,
-                totalAmount,
-                paymentMethod
+                totalAmount
         );
     }
 }

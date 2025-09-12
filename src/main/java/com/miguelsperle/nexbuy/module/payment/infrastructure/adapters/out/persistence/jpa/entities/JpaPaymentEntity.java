@@ -22,9 +22,6 @@ public class JpaPaymentEntity {
     @Column(name = "user_id", nullable = false, length = 36)
     private String userId;
 
-    @Column(name = "session_id", length = 70)
-    private String sessionId;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false, length = 20)
     private PaymentMethod paymentMethod;
@@ -46,7 +43,6 @@ public class JpaPaymentEntity {
         return new JpaPaymentEntity(
                 payment.getId(),
                 payment.getUserId(),
-                payment.getSessionId(),
                 payment.getPaymentMethod(),
                 payment.getTotalAmount(),
                 payment.getOrderId(),
@@ -59,7 +55,6 @@ public class JpaPaymentEntity {
         return Payment.with(
                 this.id,
                 this.userId,
-                this.sessionId,
                 this.paymentMethod,
                 this.totalAmount,
                 this.orderId,

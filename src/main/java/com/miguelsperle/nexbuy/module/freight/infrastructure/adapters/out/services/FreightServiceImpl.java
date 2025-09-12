@@ -34,10 +34,10 @@ public class FreightServiceImpl implements FreightService {
     public String consult(Map<String, Object> toMap, List<Map<String, Object>> itemMapList) {
         final Map<String, Object> fromMap = this.createFromMap();
 
-        final Map<String, Object> requestBodyMap = this.createRequestBodyMap(fromMap, toMap, itemMapList);
+        final Map<String, Object> requestBodyMap = this.createRequestBodyMapConsult(fromMap, toMap, itemMapList);
 
         return this.webClient.post()
-                .uri(this.url)
+                .uri(this.url + "/v2/me/shipment/calculate")
                 .headers(this::setHeaders)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestBodyMap)
@@ -52,7 +52,7 @@ public class FreightServiceImpl implements FreightService {
         return fromMap;
     }
 
-    private Map<String, Object> createRequestBodyMap(Map<String, Object> fromMap, Map<String, Object> toMap, List<Map<String, Object>> itemMapList) {
+    private Map<String, Object> createRequestBodyMapConsult(Map<String, Object> fromMap, Map<String, Object> toMap, List<Map<String, Object>> itemMapList) {
         final Map<String, Object> requestBodyMap = new HashMap<>();
         requestBodyMap.put("from", fromMap);
         requestBodyMap.put("to", toMap);

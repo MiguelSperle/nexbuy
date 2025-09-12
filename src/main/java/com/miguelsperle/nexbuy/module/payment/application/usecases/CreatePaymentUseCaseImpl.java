@@ -6,10 +6,8 @@ import com.miguelsperle.nexbuy.module.payment.application.ports.out.services.Pay
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.CreatePaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.module.payment.domain.payment.PaymentGatewayInfo;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentMethod;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,11 +34,8 @@ public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
     public CreatePaymentUseCaseOutput execute(CreatePaymentUseCaseInput createPaymentUseCaseInput) {
         final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        final PaymentMethod convertedToPaymentMethod = PaymentMethod.valueOf(createPaymentUseCaseInput.paymentMethod());
-
         final Payment newPayment = Payment.newPayment(
                 authenticatedUserId,
-                convertedToPaymentMethod,
                 createPaymentUseCaseInput.totalAmount(),
                 createPaymentUseCaseInput.orderId()
         );
@@ -52,14 +47,9 @@ public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
 
             final long convertedToCents = createPaymentUseCaseInput.totalAmount().multiply(DecimalUtils.valueOf(100)).longValue();
 
-            final PaymentGatewayInfo paymentGatewayInfo = this.paymentService.createCheckoutSession(
-                   savedPayment.getId(), convertedToCents, savedPayment.getPaymentMethod()
-            );
+            final String sessionUrl = this.paymentService.createCheckoutSession(savedPayment.getId(), convertedToCents);
 
-            final Payment updatedPayment = savedPayment.withSessionId(paymentGatewayInfo.sessionId());
-            this.savePayment(updatedPayment);
-
-            sessionUrlRef.set(paymentGatewayInfo.sessionUrl());
+            sessionUrlRef.set(sessionUrl);
         });
 
         return CreatePaymentUseCaseOutput.from(sessionUrlRef.get());

@@ -64,6 +64,17 @@ public class Order {
         );
     }
 
+    public Order withOrderStatus(OrderStatus orderStatus) {
+        return new Order(
+                this.id,
+                this.userId,
+                orderStatus,
+                this.code,
+                this.totalAmount,
+                this.createdAt
+        );
+    }
+
     public String getId() {
         return this.id;
     }

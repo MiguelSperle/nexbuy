@@ -121,18 +121,34 @@ public class BindingConfiguration {
     }
 
     @Bean
-    public Binding createPaymentBinding(
-            @CreatePaymentQueue Queue queue,
-            @CreatePaymentExchange DirectExchange directExchange
+    public Binding updatePaymentStatusBinding(
+            @UpdatePaymentStatusQueue Queue queue,
+            @UpdatePaymentStatusExchange DirectExchange directExchange
     ) {
-        return BindingBuilder.bind(queue).to(directExchange).with("create.payment.routing.key");
+        return BindingBuilder.bind(queue).to(directExchange).with("update.payment.status.routing.key");
     }
 
     @Bean
-    public Binding createPaymentDlqBinding(
-            @CreatePaymentDlqQueue Queue queue,
-            @CreatePaymentDlqExchange DirectExchange directExchange
+    public Binding updatePaymentStatusDlqBinding(
+            @UpdatePaymentStatusDlqQueue Queue queue,
+            @UpdatePaymentStatusDlqExchange DirectExchange directExchange
     ) {
-        return BindingBuilder.bind(queue).to(directExchange).with("create.payment.dlq.routing.key");
+        return BindingBuilder.bind(queue).to(directExchange).with("update.payment.status.dlq.routing.key");
+    }
+
+    @Bean
+    public Binding paymentStatusUpdatedBinding(
+            @PaymentStatusUpdatedQueue Queue queue,
+            @PaymentStatusUpdatedExchange DirectExchange directExchange
+    ) {
+        return BindingBuilder.bind(queue).to(directExchange).with("payment.status.updated.routing.key");
+    }
+
+    @Bean
+    public Binding paymentStatusUpdatedDlqBinding(
+            @PaymentStatusUpdatedDlqQueue Queue queue,
+            @PaymentStatusUpdatedDlqExchange DirectExchange directExchange
+    ) {
+        return BindingBuilder.bind(queue).to(directExchange).with("payment.status.updated.dlq.routing.key");
     }
 }

@@ -23,8 +23,7 @@ public class PaymentController {
     public ResponseEntity<CreatePaymentResponse> createPayment(@RequestBody @Valid CreatePaymentRequest createPaymentRequest) {
         final CreatePaymentUseCaseOutput createPaymentUseCaseOutput = this.createPaymentUseCase.execute(CreatePaymentUseCaseInput.with(
                 createPaymentRequest.orderId(),
-                createPaymentRequest.totalAmount(),
-                createPaymentRequest.paymentMethod()
+                createPaymentRequest.totalAmount()
         ));
 
         return ResponseEntity.ok().body(CreatePaymentResponse.from(createPaymentUseCaseOutput));

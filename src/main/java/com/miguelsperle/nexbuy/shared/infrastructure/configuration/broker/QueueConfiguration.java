@@ -98,15 +98,28 @@ public class QueueConfiguration {
     }
 
     @Bean
-    public Queue createPaymentQueue() {
-        return QueueBuilder.durable("create.payment.queue")
-                .deadLetterExchange("create.payment.dlq.exchange")
-                .deadLetterRoutingKey("create.payment.dlq.routing.key")
+    public Queue updatePaymentStatusQueue() {
+        return QueueBuilder.durable("update.payment.status.queue")
+                .deadLetterExchange("update.payment.status.dlq.exchange")
+                .deadLetterRoutingKey("update.payment.status.dlq.routing.key")
                 .build();
     }
 
     @Bean
-    public Queue createPaymentDlqQueue() {
-        return new Queue("create.payment.dlq.queue");
+    public Queue updatePaymentStatusDlqQueue() {
+        return new Queue("update.payment.status.dlq.queue");
+    }
+
+    @Bean
+    public Queue paymentStatusUpdatedQueue() {
+        return QueueBuilder.durable("payment.status.updated.queue")
+                .deadLetterExchange("payment.status.updated.dlq.exchange")
+                .deadLetterRoutingKey("payment.status.updated.dlq.routing.key")
+                .build();
+    }
+
+    @Bean
+    public Queue paymentStatusUpdatedDlqQueue() {
+        return new Queue("payment.status.updated.dlq.queue");
     }
 }

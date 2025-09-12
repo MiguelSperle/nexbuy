@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class Payment {
     private final String id;
     private final String userId;
-    private final String sessionId;
     private final PaymentMethod paymentMethod;
     private final BigDecimal totalAmount;
     private final String orderId;
@@ -21,7 +20,6 @@ public class Payment {
     private Payment(
             String id,
             String userId,
-            String sessionId,
             PaymentMethod paymentMethod,
             BigDecimal totalAmount,
             String orderId,
@@ -30,7 +28,6 @@ public class Payment {
     ) {
         this.id = id;
         this.userId = userId;
-        this.sessionId = sessionId;
         this.paymentMethod = paymentMethod;
         this.totalAmount = totalAmount;
         this.orderId = orderId;
@@ -40,15 +37,13 @@ public class Payment {
 
     public static Payment newPayment(
             String userId,
-            PaymentMethod paymentMethod,
             BigDecimal totalAmount,
             String orderId
     ) {
         return new Payment(
                 IdentifierUtils.generateUUID(),
                 userId,
-                null,
-                paymentMethod,
+                PaymentMethod.CARD,
                 totalAmount,
                 orderId,
                 PaymentStatus.PENDING,
@@ -59,7 +54,6 @@ public class Payment {
     public static Payment with(
             String id,
             String userId,
-            String sessionId,
             PaymentMethod paymentMethod,
             BigDecimal totalAmount,
             String orderId,
@@ -69,7 +63,6 @@ public class Payment {
         return new Payment(
                 id,
                 userId,
-                sessionId,
                 paymentMethod,
                 totalAmount,
                 orderId,
@@ -82,24 +75,10 @@ public class Payment {
         return new Payment(
                 this.id,
                 this.userId,
-                this.sessionId,
                 this.paymentMethod,
                 this.totalAmount,
                 this.orderId,
                 paymentStatus,
-                this.createdAt
-        );
-    }
-
-    public Payment withSessionId(String sessionId) {
-        return new Payment(
-                this.id,
-                this.userId,
-                sessionId,
-                this.paymentMethod,
-                this.totalAmount,
-                this.orderId,
-                this.paymentStatus,
                 this.createdAt
         );
     }
@@ -110,10 +89,6 @@ public class Payment {
 
     public String getUserId() {
         return this.userId;
-    }
-
-    public String getSessionId() {
-        return this.sessionId;
     }
 
     public PaymentMethod getPaymentMethod() {
@@ -141,7 +116,6 @@ public class Payment {
         return "Payment{" +
                 "id='" + this.id + '\'' +
                 ", userId='" + this.userId + '\'' +
-                ", sessionId='" + this.sessionId + '\'' +
                 ", paymentMethod=" + this.paymentMethod +
                 ", totalAmount=" + this.totalAmount +
                 ", orderId='" + this.orderId + '\'' +

@@ -7,8 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Qualifier("createPaymentQueue")
+@Qualifier("paymentStatusUpdatedDlqQueue")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
-public @interface CreatePaymentQueue {
+public @interface PaymentStatusUpdatedDlqQueue {
 }

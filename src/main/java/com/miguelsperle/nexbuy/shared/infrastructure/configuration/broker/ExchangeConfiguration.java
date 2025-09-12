@@ -63,12 +63,22 @@ public class ExchangeConfiguration {
     }
 
     @Bean
-    public DirectExchange createPaymentExchange() {
-        return new DirectExchange("create.payment.exchange");
+    public DirectExchange updatePaymentStatusExchange() {
+        return new DirectExchange("update.payment.status.exchange");
     }
 
     @Bean
-    public DirectExchange createPaymentDlqExchange() {
-        return new DirectExchange("create.payment.dlq.exchange");
+    public DirectExchange updatePaymentStatusDlqExchange() {
+        return new DirectExchange("update.payment.status.dlq.exchange");
+    }
+
+    @Bean
+    public DirectExchange paymentStatusUpdatedExchange() {
+        return new DirectExchange("payment.status.updated.exchange");
+    }
+
+    @Bean
+    public DirectExchange paymentStatusUpdatedDlqExchange() {
+        return new DirectExchange("payment.status.updated.dlq.exchange");
     }
 }

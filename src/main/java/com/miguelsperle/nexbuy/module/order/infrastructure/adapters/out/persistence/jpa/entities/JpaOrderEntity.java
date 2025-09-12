@@ -22,7 +22,7 @@ public class JpaOrderEntity {
     private String userId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 15)
+    @Column(name = "status", nullable = false, length = 20)
     private OrderStatus orderStatus;
 
     @Column(unique = true, nullable = false, length = 12)
