@@ -59,6 +59,22 @@ public record SearchQuery(
             int page,
             int perPage,
             String sort,
+            String direction
+    ) {
+        return new SearchQuery(
+                page,
+                perPage,
+                null,
+                sort,
+                direction,
+                Map.of()
+        );
+    }
+
+    public static SearchQuery newSearchQuery(
+            int page,
+            int perPage,
+            String sort,
             String direction,
             Map<String, String> filters
     ) {

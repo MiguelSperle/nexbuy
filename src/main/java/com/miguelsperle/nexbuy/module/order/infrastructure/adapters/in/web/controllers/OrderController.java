@@ -1,18 +1,21 @@
 package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.controllers;
 
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
+import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrdersUseCase;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.CreateOrderUseCaseInput;
+import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrdersUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.*;
+import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.CreateOrderRequest;
+import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.responses.GetOrdersResponse;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
+    private final GetOrdersUseCase getOrdersUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
@@ -61,5 +65,19 @@ public class OrderController {
         ));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(MessageResponse.from("Order created successfully"));
+    }
+
+    @GetMapping
+    public ResponseEntity<Pagination<GetOrdersResponse>> getOrders(
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") int perPage,
+            @RequestParam(name = "sort", required = false, defaultValue = "createdAt") String sort,
+            @RequestParam(name = "direction", required = false, defaultValue = "desc") String direction
+    ) {
+        final GetOrdersUseCaseOutput getOrdersUseCaseOutput = this.getOrdersUseCase.execute(GetOrdersUseCaseInput.with(
+                SearchQuery.newSearchQuery(page, perPage, sort, direction)
+        ));
+
+        return ResponseEntity.ok().body(GetOrdersResponse.from(getOrdersUseCaseOutput));
     }
 }

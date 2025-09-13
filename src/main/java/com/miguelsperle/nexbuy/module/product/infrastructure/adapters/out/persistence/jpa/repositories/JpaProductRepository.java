@@ -17,7 +17,4 @@ public interface JpaProductRepository extends JpaRepository<JpaProductEntity, St
 
     @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM products p WHERE p.color_id = :colorId)")
     boolean existsByColorId(@Param("colorId") String colorId);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM products p WHERE p.id = :id AND p.status = 'ACTIVE'")
-    Optional<JpaProductEntity> findActiveById(@Param("id") String id);
 }
