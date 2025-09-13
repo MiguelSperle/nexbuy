@@ -25,12 +25,12 @@ public class GetOrdersUseCaseImpl implements GetOrdersUseCase {
     public GetOrdersUseCaseOutput execute(GetOrdersUseCaseInput getOrdersUseCaseInput) {
         final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        final Pagination<Order> paginatedOrders = this.getAllPaginatedOrders(getOrdersUseCaseInput.searchQuery(), authenticatedUserId);
+        final Pagination<Order> paginatedOrders = this.getAllPaginatedOrdersByUserId(getOrdersUseCaseInput.searchQuery(), authenticatedUserId);
 
         return GetOrdersUseCaseOutput.from(paginatedOrders);
     }
 
-    private Pagination<Order> getAllPaginatedOrders(SearchQuery searchQuery, String userId) {
+    private Pagination<Order> getAllPaginatedOrdersByUserId(SearchQuery searchQuery, String userId) {
         return this.orderRepository.findAllPaginatedByUserId(searchQuery, userId);
     }
 
