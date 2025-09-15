@@ -67,7 +67,8 @@ public class Routes {
     };
 
     public static final String[] ORDER_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/orders"
+            "/api/v1/orders",
+            "/api/v1/orders/{orderId}"
     };
 
     public static final String[] PAYMENT_MODULE_AUTHENTICATED_ENDPOINTS = {

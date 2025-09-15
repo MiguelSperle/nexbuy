@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests;
 
-import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complement.DeliveryComplementRequest;
-import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complement.OrderItemsComplementRequest;
+import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complements.OrderDeliveryComplementRequest;
+import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complements.OrderItemsComplementRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
@@ -18,8 +18,8 @@ public record CreateOrderRequest(
         @Valid
         List<OrderItemsComplementRequest> orderItems,
 
-        @NotNull(message = "Delivery should not be null")
+        @NotNull(message = "Order delivery should not be null")
         @Valid
-        DeliveryComplementRequest delivery
+        OrderDeliveryComplementRequest orderDelivery
 ) {
 }

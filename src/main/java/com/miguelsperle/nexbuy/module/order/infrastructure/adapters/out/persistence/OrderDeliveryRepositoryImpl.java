@@ -34,4 +34,9 @@ public class OrderDeliveryRepositoryImpl implements OrderDeliveryRepository {
     public void deleteById(String id) {
         this.jpaOrderDeliveryRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<OrderDelivery> findByOrderId(String orderId) {
+        return this.jpaOrderDeliveryRepository.findByOrderId(orderId).map(JpaOrderDeliveryEntity::toEntity);
+    }
 }

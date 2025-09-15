@@ -1,11 +1,13 @@
 package com.miguelsperle.nexbuy.module.order.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
+import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrdersUseCase;
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderDeliveryRepository;
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderItemRepository;
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.application.usecases.CreateOrderUseCaseImpl;
+import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrderUseCaseImpl;
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrdersUseCaseImpl;
 import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
@@ -45,6 +47,19 @@ public class OrderUseCasesConfiguration {
         return new GetOrdersUseCaseImpl(
                 orderRepository,
                 securityContextService
+        );
+    }
+
+    @Bean
+    public GetOrderUseCase getOrderUseCase(
+            OrderRepository orderRepository,
+            OrderItemRepository orderItemRepository,
+            OrderDeliveryRepository orderDeliveryRepository
+    ) {
+        return new GetOrderUseCaseImpl(
+                orderRepository,
+                orderItemRepository,
+                orderDeliveryRepository
         );
     }
 }

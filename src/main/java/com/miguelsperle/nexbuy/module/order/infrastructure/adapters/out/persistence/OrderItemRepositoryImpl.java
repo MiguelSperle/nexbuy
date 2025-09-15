@@ -40,4 +40,9 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     public void deleteById(String id) {
         this.jpaOrderItemRepository.deleteById(id);
     }
+
+    @Override
+    public List<OrderItem> findAllByOrderId(String orderId) {
+        return this.jpaOrderItemRepository.findAllByOrderId(orderId).stream().map(JpaOrderItemEntity::toEntity).toList();
+    }
 }

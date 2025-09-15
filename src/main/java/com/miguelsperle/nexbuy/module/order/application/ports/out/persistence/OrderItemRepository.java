@@ -11,4 +11,5 @@ public interface OrderItemRepository {
     OrderItem save(OrderItem orderItem);
     List<OrderItem> saveAll(List<OrderItem> orderItems);
     void deleteById(String id);
+    List<OrderItem> findAllByOrderId(String orderId);
 }

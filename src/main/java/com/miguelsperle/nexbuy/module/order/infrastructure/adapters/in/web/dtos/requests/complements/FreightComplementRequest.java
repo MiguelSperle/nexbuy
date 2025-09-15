@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complement;
+package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.complements;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

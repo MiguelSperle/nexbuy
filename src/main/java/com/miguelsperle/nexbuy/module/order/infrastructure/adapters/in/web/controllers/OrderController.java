@@ -1,12 +1,16 @@
 package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.controllers;
 
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
+import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrdersUseCase;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.CreateOrderUseCaseInput;
+import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrderUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrdersUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.*;
+import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrderUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.CreateOrderRequest;
+import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.responses.GetOrderResponse;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.responses.GetOrdersResponse;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
@@ -25,6 +29,7 @@ import java.util.List;
 public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final GetOrdersUseCase getOrdersUseCase;
+    private final GetOrderUseCase getOrderUseCase;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
@@ -36,22 +41,22 @@ public class OrderController {
                 )).toList();
 
         final AddressComplementInput addressComplementInput = AddressComplementInput.with(
-                createOrderRequest.delivery().address().addressLine(),
-                createOrderRequest.delivery().address().addressNumber(),
-                createOrderRequest.delivery().address().zipCode(),
-                createOrderRequest.delivery().address().neighborhood(),
-                createOrderRequest.delivery().address().city(),
-                createOrderRequest.delivery().address().uf(),
-                createOrderRequest.delivery().address().complement()
+                createOrderRequest.orderDelivery().address().addressLine(),
+                createOrderRequest.orderDelivery().address().addressNumber(),
+                createOrderRequest.orderDelivery().address().zipCode(),
+                createOrderRequest.orderDelivery().address().neighborhood(),
+                createOrderRequest.orderDelivery().address().city(),
+                createOrderRequest.orderDelivery().address().uf(),
+                createOrderRequest.orderDelivery().address().complement()
         );
 
         final FreightComplementInput freightComplementInput = FreightComplementInput.with(
-                createOrderRequest.delivery().freight().name(),
-                createOrderRequest.delivery().freight().companyName(),
-                createOrderRequest.delivery().freight().price(),
-                createOrderRequest.delivery().freight().estimatedTime(),
-                createOrderRequest.delivery().freight().minTime(),
-                createOrderRequest.delivery().freight().maxTime()
+                createOrderRequest.orderDelivery().freight().name(),
+                createOrderRequest.orderDelivery().freight().companyName(),
+                createOrderRequest.orderDelivery().freight().price(),
+                createOrderRequest.orderDelivery().freight().estimatedTime(),
+                createOrderRequest.orderDelivery().freight().minTime(),
+                createOrderRequest.orderDelivery().freight().maxTime()
         );
 
         final DeliveryComplementInput deliveryComplementInput = DeliveryComplementInput.with(
@@ -79,5 +84,12 @@ public class OrderController {
         ));
 
         return ResponseEntity.ok().body(GetOrdersResponse.from(getOrdersUseCaseOutput));
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<GetOrderResponse> getOrder(@PathVariable String orderId) {
+        final GetOrderUseCaseOutput getOrderUseCaseOutput = this.getOrderUseCase.execute(GetOrderUseCaseInput.with(orderId));
+
+        return ResponseEntity.ok().body(GetOrderResponse.from(getOrderUseCaseOutput));
     }
 }

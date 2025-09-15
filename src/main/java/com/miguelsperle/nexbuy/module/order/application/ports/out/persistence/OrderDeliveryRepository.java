@@ -10,4 +10,5 @@ public interface OrderDeliveryRepository {
     Optional<OrderDelivery> findById(String id);
     OrderDelivery save(OrderDelivery orderDelivery);
     void deleteById(String id);
+    Optional<OrderDelivery> findByOrderId(String orderId);
 }
