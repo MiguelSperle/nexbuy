@@ -34,4 +34,9 @@ public class FreightRepositoryImpl implements FreightRepository {
     public void deleteById(String id) {
         this.jpaFreightRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Freight> findByOrderId(String orderId) {
+        return this.jpaFreightRepository.findByOrderId(orderId).map(JpaFreightEntity::toEntity);
+    }
 }

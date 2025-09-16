@@ -63,7 +63,8 @@ public class Routes {
     };
 
     public static final String[] FREIGHT_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/freights/quotes"
+            "/api/v1/freights/quotes",
+            "/api/v1/freights/{orderId}"
     };
 
     public static final String[] ORDER_MODULE_AUTHENTICATED_ENDPOINTS = {

@@ -10,4 +10,5 @@ public interface FreightRepository {
     Optional<Freight> findById(String id);
     Freight save(Freight freight);
     void deleteById(String id);
+    Optional<Freight> findByOrderId(String orderId);
 }
