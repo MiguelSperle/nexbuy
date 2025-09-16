@@ -34,4 +34,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     public void deleteById(String id) {
         this.jpaPaymentRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Payment> findByOrderId(String orderId) {
+        return this.jpaPaymentRepository.findByOrderId(orderId).map(JpaPaymentEntity::toEntity);
+    }
 }

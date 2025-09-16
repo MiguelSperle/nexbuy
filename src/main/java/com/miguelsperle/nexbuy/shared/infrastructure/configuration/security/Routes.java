@@ -71,7 +71,12 @@ public class Routes {
             "/api/v1/orders/{orderId}"
     };
 
+    public static final String[] PAYMENT_MODULE_WEBHOOK_ENDPOINTS = {
+            "/api/v1/payments/webhook"
+    };
+
     public static final String[] PAYMENT_MODULE_AUTHENTICATED_ENDPOINTS = {
-            "/api/v1/payments"
+            "/api/v1/payments",
+            "/api/v1/payments/{orderId}"
     };
 }

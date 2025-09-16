@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(Routes.SHOPPING_CART_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(Routes.FREIGHT_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .requestMatchers(Routes.ORDER_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
+                                .requestMatchers(Routes.PAYMENT_MODULE_WEBHOOK_ENDPOINTS).permitAll()
                                 .requestMatchers(Routes.PAYMENT_MODULE_AUTHENTICATED_ENDPOINTS).authenticated()
                                 .anyRequest().permitAll())
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(this.authenticationEntryPoint).accessDeniedHandler(this.accessDeniedHandler))

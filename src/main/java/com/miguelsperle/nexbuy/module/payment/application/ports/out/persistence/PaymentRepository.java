@@ -10,4 +10,5 @@ public interface PaymentRepository {
     Optional<Payment> findById(String id);
     Payment save(Payment payment);
     void deleteById(String id);
+    Optional<Payment> findByOrderId(String orderId);
 }
