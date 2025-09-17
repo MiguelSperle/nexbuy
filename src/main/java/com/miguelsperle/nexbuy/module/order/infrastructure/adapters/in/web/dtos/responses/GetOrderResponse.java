@@ -12,7 +12,7 @@ import java.util.List;
 public record GetOrderResponse(
         String id,
         OrderStatus status,
-        String code,
+        String orderNumber,
         BigDecimal totalAmount,
         LocalDateTime createdAt,
         List<OrderItemsComplementResponse> orderItems,
@@ -22,7 +22,7 @@ public record GetOrderResponse(
         return new GetOrderResponse(
                 getOrderUseCaseOutput.order().getId(),
                 getOrderUseCaseOutput.order().getOrderStatus(),
-                getOrderUseCaseOutput.order().getCode(),
+                getOrderUseCaseOutput.order().getOrderNumber(),
                 getOrderUseCaseOutput.order().getTotalAmount(),
                 getOrderUseCaseOutput.order().getCreatedAt(),
                 getOrderUseCaseOutput.orderItems().stream().map(orderItem -> OrderItemsComplementResponse.from(

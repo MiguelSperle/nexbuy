@@ -2,6 +2,7 @@ package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.out.persist
 
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
+import com.miguelsperle.nexbuy.module.order.domain.enums.OrderStatus;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.out.persistence.jpa.entities.JpaOrderEntity;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.out.persistence.jpa.repositories.JpaOrderRepository;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.out.persistence.jpa.specifications.JpaOrderSpecification;
@@ -69,5 +70,10 @@ public class OrderRepositoryImpl implements OrderRepository {
                 paginationMetadata,
                 orders
         );
+    }
+
+    @Override
+    public List<Order> findAllOrdersByStatus(OrderStatus orderStatus) {
+        return this.jpaOrderRepository.findAllOrdersByStatus(orderStatus.name()).stream().map(JpaOrderEntity::toEntity).toList();
     }
 }

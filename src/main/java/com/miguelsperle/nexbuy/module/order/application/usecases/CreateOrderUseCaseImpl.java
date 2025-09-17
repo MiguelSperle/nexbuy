@@ -26,7 +26,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final MessageProducer messageProducer;
 
     private final static int CODE_LENGTH = 12;
-    private final static String ALPHANUMERIC_CHARACTERS = "0123456789";
+    private final static String NUMERIC_CHARACTERS = "0123456789";
 
     private final static String CREATE_FREIGHT_EXCHANGE = "create.freight.exchange";
     private final static String CREATE_FREIGHT_ROUTING_KEY = "create.freight.routing.key";
@@ -53,7 +53,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     public void execute(CreateOrderUseCaseInput createOrderUseCaseInput) {
         final String authenticatedUserId = this.getAuthenticatedUserId();
 
-        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, NUMERIC_CHARACTERS);
 
         final Order newOrder = Order.newOrder(authenticatedUserId, codeGenerated, createOrderUseCaseInput.totalAmount());
 

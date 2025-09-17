@@ -25,8 +25,8 @@ public class JpaOrderEntity {
     @Column(name = "status", nullable = false, length = 20)
     private OrderStatus orderStatus;
 
-    @Column(unique = true, nullable = false, length = 12)
-    private String code;
+    @Column(name = "order_number", unique = true, nullable = false, length = 12)
+    private String orderNumber;
 
     @Column(name = "total_amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal totalAmount;
@@ -39,7 +39,7 @@ public class JpaOrderEntity {
                 order.getId(),
                 order.getUserId(),
                 order.getOrderStatus(),
-                order.getCode(),
+                order.getOrderNumber(),
                 order.getTotalAmount(),
                 order.getCreatedAt()
         );
@@ -50,7 +50,7 @@ public class JpaOrderEntity {
                 this.id,
                 this.userId,
                 this.orderStatus,
-                this.code,
+                this.orderNumber,
                 this.totalAmount,
                 this.createdAt
         );

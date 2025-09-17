@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class Freight {
     private final String id;
     private final String orderId;
-    private final String trackingCode;
     private final String name;
     private final String companyName;
     private final BigDecimal price;
@@ -21,7 +20,6 @@ public class Freight {
     private Freight(
             String id,
             String orderId,
-            String trackingCode,
             String name,
             String companyName,
             BigDecimal price,
@@ -32,7 +30,6 @@ public class Freight {
     ) {
         this.id = id;
         this.orderId = orderId;
-        this.trackingCode = trackingCode;
         this.name = name;
         this.companyName = companyName;
         this.price = price;
@@ -54,7 +51,6 @@ public class Freight {
         return new Freight(
                 IdentifierUtils.generateUUID(),
                 orderId,
-                null,
                 name,
                 companyName,
                 price,
@@ -68,7 +64,6 @@ public class Freight {
     public static Freight with(
             String id,
             String orderId,
-            String trackingCode,
             String name,
             String companyName,
             BigDecimal price,
@@ -80,7 +75,6 @@ public class Freight {
         return new Freight(
                 id,
                 orderId,
-                trackingCode,
                 name,
                 companyName,
                 price,
@@ -97,10 +91,6 @@ public class Freight {
 
     public String getOrderId() {
         return this.orderId;
-    }
-
-    public String getTrackingCode() {
-        return this.trackingCode;
     }
 
     public String getName() {
@@ -136,7 +126,6 @@ public class Freight {
         return "Freight{" +
                 "id='" + this.id + '\'' +
                 ", orderId='" + this.orderId + '\'' +
-                ", trackingCode='" + this.trackingCode + '\'' +
                 ", name='" + this.name + '\'' +
                 ", companyName='" + this.companyName + '\'' +
                 ", price=" + this.price +

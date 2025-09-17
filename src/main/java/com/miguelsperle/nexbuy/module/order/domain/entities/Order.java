@@ -11,7 +11,7 @@ public class Order {
     private final String id;
     private final String userId;
     private final OrderStatus orderStatus;
-    private final String code;
+    private final String orderNumber;
     private final BigDecimal totalAmount;
     private final LocalDateTime createdAt;
 
@@ -19,28 +19,28 @@ public class Order {
             String id,
             String userId,
             OrderStatus orderStatus,
-            String code,
+            String orderNumber,
             BigDecimal totalAmount,
             LocalDateTime createdAt
     ) {
         this.id = id;
         this.userId = userId;
         this.orderStatus = orderStatus;
-        this.code = code;
+        this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;
         this.createdAt = createdAt;
     }
 
     public static Order newOrder(
             String userId,
-            String code,
+            String orderNumber,
             BigDecimal totalAmount
     ) {
         return new Order(
                 IdentifierUtils.generateUUID(),
                 userId,
                 OrderStatus.WAITING_PAYMENT,
-                code,
+                orderNumber,
                 totalAmount,
                 TimeUtils.now()
         );
@@ -50,7 +50,7 @@ public class Order {
             String id,
             String userId,
             OrderStatus orderStatus,
-            String code,
+            String orderNumber,
             BigDecimal totalAmount,
             LocalDateTime createdAt
     ) {
@@ -58,7 +58,7 @@ public class Order {
                 id,
                 userId,
                 orderStatus,
-                code,
+                orderNumber,
                 totalAmount,
                 createdAt
         );
@@ -69,7 +69,7 @@ public class Order {
                 this.id,
                 this.userId,
                 orderStatus,
-                this.code,
+                this.orderNumber,
                 this.totalAmount,
                 this.createdAt
         );
@@ -87,8 +87,8 @@ public class Order {
         return this.orderStatus;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getOrderNumber() {
+        return this.orderNumber;
     }
 
     public BigDecimal getTotalAmount() {
@@ -105,7 +105,7 @@ public class Order {
                 "id='" + this.id + '\'' +
                 ", userId='" + this.userId + '\'' +
                 ", orderStatus=" + this.orderStatus +
-                ", code='" + this.code + '\'' +
+                ", orderNumber='" + this.orderNumber + '\'' +
                 ", totalAmount=" + this.totalAmount +
                 ", createdAt=" + this.createdAt +
                 '}';

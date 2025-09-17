@@ -5,7 +5,6 @@ import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.Ge
 import java.math.BigDecimal;
 
 public record GetFreightResponse(
-        String trackingCode,
         String name,
         String companyName,
         BigDecimal price,
@@ -15,7 +14,6 @@ public record GetFreightResponse(
 ) {
     public static GetFreightResponse from(GetFreightUseCaseOutput getFreightUseCaseOutput) {
         return new GetFreightResponse(
-                getFreightUseCaseOutput.freight().getTrackingCode(),
                 getFreightUseCaseOutput.freight().getName(),
                 getFreightUseCaseOutput.freight().getCompanyName(),
                 getFreightUseCaseOutput.freight().getPrice(),

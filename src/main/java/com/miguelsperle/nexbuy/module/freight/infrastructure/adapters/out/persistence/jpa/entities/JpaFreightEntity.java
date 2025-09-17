@@ -20,9 +20,6 @@ public class JpaFreightEntity {
     @Column(name = "order_id", unique = true, nullable = false, length = 36)
     private String orderId;
 
-    @Column(name = "tracking_code", unique = true, length = 20)
-    private String trackingCode;
-
     @Column(nullable = false, length = 12)
     private String name;
 
@@ -48,7 +45,6 @@ public class JpaFreightEntity {
         return new JpaFreightEntity(
                 freight.getId(),
                 freight.getOrderId(),
-                freight.getTrackingCode(),
                 freight.getName(),
                 freight.getCompanyName(),
                 freight.getPrice(),
@@ -63,7 +59,6 @@ public class JpaFreightEntity {
         return Freight.with(
                 this.id,
                 this.orderId,
-                this.trackingCode,
                 this.name,
                 this.companyName,
                 this.price,

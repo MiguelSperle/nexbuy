@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public record GetOrdersResponse(
         String id,
         OrderStatus status,
-        String code,
+        String orderNumber,
         BigDecimal totalAmount,
         LocalDateTime createdAt
 ) {
@@ -18,7 +18,7 @@ public record GetOrdersResponse(
         return getOrdersUseCaseOutput.paginatedOrders().map(paginatedOrder -> new GetOrdersResponse(
                 paginatedOrder.getId(),
                 paginatedOrder.getOrderStatus(),
-                paginatedOrder.getCode(),
+                paginatedOrder.getOrderNumber(),
                 paginatedOrder.getTotalAmount(),
                 paginatedOrder.getCreatedAt()
         ));

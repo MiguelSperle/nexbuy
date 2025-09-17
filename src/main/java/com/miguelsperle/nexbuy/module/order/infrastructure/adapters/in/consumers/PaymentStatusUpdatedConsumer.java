@@ -25,7 +25,7 @@ public class PaymentStatusUpdatedConsumer {
         OrderStatus orderStatus;
 
         if (Objects.equals(paymentStatusUpdatedEvent.paymentStatus(), "APPROVED")) {
-            orderStatus = OrderStatus.PROCESSING_FREIGHT;
+            orderStatus = OrderStatus.PAID;
         } else {
             orderStatus = OrderStatus.CANCELED;
         }
