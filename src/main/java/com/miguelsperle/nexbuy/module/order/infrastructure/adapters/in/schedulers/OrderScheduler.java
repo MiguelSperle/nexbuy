@@ -3,12 +3,10 @@ package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.schedule
 import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.enums.OrderStatus;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -16,24 +14,24 @@ import java.util.List;
 public class OrderScheduler {
     private final OrderRepository orderRepository;
 
-    @Scheduled(cron = "0 */5 * * * *")
+    // Delivery simulation
+
+    @Scheduled(cron = "0 0 6 * * *") // Six in the morning
     public void changeOrderStatusToSent() {
-        this.changeOrderStatus(OrderStatus.PAID, OrderStatus.SENT, 5);
+        this.updateOrderStatus(OrderStatus.PAID, OrderStatus.SENT);
     }
 
-    @Scheduled(cron = "0 */10 * * * *")
+    @Scheduled(cron = "0 0 17 * * *") // 5 p.m
     public void changeOrderStatusToDelivered() {
-        this.changeOrderStatus(OrderStatus.SENT, OrderStatus.DELIVERED, 10);
+        this.updateOrderStatus(OrderStatus.SENT, OrderStatus.DELIVERED);
     }
 
-    private void changeOrderStatus(OrderStatus from, OrderStatus to, int minutes) {
-        final LocalDateTime time = TimeUtils.now();
+    private void updateOrderStatus(OrderStatus from, OrderStatus to) {
         final List<Order> orders = this.getAllOrdersByStatus(from);
 
         for (Order order : orders) {
-            if (order.getCreatedAt().isBefore(time.minusMinutes(minutes))) {
-                this.saveOrder(order.withOrderStatus(to));
-            }
+            final Order updatedOrder = order.withOrderStatus(to);
+            this.save(updatedOrder);
         }
     }
 
@@ -41,7 +39,7 @@ public class OrderScheduler {
         return this.orderRepository.findAllOrdersByStatus(orderStatus);
     }
 
-    private void saveOrder(Order order) {
+    private void save(Order order) {
         this.orderRepository.save(order);
     }
 }
