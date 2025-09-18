@@ -60,7 +60,7 @@ public class PaymentWebhookController {
                     final String paymentId = session.getMetadata().get("paymentId");
 
                     this.messageProducer.publish(UPDATE_PAYMENT_STATUS_EXCHANGE, UPDATE_PAYMENT_STATUS_ROUTING_KEY,
-                            UpdatePaymentStatusCommand.with(paymentId, PaymentStatus.CANCELED)
+                            UpdatePaymentStatusCommand.with(paymentId, PaymentStatus.EXPIRED)
                     );
                 });
                 break;
