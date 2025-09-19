@@ -4,10 +4,10 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class UserMock {
-    public static User user() {
+    public static User createUser() {
         return User.newUser(
-                "Test user",
-                "Testing",
+                "Test First Name",
+                "Test Last Name",
                 "testUser@gmail.com",
                 "testUser123",
                 "(00) 00000-0000",
