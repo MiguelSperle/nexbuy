@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.user.utils.mocks;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class AddressMock {
-    public static Address createAddress(String userId) {
+    public static Address create(String userId) {
         return Address.newAddress(
                 userId,
                 "Test Avenue",

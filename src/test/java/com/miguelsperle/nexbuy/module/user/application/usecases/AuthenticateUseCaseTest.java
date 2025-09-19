@@ -44,15 +44,15 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should be able to authenticate user")
     public void should_be_able_to_authenticate_user() {
-        final User userMock = UserMock.createUser().withUserStatus(UserStatus.VERIFIED);
-        final RefreshToken refreshTokenMock = RefreshTokenMock.createRefreshToken(userMock.getId());
-        final String fakeJwtTest = "fake-jwt-test";
+        final User userMock = UserMock.create().withUserStatus(UserStatus.VERIFIED);
+        final RefreshToken refreshTokenMock = RefreshTokenMock.create(userMock.getId());
+        final String fakeJwt = "fake-jwt-test";
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(userMock));
 
         Mockito.when(this.passwordEncryptorProvider.matches(Mockito.any(), Mockito.any())).thenReturn(true);
 
-        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(fakeJwtTest);
+        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(fakeJwt);
 
         Mockito.when(this.refreshTokenRepository.findByUserId(Mockito.any())).thenReturn(Optional.empty());
 
@@ -68,7 +68,7 @@ public class AuthenticateUseCaseTest {
         Assertions.assertNotNull(authenticateUseCaseOutput.accessToken());
         Assertions.assertNotNull(authenticateUseCaseOutput.refreshToken());
 
-        Assertions.assertEquals(fakeJwtTest, authenticateUseCaseOutput.accessToken());
+        Assertions.assertEquals(fakeJwt, authenticateUseCaseOutput.accessToken());
         Assertions.assertEquals(refreshTokenMock.getToken(), authenticateUseCaseOutput.refreshToken());
 
         Mockito.verify(this.userRepository, Mockito.times(1)).findByEmail(Mockito.any());
@@ -81,15 +81,15 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should be able to authenticate user again but deleting existing refresh token and creating a new one")
     public void should_be_able_to_authenticate_user_again_but_deleting_existing_refresh_token_and_creating_a_new_one() {
-        final User userMock = UserMock.createUser().withUserStatus(UserStatus.VERIFIED);
-        final RefreshToken refreshTokenMock = RefreshTokenMock.createRefreshToken(userMock.getId());
-        final String fakeJwtTest = "fake-jwt-test";
+        final User userMock = UserMock.create().withUserStatus(UserStatus.VERIFIED);
+        final RefreshToken refreshTokenMock = RefreshTokenMock.create(userMock.getId());
+        final String fakeJwt = "fake-jwt-test";
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(userMock));
 
         Mockito.when(this.passwordEncryptorProvider.matches(Mockito.any(), Mockito.any())).thenReturn(true);
 
-        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(fakeJwtTest);
+        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(fakeJwt);
 
         Mockito.when(this.refreshTokenRepository.findByUserId(Mockito.any())).thenReturn(Optional.of(refreshTokenMock));
 
@@ -107,7 +107,7 @@ public class AuthenticateUseCaseTest {
         Assertions.assertNotNull(authenticateUseCaseOutput.accessToken());
         Assertions.assertNotNull(authenticateUseCaseOutput.refreshToken());
 
-        Assertions.assertEquals(fakeJwtTest, authenticateUseCaseOutput.accessToken());
+        Assertions.assertEquals(fakeJwt, authenticateUseCaseOutput.accessToken());
 
         Mockito.verify(this.userRepository, Mockito.times(1)).findByEmail(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).matches(Mockito.any(), Mockito.any());
@@ -120,7 +120,7 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should not be able to authenticate user due to wrong email")
     public void should_not_be_able_to_authenticate_user_due_to_wrong_email() {
-        final User userMock = UserMock.createUser().withUserStatus(UserStatus.VERIFIED);
+        final User userMock = UserMock.create().withUserStatus(UserStatus.VERIFIED);
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.empty());
 
@@ -143,7 +143,7 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should not be able to authenticate user due to wrong password")
     public void should_not_be_able_to_authenticate_user_due_to_wrong_password() {
-        final User userMock = UserMock.createUser().withUserStatus(UserStatus.VERIFIED);
+        final User userMock = UserMock.create().withUserStatus(UserStatus.VERIFIED);
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(userMock));
 
@@ -169,7 +169,7 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should not be able to authenticate user because they are not verified")
     public void should_not_be_able_to_authenticate_user_because_they_are_not_verified() {
-        final User userMock = UserMock.createUser();
+        final User userMock = UserMock.create();
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(userMock));
 
@@ -195,7 +195,7 @@ public class AuthenticateUseCaseTest {
     @Test
     @DisplayName("Should not be able to authenticate user because they are deleted")
     public void should_not_be_able_to_authenticate_user_because_they_are_deleted() {
-        final User userMock = UserMock.createUser().withUserStatus(UserStatus.DELETED);
+        final User userMock = UserMock.create().withUserStatus(UserStatus.DELETED);
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(userMock));
 

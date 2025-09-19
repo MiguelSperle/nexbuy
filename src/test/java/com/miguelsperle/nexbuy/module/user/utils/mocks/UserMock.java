@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 
 public class UserMock {
-    public static User createUser() {
+    public static User create() {
         return User.newUser(
                 "Test First Name",
                 "Test Last Name",

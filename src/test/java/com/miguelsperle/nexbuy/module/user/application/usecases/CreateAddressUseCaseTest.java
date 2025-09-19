@@ -29,8 +29,8 @@ public class CreateAddressUseCaseTest {
     @Test
     @DisplayName("Should be able to create address")
     public void should_be_able_to_create_address() {
-        final User userMock = UserMock.createUser();
-        final Address addressMock = AddressMock.createAddress(userMock.getId());
+        final User userMock = UserMock.create();
+        final Address addressMock = AddressMock.create(userMock.getId());
 
         Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(userMock.getId());
 
