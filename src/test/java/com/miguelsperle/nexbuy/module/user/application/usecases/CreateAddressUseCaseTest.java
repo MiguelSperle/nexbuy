@@ -4,8 +4,11 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Add
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import com.miguelsperle.nexbuy.module.user.utils.mocks.AddressMock;
-import com.miguelsperle.nexbuy.module.user.utils.mocks.UserMock;
+import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
+import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
+import com.miguelsperle.nexbuy.module.user.utils.AddressBuilderTest;
+import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,21 +32,23 @@ public class CreateAddressUseCaseTest {
     @Test
     @DisplayName("Should be able to create address")
     public void should_be_able_to_create_address() {
-        final User userMock = UserMock.create();
-        final Address addressMock = AddressMock.create(userMock.getId());
+        final User user = UserBuilderTest.create(
+                UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
+        );
+        final Address address = AddressBuilderTest.create(user.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(userMock.getId());
+        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(address.getId());
 
-        Mockito.when(this.addressRepository.save(Mockito.any())).thenReturn(addressMock);
+        Mockito.when(this.addressRepository.save(Mockito.any())).thenReturn(address);
 
         final CreateAddressUseCaseInput createAddressUseCaseInput = CreateAddressUseCaseInput.with(
-                addressMock.getAddressLine(),
-                addressMock.getAddressNumber(),
-                addressMock.getZipCode(),
-                addressMock.getNeighborhood(),
-                addressMock.getCity(),
-                addressMock.getUf(),
-                addressMock.getComplement()
+                address.getAddressLine(),
+                address.getAddressNumber(),
+                address.getZipCode(),
+                address.getNeighborhood(),
+                address.getCity(),
+                address.getUf(),
+                address.getComplement()
         );
 
         this.createAddressUseCase.execute(createAddressUseCaseInput);
