@@ -208,9 +208,7 @@ public class AuthenticateUseCaseTest {
     @DisplayName("Should not be able to authenticate user because they are deleted")
     public void should_not_be_able_to_authenticate_user_because_they_are_deleted() {
         final User user = UserBuilderTest.create(
-                UserStatus.DELETED,
-                AuthorizationRole.CUSTOMER,
-                PersonType.NATURAL_PERSON
+                UserStatus.DELETED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
