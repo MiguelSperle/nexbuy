@@ -28,7 +28,7 @@ services:
     container_name: stripe-container
     command: listen --forward-to host.docker.internal:8080/api/v1/payments/webhook
     environment:
-      - STRIPE_API_KEY=your_sk_test
+      - STRIPE_API_KEY=sk_test_51S2aEwL5m5xYnChqMEg3sE12qRRCarFTaISmTLraG0WpIyDzCZwBfJccvDIhKujkjRAi91Gy7eYTuNrIxTj5rXD700QVzrmpIS
     ports:
       - "12111:12111"
     networks:

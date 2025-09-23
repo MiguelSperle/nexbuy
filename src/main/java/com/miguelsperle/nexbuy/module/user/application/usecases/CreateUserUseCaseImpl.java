@@ -49,7 +49,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         if (this.verifyUserAlreadyExistsByEmail(createUserUseCaseInput.email())) {
             throw DomainException.with("This email is already being used", 409);
         }
-
+    
         if (createUserUseCaseInput.personType() == PersonType.NATURAL_PERSON) {
             this.validateNaturalPersonData(createUserUseCaseInput.personComplementInput());
         } else {
