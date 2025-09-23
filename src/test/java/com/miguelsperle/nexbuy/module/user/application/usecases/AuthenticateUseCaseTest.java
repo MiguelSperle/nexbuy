@@ -44,8 +44,8 @@ public class AuthenticateUseCaseTest {
     private RefreshTokenRepository refreshTokenRepository;
 
     @Test
-    @DisplayName("Should be able to authenticate user")
-    public void should_be_able_to_authenticate_user() {
+    @DisplayName("Should authenticate user when credentials are valid")
+    public void should_authenticate_user_when_credentials_are_valid() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -83,8 +83,8 @@ public class AuthenticateUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should be able to authenticate user again but deleting existing refresh token and creating a new one")
-    public void should_be_able_to_authenticate_user_again_but_deleting_existing_refresh_token_and_creating_a_new_one() {
+    @DisplayName("Should authenticate user again but deleting existing refresh token and creating a new one")
+    public void should_authenticate_user_again_but_deleting_existing_refresh_token_and_creating_a_new_one() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -124,8 +124,8 @@ public class AuthenticateUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to authenticate user due to wrong email")
-    public void should_not_be_able_to_authenticate_user_due_to_wrong_email() {
+    @DisplayName("Should throw DomainException due to wrong email")
+    public void should_throw_DomainException_due_to_wrong_email() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -149,8 +149,8 @@ public class AuthenticateUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to authenticate user due to wrong password")
-    public void should_not_be_able_to_authenticate_user_due_to_wrong_password() {
+    @DisplayName("Should throw DomainException due to wrong password")
+    public void should_throw_DomainException_due_to_wrong_password() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -177,8 +177,8 @@ public class AuthenticateUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to authenticate user because they are not verified")
-    public void should_not_be_able_to_authenticate_user_because_they_are_not_verified() {
+    @DisplayName("Should throw DomainException because user is not verified")
+    public void should_throw_DomainException_because_user_is_not_verified() {
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -205,8 +205,8 @@ public class AuthenticateUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to authenticate user because they are deleted")
-    public void should_not_be_able_to_authenticate_user_because_they_are_deleted() {
+    @DisplayName("Should throw DomainException because user is deleted")
+    public void should_throw_DomainException_because_user_is_deleted() {
         final User user = UserBuilderTest.create(
                 UserStatus.DELETED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );

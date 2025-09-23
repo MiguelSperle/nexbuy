@@ -30,8 +30,8 @@ public class CreateAddressUseCaseTest {
     private SecurityContextService securityContextService;
 
     @Test
-    @DisplayName("Should be able to create address")
-    public void should_be_able_to_create_address() {
+    @DisplayName("Should create address")
+    public void should_create_address() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );

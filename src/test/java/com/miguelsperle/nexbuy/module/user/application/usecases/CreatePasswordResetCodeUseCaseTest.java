@@ -43,8 +43,8 @@ public class CreatePasswordResetCodeUseCaseTest {
     private MessageProducer messageProducer;
 
     @Test
-    @DisplayName("Should be able to create password reset code")
-    public void should_be_able_to_create_password_reset_code() {
+    @DisplayName("Should create password reset code")
+    public void should_create_password_reset_code() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -72,8 +72,8 @@ public class CreatePasswordResetCodeUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should be able to create password reset code again but deleting existing password reset code")
-    public void should_be_able_to_create_password_reset_code_again_but_deleting_existing_password_reset_code() {
+    @DisplayName("Should create password reset code again but deleting existing password reset code")
+    public void should_create_password_reset_code_again_but_deleting_existing_password_reset_code() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
@@ -106,8 +106,8 @@ public class CreatePasswordResetCodeUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create password reset code when user email does not exist")
-    public void should_not_be_able_to_create_password_reset_code_when_user_email_does_not_exist() {
+    @DisplayName("Should throw NotFoundException when user email does not exist")
+    public void should_throw_NotFoundException_when_user_email_does_not_exist() {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );

@@ -52,8 +52,8 @@ public class CreateUserUseCaseTest {
 
 
     @Test
-    @DisplayName("Should be able to create user with natural person data")
-    public void should_be_able_to_create_user_with_natural_person_data() {
+    @DisplayName("Should create user with natural person data")
+    public void should_create_user_with_natural_person_data() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
@@ -115,8 +115,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should be able to create user with legal person data")
-    public void should_be_able_to_create_user_with_legal_person_data() {
+    @DisplayName("Should create user with legal person data")
+    public void should_create_user_with_legal_person_data() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
@@ -184,8 +184,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when the complement based on a natural person is not sent in the dto")
-    public void should_not_be_able_to_create_user_when_the_complement_based_on_a_natural_person_is_not_sent_in_the_dto() {
+    @DisplayName("Should throw DomainException when the complement based on a natural person is not sent in the dto")
+    public void should_throw_DomainException_when_the_complement_based_on_a_natural_person_is_not_sent_in_the_dto() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
@@ -212,8 +212,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when the complement based on a legal person is not sent in the dto")
-    public void should_not_be_able_to_create_user_when_the_complement_based_on_a_legal_person_is_not_sent_in_the_dto() {
+    @DisplayName("Should throw DomainException when the complement based on a legal person is not sent in the dto")
+    public void should_throw_DomainException_when_the_complement_based_on_a_legal_person_is_not_sent_in_the_dto() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
@@ -240,8 +240,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when email is already being used")
-    public void should_not_be_able_to_create_user_when_email_is_already_being_used() {
+    @DisplayName("Should throw DomainException when email is already being used")
+    public void should_throw_DomainException_when_email_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
@@ -278,8 +278,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when cpf is already being used")
-    public void should_not_be_able_to_create_user_when_cpf_is_already_being_used() {
+    @DisplayName("Should throw DomainException when cpf is already being used")
+    public void should_throw_DomainException_when_cpf_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
@@ -319,8 +319,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when general register is already being used")
-    public void should_not_be_able_to_create_user_when_general_register_is_already_being_used() {
+    @DisplayName("Should throw DomainException when general register is already being used")
+    public void should_throw_DomainException_when_general_register_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
@@ -363,8 +363,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when cnpj is already being used")
-    public void should_not_be_able_to_create_user_when_cnpj_is_already_being_used() {
+    @DisplayName("Should throw DomainException when cnpj is already being used")
+    public void should_throw_DomainException_when_cnpj_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
@@ -404,8 +404,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when fantasy name is already being used")
-    public void should_not_be_able_to_create_user_when_fantasy_name_is_already_being_used() {
+    @DisplayName("Should throw DomainException when fantasy name is already being used")
+    public void should_throw_DomainException_when_fantasy_name_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
@@ -448,8 +448,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when legal name is already being used")
-    public void should_not_be_able_to_create_user_when_legal_name_is_already_being_used() {
+    @DisplayName("Should throw DomainException when legal name is already being used")
+    public void should_throw_DomainException_when_legal_name_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
@@ -495,8 +495,8 @@ public class CreateUserUseCaseTest {
     }
 
     @Test
-    @DisplayName("Should not be able to create user when state registration is already being used")
-    public void should_not_be_able_to_create_user_when_state_registration_is_already_being_used() {
+    @DisplayName("Should throw DomainException when state registration is already being used")
+    public void should_throw_DomainException_when_state_registration_is_already_being_used() {
         final String encodedPassword = "encoded password";
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
