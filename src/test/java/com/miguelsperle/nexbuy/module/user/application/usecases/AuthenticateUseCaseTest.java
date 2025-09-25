@@ -15,6 +15,7 @@ import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class AuthenticateUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final RefreshToken refreshToken = RefreshTokenBuilderTest.create(user.getId());
+        final RefreshToken refreshToken = RefreshTokenBuilderTest.create(user.getId(), TimeUtils.now().plusDays(15));
         final String jwt = "json-web-token";
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
@@ -88,7 +89,7 @@ public class AuthenticateUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final RefreshToken refreshToken = RefreshTokenBuilderTest.create(user.getId());
+        final RefreshToken refreshToken = RefreshTokenBuilderTest.create(user.getId(), TimeUtils.now().plusDays(15));
         final String jwt = "json-web-token";
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
