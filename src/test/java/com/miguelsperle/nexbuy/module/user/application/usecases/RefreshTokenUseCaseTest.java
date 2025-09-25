@@ -72,9 +72,14 @@ public class RefreshTokenUseCaseTest {
     @Test
     @DisplayName("Should throw NotFoundException when refresh token does not exist")
     public void should_throw_NotFoundException_when_refresh_token_does_not_exist() {
+        final User user = UserBuilderTest.create(
+                UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
+        );
+        final RefreshToken refreshToken = RefreshTokenBuilderTest.create(user.getId(), TimeUtils.now().plusDays(15));
+
         Mockito.when(this.refreshTokenRepository.findByToken(Mockito.any())).thenReturn(Optional.empty());
 
-        final RefreshTokenUseCaseInput refreshTokenUseCaseInput = RefreshTokenUseCaseInput.with("refresh-token-non-existent");
+        final RefreshTokenUseCaseInput refreshTokenUseCaseInput = RefreshTokenUseCaseInput.with(refreshToken.getToken());
 
         final NotFoundException exception = Assertions.assertThrows(NotFoundException.class, () ->
                 this.refreshTokenUseCase.execute(refreshTokenUseCaseInput)
