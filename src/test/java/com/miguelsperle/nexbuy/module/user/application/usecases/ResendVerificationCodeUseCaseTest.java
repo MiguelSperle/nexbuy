@@ -15,6 +15,7 @@ import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProd
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class ResendVerificationCodeUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.USER_VERIFICATION);
+        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.USER_VERIFICATION, TimeUtils.now().plusMinutes(15));
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -75,7 +76,7 @@ public class ResendVerificationCodeUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.UNVERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.USER_VERIFICATION);
+        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.USER_VERIFICATION, TimeUtils.now().plusMinutes(15));
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
 

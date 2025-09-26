@@ -14,6 +14,7 @@ import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class CreatePasswordResetCodeUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.PASSWORD_RESET);
+        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.PASSWORD_RESET, TimeUtils.now().plusMinutes(15));
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -77,7 +78,7 @@ public class CreatePasswordResetCodeUseCaseTest {
         final User user = UserBuilderTest.create(
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
-        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.PASSWORD_RESET);
+        final UserCode userCode = UserCodeBuilderTest.create(user.getId(), UserCodeType.PASSWORD_RESET, TimeUtils.now().plusMinutes(15));
 
         Mockito.when(this.userRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
 

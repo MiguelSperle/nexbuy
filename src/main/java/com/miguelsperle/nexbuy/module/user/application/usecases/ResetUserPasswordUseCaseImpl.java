@@ -25,7 +25,8 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
-            TransactionExecutor transactionExecutor) {
+            TransactionExecutor transactionExecutor
+    ) {
         this.userCodeRepository = userCodeRepository;
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
