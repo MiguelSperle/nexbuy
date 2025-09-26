@@ -37,7 +37,7 @@ public class CreateAddressUseCaseTest {
         );
         final Address address = AddressBuilderTest.create(user.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(address.getId());
+        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
 
         Mockito.when(this.addressRepository.save(Mockito.any())).thenReturn(address);
 
