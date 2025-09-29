@@ -10,7 +10,7 @@ public class ShoppingCartBuilderTest {
         return ShoppingCart.with(
                 IdentifierUtils.generateUUID(),
                 IdentifierUtils.generateUUID(),
-                DecimalUtils.valueOf(0),
+                DecimalUtils.valueOf(100),
                 TimeUtils.now()
         );
     }

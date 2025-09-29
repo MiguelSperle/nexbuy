@@ -41,10 +41,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
     @DisplayName("Should add item to shopping cart for the first time")
     public void should_add_item_to_shopping_cart_for_the_first_time() {
         final ShoppingCart shoppingCart = ShoppingCartBuilderTest.create();
-        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(
-                shoppingCart.getId(), 1, DecimalUtils.valueOf(100)
-        );
-        final BigDecimal newTotalAmount = DecimalUtils.valueOf(150);
+        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(shoppingCart.getId());
 
         Mockito.when(this.shoppingCartRepository.findById(Mockito.any())).thenReturn(Optional.of(shoppingCart));
 
@@ -59,6 +56,8 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
         Mockito.when(this.shoppingCartItemRepository.save(Mockito.any())).thenReturn(shoppingCartItem);
 
         Mockito.when(this.shoppingCartItemRepository.findAllByShoppingCartId(Mockito.any())).thenReturn(List.of(shoppingCartItem));
+
+        final BigDecimal newTotalAmount = DecimalUtils.valueOf(150);
 
         final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(newTotalAmount);
 
@@ -84,10 +83,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
     @DisplayName("Should add item to shopping cart again")
     public void should_add_item_to_shopping_cart_again() {
         final ShoppingCart shoppingCart = ShoppingCartBuilderTest.create();
-        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(
-                shoppingCart.getId(), 1, DecimalUtils.valueOf(100)
-        );
-        final BigDecimal newTotalAmount = DecimalUtils.valueOf(150);
+        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(shoppingCart.getId());
 
         Mockito.when(this.shoppingCartRepository.findById(Mockito.any())).thenReturn(Optional.of(shoppingCart));
 
@@ -102,6 +98,8 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
         final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(2);
 
         Mockito.when(this.shoppingCartItemRepository.save(Mockito.any())).thenReturn(updatedShoppingCartItem);
+
+        final BigDecimal newTotalAmount = DecimalUtils.valueOf(150);
 
         final ShoppingCart updatedShoppingCart = shoppingCart.withTotalAmount(newTotalAmount);
 
@@ -126,9 +124,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
     @DisplayName("Should throw NotFoundException when shopping cart does not exist")
     public void should_throw_NotFoundException_when_shopping_cart_does_not_exist() {
         final ShoppingCart shoppingCart = ShoppingCartBuilderTest.create();
-        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(
-                shoppingCart.getId(), 1, DecimalUtils.valueOf(100)
-        );
+        final ShoppingCartItem shoppingCartItem = ShoppingCartItemBuilderTest.create(shoppingCart.getId());
 
         Mockito.when(this.shoppingCartRepository.findById(Mockito.any())).thenReturn(Optional.empty());
 

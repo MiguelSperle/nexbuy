@@ -1,19 +1,18 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.utils;
 
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
-import java.math.BigDecimal;
-
 public class ShoppingCartItemBuilderTest {
-    public static ShoppingCartItem create(String shoppingCartId, int quantity, BigDecimal unitPrice) {
+    public static ShoppingCartItem create(String shoppingCartId) {
         return ShoppingCartItem.with(
                 IdentifierUtils.generateUUID(),
                 shoppingCartId,
                 IdentifierUtils.generateUUID(),
-                quantity,
-                unitPrice,
+                1,
+                DecimalUtils.valueOf(100),
                 TimeUtils.now()
         );
     }
