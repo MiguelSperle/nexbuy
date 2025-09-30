@@ -38,6 +38,6 @@ public class DeleteBrandUseCaseImpl implements DeleteBrandUseCase {
     }
 
     private void deleteBrandById(String brandId) {
-        this.productRepository.deleteById(brandId);
+        this.brandRepository.deleteById(brandId);
     }
 }
