@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.UpdateShoppingCartItemUseCase;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartUseCaseInput;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.UpdateShoppingCartItemUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
@@ -28,13 +28,13 @@ public class UpdateShoppingCartItemUseCaseImpl implements UpdateShoppingCartItem
     }
 
     @Override
-    public void execute(UpdateShoppingCartUseCaseInput updateShoppingCartUseCaseInput) {
-        final ShoppingCart shoppingCart = this.getShoppingCartById(updateShoppingCartUseCaseInput.shoppingCartId());
+    public void execute(UpdateShoppingCartItemUseCaseInput updateShoppingCartItemUseCaseInput) {
+        final ShoppingCart shoppingCart = this.getShoppingCartById(updateShoppingCartItemUseCaseInput.shoppingCartId());
 
-        final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartUseCaseInput.shoppingCartItemId());
+        final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(updateShoppingCartItemUseCaseInput.shoppingCartItemId());
 
         this.transactionExecutor.runTransaction(() -> {
-            final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(updateShoppingCartUseCaseInput.quantity());
+            final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(updateShoppingCartItemUseCaseInput.quantity());
             this.saveShoppingCartItem(updatedShoppingCartItem);
 
             final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());

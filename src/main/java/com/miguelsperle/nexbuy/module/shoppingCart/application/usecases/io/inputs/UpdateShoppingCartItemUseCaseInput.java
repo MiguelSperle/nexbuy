@@ -1,16 +1,16 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs;
 
-public record UpdateShoppingCartUseCaseInput(
+public record UpdateShoppingCartItemUseCaseInput(
         String shoppingCartId,
         String shoppingCartItemId,
         Integer quantity
 ) {
-    public static UpdateShoppingCartUseCaseInput with(
+    public static UpdateShoppingCartItemUseCaseInput with(
             String shoppingCartId,
             String shoppingCartItemId,
             Integer quantity
     ) {
-        return new UpdateShoppingCartUseCaseInput(
+        return new UpdateShoppingCartItemUseCaseInput(
                 shoppingCartId,
                 shoppingCartItemId,
                 quantity

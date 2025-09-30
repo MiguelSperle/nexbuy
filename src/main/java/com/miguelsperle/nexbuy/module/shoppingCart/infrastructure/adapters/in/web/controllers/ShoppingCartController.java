@@ -41,7 +41,7 @@ public class ShoppingCartController {
             @PathVariable String shoppingCartId, @PathVariable String shoppingCartItemId,
             @RequestBody @Valid UpdateShoppingCartRequest updateShoppingCartRequest
     ) {
-        this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartUseCaseInput.with(
+        this.updateShoppingCartItemUseCase.execute(UpdateShoppingCartItemUseCaseInput.with(
                 shoppingCartId,
                 shoppingCartItemId,
                 updateShoppingCartRequest.quantity()
