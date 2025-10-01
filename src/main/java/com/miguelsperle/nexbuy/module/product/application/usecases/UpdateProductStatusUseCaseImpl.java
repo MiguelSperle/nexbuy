@@ -17,13 +17,13 @@ public class UpdateProductStatusUseCaseImpl implements UpdateProductStatusUseCas
 
     @Override
     public void execute(UpdateProductStatusUseCaseInput updateProductStatusUseCaseInput) {
-        final Product product = this.getProductById(updateProductStatusUseCaseInput.productId());
-
         final ProductStatus convertedToProductStatus = ProductStatus.valueOf(updateProductStatusUseCaseInput.productStatus());
 
         if (convertedToProductStatus == ProductStatus.DELETED) {
             throw DomainException.with("Status DELETED is not allowed to be set", 422);
         }
+
+        final Product product = this.getProductById(updateProductStatusUseCaseInput.productId());
 
         if (product.getProductStatus() == ProductStatus.DELETED) {
             throw DomainException.with("This product has already been deleted and cannot be updated", 409);
