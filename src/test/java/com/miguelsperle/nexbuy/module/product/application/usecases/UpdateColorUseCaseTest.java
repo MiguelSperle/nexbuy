@@ -32,14 +32,14 @@ public class UpdateColorUseCaseTest {
 
         Mockito.when(this.colorRepository.findById(Mockito.any())).thenReturn(Optional.of(color));
 
-        final Color updateColor = color.withName(color.getName());
-
-        Mockito.when(this.colorRepository.save(Mockito.any())).thenReturn(updateColor);
-
         final UpdateColorUseCaseInput updateColorUseCaseInput = UpdateColorUseCaseInput.with(
                 color.getId(),
                 color.getName()
         );
+
+        final Color updateColor = color.withName(updateColorUseCaseInput.name());
+
+        Mockito.when(this.colorRepository.save(Mockito.any())).thenReturn(updateColor);
 
         this.updateColorUseCase.execute(updateColorUseCaseInput);
 

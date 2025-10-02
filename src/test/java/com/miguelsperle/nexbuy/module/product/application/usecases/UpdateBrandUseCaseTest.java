@@ -32,14 +32,14 @@ public class UpdateBrandUseCaseTest {
 
         Mockito.when(this.brandRepository.findById(Mockito.any())).thenReturn(Optional.of(brand));
 
-        final Brand updatedBrand = brand.withName(brand.getName());
-
-        Mockito.when(this.brandRepository.save(Mockito.any())).thenReturn(updatedBrand);
-
         final UpdateBrandUseCaseInput updateBrandUseCaseInput = UpdateBrandUseCaseInput.with(
                 brand.getId(),
                 brand.getName()
         );
+
+        final Brand updatedBrand = brand.withName(updateBrandUseCaseInput.name());
+
+        Mockito.when(this.brandRepository.save(Mockito.any())).thenReturn(updatedBrand);
 
         this.updateBrandUseCase.execute(updateBrandUseCaseInput);
 

@@ -10,7 +10,7 @@ public class ProductBuilderTest {
     public static Product create(String categoryId, String brandId, String colorId, ProductStatus productStatus) {
         return Product.with(
                 IdentifierUtils.generateUUID(),
-                "test-product",
+                "test-name",
                 "test-description",
                 categoryId,
                 DecimalUtils.valueOf(50),

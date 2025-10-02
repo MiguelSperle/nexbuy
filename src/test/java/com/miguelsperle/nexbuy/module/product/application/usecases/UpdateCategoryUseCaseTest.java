@@ -32,14 +32,14 @@ public class UpdateCategoryUseCaseTest {
 
         Mockito.when(this.categoryRepository.findById(Mockito.any())).thenReturn(Optional.of(category));
 
-        final Category updatedCategory = category.withName(category.getName());
-
-        Mockito.when(this.categoryRepository.save(Mockito.any())).thenReturn(updatedCategory);
-
         final UpdateCategoryUseCaseInput updateCategoryUseCaseInput = UpdateCategoryUseCaseInput.with(
                 category.getId(),
                 category.getName()
         );
+
+        final Category updatedCategory = category.withName(updateCategoryUseCaseInput.name());
+
+        Mockito.when(this.categoryRepository.save(Mockito.any())).thenReturn(updatedCategory);
 
         this.updateCategoryUseCase.execute(updateCategoryUseCaseInput);
 
