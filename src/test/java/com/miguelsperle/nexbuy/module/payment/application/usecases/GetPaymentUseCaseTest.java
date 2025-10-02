@@ -29,7 +29,7 @@ public class GetPaymentUseCaseTest {
     @Test
     @DisplayName("Should get payment")
     public void should_get_payment() {
-        final Payment payment = PaymentBuilderTest.create(PaymentStatus.PENDING);
+        final Payment payment = PaymentBuilderTest.create();
 
         Mockito.when(this.paymentRepository.findByOrderId(Mockito.any())).thenReturn(Optional.of(payment));
 
@@ -48,7 +48,7 @@ public class GetPaymentUseCaseTest {
     @Test
     @DisplayName("Should throw NotFoundException when payment does not exist")
     public void should_throw_NotFoundException_when_payment_does_not_exist() {
-        final Payment payment = PaymentBuilderTest.create(PaymentStatus.PENDING);
+        final Payment payment = PaymentBuilderTest.create();
 
         Mockito.when(this.paymentRepository.findByOrderId(Mockito.any())).thenReturn(Optional.empty());
 

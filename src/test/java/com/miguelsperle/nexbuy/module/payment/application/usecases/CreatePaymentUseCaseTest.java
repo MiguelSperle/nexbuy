@@ -38,7 +38,7 @@ public class CreatePaymentUseCaseTest {
     @Test
     @DisplayName("Should create payment")
     public void should_create_payment() {
-        final Payment payment = PaymentBuilderTest.create(PaymentStatus.PENDING);
+        final Payment payment = PaymentBuilderTest.create();
         final String sessionUrl = "test-session-url";
 
         Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(payment.getUserId());

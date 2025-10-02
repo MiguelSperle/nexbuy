@@ -8,14 +8,14 @@ import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 public class PaymentBuilderTest {
-    public static Payment create(PaymentStatus paymentStatus) {
+    public static Payment create() {
         return Payment.with(
                 IdentifierUtils.generateUUID(),
                 IdentifierUtils.generateUUID(),
                 PaymentMethod.CARD,
                 DecimalUtils.valueOf(100),
                 IdentifierUtils.generateUUID(),
-                paymentStatus,
+                PaymentStatus.PENDING,
                 TimeUtils.now()
         );
     }
