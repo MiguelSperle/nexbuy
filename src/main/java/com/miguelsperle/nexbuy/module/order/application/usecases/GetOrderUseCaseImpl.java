@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetO
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class GetOrderUseCaseImpl implements GetOrderUseCase {
 
     private Order getOrderById(String orderId) {
         return this.orderRepository.findById(orderId)
-                .orElseThrow(() -> DomainException.with("Order not found", 404));
+                .orElseThrow(() -> NotFoundException.with("Order not found"));
     }
 
     private List<OrderItem> getOrderItemsByOrderId(String orderId) {
@@ -50,6 +50,6 @@ public class GetOrderUseCaseImpl implements GetOrderUseCase {
 
     private OrderDelivery getOrderDeliveryByOrderId(String orderId) {
         return this.orderDeliveryRepository.findByOrderId(orderId)
-                .orElseThrow(() -> DomainException.with("Order delivery not found", 404));
+                .orElseThrow(() -> NotFoundException.with("Order delivery not found"));
     }
 }
