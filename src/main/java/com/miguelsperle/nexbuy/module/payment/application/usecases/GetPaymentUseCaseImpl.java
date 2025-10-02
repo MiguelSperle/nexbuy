@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.GetPaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.GetPaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetPaymentUseCaseImpl implements GetPaymentUseCase {
     private final PaymentRepository paymentRepository;
@@ -23,6 +23,6 @@ public class GetPaymentUseCaseImpl implements GetPaymentUseCase {
 
     private Payment getPaymentByOrderId(String orderId) {
         return this.paymentRepository.findByOrderId(orderId)
-                .orElseThrow(() -> DomainException.with("Payment not found", 404));
+                .orElseThrow(() -> NotFoundException.with("Payment not found"));
     }
 }
