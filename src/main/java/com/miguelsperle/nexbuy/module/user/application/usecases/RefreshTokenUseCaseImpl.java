@@ -33,7 +33,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     public RefreshTokenUseCaseOutput execute(RefreshTokenUseCaseInput refreshTokenUseCaseInput) {
         final RefreshToken refreshToken = this.getRefreshTokenByToken(refreshTokenUseCaseInput.refreshToken());
 
-        if (TimeUtils.isExpired(refreshToken.getExpiresIn(), LocalDateTime.now())) {
+        if (TimeUtils.isExpired(refreshToken.getExpiresIn(), TimeUtils.now())) {
             this.deleteRefreshTokenById(refreshToken.getId());
             throw DomainException.with("Refresh token has expired", 410);
         }

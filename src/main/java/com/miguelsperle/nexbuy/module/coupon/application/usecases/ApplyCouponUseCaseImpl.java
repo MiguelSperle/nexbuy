@@ -28,7 +28,7 @@ public class ApplyCouponUseCaseImpl implements ApplyCouponUseCase {
             throw DomainException.with("Coupon is deactivated", 409);
         }
 
-        if (TimeUtils.isExpired(coupon.getExpiresIn(), LocalDateTime.now())) {
+        if (TimeUtils.isExpired(coupon.getExpiresIn(), TimeUtils.now())) {
             throw DomainException.with("Coupon has expired", 410);
         }
 
