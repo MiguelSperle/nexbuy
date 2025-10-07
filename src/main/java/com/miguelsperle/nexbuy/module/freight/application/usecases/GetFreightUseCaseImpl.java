@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.freight.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.GetFreightUseCaseInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.GetFreightUseCaseOutput;
 import com.miguelsperle.nexbuy.module.freight.domain.entities.Freight;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetFreightUseCaseImpl implements GetFreightUseCase {
     private final FreightRepository freightRepository;
@@ -23,6 +23,6 @@ public class GetFreightUseCaseImpl implements GetFreightUseCase {
 
     private Freight getFreightByOrderId(String orderId) {
         return this.freightRepository.findByOrderId(orderId)
-                .orElseThrow(() -> DomainException.with("Freight not found", 404));
+                .orElseThrow(() -> NotFoundException.with("Freight not found"));
     }
 }
