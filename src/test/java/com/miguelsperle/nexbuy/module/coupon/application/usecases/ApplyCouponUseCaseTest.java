@@ -31,7 +31,7 @@ public class ApplyCouponUseCaseTest {
     @Test
     @DisplayName("Should apply coupon")
     public void should_apply_coupon() {
-        final Coupon coupon = CouponBuilderTest.create().withIsActive(true);
+        final Coupon coupon = CouponBuilderTest.create(true);
 
         Mockito.when(this.couponRepository.findByCode(Mockito.any())).thenReturn(Optional.of(coupon));
 
@@ -54,7 +54,7 @@ public class ApplyCouponUseCaseTest {
     @Test
     @DisplayName("Should throw NotFoundException when coupon does not exist")
     public void should_throw_NotFoundException_when_coupon_does_not_exist() {
-        final Coupon coupon = CouponBuilderTest.create();
+        final Coupon coupon = CouponBuilderTest.create(false);
 
         Mockito.when(this.couponRepository.findByCode(Mockito.any())).thenReturn(Optional.empty());
 
@@ -78,7 +78,7 @@ public class ApplyCouponUseCaseTest {
     @Test
     @DisplayName("Should throw DomainException when coupon is not active")
     public void should_throw_DomainException_when_coupon_is_not_active() {
-        final Coupon coupon = CouponBuilderTest.create();
+        final Coupon coupon = CouponBuilderTest.create(false);
 
         Mockito.when(this.couponRepository.findByCode(Mockito.any())).thenReturn(Optional.of(coupon));
 
@@ -102,7 +102,7 @@ public class ApplyCouponUseCaseTest {
     @Test
     @DisplayName("Should throw DomainException when coupon is expired")
     public void should_throw_DomainException_when_coupon_is_expired() {
-        final Coupon coupon = CouponBuilderTest.create().withIsActive(true).withExpiresIn(TimeUtils.now().minusDays(1));
+        final Coupon coupon = CouponBuilderTest.create(true).withExpiresIn(TimeUtils.now().minusDays(1));
 
         Mockito.when(this.couponRepository.findByCode(Mockito.any())).thenReturn(Optional.of(coupon));
 
@@ -126,7 +126,7 @@ public class ApplyCouponUseCaseTest {
     @Test
     @DisplayName("Should throw DomainException when purchase amount is below minimum required")
     public void should_throw_DomainException_when_purchase_amount_is_below_minimum_required() {
-        final Coupon coupon = CouponBuilderTest.create().withIsActive(true);
+        final Coupon coupon = CouponBuilderTest.create(true);
 
         Mockito.when(this.couponRepository.findByCode(Mockito.any())).thenReturn(Optional.of(coupon));
 

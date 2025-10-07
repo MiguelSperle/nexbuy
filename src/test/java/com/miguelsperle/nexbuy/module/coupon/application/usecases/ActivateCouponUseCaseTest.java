@@ -28,7 +28,7 @@ public class ActivateCouponUseCaseTest {
     @Test
     @DisplayName("Should activate coupon")
     public void should_activate_coupon() {
-        final Coupon coupon = CouponBuilderTest.create();
+        final Coupon coupon = CouponBuilderTest.create(false);
 
         Mockito.when(this.couponRepository.findById(Mockito.any())).thenReturn(Optional.of(coupon));
 
@@ -49,7 +49,7 @@ public class ActivateCouponUseCaseTest {
     @Test
     @DisplayName("Should throw NotFoundException when coupon does not exist")
     public void should_throw_NotFoundException_when_coupon_does_not_exist() {
-        final Coupon coupon = CouponBuilderTest.create();
+        final Coupon coupon = CouponBuilderTest.create(false);
 
         Mockito.when(this.couponRepository.findById(Mockito.any())).thenReturn(Optional.empty());
 
@@ -72,7 +72,7 @@ public class ActivateCouponUseCaseTest {
     @Test
     @DisplayName("Should throw DomainException when coupon is already activated")
     public void should_throw_DomainException_when_coupon_is_already_activated() {
-        final Coupon coupon = CouponBuilderTest.create().withIsActive(true);
+        final Coupon coupon = CouponBuilderTest.create(true);
 
         Mockito.when(this.couponRepository.findById(Mockito.any())).thenReturn(Optional.of(coupon));
 

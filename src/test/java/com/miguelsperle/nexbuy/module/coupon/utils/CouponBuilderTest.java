@@ -6,13 +6,13 @@ import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 public class CouponBuilderTest {
-    public static Coupon create() {
+    public static Coupon create(boolean isActive) {
         return Coupon.with(
                 IdentifierUtils.generateUUID(),
                 "test-code",
                 5,
                 DecimalUtils.valueOf(100),
-                false,
+                isActive,
                 TimeUtils.now().plusMinutes(15),
                 TimeUtils.now()
         );
