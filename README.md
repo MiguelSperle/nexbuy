@@ -58,17 +58,9 @@ mvn clean install
 
 <table>
   <tr>
-    <td style="text-align: center;">
-      <img 
-          src="https://avatars.githubusercontent.com/u/102910354?v=4" 
-          alt="Miguel Sperle"
-          style="width: 120px; height: 120px;"
-      />
-      <br>
-      <a href="https://github.com/MiguelSperle">
-        <sub>
-           <b style="font-size: 16px;">Miguel Sperle</b>
-        </sub>
+    <td>
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/102910354?v=4" width="100px;" alt="Miguel Sperle Profile Picture"/><br>
       </a>
     </td>
   </tr>
