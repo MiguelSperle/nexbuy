@@ -88,7 +88,7 @@ spring:
   api:
     security:
       token:
-        secret: ${JWT_SECRET:jwt_secret_key}
+        secret: ${JWT_SECRET}
 
   mail:
     host: smtp.gmail.com
