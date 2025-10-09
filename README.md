@@ -27,6 +27,19 @@
     </b>
 </p>
 
+<p>
+    <b>
+       Since it's a study project, some parts are simulated, but not all. 
+       An example of a simulated part is order shipping and the status updates for those orders.
+    </b>
+</p>
+
+<p>
+    <b>
+       This is just a small note to make it clear
+    </b>
+</p>
+
 <h2>🚀 Getting started</h2>
 
 <h3>💻 Prerequisites</h3>
@@ -119,7 +132,7 @@ spring:
           key: ${STRIPE_WEBHOOK_SECRET_KEY}
 ```
 
-<h3 id="colab">🤝 Collaborator</h3>
+<h3>🤝 Collaborator</h3>
 
 <table>
   <tr>
