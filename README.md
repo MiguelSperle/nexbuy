@@ -58,41 +58,19 @@ mvn clean install
 
 <table>
   <tr>
-    <td align="center">
-      <a href="#" style="text-decoration: none;">
-        <img 
-            src="https://avatars.githubusercontent.com/u/102910354?v=4" 
-            alt="Miguel Sperle"
-            style="
-                border-radius: 50%; 
-                width: 120px; 
-                height: 120px;
-                object-fit: cover;
-                border: 3px solid #2E86AB;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            "
-        />
-        <br>
-        <sub style="
-            display: block;
-            margin-top: 12px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-        ">
-          <b>Miguel Sperle</b>
+    <td style="text-align: center;">
+      <img 
+          src="https://avatars.githubusercontent.com/u/102910354?v=4" 
+          alt="Miguel Sperle"
+          style="width: 120px; height: 120px;"
+      />
+      <br>
+      <a href="https://github.com/MiguelSperle" style="">
+        <sub>
+           <b style="font-size: 16px;">Miguel Sperle</b>
         </sub>
-        <p style="
-            margin: 4px 0 0 0;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #666;
-            font-weight: normal;
-        ">
-          Backend Developer
-        </p>
       </a>
+      <p>Backend Developer</p>
     </td>
   </tr>
 </table>
