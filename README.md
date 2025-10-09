@@ -1,4 +1,4 @@
-<h1 style="font-weight: bold;">NexBuy 💻</h1>
+<h1>NexBuy 💻</h1>
 
 <p>
     <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="java badge"/>
@@ -54,12 +54,77 @@ cd nexbuy
 mvn clean install
 ```
 
+<h3>⌨️ Command to run Docker</h3>
+
+```
+docker-compose up -d
+```
+
+<h3>🔑 Environment Variables</h3>
+
+```
+spring:
+  application:
+    name: nexbuy
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  api:
+    security:
+      token:
+        secret: ${JWT_SECRET:jwt_secret_key}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 4
+          initial-interval: 3000
+          multiplier: 2
+          max-interval: 12000
+
+  freight:
+    api:
+      url: ${FREIGHT_QUOTE_URL}
+      token: ${FREIGHT_QUOTE_TOKEN}
+      email: ${FREIGHT_QUOTE_EMAIL}
+      cep:
+        from: ${FREIGHT_QUOTE_FROM}
+
+  stripe:
+    api:
+      secret:
+        key: ${STRIPE_API_SECRET_KEY}
+      webhook:
+        secret:
+          key: ${STRIPE_WEBHOOK_SECRET_KEY}
+```
+
 <h3 id="colab">🤝 Collaborator</h3>
 
 <table>
   <tr>
     <td>
-      <a href="#">
+      <a href="https://github.com/MiguelSperle">
         <img src="https://avatars.githubusercontent.com/u/102910354?v=4" width="100px;" alt="Miguel Sperle Profile Picture"/><br>
       </a>
     </td>
