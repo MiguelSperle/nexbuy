@@ -65,12 +65,11 @@ mvn clean install
           style="width: 120px; height: 120px;"
       />
       <br>
-      <div style="text-align: center;">
-        <a href="https://github.com/MiguelSperle" style="text-decoration: none;">
-          <b style="font-size: 16px; display: block;">Miguel Sperle</b>
-        </a>
-        <span style="color: #666; display: block;">Backend Developer</span>
-      </div>
+      <a href="https://github.com/MiguelSperle">
+        <sub>
+           <b style="font-size: 16px;">Miguel Sperle</b>
+        </sub>
+      </a>
     </td>
   </tr>
 </table>
