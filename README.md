@@ -23,7 +23,7 @@
 <p>
     <b>
         It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
-        Hexagonal Architecture | SOLID principles | Messaging | Database Transactions.
+        Hexagonal Architecture | SOLID principles | Messaging | Database Transactions | Unit Tests.
     </b>
 </p>
 
@@ -36,7 +36,7 @@
 
 <p>
     <b>
-       This is just a small note to make it clear
+       This is just a small note to make it clear.
     </b>
 </p>
 
