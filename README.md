@@ -36,7 +36,7 @@
 
 <p>
     <b>
-       This is just a small note to make it clear.
+       This is just a small note to make more clear about the project.
     </b>
 </p>
 
