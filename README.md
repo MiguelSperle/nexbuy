@@ -29,8 +29,8 @@
 
 <p>
     <b>
-       Since it's a study project, some parts are simulated, but not all. 
-       An example of a simulated part is order shipping and the status updates for those orders.
+        Since it's a study project, some parts are simulated, but not all. For instance, 
+        while order shipping and its status updates are simulated, the freight queries are real using the API MELHOR ENVIO
     </b>
 </p>
 
