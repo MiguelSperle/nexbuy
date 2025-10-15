@@ -30,7 +30,7 @@
 <p>
     <b>
         Since it's a study project, some parts are simulated, but not all. For instance, 
-        while order shipping and its status updates are simulated, the freight queries are real using the API MELHOR ENVIO
+        while order shipping and its status updates are simulated, the freight queries are real using the API Melhor Envio.
     </b>
 </p>
 
