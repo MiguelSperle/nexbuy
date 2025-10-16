@@ -73,7 +73,7 @@ mvn clean install
 docker-compose up -d
 ```
 
-<h3>🔑 Environment Variables</h3>
+<h3>🔑 Application Environment Variables</h3>
 
 ```
 spring:
