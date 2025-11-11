@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
 public class UserCreatedConsumer {
@@ -46,14 +44,6 @@ public class UserCreatedConsumer {
 
             this.emailService.sendEmail(user.getEmail(), text, subject);
         });
-    }
-
-    private Optional<UserCode> getPreviousUserCodeByUserIdAndCodeType(String userId) {
-        return this.userCodeRepository.findByUserIdAndCodeType(userId, UserCodeType.USER_VERIFICATION.name());
-    }
-
-    private void deleteUserCodeById(String userCodeId) {
-        this.userCodeRepository.deleteById(userCodeId);
     }
 
     private UserCode saveUserCode(UserCode userCode) {
