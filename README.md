@@ -44,7 +44,7 @@
 
 <h3>💻 Prerequisites</h3>
 
-- [JDK 23+](https://www.oracle.com/br/java/technologies/downloads/)
+- [JDK 21](https://www.oracle.com/br/java/technologies/downloads/)
 - [Maven](https://maven.apache.org/download.cgi)
 - [Docker](https://docs.docker.com/)
 - [Dbeaver](https://dbeaver.io/)
