@@ -22,7 +22,7 @@ public class TransactionExecutorImpl implements TransactionExecutor {
         transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_DEFAULT);
         transactionTemplate.setTimeout(5);
 
-        transactionTemplate.executeWithoutResult(_ -> runnable.run());
+        transactionTemplate.executeWithoutResult(transactionStatus -> runnable.run());
     }
 
     @Override
