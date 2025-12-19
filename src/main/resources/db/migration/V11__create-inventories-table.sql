@@ -1,0 +1,7 @@
+CREATE TABLE inventories (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    product_id VARCHAR(36) UNIQUE NOT NULL,
+    sku VARCHAR(80) UNIQUE NOT NULL,
+    quantity INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);

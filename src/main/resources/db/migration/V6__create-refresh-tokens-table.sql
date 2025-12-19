@@ -1,0 +1,7 @@
+CREATE TABLE refresh_tokens (
+   id VARCHAR(36) PRIMARY KEY NOT NULL,
+   user_id VARCHAR(36) UNIQUE NOT NULL,
+   token VARCHAR(36) UNIQUE NOT NULL,
+   expires_in TIMESTAMP NOT NULL,
+   created_at TIMESTAMP NOT NULL
+);

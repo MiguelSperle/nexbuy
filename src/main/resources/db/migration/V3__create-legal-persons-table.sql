@@ -1,0 +1,9 @@
+CREATE TABLE LEGAL_PERSONS (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id VARCHAR(36) UNIQUE NOT NULL,
+    cnpj VARCHAR(18) UNIQUE NOT NULL,
+    fantasy_name VARCHAR(50) UNIQUE NOT NULL,
+    legal_name VARCHAR(50) UNIQUE NOT NULL,
+    state_registration VARCHAR(25) UNIQUE,
+    created_at TIMESTAMP NOT NULL
+);

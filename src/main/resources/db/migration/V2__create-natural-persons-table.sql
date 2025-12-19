@@ -1,0 +1,7 @@
+CREATE TABLE natural_persons (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id VARCHAR(36) UNIQUE NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    general_register VARCHAR(15) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);

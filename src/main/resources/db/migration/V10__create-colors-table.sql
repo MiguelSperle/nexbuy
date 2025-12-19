@@ -1,0 +1,5 @@
+CREATE TABLE colors (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    name VARCHAR(25) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);

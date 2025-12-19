@@ -7,6 +7,14 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  flyway:
+    schemas: public
+    default-schema: public
+
   api:
     security:
       token:
