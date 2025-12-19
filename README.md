@@ -23,7 +23,7 @@
 <p>
     <b>
         It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
-        Hexagonal Architecture | SOLID principles | Messaging | Database Transactions | Unit Tests.
+        Hexagonal Architecture, SOLID principles, Messaging, Database Transactions and Unit Tests.
     </b>
 </p>
 
@@ -47,7 +47,7 @@
 - [JDK 21](https://www.oracle.com/br/java/technologies/downloads/)
 - [Maven](https://maven.apache.org/download.cgi)
 - [Docker](https://docs.docker.com/)
-- [Dbeaver](https://dbeaver.io/)
+- [DBeaver](https://dbeaver.io/)
 
 <h3>🛸 Cloning</h3>
 
@@ -67,13 +67,13 @@ cd nexbuy
 mvn clean install
 ```
 
-<h3>⌨️ Command to run Docker</h3>
+<h3>⌨️ Command to run Docker Compose</h3>
 
 ```
 docker-compose up -d
 ```
 
-<h3>🔑 Application Environment Variables</h3>
+<h3>🔑 System Environment Variables</h3>
 
 ```
 spring:
@@ -132,7 +132,7 @@ spring:
           key: ${STRIPE_WEBHOOK_SECRET_KEY}
 ```
 
-<h3>🤝 Collaborator</h3>
+<h3>👨🏻‍💻 Developer</h3>
 
 <table>
   <tr>
