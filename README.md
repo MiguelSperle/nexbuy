@@ -14,30 +14,22 @@
 </p>
 
 <p>
-    <b>
-        To summarize, NexBuy is a back-end application designed to operate efficiently as an e-commerce. 
-        It provides a complete set of functionality that an e-commerce typically offers through a well-structured API.
-    </b>
+To summarize, NexBuy is a back-end application designed to operate efficiently as an e-commerce. 
+It provides a complete set of functionality that an e-commerce typically offers through a well-structured API.
 </p>
 
 <p>
-    <b>
-        It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
-        Hexagonal Architecture, SOLID principles, Messaging, Database Transactions and Unit Tests.
-    </b>
+It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
+Hexagonal Architecture, SOLID principles, Messaging, Database Transactions and Unit Tests.
 </p>
 
 <p>
-    <b>
-        Since it's a study project, some parts are simulated, but not all. For instance, 
-        while order shipping and its status updates are simulated, the freight queries are real using the API Melhor Envio.
-    </b>
+Since it's a study project, some parts are simulated, but not all. For instance, 
+while order shipping and its status updates are simulated, the freight queries are real using the API Melhor Envio.
 </p>
 
 <p>
-    <b>
-       This is just a small text to clarify the purpose of the project.
-    </b>
+This is just a small text to clarify the purpose of the project.
 </p>
 
 <h2>🚀 Getting started</h2>
