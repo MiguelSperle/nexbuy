@@ -8,11 +8,11 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.Creat
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
-import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.common.application.commands.CreateFreightCommand;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.Dele
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
     private final ProductRepository productRepository;

@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.in.web.co
 
 import com.miguelsperle.nexbuy.module.payment.application.commands.UpdatePaymentStatusCommand;
 import com.miguelsperle.nexbuy.module.payment.domain.enums.PaymentStatus;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.checkout.Session;

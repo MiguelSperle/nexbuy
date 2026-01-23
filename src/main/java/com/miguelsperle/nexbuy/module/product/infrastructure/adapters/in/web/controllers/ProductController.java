@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetProductsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductUseCaseInput;

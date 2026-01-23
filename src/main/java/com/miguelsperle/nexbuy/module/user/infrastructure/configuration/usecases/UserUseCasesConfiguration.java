@@ -2,11 +2,11 @@ package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecase
 
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.*;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.common.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.JwtService;
+import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

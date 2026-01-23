@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses;
 
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.GetCouponsUseCaseOutput;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

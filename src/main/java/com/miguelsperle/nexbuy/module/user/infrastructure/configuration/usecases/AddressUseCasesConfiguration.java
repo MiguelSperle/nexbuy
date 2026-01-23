@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCaseImpl;

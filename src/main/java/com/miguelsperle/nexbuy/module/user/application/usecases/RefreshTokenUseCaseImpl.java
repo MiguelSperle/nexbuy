@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.JwtService;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.RefreshTokenUseCase;
@@ -11,8 +11,6 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Ref
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-
-import java.time.LocalDateTime;
 
 public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     private final RefreshTokenRepository refreshTokenRepository;

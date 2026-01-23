@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistenc
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.CheckInventoryAvailabilityUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.CheckInventoryAvailabilityUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class CheckInventoryAvailabilityUseCaseImpl implements CheckInventoryAvailabilityUseCase {
     private final InventoryRepository inventoryRepository;

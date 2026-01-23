@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configuration.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.application.ports.out.providers.CodeProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreatePasswordResetCodeUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.usecases.ResendVerificationCodeUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.usecases.ValidatePasswordResetCodeUseCaseImpl;

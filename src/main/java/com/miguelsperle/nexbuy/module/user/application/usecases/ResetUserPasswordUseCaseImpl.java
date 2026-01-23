@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ResetUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;

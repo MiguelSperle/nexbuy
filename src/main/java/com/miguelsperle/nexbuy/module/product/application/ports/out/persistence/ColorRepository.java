@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.application.ports.out.persistence;
 
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 
 import java.util.List;
 import java.util.Optional;

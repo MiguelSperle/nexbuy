@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
 import com.miguelsperle.nexbuy.module.order.utils.OrderBuilderTest;
 import com.miguelsperle.nexbuy.module.order.utils.OrderDeliveryBuilderTest;
 import com.miguelsperle.nexbuy.module.order.utils.OrderItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

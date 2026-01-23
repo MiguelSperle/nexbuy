@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence;
 
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.utils;
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 
 public class AddressBuilderTest {
     public static Address create(String userId) {

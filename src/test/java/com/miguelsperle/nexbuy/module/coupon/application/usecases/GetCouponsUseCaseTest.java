@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.GetC
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.GetCouponsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
 import com.miguelsperle.nexbuy.module.coupon.utils.CouponBuilderTest;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.PaginationMetadata;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

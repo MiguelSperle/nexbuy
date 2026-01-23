@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Use
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.events.UserCodeCreatedEvent;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.EmailService;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.EmailService;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

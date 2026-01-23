@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.consumers.reprocessing;
 
-import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.application.commands.CreateFreightCommand;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

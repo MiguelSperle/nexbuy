@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.Activ
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ActivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class ActivateCouponUseCaseImpl implements ActivateCouponUseCase {
     private final CouponRepository couponRepository;

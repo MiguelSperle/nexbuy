@@ -5,8 +5,8 @@ import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.Upda
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class UpdateProductStatusUseCaseImpl implements UpdateProductStatusUseCase {
     private final ProductRepository productRepository;

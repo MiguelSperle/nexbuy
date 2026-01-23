@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.order.utils;
 
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
-import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 
 public class OrderDeliveryBuilderTest {
     public static OrderDelivery create(String orderId) {

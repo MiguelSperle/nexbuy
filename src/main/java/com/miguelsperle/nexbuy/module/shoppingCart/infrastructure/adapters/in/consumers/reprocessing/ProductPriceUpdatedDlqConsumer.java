@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.consumers.reprocessing;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.domain.events.ProductPriceUpdatedEvent;
+import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.common.domain.events.ProductPriceUpdatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

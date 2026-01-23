@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.Get
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.GetFreightUseCaseOutput;
 import com.miguelsperle.nexbuy.module.freight.domain.entities.Freight;
 import com.miguelsperle.nexbuy.module.freight.utils.FreightBuilderTest;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

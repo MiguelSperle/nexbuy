@@ -2,15 +2,15 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
+import com.miguelsperle.nexbuy.common.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.common.application.ports.out.services.JwtService;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
 
 import java.util.Optional;
 

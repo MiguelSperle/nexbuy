@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence;
 
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;
 
 import java.util.List;

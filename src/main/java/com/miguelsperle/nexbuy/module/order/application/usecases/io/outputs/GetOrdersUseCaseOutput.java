@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs;
 
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
 
 public record GetOrdersUseCaseOutput(
         Pagination<Order> paginatedOrders

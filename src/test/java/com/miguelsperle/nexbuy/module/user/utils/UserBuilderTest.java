@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 
 public class UserBuilderTest {
     public static User create(UserStatus userStatus, AuthorizationRole authorizationRole, PersonType personType) {

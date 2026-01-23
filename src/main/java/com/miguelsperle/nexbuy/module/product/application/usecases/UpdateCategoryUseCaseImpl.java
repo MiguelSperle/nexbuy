@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Upd
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase {
     private final CategoryRepository categoryRepository;

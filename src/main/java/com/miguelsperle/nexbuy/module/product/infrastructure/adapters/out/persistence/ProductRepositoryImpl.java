@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.out.persistence;
 
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.PaginationMetadata;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.out.persistence.jpa.entities.JpaProductEntity;

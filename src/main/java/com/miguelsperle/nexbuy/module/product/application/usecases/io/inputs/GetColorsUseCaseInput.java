@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs;
 
-import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
 
 public record GetColorsUseCaseInput(
         SearchQuery searchQuery

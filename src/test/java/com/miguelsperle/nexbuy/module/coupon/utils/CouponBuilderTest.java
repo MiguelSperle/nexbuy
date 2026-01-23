@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.coupon.utils;
 
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.DecimalUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 
 public class CouponBuilderTest {
     public static Coupon create(boolean isActive) {

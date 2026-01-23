@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetO
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 import java.util.List;
 

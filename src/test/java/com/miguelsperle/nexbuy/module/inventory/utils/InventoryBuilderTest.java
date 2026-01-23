@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.inventory.utils;
 
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
 
 public class InventoryBuilderTest {
     public static Inventory create() {

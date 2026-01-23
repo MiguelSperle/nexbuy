@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.inventory.infrastructure.configuration.us
 
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.*;
 import org.springframework.context.annotation.Bean;

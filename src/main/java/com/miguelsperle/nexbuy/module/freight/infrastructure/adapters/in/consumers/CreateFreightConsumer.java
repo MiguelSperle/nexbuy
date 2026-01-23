@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.freight.infrastructure.adapters.in.consum
 
 import com.miguelsperle.nexbuy.module.freight.application.ports.out.persistence.FreightRepository;
 import com.miguelsperle.nexbuy.module.freight.domain.entities.Freight;
-import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
+import com.miguelsperle.nexbuy.common.application.commands.CreateFreightCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

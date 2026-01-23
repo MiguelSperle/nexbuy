@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs;
 
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
 
 public record GetCouponsUseCaseOutput(
         Pagination<Coupon> paginatedCoupons

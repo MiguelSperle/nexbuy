@@ -5,8 +5,8 @@ import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.Dele
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
 
 public class DeleteCategoryUseCaseImpl implements DeleteCategoryUseCase {
     private final CategoryRepository categoryRepository;
