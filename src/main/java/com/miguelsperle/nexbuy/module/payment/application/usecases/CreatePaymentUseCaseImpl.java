@@ -6,9 +6,9 @@ import com.miguelsperle.nexbuy.module.payment.application.ports.out.services.Pay
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.CreatePaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.common.domain.utils.DecimalUtils;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
 

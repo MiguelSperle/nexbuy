@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.AddressBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

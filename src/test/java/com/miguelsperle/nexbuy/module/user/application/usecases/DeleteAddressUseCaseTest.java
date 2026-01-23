@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.AddressBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

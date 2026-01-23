@@ -9,8 +9,8 @@ import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.Get
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.ApplyCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses.ApplyCouponResponse;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.responses.GetCouponsResponse;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

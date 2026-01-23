@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.freight.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.GetFreightUseCaseInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.GetFreightUseCaseOutput;
 import com.miguelsperle.nexbuy.module.freight.domain.entities.Freight;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetFreightUseCaseImpl implements GetFreightUseCase {
     private final FreightRepository freightRepository;

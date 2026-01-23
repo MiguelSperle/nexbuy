@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.utils;
 
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
-import com.miguelsperle.nexbuy.common.domain.utils.DecimalUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 public class ShoppingCartBuilderTest {
     public static ShoppingCart create() {

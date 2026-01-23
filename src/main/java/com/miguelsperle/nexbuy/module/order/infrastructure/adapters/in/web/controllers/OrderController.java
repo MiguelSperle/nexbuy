@@ -12,9 +12,9 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetO
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.requests.CreateOrderRequest;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.responses.GetOrderResponse;
 import com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos.responses.GetOrdersResponse;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.common.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

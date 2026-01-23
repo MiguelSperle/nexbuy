@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.order.infrastructure.adapters.in.web.dtos
 
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.enums.OrderStatus;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -4,17 +4,17 @@ import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.Leg
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
-import com.miguelsperle.nexbuy.common.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.common.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;

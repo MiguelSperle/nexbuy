@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Reg
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class RegisterCategoryUseCaseImpl implements RegisterCategoryUseCase {
     private final CategoryRepository categoryRepository;

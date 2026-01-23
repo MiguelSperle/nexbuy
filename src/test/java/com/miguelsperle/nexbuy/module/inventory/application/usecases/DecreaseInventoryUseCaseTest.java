@@ -8,9 +8,9 @@ import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovemen
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
 import com.miguelsperle.nexbuy.module.inventory.utils.InventoryBuilderTest;
 import com.miguelsperle.nexbuy.module.inventory.utils.InventoryMovementBuilderTest;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

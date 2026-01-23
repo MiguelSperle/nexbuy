@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.cons
 
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.common.domain.events.ProductRegisteredEvent;
+import com.miguelsperle.nexbuy.shared.domain.events.ProductRegisteredEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

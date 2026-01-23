@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.domain.entities;
 
-import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 
 import java.time.LocalDateTime;

@@ -3,9 +3,9 @@ package com.miguelsperle.nexbuy.module.payment.infrastructure.adapters.in.consum
 import com.miguelsperle.nexbuy.module.payment.application.commands.UpdatePaymentStatusCommand;
 import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.PaymentRepository;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.common.domain.events.PaymentStatusUpdatedEvent;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.domain.events.PaymentStatusUpdatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

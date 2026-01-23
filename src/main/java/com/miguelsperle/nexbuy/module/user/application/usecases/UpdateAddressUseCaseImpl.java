@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.UpdateA
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
     private final AddressRepository addressRepository;

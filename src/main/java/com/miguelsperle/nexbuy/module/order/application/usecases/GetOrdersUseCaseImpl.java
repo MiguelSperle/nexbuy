@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.Or
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrdersUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetOrdersUseCaseImpl implements GetOrdersUseCase {
     private final OrderRepository orderRepository;

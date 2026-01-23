@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.*;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

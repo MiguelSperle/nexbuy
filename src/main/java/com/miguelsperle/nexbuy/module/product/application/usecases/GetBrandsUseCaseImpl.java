@@ -5,8 +5,8 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.Ge
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetBrandsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetBrandsUseCaseImpl implements GetBrandsUseCase {
     private final BrandRepository brandRepository;

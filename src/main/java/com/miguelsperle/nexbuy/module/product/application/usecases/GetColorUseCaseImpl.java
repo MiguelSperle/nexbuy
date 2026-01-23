@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.Ge
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetColorUseCaseImpl implements GetColorUseCase {
     private final ColorRepository colorRepository;

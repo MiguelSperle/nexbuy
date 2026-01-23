@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Reg
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class RegisterColorUseCaseImpl implements RegisterColorUseCase {
     private final ColorRepository colorRepository;

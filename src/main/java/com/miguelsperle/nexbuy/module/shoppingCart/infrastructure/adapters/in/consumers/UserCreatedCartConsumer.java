@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.adapters.in.c
 
 import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
-import com.miguelsperle.nexbuy.common.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

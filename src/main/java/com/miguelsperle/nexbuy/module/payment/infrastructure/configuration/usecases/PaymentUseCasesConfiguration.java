@@ -6,8 +6,8 @@ import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.
 import com.miguelsperle.nexbuy.module.payment.application.ports.out.services.PaymentService;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.CreatePaymentUseCaseImpl;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.GetPaymentUseCaseImpl;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAd
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetAddressUseCaseImpl implements GetAddressUseCase {
     private final AddressRepository addressRepository;

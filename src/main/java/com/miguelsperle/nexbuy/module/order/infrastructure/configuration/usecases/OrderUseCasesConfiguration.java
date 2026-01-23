@@ -9,10 +9,10 @@ import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.Or
 import com.miguelsperle.nexbuy.module.order.application.usecases.CreateOrderUseCaseImpl;
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrderUseCaseImpl;
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrdersUseCaseImpl;
-import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.common.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

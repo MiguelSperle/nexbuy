@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.inventory.infrastructure.adapters.in.web.controllers.admin;
 
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.common.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.DecreaseInventoryUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.GetInventoriesUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.GetInventoryUseCase;

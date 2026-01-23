@@ -5,8 +5,8 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.Ge
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetColorsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetColorsUseCaseImpl implements GetColorsUseCase {
     private final ColorRepository colorRepository;

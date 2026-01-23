@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.controllers.admin;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetColorsUseCaseInput;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
-import com.miguelsperle.nexbuy.common.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteColorUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetColorsUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterColorUseCase;

@@ -5,8 +5,8 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.Ge
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoriesUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetCategoriesUseCaseImpl implements GetCategoriesUseCase {
     private final CategoryRepository brandRepository;

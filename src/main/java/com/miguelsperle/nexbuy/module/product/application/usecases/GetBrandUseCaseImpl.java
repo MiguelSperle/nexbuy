@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.Ge
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetBrandUseCaseImpl implements GetBrandUseCase {
     private final BrandRepository brandRepository;

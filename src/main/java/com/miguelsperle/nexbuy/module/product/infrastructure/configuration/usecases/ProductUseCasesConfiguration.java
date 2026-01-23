@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.product.infrastructure.configuration.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.*;
-import com.miguelsperle.nexbuy.common.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
 import com.miguelsperle.nexbuy.module.product.application.usecases.*;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;

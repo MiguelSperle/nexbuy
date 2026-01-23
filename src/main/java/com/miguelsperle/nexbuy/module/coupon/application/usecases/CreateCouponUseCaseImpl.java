@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.Creat
 import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.CreateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class CreateCouponUseCaseImpl implements CreateCouponUseCase {
     private final CouponRepository couponRepository;

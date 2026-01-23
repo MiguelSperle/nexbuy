@@ -2,13 +2,13 @@ package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.IncreaseInventoryUseCase;
 import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.IncreaseInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class IncreaseInventoryUseCaseImpl implements IncreaseInventoryUseCase {
     private final InventoryRepository inventoryRepository;

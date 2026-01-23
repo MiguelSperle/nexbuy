@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.*;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.*;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.CreateCouponRequest;
 import com.miguelsperle.nexbuy.module.coupon.infrastructure.adapters.in.web.dtos.requests.UpdateCouponRequest;
-import com.miguelsperle.nexbuy.common.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

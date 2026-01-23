@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.utils;
 
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
-import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 public class LegalPersonBuilderTest {
     public static LegalPerson create(String userId) {

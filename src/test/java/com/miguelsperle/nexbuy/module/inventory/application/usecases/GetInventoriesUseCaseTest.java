@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.G
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.GetInventoriesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.utils.InventoryBuilderTest;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.PaginationMetadata;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

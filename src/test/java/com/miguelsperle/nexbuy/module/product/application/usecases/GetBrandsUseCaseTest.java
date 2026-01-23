@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Get
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetBrandsUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.utils.BrandBuilderTest;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.PaginationMetadata;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

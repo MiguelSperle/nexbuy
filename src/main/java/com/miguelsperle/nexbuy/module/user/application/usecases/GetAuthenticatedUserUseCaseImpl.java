@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAuthenticatedUserUseCase;
@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseCase {
     private final SecurityContextService securityContextService;

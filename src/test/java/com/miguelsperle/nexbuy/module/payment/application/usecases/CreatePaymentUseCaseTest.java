@@ -6,8 +6,8 @@ import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.Cre
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
 import com.miguelsperle.nexbuy.module.payment.utils.PaymentBuilderTest;
-import com.miguelsperle.nexbuy.common.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.common.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

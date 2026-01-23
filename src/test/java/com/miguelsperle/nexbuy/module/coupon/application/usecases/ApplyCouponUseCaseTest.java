@@ -5,10 +5,10 @@ import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.Appl
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.ApplyCouponUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
 import com.miguelsperle.nexbuy.module.coupon.utils.CouponBuilderTest;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.common.domain.utils.DecimalUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

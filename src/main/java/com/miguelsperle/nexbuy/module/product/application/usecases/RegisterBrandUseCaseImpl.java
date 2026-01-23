@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.Reg
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.RegisterBrandUseCase;
 import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 
 public class RegisterBrandUseCaseImpl implements RegisterBrandUseCase {
     private final BrandRepository brandRepository;

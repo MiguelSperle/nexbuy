@@ -8,8 +8,8 @@ import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetC
 import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoryUseCase;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoriesResponse;
 import com.miguelsperle.nexbuy.module.product.infrastructure.adapters.in.web.dtos.responses.GetCategoryResponse;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

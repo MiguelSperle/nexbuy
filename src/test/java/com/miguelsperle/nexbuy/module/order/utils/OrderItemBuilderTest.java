@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.order.utils;
 
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
-import com.miguelsperle.nexbuy.common.domain.utils.DecimalUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.IdentifierUtils;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 public class OrderItemBuilderTest {
     public static OrderItem create(String orderId) {

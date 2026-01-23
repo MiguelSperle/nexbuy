@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.order.application.ports.out.persistence;
 
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.enums.OrderStatus;
-import com.miguelsperle.nexbuy.common.domain.pagination.Pagination;
-import com.miguelsperle.nexbuy.common.domain.pagination.SearchQuery;
+import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
+import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 import java.util.List;
 import java.util.Optional;

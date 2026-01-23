@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.adapters.in.web.controllers;
 
-import com.miguelsperle.nexbuy.common.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
+import com.miguelsperle.nexbuy.shared.infrastructure.adapters.in.web.dtos.responses.MessageResponse;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;

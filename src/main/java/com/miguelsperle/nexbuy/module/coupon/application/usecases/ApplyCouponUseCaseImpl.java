@@ -5,9 +5,9 @@ import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.C
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ApplyCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.ApplyCouponUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
-import com.miguelsperle.nexbuy.common.domain.exception.DomainException;
-import com.miguelsperle.nexbuy.common.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.common.domain.utils.TimeUtils;
+import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
