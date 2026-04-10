@@ -58,7 +58,7 @@ cd nexbuy
 mvn clean install
 ```
 
-<h3>⌨️ Command to run Docker Compose</h3>
+<h3>⌨️ Command to create and start containers in Docker Compose</h3>
 
 ```
 docker-compose up -d
@@ -84,7 +84,7 @@ docker-compose up -d
 | `JWT_SECRET` | To sign and verify JSON Web Tokens
 
 
-<h3>👨🏻‍💻 Developer</h3>
+<h3>👨🏻‍💻 Contributors</h3>
 
 <table>
   <tr>
