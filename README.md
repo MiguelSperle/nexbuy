@@ -20,7 +20,7 @@ It provides a complete set of functionality that an e-commerce typically offers 
 
 <p>
 It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
-Hexagonal Architecture, SOLID principles, Messaging, Database Transactions and Unit Tests.
+Hexagonal Architecture, SOLID principles, Messaging System, Database Transactions and Unit testing.
 </p>
 
 <p>
