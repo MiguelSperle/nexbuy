@@ -40,10 +40,10 @@ spring:
       simple:
         retry:
           enabled: true
-          max-attempts: 4
           initial-interval: 3000
           multiplier: 2
           max-interval: 12000
+          max-retries: 3
 
   freight:
     api:
@@ -54,9 +54,8 @@ spring:
         from: ${FREIGHT_QUOTE_FROM}
 
   stripe:
-    api:
+    secret:
+      key: ${STRIPE_SECRET_KEY}
+    webhook:
       secret:
-        key: ${STRIPE_API_SECRET_KEY}
-      webhook:
-        secret:
-          key: ${STRIPE_WEBHOOK_SECRET_KEY}
+        key: ${STRIPE_WEBHOOK_SECRET_KEY}

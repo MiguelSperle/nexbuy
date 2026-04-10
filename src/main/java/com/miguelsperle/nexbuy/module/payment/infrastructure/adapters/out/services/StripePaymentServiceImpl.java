@@ -18,14 +18,14 @@ import java.time.temporal.ChronoUnit;
 @Component
 @RequiredArgsConstructor
 public class StripePaymentServiceImpl implements PaymentService {
-    @Value("${spring.stripe.api.secret.key}")
-    private String stripeApiSecretKey;
+    @Value("${spring.stripe.secret.key}")
+    private String stripeSecretKey;
 
     private static final Logger log = LoggerFactory.getLogger(StripePaymentServiceImpl.class);
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = this.stripeApiSecretKey;
+        Stripe.apiKey = this.stripeSecretKey;
     }
 
     @Override

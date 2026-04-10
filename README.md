@@ -1,4 +1,4 @@
-<h1>NexBuy 💻</h1>
+<h1>Nexbuy 💻</h1>
 
 <p>
     <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="java badge"/>
@@ -64,72 +64,25 @@ mvn clean install
 docker-compose up -d
 ```
 
-<h3>🔑 System Environment Variables</h3>
+<h3>🔑 System environment variables</h3>
 
-```
-spring:
-  application:
-    name: nexbuy
+| Variable | Description
+|----------|------------
+| `DB_URL` | To specify the Database URL
+| `DB_USERNAME` | To authenticate with the Database
+| `DB_PASSWORD` | To authenticate with the Database
+| `RABBITMQ_USERNAME` | To authenticate with RabbitMQ
+| `RABBITMQ_PASSWORD` | To authenticate with RabbitMQ
+| `MAIL_USERNAME` | To authenticate with the SMTP service
+| `MAIL_PASSWORD` |To authenticate with the SMTP service
+| `FREIGHT_QUOTE_URL` | To specify the freight quote API URL
+| `FREIGHT_QUOTE_TOKEN` | To authenticate with the freight quote API
+| `FREIGHT_QUOTE_EMAIL` |To specify the email used in the freight quote API
+| `FREIGHT_QUOTE_FROM` | To specify the origin ZIP code for freight calculation
+| `STRIPE_SECRET_KEY` | To authenticate with Stripe
+| `STRIPE_WEBHOOK_SECRET_KEY` | To verify the Stripe webhook signature
+| `JWT_SECRET` | To sign and verify JSON Web Tokens
 
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-
-  flyway:
-    schemas: public
-    default-schema: public
-
-  api:
-    security:
-      token:
-        secret: ${JWT_SECRET}
-
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-
-  rabbitmq:
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
-    listener:
-      simple:
-        retry:
-          enabled: true
-          max-attempts: 4
-          initial-interval: 3000
-          multiplier: 2
-          max-interval: 12000
-
-  freight:
-    api:
-      url: ${FREIGHT_QUOTE_URL}
-      token: ${FREIGHT_QUOTE_TOKEN}
-      email: ${FREIGHT_QUOTE_EMAIL}
-      cep:
-        from: ${FREIGHT_QUOTE_FROM}
-
-  stripe:
-    api:
-      secret:
-        key: ${STRIPE_API_SECRET_KEY}
-      webhook:
-        secret:
-          key: ${STRIPE_WEBHOOK_SECRET_KEY}
-```
 
 <h3>👨🏻‍💻 Developer</h3>
 

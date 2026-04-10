@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 public class PaymentWebhookController {
     private final MessageProducer messageProducer;
 
-    @Value("${spring.stripe.api.webhook.secret.key}")
-    private String stripeApiWebhookSecretKey;
+    @Value("${spring.stripe.webhook.secret.key}")
+    private String stripeWebhookSecretKey;
 
     private static final String UPDATE_PAYMENT_STATUS_EXCHANGE = "update.payment.status.exchange";
     private static final String UPDATE_PAYMENT_STATUS_ROUTING_KEY = "update.payment.status.routing.key";
@@ -38,7 +38,7 @@ public class PaymentWebhookController {
     public ResponseEntity<Void> handleWebhook(HttpServletRequest request) throws IOException, SignatureVerificationException {
         final String payload = this.getPayload(request);
         final String header = request.getHeader("Stripe-Signature");
-        final Event event = Webhook.constructEvent(payload, header, this.stripeApiWebhookSecretKey);
+        final Event event = Webhook.constructEvent(payload, header, this.stripeWebhookSecretKey);
         this.processWebhookEvent(event);
 
         return ResponseEntity.noContent().build();
