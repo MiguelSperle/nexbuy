@@ -19,17 +19,17 @@ It provides a complete set of functionality that an e-commerce typically offers 
 </p>
 
 <p>
-It's important to emphasize that this is a study project designed to explore and implement complex concepts, such as:
+It is important to emphasize that this is a study project designed to explore and implement complex concepts, such as:
 Clean Architecture, SOLID principles, Messaging System, Database Transactions and Unit testing.
 </p>
 
 <p>
-Since it's a study project, some parts are simulated, but not all. For instance, 
+Since it is a study project, some parts are simulated, but not all. For instance, 
 while order shipping and its status updates are simulated, the freight queries are real using the API Melhor Envio.
 </p>
 
 <p>
-This is just a small text to clarify the purpose of the project.
+This is just a brief description to clarify the purpose of the project.
 </p>
 
 <h2>🚀 Getting started</h2>
@@ -90,7 +90,7 @@ docker-compose up -d
   <tr>
     <td>
       <a href="https://github.com/MiguelSperle">
-        <img src="https://avatars.githubusercontent.com/u/102910354?v=4" width="100px;" alt="Miguel Sperle Profile Picture"/><br>
+        <img src="https://avatars.githubusercontent.com/u/102910354?v=4" width="100px;" alt="Profile photo of Miguel Sperle"/><br>
       </a>
     </td>
   </tr>
