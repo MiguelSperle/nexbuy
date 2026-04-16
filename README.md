@@ -14,7 +14,7 @@
 </p>
 
 <p>
-To summarize, Nexbuy is a back-end application designed to operate efficiently as an e-commerce. 
+To summarize, Nexbuy is a backend application designed to operate efficiently as an e-commerce. 
 It provides a complete set of functionality that an e-commerce typically offers through a well-structured API.
 </p>
 
