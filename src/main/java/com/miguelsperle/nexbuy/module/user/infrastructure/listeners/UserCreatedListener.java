@@ -1,0 +1,57 @@
+package com.miguelsperle.nexbuy.module.user.infrastructure.listeners;
+
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
+import com.miguelsperle.nexbuy.module.user.domain.entities.User;
+import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
+import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
+import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.EmailService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
+import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class UserCreatedListener {
+    private final UserCodeRepository userCodeRepository;
+    private final CodeProvider codeProvider;
+    private final UserRepository userRepository;
+    private final EmailService emailService;
+    private final TransactionManager transactionManager;
+
+    private static final String USER_CREATED_QUEUE = "user.created.queue";
+
+    private final static int CODE_LENGTH = 6;
+    private final static String ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    @RabbitListener(queues = USER_CREATED_QUEUE)
+    public void onMessage(UserCreatedEvent userCreatedEvent) {
+        final String codeGenerated = this.codeProvider.generateCode(CODE_LENGTH, ALPHANUMERIC_CHARACTERS);
+
+        final UserCode newUserCode = UserCode.newUserCode(userCreatedEvent.id(), codeGenerated, UserCodeType.USER_VERIFICATION);
+
+        this.transactionManager.runTransaction(() -> {
+            final UserCode savedUserCode = this.saveUserCode(newUserCode);
+
+            final String text = "Hello, your verification code is " + savedUserCode.getCode() + " and it will expire in 15 minutes";
+            final String subject = "User Verification Code";
+
+            final User user = this.getUserById(savedUserCode.getUserId());
+
+            this.emailService.sendEmail(user.getEmail(), text, subject);
+        });
+    }
+
+    private UserCode saveUserCode(UserCode userCode) {
+        return this.userCodeRepository.save(userCode);
+    }
+
+    private User getUserById(String userId) {
+        return this.userRepository.findById(userId)
+                .orElseThrow(() -> NotFoundException.with("User not found"));
+    }
+}

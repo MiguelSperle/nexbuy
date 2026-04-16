@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserCodeBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
@@ -38,7 +38,7 @@ public class UpdateUserToVerifiedUseCaseTest {
     private UserCodeRepository userCodeRepository;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Test
     @DisplayName("Should update user to verified")
@@ -58,7 +58,7 @@ public class UpdateUserToVerifiedUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.userRepository.save(Mockito.any())).thenReturn(updatedUser);
 

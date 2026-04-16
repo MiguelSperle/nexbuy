@@ -1,11 +1,11 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases;
 
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrdersUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.utils.OrderBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;

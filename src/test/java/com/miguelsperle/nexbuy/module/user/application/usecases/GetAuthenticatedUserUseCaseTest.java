@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.LegalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.NaturalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
@@ -13,7 +13,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.LegalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.NaturalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

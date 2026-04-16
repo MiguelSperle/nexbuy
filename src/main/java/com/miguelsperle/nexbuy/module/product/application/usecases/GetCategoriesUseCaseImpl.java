@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetCategoriesUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetCategoriesUseCaseOutput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.GetCategoriesUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.usecases.GetCategoriesUseCase;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;

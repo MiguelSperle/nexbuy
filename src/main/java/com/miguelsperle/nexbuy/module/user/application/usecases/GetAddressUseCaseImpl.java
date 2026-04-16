@@ -2,8 +2,8 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.GetAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressUseCaseOutput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.GetAddressUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.AddressRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.GetAddressUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.AddressRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 

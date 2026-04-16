@@ -1,18 +1,18 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases;
 
-import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.CreateOrderUseCase;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderDeliveryRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderItemRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.CreateOrderUseCase;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderDeliveryRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderItemRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.CreateOrderUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
 import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final OrderDeliveryRepository orderDeliveryRepository;
     private final SecurityContextService securityContextService;
     private final CodeProvider codeProvider;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
     private final MessageProducer messageProducer;
 
     private final static int CODE_LENGTH = 12;
@@ -37,7 +37,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
             OrderDeliveryRepository orderDeliveryRepository,
             SecurityContextService securityContextService,
             CodeProvider codeProvider,
-            TransactionExecutor transactionExecutor,
+            TransactionManager transactionManager,
             MessageProducer messageProducer
     ) {
         this.orderRepository = orderRepository;
@@ -45,7 +45,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
         this.orderDeliveryRepository = orderDeliveryRepository;
         this.securityContextService = securityContextService;
         this.codeProvider = codeProvider;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
         this.messageProducer = messageProducer;
     }
 
@@ -57,7 +57,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
         final Order newOrder = Order.newOrder(authenticatedUserId, codeGenerated, createOrderUseCaseInput.totalAmount());
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             final Order orderSaved = this.saveOrder(newOrder);
 
             final List<OrderItem> newOrderItems = createOrderUseCaseInput.orderItemsComplementInput().stream()
@@ -93,7 +93,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
                     createOrderUseCaseInput.deliveryComplementInput().freight().maxTime()
             );
 
-            this.transactionExecutor.registerAfterCommit(() ->
+            this.transactionManager.afterCommit(() ->
                     this.messageProducer.publish(CREATE_FREIGHT_EXCHANGE, CREATE_FREIGHT_ROUTING_KEY, createFreightCommand)
             );
         });

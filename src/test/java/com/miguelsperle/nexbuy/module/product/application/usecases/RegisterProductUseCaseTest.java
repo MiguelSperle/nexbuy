@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.providers.SkuProvider;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.BrandRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.providers.SkuProvider;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.RegisterProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.complements.DimensionComplementInput;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
@@ -16,7 +16,7 @@ import com.miguelsperle.nexbuy.module.product.utils.BrandBuilderTest;
 import com.miguelsperle.nexbuy.module.product.utils.CategoryBuilderTest;
 import com.miguelsperle.nexbuy.module.product.utils.ColorBuilderTest;
 import com.miguelsperle.nexbuy.module.product.utils.ProductBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

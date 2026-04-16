@@ -1,0 +1,49 @@
+package com.miguelsperle.nexbuy.module.user.infrastructure.rest.controllers;
+
+import com.miguelsperle.nexbuy.shared.infrastructure.rest.dtos.res.MessageResponse;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreatePasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.CreatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.ResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.ValidatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.infrastructure.rest.dtos.req.CreatePasswordResetCodeRequest;
+import com.miguelsperle.nexbuy.module.user.infrastructure.rest.dtos.req.ResendVerificationCodeRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/user-codes")
+@RequiredArgsConstructor
+public class UserCodeController {
+    private final ResendVerificationCodeUseCase resendVerificationCodeUseCase;
+    private final CreatePasswordResetCodeUseCase createPasswordResetCodeUseCase;
+    private final ValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase;
+
+    @PostMapping("/verification/resend")
+    public ResponseEntity<MessageResponse> resendVerificationCode(@RequestBody @Valid ResendVerificationCodeRequest resendVerificationCodeRequest) {
+        this.resendVerificationCodeUseCase.execute(ResendVerificationCodeUseCaseInput.with(
+                resendVerificationCodeRequest.email()
+        ));
+
+        return ResponseEntity.ok().body(MessageResponse.from("Verification code sent successfully"));
+    }
+
+    @PostMapping("/password-recovery")
+    public ResponseEntity<MessageResponse> createPasswordResetCode(@RequestBody @Valid CreatePasswordResetCodeRequest createPasswordResetCodeRequest) {
+        this.createPasswordResetCodeUseCase.execute(CreatePasswordResetCodeUseCaseInput.with(
+                createPasswordResetCodeRequest.email()
+        ));
+
+        return ResponseEntity.ok().body(MessageResponse.from("Password reset code sent successfully"));
+    }
+
+    @GetMapping("/password-recovery/{code}/validation")
+    public ResponseEntity<Void> validatePasswordResetCode(@PathVariable String code) {
+        this.validatePasswordResetCodeUseCase.execute(ValidatePasswordResetCodeUseCaseInput.with(code));
+
+        return ResponseEntity.noContent().build();
+    }
+}

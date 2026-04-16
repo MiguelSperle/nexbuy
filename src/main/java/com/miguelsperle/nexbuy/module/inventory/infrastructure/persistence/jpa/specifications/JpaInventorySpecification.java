@@ -1,0 +1,11 @@
+package com.miguelsperle.nexbuy.module.inventory.infrastructure.persistence.jpa.specifications;
+
+import com.miguelsperle.nexbuy.module.inventory.infrastructure.persistence.jpa.entities.JpaInventoryEntity;
+import org.springframework.data.jpa.domain.Specification;
+
+public class JpaInventorySpecification {
+    public static Specification<JpaInventoryEntity> filterBySku(String sku) {
+        return (root, query, criterialBuilder) ->
+                criterialBuilder.like(criterialBuilder.lower(root.get("sku")), "%" + sku.toLowerCase() + "%");
+    }
+}

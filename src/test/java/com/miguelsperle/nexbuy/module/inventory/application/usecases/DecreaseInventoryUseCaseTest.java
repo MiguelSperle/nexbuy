@@ -1,14 +1,14 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryMovementRepository;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.DecreaseInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
 import com.miguelsperle.nexbuy.module.inventory.utils.InventoryBuilderTest;
 import com.miguelsperle.nexbuy.module.inventory.utils.InventoryMovementBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +34,7 @@ public class DecreaseInventoryUseCaseTest {
     private InventoryMovementRepository inventoryMovementRepository;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Test
     @DisplayName("Should decrease inventory")
@@ -48,7 +48,7 @@ public class DecreaseInventoryUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         final DecreaseInventoryUseCaseInput decreaseInventoryUseCaseInput = DecreaseInventoryUseCaseInput.with(
                 inventory.getSku(),
@@ -66,7 +66,7 @@ public class DecreaseInventoryUseCaseTest {
         this.decreaseInventoryUseCase.execute(decreaseInventoryUseCaseInput);
 
         Mockito.verify(this.inventoryRepository, Mockito.times(1)).findBySku(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.inventoryRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.inventoryMovementRepository, Mockito.times(1)).save(Mockito.any());
     }

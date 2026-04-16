@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResendVerificationCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ResendVerificationCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.ResendVerificationCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;

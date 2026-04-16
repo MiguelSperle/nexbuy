@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.GetInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.usecases.GetInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.GetInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.outputs.GetInventoryUseCaseOutput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;

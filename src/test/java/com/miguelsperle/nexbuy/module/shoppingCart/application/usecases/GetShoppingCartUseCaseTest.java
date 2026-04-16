@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartItemRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.outputs.GetShoppingCartUseCaseOutput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartBuilderTest;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import org.junit.jupiter.api.Assertions;

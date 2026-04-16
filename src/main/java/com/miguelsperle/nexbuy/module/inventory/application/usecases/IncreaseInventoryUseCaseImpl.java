@@ -1,10 +1,10 @@
 package com.miguelsperle.nexbuy.module.inventory.application.usecases;
 
-import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryMovementRepository;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryMovementRepository;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.InventoryMovement;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.in.usecases.IncreaseInventoryUseCase;
-import com.miguelsperle.nexbuy.module.inventory.application.ports.out.persistence.InventoryRepository;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.usecases.IncreaseInventoryUseCase;
+import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.application.usecases.io.inputs.IncreaseInventoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
 import com.miguelsperle.nexbuy.module.inventory.domain.enums.InventoryMovementType;
@@ -13,16 +13,16 @@ import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 public class IncreaseInventoryUseCaseImpl implements IncreaseInventoryUseCase {
     private final InventoryRepository inventoryRepository;
     private final InventoryMovementRepository inventoryMovementRepository;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
 
     public IncreaseInventoryUseCaseImpl(
             InventoryRepository inventoryRepository,
             InventoryMovementRepository inventoryMovementRepository,
-            TransactionExecutor transactionExecutor
+            TransactionManager transactionManager
     ) {
         this.inventoryRepository = inventoryRepository;
         this.inventoryMovementRepository = inventoryMovementRepository;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class IncreaseInventoryUseCaseImpl implements IncreaseInventoryUseCase {
 
         final Inventory updatedInventory = inventory.withQuantity(increasedInventoryQuantity);
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             final Inventory savedInventory = this.saveInventory(updatedInventory);
 
             final InventoryMovement newInventoryMovement = InventoryMovement.newInventoryMovement(

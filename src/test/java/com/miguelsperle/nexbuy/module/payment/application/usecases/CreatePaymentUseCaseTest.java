@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.payment.application.usecases;
 
-import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.PaymentRepository;
-import com.miguelsperle.nexbuy.module.payment.application.ports.out.services.PaymentService;
+import com.miguelsperle.nexbuy.module.payment.application.abstractions.repositories.PaymentRepository;
+import com.miguelsperle.nexbuy.module.payment.application.abstractions.services.PaymentService;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.CreatePaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
 import com.miguelsperle.nexbuy.module.payment.utils.PaymentBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class CreatePaymentUseCaseTest {
     private PaymentService paymentService;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Mock
     private SecurityContextService securityContextService;
@@ -46,7 +46,7 @@ public class CreatePaymentUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.paymentRepository.save(Mockito.any())).thenReturn(payment);
 
@@ -65,7 +65,7 @@ public class CreatePaymentUseCaseTest {
         Assertions.assertEquals(sessionUrl, createPaymentUseCaseOutput.sessionUrl());
 
         Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.paymentRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.paymentService, Mockito.times(1)).createCheckoutSession(Mockito.any(), Mockito.anyLong());
     }

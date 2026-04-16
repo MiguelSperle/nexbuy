@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.RefreshTokenRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.RefreshTokenRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.RefreshTokenUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.RefreshTokenUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.RefreshTokenBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;

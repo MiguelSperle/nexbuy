@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ColorRepository;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateColorUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;
 import com.miguelsperle.nexbuy.module.product.utils.ColorBuilderTest;

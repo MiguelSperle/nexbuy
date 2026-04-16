@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.payment.application.usecases;
 
-import com.miguelsperle.nexbuy.module.payment.application.ports.in.usecases.CreatePaymentUseCase;
-import com.miguelsperle.nexbuy.module.payment.application.ports.out.persistence.PaymentRepository;
-import com.miguelsperle.nexbuy.module.payment.application.ports.out.services.PaymentService;
+import com.miguelsperle.nexbuy.module.payment.application.abstractions.usecases.CreatePaymentUseCase;
+import com.miguelsperle.nexbuy.module.payment.application.abstractions.repositories.PaymentRepository;
+import com.miguelsperle.nexbuy.module.payment.application.abstractions.services.PaymentService;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.CreatePaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -15,18 +15,18 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
     private final PaymentRepository paymentRepository;
     private final PaymentService paymentService;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
     private final SecurityContextService securityContextService;
 
     public CreatePaymentUseCaseImpl(
             PaymentRepository paymentRepository,
             PaymentService paymentService,
-            TransactionExecutor transactionExecutor,
+            TransactionManager transactionManager,
             SecurityContextService securityContextService
     ) {
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
         this.securityContextService = securityContextService;
     }
 
@@ -42,7 +42,7 @@ public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
 
         final AtomicReference<String> sessionUrlRef = new AtomicReference<>();
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             final Payment savedPayment = this.savePayment(newPayment);
 
             final long convertedToCents = createPaymentUseCaseInput.totalAmount().multiply(DecimalUtils.valueOf(100)).longValue();

@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;

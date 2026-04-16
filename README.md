@@ -14,13 +14,13 @@
 </p>
 
 <p>
-To summarize, NexBuy is a back-end application designed to operate efficiently as an e-commerce. 
+To summarize, Nexbuy is a back-end application designed to operate efficiently as an e-commerce. 
 It provides a complete set of functionality that an e-commerce typically offers through a well-structured API.
 </p>
 
 <p>
-It's worth noting that this is a study project, designed to address and apply complex concepts such as: 
-Hexagonal Architecture, SOLID principles, Messaging System, Database Transactions and Unit testing.
+It's important to emphasize that this is a study project designed to explore and implement complex concepts, such as:
+Clean Architecture, SOLID principles, Messaging System, Database Transactions and Unit testing.
 </p>
 
 <p>

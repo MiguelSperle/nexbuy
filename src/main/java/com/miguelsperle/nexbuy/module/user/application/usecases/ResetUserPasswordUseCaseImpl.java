@@ -1,14 +1,14 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ResetUserPasswordUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.ResetUserPasswordUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
@@ -19,18 +19,18 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
     private final UserCodeRepository userCodeRepository;
     private final UserRepository userRepository;
     private final PasswordEncryptorProvider passwordEncryptorProvider;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
 
     public ResetUserPasswordUseCaseImpl(
             UserCodeRepository userCodeRepository,
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
-            TransactionExecutor transactionExecutor
+            TransactionManager transactionManager
     ) {
         this.userCodeRepository = userCodeRepository;
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ResetUserPasswordUseCaseImpl implements ResetUserPasswordUseCase {
 
         final User updatedUser = user.withPassword(encodedPassword);
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             this.saveUser(updatedUser);
             this.deleteUserCodeById(userCode.getId());
         });

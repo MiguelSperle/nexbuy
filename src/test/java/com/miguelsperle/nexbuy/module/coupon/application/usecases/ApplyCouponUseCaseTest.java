@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.coupon.application.usecases;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
+import com.miguelsperle.nexbuy.module.coupon.application.abstractions.repositories.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ApplyCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.outputs.ApplyCouponUseCaseOutput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;

@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartItemRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.AddItemToShoppingCartUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartBuilderTest;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +35,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Test
     @DisplayName("Should add item to shopping cart for the first time")
@@ -51,7 +51,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.shoppingCartItemRepository.save(Mockito.any())).thenReturn(shoppingCartItem);
 
@@ -73,7 +73,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
 
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).findByShoppingCartIdAndProductId(Mockito.any(), Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).findAllByShoppingCartId(Mockito.any());
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).save(Mockito.any());
@@ -93,7 +93,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         final ShoppingCartItem updatedShoppingCartItem = shoppingCartItem.withQuantity(2);
 
@@ -115,7 +115,7 @@ public class AddItemToShoppingCartBuilderTestUseCaseTest {
 
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).findByShoppingCartIdAndProductId(Mockito.any(), Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).save(Mockito.any());
     }

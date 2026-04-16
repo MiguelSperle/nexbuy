@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.freight.application.usecases;
 
-import com.miguelsperle.nexbuy.module.freight.application.ports.out.persistence.FreightRepository;
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.repositories.FreightRepository;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.GetFreightUseCaseInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.GetFreightUseCaseOutput;
 import com.miguelsperle.nexbuy.module.freight.domain.entities.Freight;

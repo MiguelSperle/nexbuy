@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.freight.application.usecases;
 
-import com.miguelsperle.nexbuy.module.freight.application.ports.in.usecases.ConsultFreightQuotesUseCase;
-import com.miguelsperle.nexbuy.module.freight.application.ports.out.services.FreightService;
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.ConsultFreightQuotesUseCase;
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.services.FreightService;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.ConsultFreightQuotesUseCaseInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.complement.ItemsComplementInput;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.io.outputs.ConsultFreightQuotesUseCaseOutput;

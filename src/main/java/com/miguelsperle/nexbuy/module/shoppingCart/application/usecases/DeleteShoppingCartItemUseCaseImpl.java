@@ -1,12 +1,12 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.in.usecases.DeleteShoppingCartItemUseCase;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.usecases.DeleteShoppingCartItemUseCase;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartItemRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.DeleteShoppingCartItemUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.math.BigDecimal;
@@ -15,16 +15,16 @@ import java.util.List;
 public class DeleteShoppingCartItemUseCaseImpl implements DeleteShoppingCartItemUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
 
     public DeleteShoppingCartItemUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            TransactionExecutor transactionExecutor
+            TransactionManager transactionManager
     ) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.shoppingCartItemRepository = shoppingCartItemRepository;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DeleteShoppingCartItemUseCaseImpl implements DeleteShoppingCartItem
 
         final ShoppingCartItem shoppingCartItem = this.getShoppingCartItemById(deleteShoppingCartItemUseCaseInput.shoppingCartItemId());
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             this.deleteShoppingCartItemById(shoppingCartItem.getId());
 
             final List<ShoppingCartItem> shoppingCartItems = this.getAllShoppingCartItemsByShoppingCartId(shoppingCart.getId());

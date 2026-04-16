@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.DeleteUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.DeleteUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;

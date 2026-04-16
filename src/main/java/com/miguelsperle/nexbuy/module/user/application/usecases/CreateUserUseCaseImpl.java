@@ -1,17 +1,17 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.LegalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.NaturalPersonRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
 import com.miguelsperle.nexbuy.module.user.domain.entities.NaturalPerson;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.CreateUserUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.CreateUserUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
@@ -21,7 +21,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final PasswordEncryptorProvider passwordEncryptorProvider;
     private final NaturalPersonRepository naturalPersonRepository;
     private final LegalPersonRepository legalPersonRepository;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
     private final MessageProducer messageProducer;
 
     private static final String USER_CREATED_EXCHANGE = "user.created.exchange";
@@ -31,14 +31,14 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             PasswordEncryptorProvider passwordEncryptorProvider,
             NaturalPersonRepository naturalPersonRepository,
             LegalPersonRepository legalPersonRepository,
-            TransactionExecutor transactionExecutor,
+            TransactionManager transactionManager,
             MessageProducer messageProducer
     ) {
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.naturalPersonRepository = naturalPersonRepository;
         this.legalPersonRepository = legalPersonRepository;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
         this.messageProducer = messageProducer;
     }
 
@@ -60,7 +60,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
         final User newUser = User.newUser(createUserUseCaseInput.firstName(), createUserUseCaseInput.lastName(), createUserUseCaseInput.email().toLowerCase(), encodedPassword, createUserUseCaseInput.phoneNumber(), createUserUseCaseInput.personType());
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             final User savedUser = this.saveUser(newUser);
 
             if (savedUser.getPersonType() == PersonType.NATURAL_PERSON) {
@@ -85,7 +85,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
             final UserCreatedEvent userCreatedEvent = UserCreatedEvent.from(savedUser.getId());
 
-            this.transactionExecutor.registerAfterCommit(() -> this.messageProducer.publish(
+            this.transactionManager.afterCommit(() -> this.messageProducer.publish(
                     USER_CREATED_EXCHANGE, "", userCreatedEvent
             ));
         });

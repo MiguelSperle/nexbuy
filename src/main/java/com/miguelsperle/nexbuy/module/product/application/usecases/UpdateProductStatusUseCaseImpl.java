@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductStatusUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductStatusUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.usecases.UpdateProductStatusUseCase;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Product;
 import com.miguelsperle.nexbuy.module.product.domain.enums.ProductStatus;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;

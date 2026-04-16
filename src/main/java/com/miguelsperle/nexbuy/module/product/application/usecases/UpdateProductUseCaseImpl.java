@@ -1,15 +1,15 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.domain.events.ProductPriceUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.UpdateProductUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.BrandRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ColorRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.providers.SkuProvider;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.usecases.UpdateProductUseCase;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.BrandRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ColorRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.providers.SkuProvider;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Color;

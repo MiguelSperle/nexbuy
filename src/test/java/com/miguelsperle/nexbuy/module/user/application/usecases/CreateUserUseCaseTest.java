@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.LegalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.NaturalPersonRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.LegalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.NaturalPersonRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.LegalPerson;
@@ -14,9 +14,9 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.LegalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.NaturalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -45,7 +45,7 @@ public class CreateUserUseCaseTest {
     private LegalPersonRepository legalPersonRepository;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Mock
     private MessageProducer messageProducer;
@@ -72,7 +72,7 @@ public class CreateUserUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.userRepository.save(Mockito.any())).thenReturn(user);
 
@@ -82,7 +82,7 @@ public class CreateUserUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).registerAfterCommit(Mockito.any());
+        }).when(this.transactionManager).afterCommit(Mockito.any());
 
         Mockito.doNothing().when(this.messageProducer).publish(Mockito.any(), Mockito.any(), Mockito.any());
 
@@ -107,10 +107,10 @@ public class CreateUserUseCaseTest {
         Mockito.verify(this.naturalPersonRepository, Mockito.times(1)).existsByCpf(Mockito.any());
         Mockito.verify(this.naturalPersonRepository, Mockito.times(1)).existsByGeneralRegister(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).encode(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.naturalPersonRepository, Mockito.times(1)).save(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).registerAfterCommit(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).afterCommit(Mockito.any());
         Mockito.verify(this.messageProducer, Mockito.times(1)).publish(Mockito.any(), Mockito.any(), Mockito.any());
     }
 
@@ -139,7 +139,7 @@ public class CreateUserUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.userRepository.save(Mockito.any())).thenReturn(user);
 
@@ -149,7 +149,7 @@ public class CreateUserUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).registerAfterCommit(Mockito.any());
+        }).when(this.transactionManager).afterCommit(Mockito.any());
 
         Mockito.doNothing().when(this.messageProducer).publish(Mockito.any(), Mockito.any(), Mockito.any());
 
@@ -176,10 +176,10 @@ public class CreateUserUseCaseTest {
         Mockito.verify(this.legalPersonRepository, Mockito.times(1)).existsByLegalName(Mockito.any());
         Mockito.verify(this.legalPersonRepository, Mockito.times(1)).existsByStateRegistration(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).encode(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.legalPersonRepository, Mockito.times(1)).save(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).registerAfterCommit(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).afterCommit(Mockito.any());
         Mockito.verify(this.messageProducer, Mockito.times(1)).publish(Mockito.any(), Mockito.any(), Mockito.any());
     }
 

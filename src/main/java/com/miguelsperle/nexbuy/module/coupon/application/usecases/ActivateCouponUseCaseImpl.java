@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.coupon.application.usecases;
 
-import com.miguelsperle.nexbuy.module.coupon.application.ports.in.usecases.ActivateCouponUseCase;
-import com.miguelsperle.nexbuy.module.coupon.application.ports.out.persistence.CouponRepository;
+import com.miguelsperle.nexbuy.module.coupon.application.abstractions.usecases.ActivateCouponUseCase;
+import com.miguelsperle.nexbuy.module.coupon.application.abstractions.repositories.CouponRepository;
 import com.miguelsperle.nexbuy.module.coupon.application.usecases.io.inputs.ActivateCouponUseCaseInput;
 import com.miguelsperle.nexbuy.module.coupon.domain.entities.Coupon;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;

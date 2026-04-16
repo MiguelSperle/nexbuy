@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases;
 
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderDeliveryRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderItemRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderDeliveryRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderItemRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.CreateOrderUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.AddressComplementInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.complement.DeliveryComplementInput;
@@ -14,10 +14,10 @@ import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
 import com.miguelsperle.nexbuy.module.order.utils.OrderBuilderTest;
 import com.miguelsperle.nexbuy.module.order.utils.OrderDeliveryBuilderTest;
 import com.miguelsperle.nexbuy.module.order.utils.OrderItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ public class CreateOrderUseCaseTest {
     private CodeProvider codeProvider;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Mock
     private MessageProducer messageProducer;
@@ -70,7 +70,7 @@ public class CreateOrderUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.when(this.orderRepository.save(Mockito.any())).thenReturn(order);
 
@@ -82,7 +82,7 @@ public class CreateOrderUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).registerAfterCommit(Mockito.any());
+        }).when(this.transactionManager).afterCommit(Mockito.any());
 
         Mockito.doNothing().when(this.messageProducer).publish(Mockito.any(), Mockito.any(), Mockito.any());
 
@@ -126,11 +126,11 @@ public class CreateOrderUseCaseTest {
 
         Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
         Mockito.verify(this.codeProvider, Mockito.times(1)).generateCode(Mockito.anyInt(), Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.orderRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.orderItemRepository, Mockito.times(1)).saveAll(Mockito.any());
         Mockito.verify(this.orderDeliveryRepository, Mockito.times(1)).save(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).registerAfterCommit(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).afterCommit(Mockito.any());
         Mockito.verify(this.messageProducer, Mockito.times(1)).publish(Mockito.any(), Mockito.any(), Mockito.any());
     }
 }

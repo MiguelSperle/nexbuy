@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.CategoryRepository;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateCategoryUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.module.product.utils.CategoryBuilderTest;

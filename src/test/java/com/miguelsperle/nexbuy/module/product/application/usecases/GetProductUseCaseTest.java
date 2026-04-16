@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.GetProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.outputs.GetProductUseCaseOutput;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Brand;

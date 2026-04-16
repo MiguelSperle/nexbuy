@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.DeleteCategoryUseCaseInput;
-import com.miguelsperle.nexbuy.module.product.application.ports.in.usecases.DeleteCategoryUseCase;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.CategoryRepository;
-import com.miguelsperle.nexbuy.module.product.application.ports.out.persistence.ProductRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.usecases.DeleteCategoryUseCase;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.CategoryRepository;
+import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.ProductRepository;
 import com.miguelsperle.nexbuy.module.product.domain.entities.Category;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;

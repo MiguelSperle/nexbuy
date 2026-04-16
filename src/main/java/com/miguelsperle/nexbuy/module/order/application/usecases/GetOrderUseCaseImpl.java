@@ -1,9 +1,9 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases;
 
-import com.miguelsperle.nexbuy.module.order.application.ports.in.usecases.GetOrderUseCase;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderDeliveryRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderItemRepository;
-import com.miguelsperle.nexbuy.module.order.application.ports.out.persistence.OrderRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.GetOrderUseCase;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderDeliveryRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderItemRepository;
+import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrderUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrderUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;

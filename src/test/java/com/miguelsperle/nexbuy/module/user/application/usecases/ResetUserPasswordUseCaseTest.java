@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ResetUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
@@ -11,8 +11,8 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserCodeBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
@@ -42,7 +42,7 @@ public class ResetUserPasswordUseCaseTest {
     private PasswordEncryptorProvider passwordEncryptorProvider;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Test
     @DisplayName("Should reset user password")
@@ -63,7 +63,7 @@ public class ResetUserPasswordUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         final User updatedUser = user.withPassword(encodedPassword);
 
@@ -80,7 +80,7 @@ public class ResetUserPasswordUseCaseTest {
         Mockito.verify(this.userCodeRepository, Mockito.times(1)).findByCodeAndCodeType(Mockito.any(), Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).encode(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.userCodeRepository, Mockito.times(1)).deleteById(Mockito.any());
     }

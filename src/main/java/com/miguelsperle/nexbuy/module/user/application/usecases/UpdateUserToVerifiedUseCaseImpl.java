@@ -1,14 +1,14 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserToVerifiedUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.UpdateUserToVerifiedUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserRepository;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.UpdateUserToVerifiedUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
@@ -18,16 +18,16 @@ import java.time.LocalDateTime;
 public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseCase {
     private final UserRepository userRepository;
     private final UserCodeRepository userCodeRepository;
-    private final TransactionExecutor transactionExecutor;
+    private final TransactionManager transactionManager;
 
     public UpdateUserToVerifiedUseCaseImpl(
             UserRepository userRepository,
             UserCodeRepository userCodeRepository,
-            TransactionExecutor transactionExecutor
+            TransactionManager transactionManager
     ) {
         this.userRepository = userRepository;
         this.userCodeRepository = userCodeRepository;
-        this.transactionExecutor = transactionExecutor;
+        this.transactionManager = transactionManager;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UpdateUserToVerifiedUseCaseImpl implements UpdateUserToVerifiedUseC
 
         final User updatedUser = user.withUserStatus(UserStatus.VERIFIED);
 
-        this.transactionExecutor.runTransaction(() -> {
+        this.transactionManager.runTransaction(() -> {
             this.saveUser(updatedUser);
             this.deleteUserCodeById(userCode.getId());
         });

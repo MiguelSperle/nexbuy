@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.ValidatePasswordResetCodeUseCaseInput;
-import com.miguelsperle.nexbuy.module.user.application.ports.in.usecases.ValidatePasswordResetCodeUseCase;
-import com.miguelsperle.nexbuy.module.user.application.ports.out.persistence.UserCodeRepository;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.ValidatePasswordResetCodeUseCase;
+import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserCodeRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 

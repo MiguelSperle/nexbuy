@@ -1,13 +1,13 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.application.usecases;
 
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartItemRepository;
-import com.miguelsperle.nexbuy.module.shoppingCart.application.ports.out.persistence.ShoppingCartRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartItemRepository;
+import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repositories.ShoppingCartRepository;
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.inputs.DeleteAllShoppingCartItemsUseCaseInput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartBuilderTest;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.ports.out.transaction.TransactionExecutor;
+import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +34,7 @@ public class DeleteAllShoppingCartItemsUseCaseTest {
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Mock
-    private TransactionExecutor transactionExecutor;
+    private TransactionManager transactionManager;
 
     @Test
     @DisplayName("Should delete all shopping cart items")
@@ -50,7 +50,7 @@ public class DeleteAllShoppingCartItemsUseCaseTest {
             final Runnable runnable = invocationOnMock.getArgument(0);
             runnable.run();
             return runnable;
-        }).when(this.transactionExecutor).runTransaction(Mockito.any());
+        }).when(this.transactionManager).runTransaction(Mockito.any());
 
         Mockito.doNothing().when(this.shoppingCartItemRepository).deleteAll(Mockito.any());
 
@@ -66,7 +66,7 @@ public class DeleteAllShoppingCartItemsUseCaseTest {
 
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).findAllByShoppingCartId(Mockito.any());
-        Mockito.verify(this.transactionExecutor, Mockito.times(1)).runTransaction(Mockito.any());
+        Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).deleteAll(Mockito.any());
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).save(Mockito.any());
     }
