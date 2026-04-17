@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.Cre
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
 import com.miguelsperle.nexbuy.module.payment.utils.PaymentBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ public class CreatePaymentUseCaseTest {
     private TransactionManager transactionManager;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("Should create payment")
@@ -40,7 +40,7 @@ public class CreatePaymentUseCaseTest {
         final Payment payment = PaymentBuilderTest.create();
         final String sessionUrl = "test-session-url";
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(payment.getUserId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(payment.getUserId());
 
         Mockito.doAnswer(invocationOnMock -> {
             final Runnable runnable = invocationOnMock.getArgument(0);
@@ -64,7 +64,7 @@ public class CreatePaymentUseCaseTest {
 
         Assertions.assertEquals(sessionUrl, createPaymentUseCaseOutput.sessionUrl());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.paymentRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.paymentService, Mockito.times(1)).createCheckoutSession(Mockito.any(), Mockito.anyLong());

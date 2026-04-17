@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
 import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final OrderDeliveryRepository orderDeliveryRepository;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
     private final CodeProvider codeProvider;
     private final TransactionManager transactionManager;
     private final MessageProducer messageProducer;
@@ -35,7 +35,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
             OrderRepository orderRepository,
             OrderItemRepository orderItemRepository,
             OrderDeliveryRepository orderDeliveryRepository,
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             CodeProvider codeProvider,
             TransactionManager transactionManager,
             MessageProducer messageProducer
@@ -43,7 +43,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.orderDeliveryRepository = orderDeliveryRepository;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
         this.codeProvider = codeProvider;
         this.transactionManager = transactionManager;
         this.messageProducer = messageProducer;
@@ -100,7 +100,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private Order saveOrder(Order order) {

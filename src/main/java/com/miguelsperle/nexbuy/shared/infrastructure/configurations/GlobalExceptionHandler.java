@@ -2,8 +2,7 @@ package com.miguelsperle.nexbuy.shared.infrastructure.configurations;
 
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
-import com.miguelsperle.nexbuy.shared.infrastructure.services.exceptions.JwtTokenCreationFailedException;
-import com.miguelsperle.nexbuy.shared.infrastructure.services.exceptions.JwtTokenValidationFailedException;
+import com.miguelsperle.nexbuy.shared.infrastructure.services.exceptions.JwtTokenDecodingFailedException;
 import com.miguelsperle.nexbuy.shared.infrastructure.utils.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,24 +27,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ApiError.from(errors, HttpStatus.BAD_REQUEST.getReasonPhrase()));
     }
 
-    @ExceptionHandler(JwtTokenCreationFailedException.class)
-    public ResponseEntity<ApiError> handleJwtTokenCreationFailedException(JwtTokenCreationFailedException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiError.from(
-                Collections.singletonList(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
-        ));
-    }
-
-    @ExceptionHandler(JwtTokenValidationFailedException.class)
-    public ResponseEntity<ApiError> handleJwtTokenValidationFailedException(JwtTokenValidationFailedException ex) {
+    @ExceptionHandler(JwtTokenDecodingFailedException.class)
+    public ResponseEntity<ApiError> handleJwtTokenDecodingFailedException(JwtTokenDecodingFailedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiError.from(
                 Collections.singletonList(ex.getMessage()), HttpStatus.UNAUTHORIZED.getReasonPhrase()
         ));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleException(Exception ex) {
-        log.error("Handling unexpected exception", ex);
-        return ResponseEntity.internalServerError().body(ApiError.from(
+    public ResponseEntity<ApiError> handleException(final Exception ex) {
+        log.error("Handling unexpected exception: {}", ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiError.from(
                 Collections.singletonList("An unexpected error occurred"), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()
         ));
     }

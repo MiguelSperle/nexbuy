@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.payment.application.abstractions.services.
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.inputs.CreatePaymentUseCaseInput;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.io.outputs.CreatePaymentUseCaseOutput;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 
@@ -16,18 +16,18 @@ public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
     private final PaymentRepository paymentRepository;
     private final PaymentService paymentService;
     private final TransactionManager transactionManager;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
 
     public CreatePaymentUseCaseImpl(
             PaymentRepository paymentRepository,
             PaymentService paymentService,
             TransactionManager transactionManager,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
         this.transactionManager = transactionManager;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private Payment savePayment(Payment payment) {

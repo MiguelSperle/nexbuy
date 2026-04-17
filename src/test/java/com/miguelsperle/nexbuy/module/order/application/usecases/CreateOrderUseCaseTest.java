@@ -16,7 +16,7 @@ import com.miguelsperle.nexbuy.module.order.utils.OrderDeliveryBuilderTest;
 import com.miguelsperle.nexbuy.module.order.utils.OrderItemBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.utils.DecimalUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +44,7 @@ public class CreateOrderUseCaseTest {
     private OrderDeliveryRepository orderDeliveryRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Mock
     private CodeProvider codeProvider;
@@ -62,7 +62,7 @@ public class CreateOrderUseCaseTest {
         final OrderItem orderItem = OrderItemBuilderTest.create(order.getId());
         final OrderDelivery orderDelivery = OrderDeliveryBuilderTest.create(order.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(order.getUserId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(order.getUserId());
 
         Mockito.when(this.codeProvider.generateCode(Mockito.anyInt(), Mockito.any())).thenReturn(order.getOrderNumber());
 
@@ -124,7 +124,7 @@ public class CreateOrderUseCaseTest {
 
         this.createOrderUseCase.execute(createOrderUseCaseInput);
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.codeProvider, Mockito.times(1)).generateCode(Mockito.anyInt(), Mockito.any());
         Mockito.verify(this.transactionManager, Mockito.times(1)).runTransaction(Mockito.any());
         Mockito.verify(this.orderRepository, Mockito.times(1)).save(Mockito.any());

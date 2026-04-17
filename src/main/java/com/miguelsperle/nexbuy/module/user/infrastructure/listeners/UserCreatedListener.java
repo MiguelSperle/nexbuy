@@ -7,7 +7,7 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
 import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.EmailService;
+import com.miguelsperle.nexbuy.shared.infrastructure.abstractions.services.EmailService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;

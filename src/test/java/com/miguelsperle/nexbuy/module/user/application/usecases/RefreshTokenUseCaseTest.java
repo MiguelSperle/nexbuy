@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.RefreshTokenBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtGeneratorService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
@@ -35,7 +35,7 @@ public class RefreshTokenUseCaseTest {
     private RefreshTokenRepository refreshTokenRepository;
 
     @Mock
-    private JwtService jwtService;
+    private JwtGeneratorService jwtGeneratorService;
 
     @Mock
     private UserRepository userRepository;
@@ -53,7 +53,7 @@ public class RefreshTokenUseCaseTest {
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
-        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
+        Mockito.when(this.jwtGeneratorService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
 
         final RefreshTokenUseCaseInput refreshTokenUseCaseInput = RefreshTokenUseCaseInput.with(refreshToken.getToken());
 
@@ -66,7 +66,7 @@ public class RefreshTokenUseCaseTest {
 
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).findByToken(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
-        Mockito.verify(this.jwtService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
+        Mockito.verify(this.jwtGeneratorService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
     }
 
     @Test

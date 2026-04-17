@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.AddressBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class CreateAddressUseCaseTest {
     private AddressRepository addressRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("Should create address")
@@ -37,7 +37,7 @@ public class CreateAddressUseCaseTest {
         );
         final Address address = AddressBuilderTest.create(user.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.addressRepository.save(Mockito.any())).thenReturn(address);
 
@@ -53,7 +53,7 @@ public class CreateAddressUseCaseTest {
 
         this.createAddressUseCase.execute(createAddressUseCaseInput);
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.addressRepository, Mockito.times(1)).save(Mockito.any());
     }
 }

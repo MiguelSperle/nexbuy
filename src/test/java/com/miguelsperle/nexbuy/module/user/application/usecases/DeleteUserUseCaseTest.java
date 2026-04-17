@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.AuthorizationRole;
 import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ public class DeleteUserUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("Should delete user when it exists")
@@ -37,7 +37,7 @@ public class DeleteUserUseCaseTest {
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -47,7 +47,7 @@ public class DeleteUserUseCaseTest {
 
         this.deleteUserUseCase.execute();
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
     }

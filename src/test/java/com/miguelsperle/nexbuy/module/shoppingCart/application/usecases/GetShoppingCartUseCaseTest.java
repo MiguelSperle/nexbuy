@@ -7,7 +7,7 @@ import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartBuilderTest;
 import com.miguelsperle.nexbuy.module.shoppingCart.utils.ShoppingCartItemBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.IdentifierUtils;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +34,7 @@ public class GetShoppingCartUseCaseTest {
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("Should get shopping cart")
@@ -45,7 +45,7 @@ public class GetShoppingCartUseCaseTest {
 
         final List<ShoppingCartItem> shoppingCartItems = List.of(shoppingCartItem);
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(authenticatedUserId);
+        Mockito.when(this.securityService.getUserId()).thenReturn(authenticatedUserId);
 
         Mockito.when(this.shoppingCartRepository.findByUserId(Mockito.any())).thenReturn(Optional.of(shoppingCart));
 
@@ -60,7 +60,7 @@ public class GetShoppingCartUseCaseTest {
         Assertions.assertEquals(shoppingCart, getShoppingCartUseCaseOutput.shoppingCart());
         Assertions.assertEquals(shoppingCartItems, getShoppingCartUseCaseOutput.shoppingCartItems());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.shoppingCartRepository, Mockito.times(1)).findByUserId(Mockito.any());
         Mockito.verify(this.shoppingCartItemRepository, Mockito.times(1)).findAllByShoppingCartId(Mockito.any());
     }

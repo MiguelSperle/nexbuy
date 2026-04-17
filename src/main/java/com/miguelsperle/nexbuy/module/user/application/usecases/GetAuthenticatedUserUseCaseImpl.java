@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAuthenticatedUserUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.complements.PersonComplementOutput;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.GetAuthenticatedUserUseCase;
@@ -14,18 +14,18 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseCase {
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
     private final NaturalPersonRepository naturalPersonRepository;
     private final LegalPersonRepository legalPersonRepository;
     private final UserRepository userRepository;
 
     public GetAuthenticatedUserUseCaseImpl(
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             NaturalPersonRepository naturalPersonRepository,
             LegalPersonRepository legalPersonRepository,
             UserRepository userRepository
     ) {
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
         this.naturalPersonRepository = naturalPersonRepository;
         this.legalPersonRepository = legalPersonRepository;
         this.userRepository = userRepository;
@@ -70,7 +70,7 @@ public class GetAuthenticatedUserUseCaseImpl implements GetAuthenticatedUserUseC
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private User getUserById(String userId) {

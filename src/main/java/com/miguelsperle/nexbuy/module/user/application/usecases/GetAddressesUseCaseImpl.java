@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.GetAddressesUseCaseOutput;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.GetAddressesUseCase;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.AddressRepository;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class GetAddressesUseCaseImpl implements GetAddressesUseCase {
     private final AddressRepository addressRepository;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
     private final UserRepository userRepository;
 
     public GetAddressesUseCaseImpl(
             AddressRepository addressRepository,
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             UserRepository userRepository
     ) {
         this.addressRepository = addressRepository;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
         this.userRepository = userRepository;
     }
 
@@ -38,7 +38,7 @@ public class GetAddressesUseCaseImpl implements GetAddressesUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private User getUserById(String userId) {

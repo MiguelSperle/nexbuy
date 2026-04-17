@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.infrastructure.configurations.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.CreateAddressUseCaseImpl;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.CreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.DeleteAddressUseCaseImpl;
@@ -21,9 +21,9 @@ public class AddressUseCasesConfiguration {
     @Bean
     public CreateAddressUseCase createAddressUseCase(
             AddressRepository addressRepository,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
-        return new CreateAddressUseCaseImpl(addressRepository, securityContextService);
+        return new CreateAddressUseCaseImpl(addressRepository, securityService);
     }
 
     @Bean
@@ -36,12 +36,12 @@ public class AddressUseCasesConfiguration {
     @Bean
     public GetAddressesUseCase getAddressesUseCase(
             AddressRepository addressRepository,
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             UserRepository userRepository
     ) {
         return new GetAddressesUseCaseImpl(
                 addressRepository,
-                securityContextService,
+                securityService,
                 userRepository
         );
     }

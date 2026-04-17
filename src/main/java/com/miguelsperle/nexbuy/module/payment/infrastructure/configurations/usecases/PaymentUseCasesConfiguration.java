@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.payment.application.abstractions.repositor
 import com.miguelsperle.nexbuy.module.payment.application.abstractions.services.PaymentService;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.CreatePaymentUseCaseImpl;
 import com.miguelsperle.nexbuy.module.payment.application.usecases.GetPaymentUseCaseImpl;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +18,13 @@ public class PaymentUseCasesConfiguration {
             PaymentRepository paymentRepository,
             PaymentService paymentService,
             TransactionManager transactionManager,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
         return new CreatePaymentUseCaseImpl(
                 paymentRepository,
                 paymentService,
                 transactionManager,
-                securityContextService
+                securityService
         );
     }
 

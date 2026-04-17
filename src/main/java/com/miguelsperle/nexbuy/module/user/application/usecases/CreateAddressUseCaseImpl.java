@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateAddressUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.CreateAddressUseCase;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.AddressRepository;
@@ -8,14 +8,14 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.Address;
 
 public class CreateAddressUseCaseImpl implements CreateAddressUseCase {
     private final AddressRepository addressRepository;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
 
     public CreateAddressUseCaseImpl(
             final AddressRepository addressRepository,
-            final SecurityContextService securityContextService
+            final SecurityService securityService
     ) {
         this.addressRepository = addressRepository;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CreateAddressUseCaseImpl implements CreateAddressUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private void saveAddress(Address address) {

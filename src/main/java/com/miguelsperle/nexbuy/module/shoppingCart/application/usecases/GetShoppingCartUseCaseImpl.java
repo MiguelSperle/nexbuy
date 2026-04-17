@@ -6,7 +6,7 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repo
 import com.miguelsperle.nexbuy.module.shoppingCart.application.usecases.io.outputs.GetShoppingCartUseCaseOutput;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 import java.util.List;
@@ -14,16 +14,16 @@ import java.util.List;
 public class GetShoppingCartUseCaseImpl implements GetShoppingCartUseCase {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
 
     public GetShoppingCartUseCaseImpl(
             ShoppingCartRepository shoppingCartRepository,
             ShoppingCartItemRepository shoppingCartItemRepository,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.shoppingCartItemRepository = shoppingCartItemRepository;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class GetShoppingCartUseCaseImpl implements GetShoppingCartUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private ShoppingCart getShoppingCartByUserId(String userId) {

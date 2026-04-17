@@ -5,20 +5,20 @@ import com.miguelsperle.nexbuy.module.order.application.abstractions.repositorie
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOrdersUseCaseInput;
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
 
 public class GetOrdersUseCaseImpl implements GetOrdersUseCase {
     private final OrderRepository orderRepository;
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
 
     public GetOrdersUseCaseImpl(
             OrderRepository orderRepository,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
         this.orderRepository = orderRepository;
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
     }
 
     @Override
@@ -35,6 +35,6 @@ public class GetOrdersUseCaseImpl implements GetOrdersUseCase {
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 }

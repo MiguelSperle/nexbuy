@@ -8,7 +8,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +28,7 @@ public class UpdateUserPasswordUseCaseTest {
     private UpdateUserPasswordUseCaseImpl updateUserPasswordUseCase;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Mock
     private PasswordEncryptorProvider passwordEncryptorProvider;
@@ -45,7 +45,7 @@ public class UpdateUserPasswordUseCaseTest {
         final String encodedPassword = "encoded password";
         final String newPassword = "batman1234";
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -63,7 +63,7 @@ public class UpdateUserPasswordUseCaseTest {
 
         this.updateUserPasswordUseCase.execute(updateUserPasswordUseCaseInput);
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).matches(Mockito.any(), Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).encode(Mockito.any());
@@ -103,7 +103,7 @@ public class UpdateUserPasswordUseCaseTest {
         );
         final String newPassword = "batman1234";
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -122,7 +122,7 @@ public class UpdateUserPasswordUseCaseTest {
         Assertions.assertInstanceOf(DomainException.class, exception);
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).matches(Mockito.any(), Mockito.any());
     }

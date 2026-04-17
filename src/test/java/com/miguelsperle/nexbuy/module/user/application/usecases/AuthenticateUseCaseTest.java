@@ -13,7 +13,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.RefreshTokenBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtGeneratorService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +39,7 @@ public class AuthenticateUseCaseTest {
     private PasswordEncryptorProvider passwordEncryptorProvider;
 
     @Mock
-    private JwtService jwtService;
+    private JwtGeneratorService jwtGeneratorService;
 
     @Mock
     private RefreshTokenRepository refreshTokenRepository;
@@ -57,7 +57,7 @@ public class AuthenticateUseCaseTest {
 
         Mockito.when(this.passwordEncryptorProvider.matches(Mockito.any(), Mockito.any())).thenReturn(true);
 
-        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
+        Mockito.when(this.jwtGeneratorService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
 
         Mockito.when(this.refreshTokenRepository.findByUserId(Mockito.any())).thenReturn(Optional.empty());
 
@@ -78,7 +78,7 @@ public class AuthenticateUseCaseTest {
 
         Mockito.verify(this.userRepository, Mockito.times(1)).findByEmail(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).matches(Mockito.any(), Mockito.any());
-        Mockito.verify(this.jwtService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
+        Mockito.verify(this.jwtGeneratorService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).findByUserId(Mockito.any());
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).save(Mockito.any());
     }
@@ -96,7 +96,7 @@ public class AuthenticateUseCaseTest {
 
         Mockito.when(this.passwordEncryptorProvider.matches(Mockito.any(), Mockito.any())).thenReturn(true);
 
-        Mockito.when(this.jwtService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
+        Mockito.when(this.jwtGeneratorService.generateJwt(Mockito.any(), Mockito.any())).thenReturn(jwt);
 
         Mockito.when(this.refreshTokenRepository.findByUserId(Mockito.any())).thenReturn(Optional.of(refreshToken));
 
@@ -118,7 +118,7 @@ public class AuthenticateUseCaseTest {
 
         Mockito.verify(this.userRepository, Mockito.times(1)).findByEmail(Mockito.any());
         Mockito.verify(this.passwordEncryptorProvider, Mockito.times(1)).matches(Mockito.any(), Mockito.any());
-        Mockito.verify(this.jwtService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
+        Mockito.verify(this.jwtGeneratorService, Mockito.times(1)).generateJwt(Mockito.any(), Mockito.any());
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).findByUserId(Mockito.any());
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).deleteById(Mockito.any());
         Mockito.verify(this.refreshTokenRepository, Mockito.times(1)).save(Mockito.any());

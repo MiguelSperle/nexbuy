@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.GetOr
 import com.miguelsperle.nexbuy.module.order.application.usecases.io.outputs.GetOrdersUseCaseOutput;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.utils.OrderBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.pagination.Pagination;
 import com.miguelsperle.nexbuy.shared.domain.pagination.PaginationMetadata;
 import com.miguelsperle.nexbuy.shared.domain.pagination.SearchQuery;
@@ -29,14 +29,14 @@ public class GetOrdersUseCaseTest {
     private OrderRepository orderRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("Should get orders")
     public void should_get_orders() {
         final Order order = OrderBuilderTest.create();
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(order.getUserId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(order.getUserId());
 
         final SearchQuery searchQuery = SearchQuery.newSearchQuery(1, 10, "name", "asc");
 
@@ -61,7 +61,7 @@ public class GetOrdersUseCaseTest {
         Assertions.assertEquals(1, getOrdersUseCaseOutput.paginatedOrders().items().size());
         Assertions.assertEquals(paginationMetadata, getOrdersUseCaseOutput.paginatedOrders().paginationMetadata());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.orderRepository, Mockito.times(1)).findAllPaginatedByUserId(Mockito.any(), Mockito.any());
     }
 }

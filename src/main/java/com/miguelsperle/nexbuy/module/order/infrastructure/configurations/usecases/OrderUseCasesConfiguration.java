@@ -11,7 +11,7 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrderUseCase
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrdersUseCaseImpl;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class OrderUseCasesConfiguration {
             OrderRepository orderRepository,
             OrderItemRepository orderItemRepository,
             OrderDeliveryRepository orderDeliveryRepository,
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             CodeProvider codeProvider,
             TransactionManager transactionManager,
             MessageProducer messageProducer
@@ -32,7 +32,7 @@ public class OrderUseCasesConfiguration {
                 orderRepository,
                 orderItemRepository,
                 orderDeliveryRepository,
-                securityContextService,
+                securityService,
                 codeProvider,
                 transactionManager,
                 messageProducer
@@ -42,11 +42,11 @@ public class OrderUseCasesConfiguration {
     @Bean
     public GetOrdersUseCase getOrdersUseCase(
             OrderRepository orderRepository,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
         return new GetOrdersUseCaseImpl(
                 orderRepository,
-                securityContextService
+                securityService
         );
     }
 

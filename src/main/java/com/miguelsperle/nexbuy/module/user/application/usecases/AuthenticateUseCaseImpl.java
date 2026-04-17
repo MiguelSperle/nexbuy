@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.user.application.usecases;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.RefreshTokenRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.RefreshToken;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtGeneratorService;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.AuthenticateUseCase;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.AuthenticateUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.outputs.AuthenticateUseCaseOutput;
@@ -17,18 +17,18 @@ import java.util.Optional;
 public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
     private final UserRepository userRepository;
     private final PasswordEncryptorProvider passwordEncryptorProvider;
-    private final JwtService jwtService;
+    private final JwtGeneratorService jwtGeneratorService;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public AuthenticateUseCaseImpl(
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
-            JwtService jwtService,
+            JwtGeneratorService jwtGeneratorService,
             RefreshTokenRepository refreshTokenRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
-        this.jwtService = jwtService;
+        this.jwtGeneratorService = jwtGeneratorService;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
@@ -48,7 +48,7 @@ public class AuthenticateUseCaseImpl implements AuthenticateUseCase {
             throw DomainException.with("User has been deleted and cannot authenticate", 403);
         }
 
-        final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
+        final String jwtTokenGenerated = this.jwtGeneratorService.generateJwt(user.getId(), user.getAuthorizationRole().name());
 
         this.getPreviousRefreshTokenByUserId(user.getId()).ifPresent(refreshToken ->
                 this.deleteRefreshTokenById(refreshToken.getId())

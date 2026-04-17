@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.shared.infrastructure.services;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.EmailService;
+import com.miguelsperle.nexbuy.shared.infrastructure.abstractions.services.EmailService;
 import com.miguelsperle.nexbuy.shared.infrastructure.services.exceptions.EmailSendFailedException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class SmtpEmailServiceImpl implements EmailService {
             this.javaMailSender.send(mimeMessage);
         } catch (Exception ex) {
             log.error("Failed to send email to: [{}]", to, ex);
-            throw EmailSendFailedException.with("Failed to send email", ex);
+            throw EmailSendFailedException.with("Failed to send email");
         }
     }
 }

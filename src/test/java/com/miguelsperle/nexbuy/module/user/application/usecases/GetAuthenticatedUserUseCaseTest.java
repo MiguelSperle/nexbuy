@@ -13,7 +13,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.LegalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.NaturalPersonBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ public class GetAuthenticatedUserUseCaseTest {
     private GetAuthenticatedUserUseCaseImpl getAuthenticatedUserUseCase;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Mock
     private NaturalPersonRepository naturalPersonRepository;
@@ -51,7 +51,7 @@ public class GetAuthenticatedUserUseCaseTest {
         );
         final NaturalPerson naturalPerson = NaturalPersonBuilderTest.create(user.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -67,7 +67,7 @@ public class GetAuthenticatedUserUseCaseTest {
         Assertions.assertEquals(naturalPerson.getCpf(), getAuthenticatedUserUseCaseOutput.personComplementOutput().cpf());
         Assertions.assertEquals(naturalPerson.getGeneralRegister(), getAuthenticatedUserUseCaseOutput.personComplementOutput().generalRegister());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.naturalPersonRepository, Mockito.times(1)).findByUserId(Mockito.any());
     }
@@ -80,7 +80,7 @@ public class GetAuthenticatedUserUseCaseTest {
         );
         final LegalPerson legalPerson = LegalPersonBuilderTest.create(user.getId());
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -98,7 +98,7 @@ public class GetAuthenticatedUserUseCaseTest {
         Assertions.assertEquals(legalPerson.getFantasyName(), getAuthenticatedUserUseCaseOutput.personComplementOutput().fantasyName());
         Assertions.assertEquals(legalPerson.getStateRegistration(), getAuthenticatedUserUseCaseOutput.personComplementOutput().stateRegistration());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.legalPersonRepository, Mockito.times(1)).findByUserId(Mockito.any());
     }
@@ -127,7 +127,7 @@ public class GetAuthenticatedUserUseCaseTest {
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.NATURAL_PERSON
         );
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -142,7 +142,7 @@ public class GetAuthenticatedUserUseCaseTest {
         Assertions.assertInstanceOf(NotFoundException.class, exception);
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.naturalPersonRepository, Mockito.times(1)).findByUserId(Mockito.any());
     }
@@ -154,7 +154,7 @@ public class GetAuthenticatedUserUseCaseTest {
                 UserStatus.VERIFIED, AuthorizationRole.CUSTOMER, PersonType.LEGAL_PERSON
         );
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -169,7 +169,7 @@ public class GetAuthenticatedUserUseCaseTest {
         Assertions.assertInstanceOf(NotFoundException.class, exception);
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.legalPersonRepository, Mockito.times(1)).findByUserId(Mockito.any());
     }

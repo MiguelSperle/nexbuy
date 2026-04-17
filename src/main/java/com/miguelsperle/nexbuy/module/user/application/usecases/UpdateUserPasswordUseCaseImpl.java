@@ -1,7 +1,7 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.UpdateUserPasswordUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.UpdateUserPasswordUseCase;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
@@ -10,16 +10,16 @@ import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 
 public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase {
-    private final SecurityContextService securityContextService;
+    private final SecurityService securityService;
     private final PasswordEncryptorProvider passwordEncryptorProvider;
     private final UserRepository userRepository;
 
     public UpdateUserPasswordUseCaseImpl(
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             PasswordEncryptorProvider passwordEncryptorProvider,
             UserRepository userRepository
     ) {
-        this.securityContextService = securityContextService;
+        this.securityService = securityService;
         this.passwordEncryptorProvider = passwordEncryptorProvider;
         this.userRepository = userRepository;
     }
@@ -46,7 +46,7 @@ public class UpdateUserPasswordUseCaseImpl implements UpdateUserPasswordUseCase 
     }
 
     private String getAuthenticatedUserId() {
-        return this.securityContextService.getAuthenticatedUserId();
+        return this.securityService.getUserId();
     }
 
     private User getUserById(String userId) {

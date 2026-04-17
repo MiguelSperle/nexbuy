@@ -10,7 +10,7 @@ import com.miguelsperle.nexbuy.module.user.domain.enums.PersonType;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserStatus;
 import com.miguelsperle.nexbuy.module.user.utils.AddressBuilderTest;
 import com.miguelsperle.nexbuy.module.user.utils.UserBuilderTest;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ public class GetAddressesUseCaseTest {
     private AddressRepository addressRepository;
 
     @Mock
-    private SecurityContextService securityContextService;
+    private SecurityService securityService;
 
     @Mock
     private UserRepository userRepository;
@@ -48,7 +48,7 @@ public class GetAddressesUseCaseTest {
 
         final List<Address> addresses = List.of(address);
 
-        Mockito.when(this.securityContextService.getAuthenticatedUserId()).thenReturn(user.getId());
+        Mockito.when(this.securityService.getUserId()).thenReturn(user.getId());
 
         Mockito.when(this.userRepository.findById(Mockito.any())).thenReturn(Optional.of(user));
 
@@ -61,7 +61,7 @@ public class GetAddressesUseCaseTest {
         Assertions.assertEquals(1, getAddressesUseCaseOutput.addresses().size());
         Assertions.assertEquals(addresses, getAddressesUseCaseOutput.addresses());
 
-        Mockito.verify(this.securityContextService, Mockito.times(1)).getAuthenticatedUserId();
+        Mockito.verify(this.securityService, Mockito.times(1)).getUserId();
         Mockito.verify(this.userRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(this.addressRepository, Mockito.times(1)).findAllByUserId(Mockito.any());
     }

@@ -4,8 +4,8 @@ import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.*;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.PasswordEncryptorProvider;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityContextService;
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtGeneratorService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.module.user.application.usecases.*;
 import org.springframework.context.annotation.Bean;
@@ -36,13 +36,13 @@ public class UserUseCasesConfiguration {
     public AuthenticateUseCase authenticateUseCase(
             UserRepository userRepository,
             PasswordEncryptorProvider passwordEncryptorProvider,
-            JwtService jwtService,
+            JwtGeneratorService jwtGeneratorService,
             RefreshTokenRepository refreshTokenRepository
     ) {
         return new AuthenticateUseCaseImpl(
                 userRepository,
                 passwordEncryptorProvider,
-                jwtService,
+                jwtGeneratorService,
                 refreshTokenRepository
         );
     }
@@ -77,21 +77,21 @@ public class UserUseCasesConfiguration {
 
     @Bean
     public UpdateUserUseCase updateUserUseCase(
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             UserRepository userRepository
     ) {
-        return new UpdateUserUseCaseImpl(securityContextService, userRepository);
+        return new UpdateUserUseCaseImpl(securityService, userRepository);
     }
 
     @Bean
     public GetAuthenticatedUserUseCase getAuthenticatedUserUseCase(
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             NaturalPersonRepository naturalPersonGateway,
             LegalPersonRepository legalPersonGateway,
             UserRepository userRepository
     ) {
         return new GetAuthenticatedUserUseCaseImpl(
-                securityContextService,
+                securityService,
                 naturalPersonGateway,
                 legalPersonGateway,
                 userRepository
@@ -100,12 +100,12 @@ public class UserUseCasesConfiguration {
 
     @Bean
     public UpdateUserPasswordUseCase updateUserPasswordUseCase(
-            SecurityContextService securityContextService,
+            SecurityService securityService,
             PasswordEncryptorProvider passwordEncryptorProvider,
             UserRepository userRepository
     ) {
         return new UpdateUserPasswordUseCaseImpl(
-                securityContextService,
+                securityService,
                 passwordEncryptorProvider,
                 userRepository
         );
@@ -114,8 +114,8 @@ public class UserUseCasesConfiguration {
     @Bean
     public DeleteUserUseCase deleteUserUseCase(
             UserRepository userRepository,
-            SecurityContextService securityContextService
+            SecurityService securityService
     ) {
-        return new DeleteUserUseCaseImpl(userRepository, securityContextService);
+        return new DeleteUserUseCaseImpl(userRepository, securityService);
     }
 }

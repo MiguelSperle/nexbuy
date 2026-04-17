@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.user.application.usecases;
 
-import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtService;
+import com.miguelsperle.nexbuy.shared.application.abstractions.services.JwtGeneratorService;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import com.miguelsperle.nexbuy.shared.domain.utils.TimeUtils;
@@ -14,16 +14,16 @@ import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 
 public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JwtService jwtService;
+    private final JwtGeneratorService jwtGeneratorService;
     private final UserRepository userRepository;
 
     public RefreshTokenUseCaseImpl(
             RefreshTokenRepository refreshTokenRepository,
-            JwtService jwtService,
+            JwtGeneratorService jwtGeneratorService,
             UserRepository userRepository
     ) {
         this.refreshTokenRepository = refreshTokenRepository;
-        this.jwtService = jwtService;
+        this.jwtGeneratorService = jwtGeneratorService;
         this.userRepository = userRepository;
     }
 
@@ -38,7 +38,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
         final User user = this.getUserById(refreshToken.getUserId());
 
-        final String jwtTokenGenerated = this.jwtService.generateJwt(user.getId(), user.getAuthorizationRole().name());
+        final String jwtTokenGenerated = this.jwtGeneratorService.generateJwt(user.getId(), user.getAuthorizationRole().name());
 
         return RefreshTokenUseCaseOutput.from(jwtTokenGenerated);
     }
