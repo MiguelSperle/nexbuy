@@ -25,7 +25,7 @@ public class JwtGeneratorServiceImpl implements JwtGeneratorService {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
             return JWT.create()
-                    .withIssuer("jobnest")
+                    .withIssuer("nexbuy")
                     .withSubject(userId)
                     .withClaim("role", role)
                     .withExpiresAt(now.plusSeconds(900))

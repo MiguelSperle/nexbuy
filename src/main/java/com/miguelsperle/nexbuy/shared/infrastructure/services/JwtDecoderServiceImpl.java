@@ -22,7 +22,7 @@ public class JwtDecoderServiceImpl implements JwtDecoderService {
         try {
             final Algorithm algorithm = Algorithm.HMAC256(this.secret);
 
-            return JWT.require(algorithm).withIssuer("jobnest").build().verify(jwt);
+            return JWT.require(algorithm).withIssuer("nexbuy").build().verify(jwt);
         } catch (final Exception ex) {
             log.error("Failed to decode JWT token", ex);
             throw JwtTokenDecodingFailedException.with("Invalid JWT token");
