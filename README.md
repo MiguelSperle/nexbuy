@@ -20,7 +20,7 @@ It provides a complete set of functionality that an e-commerce typically offers 
 
 <p>
 It is important to emphasize that this is a study project designed to explore and implement complex concepts, such as:
-Clean Architecture, SOLID, Messaging System, Database Transactions and Unit testing.
+Clean Architecture, SOLID, Messaging System, Database Transactions, Unit Testing and Authentication with JWT + Refresh Token.
 </p>
 
 <p>
