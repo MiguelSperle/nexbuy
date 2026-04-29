@@ -1,6 +1,6 @@
 package com.miguelsperle.nexbuy.module.shoppingCart.infrastructure.listeners.reprocessing;
 
-import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

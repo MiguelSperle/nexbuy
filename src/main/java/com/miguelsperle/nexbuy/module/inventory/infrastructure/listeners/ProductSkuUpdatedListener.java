@@ -2,7 +2,7 @@ package com.miguelsperle.nexbuy.module.inventory.infrastructure.listeners;
 
 import com.miguelsperle.nexbuy.module.inventory.application.abstractions.repositories.InventoryRepository;
 import com.miguelsperle.nexbuy.module.inventory.domain.entities.Inventory;
-import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;
+import com.miguelsperle.nexbuy.module.product.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

@@ -1,8 +1,8 @@
 package com.miguelsperle.nexbuy.module.product.application.usecases;
 
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.domain.events.ProductPriceUpdatedEvent;
-import com.miguelsperle.nexbuy.shared.domain.events.ProductSkuUpdatedEvent;
+import com.miguelsperle.nexbuy.module.product.domain.events.ProductPriceUpdatedEvent;
+import com.miguelsperle.nexbuy.module.product.domain.events.ProductSkuUpdatedEvent;
 import com.miguelsperle.nexbuy.module.product.application.usecases.io.inputs.UpdateProductUseCaseInput;
 import com.miguelsperle.nexbuy.module.product.application.abstractions.usecases.UpdateProductUseCase;
 import com.miguelsperle.nexbuy.module.product.application.abstractions.repositories.BrandRepository;

@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.shoppingCart.application.abstractions.repo
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCart;
 import com.miguelsperle.nexbuy.module.shoppingCart.domain.entities.ShoppingCartItem;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
-import com.miguelsperle.nexbuy.shared.domain.events.ProductPriceUpdatedEvent;
+import com.miguelsperle.nexbuy.module.product.domain.events.ProductPriceUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

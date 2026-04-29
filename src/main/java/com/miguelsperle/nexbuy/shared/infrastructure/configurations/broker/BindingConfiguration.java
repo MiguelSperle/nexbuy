@@ -3,6 +3,7 @@ package com.miguelsperle.nexbuy.shared.infrastructure.configurations.broker;
 import com.miguelsperle.nexbuy.shared.infrastructure.configurations.broker.annotations.exchanges.*;
 import com.miguelsperle.nexbuy.shared.infrastructure.configurations.broker.annotations.queues.*;
 import org.springframework.amqp.core.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,144 +11,128 @@ import org.springframework.context.annotation.Configuration;
 public class BindingConfiguration {
     @Bean
     public Binding userCreatedBinding(
-            @UserCreatedQueue Queue queue,
-            @UserCreatedExchange FanoutExchange fanoutExchange
+            @Qualifier("userCreatedQueue") Queue queue,
+            @Qualifier("userCreatedExchange") FanoutExchange fanoutExchange
     ) {
         return BindingBuilder.bind(queue).to(fanoutExchange);
     }
 
     @Bean
     public Binding userCreatedCartBinding(
-            @UserCreatedCartQueue Queue queue,
-            @UserCreatedExchange FanoutExchange fanoutExchange
+            @Qualifier("userCreatedCartQueue") Queue queue,
+            @Qualifier("userCreatedExchange") FanoutExchange fanoutExchange
     ) {
         return BindingBuilder.bind(queue).to(fanoutExchange);
     }
 
     @Bean
     public Binding userCreatedDlqBinding(
-            @UserCreatedDlqQueue Queue queue,
-            @UserCreatedDlqExchange DirectExchange directExchange
+            @Qualifier("userCreatedDlqQueue") Queue queue,
+            @Qualifier("userCreatedDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("user.created.dlq.routing.key");
     }
 
     @Bean
     public Binding userCreatedCartDlqBinding(
-            @UserCreatedCartDlqQueue Queue queue,
-            @UserCreatedCartDlqExchange DirectExchange directExchange
+            @Qualifier("userCreatedCartDlqQueue") Queue queue,
+            @Qualifier("userCreatedCartDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("user.created.cart.dlq.routing.key");
     }
 
     @Bean
     public Binding userCodeCreatedBinding(
-            @UserCodeCreatedQueue Queue queue,
-            @UserCodeCreatedExchange DirectExchange directExchange
+            @Qualifier("userCodeCreatedQueue") Queue queue,
+            @Qualifier("userCodeCreatedExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("user.code.created.routing.key");
     }
 
     @Bean
     public Binding userCodeCreatedDlqBinding(
-            @UserCodeCreatedDlqQueue Queue queue,
-            @UserCodeCreatedDlqExchange DirectExchange directExchange
+            @Qualifier("userCodeCreatedDlqQueue") Queue queue,
+            @Qualifier("userCodeCreatedDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("user.code.created.dlq.routing.key");
     }
 
     @Bean
     public Binding productRegisteredBinding(
-            @ProductRegisteredQueue Queue queue,
-            @ProductRegisteredExchange DirectExchange directExchange
+            @Qualifier("productRegisteredQueue") Queue queue,
+            @Qualifier("productRegisteredExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.registered.routing.key");
     }
 
     @Bean
     public Binding productRegisteredDlqBinding(
-            @ProductRegisteredDlqQueue Queue queue,
-            @ProductRegisteredDlqExchange DirectExchange directExchange
+            @Qualifier("productRegisteredDlqQueue") Queue queue,
+            @Qualifier("productRegisteredDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.registered.dlq.routing.key");
     }
 
     @Bean
     public Binding productSkuUpdatedBinding(
-            @ProductSkuUpdatedQueue Queue queue,
-            @ProductUpdatedExchange DirectExchange directExchange
+            @Qualifier("productSkuUpdatedQueue") Queue queue,
+            @Qualifier("productUpdatedExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.sku.updated.routing.key");
     }
 
     @Bean
     public Binding productSkuUpdatedDlqBinding(
-            @ProductSkuUpdatedDlqQueue Queue queue,
-            @ProductUpdatedDlqExchange DirectExchange directExchange
+            @Qualifier("productSkuUpdatedDlqQueue") Queue queue,
+            @Qualifier("productUpdatedDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.sku.updated.dlq.routing.key");
     }
 
     @Bean
     public Binding productPriceUpdatedBinding(
-            @ProductPriceUpdatedQueue Queue queue,
-            @ProductUpdatedExchange DirectExchange directExchange
+            @Qualifier("productPriceUpdatedQueue") Queue queue,
+            @Qualifier("productUpdatedExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.price.updated.routing.key");
     }
 
     @Bean
     public Binding productPriceUpdatedDlqBinding(
-            @ProductPriceUpdatedDlqQueue Queue queue,
-            @ProductUpdatedDlqExchange DirectExchange directExchange
+            @Qualifier("productPriceUpdatedDlqQueue") Queue queue,
+            @Qualifier("productUpdatedDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("product.price.updated.dlq.routing.key");
     }
 
     @Bean
-    public Binding createFreightBinding(
-            @CreateFreightQueue Queue queue,
-            @CreateFreightExchange DirectExchange directExchange
-    ) {
-        return BindingBuilder.bind(queue).to(directExchange).with("create.freight.routing.key");
-    }
-
-    @Bean
-    public Binding createFreightDlqBinding(
-            @CreateFreightDlqQueue Queue queue,
-            @CreateFreightDlqExchange DirectExchange directExchange
-    ) {
-        return BindingBuilder.bind(queue).to(directExchange).with("create.freight.dlq.routing.key");
-    }
-
-    @Bean
     public Binding updatePaymentStatusBinding(
-            @UpdatePaymentStatusQueue Queue queue,
-            @UpdatePaymentStatusExchange DirectExchange directExchange
+            @Qualifier("updatePaymentStatusQueue") Queue queue,
+            @Qualifier("updatePaymentStatusExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("update.payment.status.routing.key");
     }
 
     @Bean
     public Binding updatePaymentStatusDlqBinding(
-            @UpdatePaymentStatusDlqQueue Queue queue,
-            @UpdatePaymentStatusDlqExchange DirectExchange directExchange
+            @Qualifier("updatePaymentStatusDlqQueue") Queue queue,
+            @Qualifier("updatePaymentStatusDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("update.payment.status.dlq.routing.key");
     }
 
     @Bean
     public Binding paymentStatusUpdatedBinding(
-            @PaymentStatusUpdatedQueue Queue queue,
-            @PaymentStatusUpdatedExchange DirectExchange directExchange
+            @Qualifier("paymentStatusUpdatedQueue") Queue queue,
+            @Qualifier("paymentStatusUpdatedExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("payment.status.updated.routing.key");
     }
 
     @Bean
     public Binding paymentStatusUpdatedDlqBinding(
-            @PaymentStatusUpdatedDlqQueue Queue queue,
-            @PaymentStatusUpdatedDlqExchange DirectExchange directExchange
+            @Qualifier("paymentStatusUpdatedDlqQueue") Queue queue,
+            @Qualifier("paymentStatusUpdatedDlqExchange") DirectExchange directExchange
     ) {
         return BindingBuilder.bind(queue).to(directExchange).with("payment.status.updated.dlq.routing.key");
     }

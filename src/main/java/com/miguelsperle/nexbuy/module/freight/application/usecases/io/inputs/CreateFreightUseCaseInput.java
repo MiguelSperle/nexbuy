@@ -1,8 +1,8 @@
-package com.miguelsperle.nexbuy.shared.application.commands;
+package com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs;
 
 import java.math.BigDecimal;
 
-public record CreateFreightCommand(
+public record CreateFreightUseCaseInput(
         String orderId,
         String name,
         String companyName,
@@ -11,7 +11,7 @@ public record CreateFreightCommand(
         Integer minTime,
         Integer maxTime
 ) {
-    public static CreateFreightCommand with(
+    public static CreateFreightUseCaseInput with(
             String orderId,
             String name,
             String companyName,
@@ -20,7 +20,7 @@ public record CreateFreightCommand(
             Integer minTime,
             Integer maxTime
     ) {
-        return new CreateFreightCommand(
+        return new CreateFreightUseCaseInput(
                 orderId,
                 name,
                 companyName,

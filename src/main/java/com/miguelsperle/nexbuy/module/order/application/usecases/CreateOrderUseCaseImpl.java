@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.order.application.usecases;
 
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.CreateFreightUseCase;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.CreateOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderDeliveryRepository;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderItemRepository;
@@ -8,8 +9,7 @@ import com.miguelsperle.nexbuy.module.order.application.usecases.io.inputs.Creat
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderDelivery;
 import com.miguelsperle.nexbuy.module.order.domain.entities.OrderItem;
-import com.miguelsperle.nexbuy.shared.application.commands.CreateFreightCommand;
-import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.io.inputs.CreateFreightUseCaseInput;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
@@ -23,13 +23,10 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final SecurityService securityService;
     private final CodeProvider codeProvider;
     private final TransactionManager transactionManager;
-    private final MessageProducer messageProducer;
+    private final CreateFreightUseCase createFreightUseCase;
 
     private final static int CODE_LENGTH = 12;
     private final static String NUMERIC_CHARACTERS = "0123456789";
-
-    private final static String CREATE_FREIGHT_EXCHANGE = "create.freight.exchange";
-    private final static String CREATE_FREIGHT_ROUTING_KEY = "create.freight.routing.key";
 
     public CreateOrderUseCaseImpl(
             OrderRepository orderRepository,
@@ -38,7 +35,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
             SecurityService securityService,
             CodeProvider codeProvider,
             TransactionManager transactionManager,
-            MessageProducer messageProducer
+            CreateFreightUseCase createFreightUseCase
     ) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
@@ -46,7 +43,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
         this.securityService = securityService;
         this.codeProvider = codeProvider;
         this.transactionManager = transactionManager;
-        this.messageProducer = messageProducer;
+        this.createFreightUseCase = createFreightUseCase;
     }
 
     @Override
@@ -83,7 +80,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
             this.saveOrderDelivery(newOrderDelivery);
 
-            final CreateFreightCommand createFreightCommand = CreateFreightCommand.with(
+            final CreateFreightUseCaseInput createFreightUseCaseInput = CreateFreightUseCaseInput.with(
                     orderSaved.getId(),
                     createOrderUseCaseInput.deliveryComplementInput().freight().name(),
                     createOrderUseCaseInput.deliveryComplementInput().freight().companyName(),
@@ -93,9 +90,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
                     createOrderUseCaseInput.deliveryComplementInput().freight().maxTime()
             );
 
-            this.transactionManager.afterCommit(() ->
-                    this.messageProducer.publish(CREATE_FREIGHT_EXCHANGE, CREATE_FREIGHT_ROUTING_KEY, createFreightCommand)
-            );
+            this.createFreightUseCase.execute(createFreightUseCaseInput);
         });
     }
 

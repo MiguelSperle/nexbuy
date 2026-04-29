@@ -3,7 +3,7 @@ package com.miguelsperle.nexbuy.module.order.infrastructure.listeners;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.repositories.OrderRepository;
 import com.miguelsperle.nexbuy.module.order.domain.entities.Order;
 import com.miguelsperle.nexbuy.module.order.domain.enums.OrderStatus;
-import com.miguelsperle.nexbuy.shared.domain.events.PaymentStatusUpdatedEvent;
+import com.miguelsperle.nexbuy.module.payment.domain.events.PaymentStatusUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

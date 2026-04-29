@@ -9,7 +9,7 @@ import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageP
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.CreateUserUseCaseInput;
 import com.miguelsperle.nexbuy.module.user.application.usecases.io.inputs.complements.PersonComplementInput;
-import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.usecases.CreateUserUseCase;
 import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories.UserRepository;
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;

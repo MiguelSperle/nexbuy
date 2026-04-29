@@ -5,7 +5,7 @@ import com.miguelsperle.nexbuy.module.user.application.abstractions.repositories
 import com.miguelsperle.nexbuy.module.user.domain.entities.User;
 import com.miguelsperle.nexbuy.module.user.domain.entities.UserCode;
 import com.miguelsperle.nexbuy.module.user.domain.enums.UserCodeType;
-import com.miguelsperle.nexbuy.shared.domain.events.UserCreatedEvent;
+import com.miguelsperle.nexbuy.module.user.domain.events.UserCreatedEvent;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.infrastructure.abstractions.services.EmailService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;

@@ -1,4 +1,4 @@
-package com.miguelsperle.nexbuy.shared.domain.events;
+package com.miguelsperle.nexbuy.module.payment.domain.events;
 
 public record PaymentStatusUpdatedEvent(
     String orderId,

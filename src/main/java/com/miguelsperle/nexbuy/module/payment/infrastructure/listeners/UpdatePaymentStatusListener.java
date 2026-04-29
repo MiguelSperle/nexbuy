@@ -4,7 +4,7 @@ import com.miguelsperle.nexbuy.module.payment.application.commands.UpdatePayment
 import com.miguelsperle.nexbuy.module.payment.application.abstractions.repositories.PaymentRepository;
 import com.miguelsperle.nexbuy.module.payment.domain.entities.Payment;
 import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
-import com.miguelsperle.nexbuy.shared.domain.events.PaymentStatusUpdatedEvent;
+import com.miguelsperle.nexbuy.module.payment.domain.events.PaymentStatusUpdatedEvent;
 import com.miguelsperle.nexbuy.shared.domain.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

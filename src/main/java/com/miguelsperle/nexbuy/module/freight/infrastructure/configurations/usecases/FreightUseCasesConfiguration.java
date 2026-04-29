@@ -1,10 +1,12 @@
 package com.miguelsperle.nexbuy.module.freight.infrastructure.configurations.usecases;
 
 import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.ConsultFreightQuotesUseCase;
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.CreateFreightUseCase;
 import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.GetFreightUseCase;
 import com.miguelsperle.nexbuy.module.freight.application.abstractions.repositories.FreightRepository;
 import com.miguelsperle.nexbuy.module.freight.application.abstractions.services.FreightService;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.ConsultFreightQuotesUseCaseImpl;
+import com.miguelsperle.nexbuy.module.freight.application.usecases.CreateFreightUseCaseImpl;
 import com.miguelsperle.nexbuy.module.freight.application.usecases.GetFreightUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +21,10 @@ public class FreightUseCasesConfiguration {
     @Bean
     public GetFreightUseCase getFreightUseCase(FreightRepository freightRepository) {
         return new GetFreightUseCaseImpl(freightRepository);
+    }
+
+    @Bean
+    public CreateFreightUseCase  createFreightUseCase(FreightRepository freightRepository) {
+        return new CreateFreightUseCaseImpl(freightRepository);
     }
 }

@@ -1,5 +1,6 @@
 package com.miguelsperle.nexbuy.module.order.infrastructure.configurations.usecases;
 
+import com.miguelsperle.nexbuy.module.freight.application.abstractions.usecases.CreateFreightUseCase;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.CreateOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.GetOrderUseCase;
 import com.miguelsperle.nexbuy.module.order.application.abstractions.usecases.GetOrdersUseCase;
@@ -9,7 +10,6 @@ import com.miguelsperle.nexbuy.module.order.application.abstractions.repositorie
 import com.miguelsperle.nexbuy.module.order.application.usecases.CreateOrderUseCaseImpl;
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrderUseCaseImpl;
 import com.miguelsperle.nexbuy.module.order.application.usecases.GetOrdersUseCaseImpl;
-import com.miguelsperle.nexbuy.shared.application.abstractions.producer.MessageProducer;
 import com.miguelsperle.nexbuy.shared.application.abstractions.providers.CodeProvider;
 import com.miguelsperle.nexbuy.shared.application.abstractions.services.SecurityService;
 import com.miguelsperle.nexbuy.shared.application.abstractions.wrapper.TransactionManager;
@@ -26,7 +26,7 @@ public class OrderUseCasesConfiguration {
             SecurityService securityService,
             CodeProvider codeProvider,
             TransactionManager transactionManager,
-            MessageProducer messageProducer
+            CreateFreightUseCase createFreightUseCase
     ) {
         return new CreateOrderUseCaseImpl(
                 orderRepository,
@@ -35,7 +35,7 @@ public class OrderUseCasesConfiguration {
                 securityService,
                 codeProvider,
                 transactionManager,
-                messageProducer
+                createFreightUseCase
         );
     }
 
